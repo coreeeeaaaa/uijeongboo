@@ -63,6 +63,9 @@
             color: var(--uij-text-primary, #eeeeee);
             font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .hamburger-checkbox {
@@ -344,6 +347,9 @@
             color: var(--uij-text-primary, #eeeeee);
             font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .sidebar-button-checkbox {
@@ -1169,57 +1175,6 @@
             }
         }
         
-        /* ================================================= */
-        /* 1.2. SEARCH ICON ANIMATIONS (10 Types)         */
-        /* ================================================= */
-        
-        .search-icons-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            margin-top: 20px;
-        }
-        
-        .search-icon-item {
-            text-align: center;
-            padding: 16px;
-            background: var(--uij-bg-tertiary, #444444);
-            border-radius: 8px;
-            border: 1px solid var(--uij-border, #555555);
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .search-icon-item h3 {
-            margin-bottom: 15px;
-            color: var(--uij-text-primary, #eeeeee);
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .search-icon-checkbox {
-            display: none;
-        }
-        
-        .search-icon {
-            display: block;
-            width: 50px;
-            height: 50px;
-            margin: 0 auto;
-            cursor: pointer;
-            position: relative;
-            background: transparent;
-            border: 2px solid var(--uij-border, #555555);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .search-icon:hover {
-            border-color: var(--uij-primary, #32CD32);
-        }
         
         /* 돋보기 아이콘 모양 - CSS로 그리기 */
         .search-icon::before {
@@ -1229,8 +1184,9 @@
             height: 16px;
             border: 2px solid var(--uij-text-secondary, #cccccc);
             border-radius: 50%;
-            top: 10px;
-            left: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             transition: all 0.3s ease;
         }
         
@@ -1241,21 +1197,21 @@
             height: 2px;
             background: var(--uij-text-secondary, #cccccc);
             border-radius: 1px;
-            top: 28px;
-            left: 28px;
-            transform: rotate(45deg);
+            top: 50%;
+            left: 50%;
+            transform: translate(20%, 20%) rotate(45deg);
             transition: all 0.3s ease;
         }
         
         /* 1. Scale Animation */
         .search-icon-checkbox:checked + .search-icon.scale::before {
-            transform: scale(1.3);
+            transform: translate(-50%, -50%) scale(1.3);
             border-color: var(--uij-primary, #32CD32);
         }
         
         .search-icon-checkbox:checked + .search-icon.scale::after {
             background: var(--uij-primary, #32CD32);
-            transform: rotate(45deg) scale(1.2);
+            transform: translate(20%, 20%) rotate(45deg) scale(1.2);
         }
         
         /* 2. Pulse Animation */
@@ -1270,8 +1226,8 @@
         }
         
         @keyframes search-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
         }
         
         /* 3. Rotate Animation */
@@ -1286,8 +1242,8 @@
         }
         
         @keyframes search-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
         
         /* 4. Bounce Animation */
@@ -1302,8 +1258,8 @@
         }
         
         @keyframes search-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-8px); }
         }
         
         /* 5. Flip Animation */
@@ -1318,8 +1274,8 @@
         }
         
         @keyframes search-flip {
-            0%, 100% { transform: rotateY(0deg); }
-            50% { transform: rotateY(180deg); }
+            0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
+            50% { transform: translate(-50%, -50%) rotateY(180deg); }
         }
         
         /* 6. Shake Animation */
@@ -1334,26 +1290,80 @@
         }
         
         @keyframes search-shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
+            0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+            25% { transform: translate(-50%, -50%) translateX(-4px); }
+            75% { transform: translate(-50%, -50%) translateX(4px); }
         }
         
         /* 7. Expand Animation */
         .search-icon-checkbox:checked + .search-icon.expand::before {
             width: 22px;
             height: 22px;
-            top: 7px;
-            left: 7px;
+            transform: translate(-50%, -50%);
             border-color: var(--uij-primary, #32CD32);
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.expand::after {
+            background: var(--uij-primary, #32CD32);
+            width: 5px;
+            height: 5px;
+        }
+        
+        /* 8. Fade Animation */
+        .search-icon-checkbox:checked + .search-icon.fade::before {
+            animation: search-fade 1.5s ease-in-out infinite;
+            border-color: var(--uij-primary, #32CD32);
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.fade::after {
+            background: var(--uij-primary, #32CD32);
+            animation: search-fade 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes search-fade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* 9. Slide Animation */
+        .search-icon-checkbox:checked + .search-icon.slide::before {
+            animation: search-slide 1s ease-in-out infinite;
+            border-color: var(--uij-primary, #32CD32);
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.slide::after {
+            background: var(--uij-primary, #32CD32);
+            animation: search-slide 1s ease-in-out infinite;
+        }
+        
+        @keyframes search-slide {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-30%, -30%); }
+        }
+        
+        /* 10. Focus Animation */
+        .search-icon-checkbox:checked + .search-icon.focus::before {
+            border-color: var(--uij-primary, #32CD32);
+            border-width: 4px;
+            animation: search-focus 1.8s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.focus::after {
+            background: var(--uij-primary, #32CD32);
+            width: 5px;
+            height: 5px;
+        }
+        
+        @keyframes search-focus {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(0.9); }
         }
         
         .search-icon-checkbox:checked + .search-icon.expand::after {
             background: var(--uij-primary, #32CD32);
             width: 12px;
             height: 3px;
-            top: 31px;
-            left: 31px;
+            transform: translate(20%, 20%) rotate(45deg);
         }
         
         /* 8. Swing Animation */
@@ -1368,8 +1378,8 @@
         }
         
         @keyframes search-swing {
-            0%, 100% { transform: rotate(-15deg); }
-            50% { transform: rotate(15deg); }
+            0%, 100% { transform: translate(-50%, -50%) rotate(-15deg); }
+            50% { transform: translate(-50%, -50%) rotate(15deg); }
         }
         
         /* 9. Fade Animation */
@@ -1391,7 +1401,7 @@
         /* 10. Morph Animation */
         .search-icon-checkbox:checked + .search-icon.morph::before {
             border-radius: 20%;
-            transform: rotate(45deg);
+            transform: translate(-50%, -50%) rotate(45deg);
             border-color: var(--uij-primary, #32CD32);
         }
         
@@ -1399,7 +1409,7 @@
             background: var(--uij-primary, #32CD32);
             width: 12px;
             height: 4px;
-            transform: rotate(45deg);
+            transform: translate(20%, 20%) rotate(45deg);
         }
         
         /* ================================================= */
@@ -3025,17 +3035,17 @@
         }
         
         /* ================================================= */
-        /* 1.5. FILE ACTION ICON ANIMATIONS (3 Types)      */
+        /* 1.6. UPLOAD ICON ANIMATIONS (10 Types)          */
         /* ================================================= */
         
-        .file-icons-grid {
+        .upload-icons-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
             margin-top: 20px;
         }
         
-        .file-icon-item {
+        .upload-icon-item {
             text-align: center;
             padding: 16px;
             background: var(--uij-bg-tertiary, #444444);
@@ -3048,18 +3058,18 @@
             align-items: center;
         }
         
-        .file-icon-item h3 {
+        .upload-icon-item h3 {
             margin-bottom: 15px;
             color: var(--uij-text-primary, #eeeeee);
             font-size: 14px;
             font-weight: 500;
         }
         
-        .file-icon-checkbox {
+        .upload-icon-checkbox {
             display: none;
         }
         
-        .file-icon {
+        .upload-icon {
             display: block;
             width: 50px;
             height: 50px;
@@ -3067,13 +3077,1138 @@
             cursor: pointer;
             position: relative;
             background: transparent;
-            border: 2px solid var(--uij-border, #555555);
+            border: none;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
         
-        .file-icon:hover {
+        .upload-icon:hover {
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
+        /* 1. Basic Upload */
+        .upload-icon.basic::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 12px solid var(--uij-primary, #32CD32);
+            transform: translate(-50%, -75%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.basic::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            transform: translate(-50%, 25%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.basic::before {
+            border-bottom-color: var(--uij-primary, #32CD32);
+            animation: upload-bounce 0.6s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.basic::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes upload-bounce {
+            0%, 100% { transform: translate(-50%, -75%); }
+            50% { transform: translate(-50%, -85%); }
+        }
+        
+        /* 2. Cloud Upload */
+        .upload-icon.cloud::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 10px 10px 3px 3px;
+            transform: translate(-50%, -75%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.cloud::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid var(--uij-primary, #32CD32);
+            transform: translate(-50%, -25%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.cloud::before {
+            background: var(--uij-primary, #32CD32);
+            animation: cloud-float 1s ease infinite;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.cloud::after {
+            border-bottom-color: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes cloud-float {
+            0%, 100% { transform: translate(-50%, -75%); }
+            50% { transform: translate(-50%, -80%); }
+        }
+        
+        /* 3. Folder Upload */
+        .upload-icon.folder::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 0 0;
+            transform: translate(-50%, -75%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.folder::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid var(--uij-primary, #32CD32);
+            transform: translate(-50%, -25%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.folder::before {
+            background: var(--uij-primary, #32CD32);
+            animation: folder-open 0.5s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.folder::after {
+            border-bottom-color: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes folder-open {
+            0%, 100% { transform: translate(-50%, -75%) rotateX(0deg); }
+            50% { transform: translate(-50%, -75%) rotateX(20deg); }
+        }
+        
+        /* ================================================= */
+        /* 1.2. SEARCH ICON ANIMATIONS (10 Types)          */
+        /* ================================================= */
+        
+        .search-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .search-icon-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 8px;
+            border: 1px solid var(--uij-border, #555555);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .search-icon-item h3 {
+            margin-bottom: 15px;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .search-icon-checkbox {
+            display: none;
+        }
+        
+        .search-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon:hover {
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
+        /* 1. Basic Search */
+        .search-icon.basic::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.basic::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.basic::before {
             border-color: var(--uij-primary, #32CD32);
+            animation: search-basic 1s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.basic::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-basic {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        /* 2. Zoom Search */
+        .search-icon.zoom::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.zoom::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.zoom::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-zoom 0.6s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.zoom::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-zoom {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        /* 3. Rotate Search */
+        .search-icon.rotate::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.rotate::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.rotate::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-rotate 1s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.rotate::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* 4. Pulse Search */
+        .search-icon.pulse::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.pulse::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.pulse::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-pulse 1s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.pulse::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        /* 5. Flip Search */
+        .search-icon.flip::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.flip::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.flip::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-flip 1.2s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.flip::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-flip {
+            0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
+            50% { transform: translate(-50%, -50%) rotateY(180deg); }
+        }
+        
+        /* 6. Bounce Search */
+        .search-icon.bounce::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.bounce::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.bounce::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-bounce 0.8s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.bounce::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-bounce {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-8px); }
+        }
+        
+        /* 7. Shake Search */
+        .search-icon.shake::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.shake::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.shake::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-shake 0.6s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.shake::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-shake {
+            0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+            25% { transform: translate(-50%, -50%) translateX(-4px); }
+            75% { transform: translate(-50%, -50%) translateX(4px); }
+        }
+        
+        /* 8. Expand Search */
+        .search-icon.expand::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.expand::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.expand::before {
+            width: 22px;
+            height: 22px;
+            border-color: var(--uij-primary, #32CD32);
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.expand::after {
+            background: var(--uij-primary, #32CD32);
+            width: 10px;
+            height: 4px;
+        }
+        
+        /* 9. Fade Search */
+        .search-icon.fade::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.fade::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.fade::before {
+            border-color: var(--uij-primary, #32CD32);
+            animation: search-fade 1.5s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.fade::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-fade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* 10. Focus Search */
+        .search-icon.focus::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon.focus::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translate(20%, 20%) rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.focus::before {
+            border-color: var(--uij-primary, #32CD32);
+            border-width: 4px;
+            animation: search-focus 1.8s ease-in-out infinite;
+        }
+        
+        .search-icon-checkbox:checked + .search-icon.focus::after {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes search-focus {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(0.9); }
+        }
+        
+        /* ================================================= */
+        /* 1.7. TRASH ICON ANIMATIONS (10 Types)           */
+        /* ================================================= */
+        
+        .trash-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .trash-icon-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 8px;
+            border: 1px solid var(--uij-border, #555555);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .trash-icon-item h3 {
+            margin-bottom: 15px;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .trash-icon-checkbox {
+            display: none;
+        }
+        
+        .trash-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .trash-icon:hover {
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
+        /* 1. Basic Trash */
+        .trash-icon.basic::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 24px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 4px 4px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .trash-icon.basic::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 24px;
+            height: 4px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -90%);
+            transition: all 0.3s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.basic::before {
+            animation: trash-shake 0.5s ease;
+        }
+        
+        @keyframes trash-shake {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(-5deg); }
+            75% { transform: translate(-50%, -50%) rotate(5deg); }
+        }
+        
+        /* 2. Delete Trash */
+        .trash-icon.delete::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 24px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 4px 4px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .trash-icon.delete::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3px;
+            height: 12px;
+            background: var(--uij-bg-primary, #222222);
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.delete::before {
+            animation: trash-delete 0.6s ease;
+        }
+        
+        @keyframes trash-delete {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(0.8); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        /* 3. Full Trash */
+        .trash-icon.full .trash-body {
+            position: absolute;
+            width: 18px;
+            height: 20px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 18px;
+            left: 16px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.full .trash-lid {
+            position: absolute;
+            width: 22px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            top: 15px;
+            left: 14px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.full .trash-content {
+            position: absolute;
+            width: 10px;
+            height: 12px;
+            background: var(--uij-text-muted, #999999);
+            border-radius: 1px;
+            top: 21px;
+            left: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.full .trash-body {
+            background: var(--uij-primary, #32CD32);
+            animation: trash-overflow 2s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.full .trash-lid {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.full .trash-content {
+            background: var(--uij-primary, #32CD32);
+            animation: content-bulge 2s ease-in-out infinite 0.3s;
+        }
+        
+        @keyframes trash-overflow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes content-bulge {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.3); }
+        }
+        
+        /* 4. Empty Trash */
+        .trash-icon.empty .empty-body {
+            position: absolute;
+            width: 18px;
+            height: 20px;
+            border: 2px solid var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            background: transparent;
+            top: 18px;
+            left: 16px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.empty .empty-lid {
+            position: absolute;
+            width: 22px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            top: 15px;
+            left: 14px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.empty .empty-body {
+            border-color: var(--uij-primary, #32CD32);
+            animation: empty-clean 2s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.empty .empty-lid {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes empty-clean {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        /* 5. Restore Trash */
+        .trash-icon.restore .restore-body {
+            position: absolute;
+            width: 16px;
+            height: 18px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 19px;
+            left: 17px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.restore .restore-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 6px solid var(--uij-text-secondary, #cccccc);
+            top: 15px;
+            left: 21px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.restore .restore-line {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: var(--uij-text-secondary, #cccccc);
+            top: 21px;
+            left: 24px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.restore .restore-body {
+            background: var(--uij-primary, #32CD32);
+            animation: restore-bounce 2s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.restore .restore-arrow {
+            border-bottom-color: var(--uij-primary, #32CD32);
+            animation: arrow-restore 2s ease-in-out infinite 0.2s;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.restore .restore-line {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        @keyframes restore-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        @keyframes arrow-restore {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        
+        /* 6. Warning Trash */
+        .trash-icon.warning .warning-body {
+            position: absolute;
+            width: 18px;
+            height: 20px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 18px;
+            left: 16px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.warning .warning-sign {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 10px solid var(--uij-text-muted, #999999);
+            top: 22px;
+            left: 19px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.warning .warning-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--uij-bg-primary, #222222);
+            border-radius: 50%;
+            top: 29px;
+            left: 24px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.warning .warning-body {
+            background: var(--uij-primary, #32CD32);
+            animation: warning-alert 1s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.warning .warning-sign {
+            border-bottom-color: var(--uij-bg-primary, #222222);
+        }
+        
+        @keyframes warning-alert {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 7. Destroy Trash */
+        .trash-icon.destroy .destroy-body {
+            position: absolute;
+            width: 18px;
+            height: 20px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 18px;
+            left: 16px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.destroy .destroy-x1 {
+            position: absolute;
+            width: 8px;
+            height: 2px;
+            background: var(--uij-text-muted, #999999);
+            transform: rotate(45deg);
+            top: 26px;
+            left: 21px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.destroy .destroy-x2 {
+            position: absolute;
+            width: 8px;
+            height: 2px;
+            background: var(--uij-text-muted, #999999);
+            transform: rotate(-45deg);
+            top: 26px;
+            left: 21px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.destroy .destroy-body {
+            background: var(--uij-primary, #32CD32);
+            animation: destroy-dissolve 2s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.destroy .destroy-x1,
+        .trash-icon-checkbox:checked + .trash-icon.destroy .destroy-x2 {
+            background: var(--uij-bg-primary, #222222);
+            animation: x-marks 2s ease-in-out infinite 0.3s;
+        }
+        
+        @keyframes destroy-dissolve {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+        
+        @keyframes x-marks {
+            0%, 100% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(1.3); }
+        }
+        
+        /* 8. Auto Trash */
+        .trash-icon.auto .auto-body {
+            position: absolute;
+            width: 16px;
+            height: 18px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 19px;
+            left: 17px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.auto .auto-timer {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--uij-text-muted, #999999);
+            border-radius: 50%;
+            border-top-color: transparent;
+            top: 15px;
+            left: 21px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.auto .auto-body {
+            background: var(--uij-primary, #32CD32);
+            animation: auto-process 3s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.auto .auto-timer {
+            border-color: var(--uij-primary, #32CD32);
+            border-top-color: transparent;
+            animation: timer-spin 1s linear infinite;
+        }
+        
+        @keyframes auto-process {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes timer-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 9. Secure Trash */
+        .trash-icon.secure .secure-body {
+            position: absolute;
+            width: 16px;
+            height: 18px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 19px;
+            left: 17px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.secure .secure-lock {
+            position: absolute;
+            width: 6px;
+            height: 4px;
+            border: 2px solid var(--uij-text-muted, #999999);
+            border-radius: 3px 3px 0 0;
+            border-bottom: none;
+            top: 15px;
+            left: 22px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.secure .secure-keyhole {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--uij-bg-primary, #222222);
+            border-radius: 50%;
+            top: 26px;
+            left: 23px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.secure .secure-body {
+            background: var(--uij-primary, #32CD32);
+            animation: secure-lock 2s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.secure .secure-lock {
+            border-color: var(--uij-primary, #32CD32);
+            animation: lock-secure 2s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes secure-lock {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* 10. Shred Trash */
+        .trash-icon.shred .shred-body {
+            position: absolute;
+            width: 16px;
+            height: 18px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px 2px 4px 4px;
+            top: 19px;
+            left: 17px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.shred .shred-lines {
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background: var(--uij-text-muted, #999999);
+            top: 23px;
+            left: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .trash-icon.shred .shred-lines::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background: var(--uij-text-muted, #999999);
+            left: 3px;
+        }
+        
+        .trash-icon.shred .shred-lines::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 10px;
+            background: var(--uij-text-muted, #999999);
+            left: 6px;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.shred .shred-body {
+            background: var(--uij-primary, #32CD32);
+            animation: shred-process 3s ease-in-out infinite;
+        }
+        
+        .trash-icon-checkbox:checked + .trash-icon.shred .shred-lines {
+            background: var(--uij-bg-primary, #222222);
+            animation: shred-cut 3s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes shred-process {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes shred-cut {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(2px); opacity: 0.7; }
         }
         
         /* ===== SAVE ICON ANIMATIONS (10 Types) ===== */
@@ -3706,6 +4841,54 @@
         }
         
         /* ===== DOWNLOAD ICON ANIMATIONS (10 Types) ===== */
+        
+        .file-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .file-icon-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 8px;
+            border: 1px solid var(--uij-border, #555555);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .file-icon-item h3 {
+            margin-bottom: 15px;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .file-icon-checkbox {
+            display: none;
+        }
+        
+        .file-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .file-icon:hover {
+            background: var(--uij-bg-tertiary, #444444);
+        }
         
         /* 1. Basic Download Icon */
         .file-icon.download-basic-icon .download-arrow {
@@ -4421,69 +5604,400 @@
         
         /* ===== UPLOAD ICON ANIMATIONS (10 Types) ===== */
         
+        .upload-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .upload-icon-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 8px;
+            border: 1px solid var(--uij-border, #555555);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .upload-icon-item h3 {
+            margin-bottom: 15px;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .upload-icon-checkbox {
+            display: none;
+        }
+        
+        .upload-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon:hover {
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
         /* 1. Basic Upload Icon */
-        .file-icon.upload-basic-icon .upload-arrow {
+        .upload-icon.basic::before {
+            content: '';
             position: absolute;
+            left: 50%;
+            top: 50%;
             width: 0;
             height: 0;
             border-left: 6px solid transparent;
             border-right: 6px solid transparent;
-            border-bottom: 8px solid var(--uij-text-secondary, #cccccc);
-            top: 14px;
-            left: 19px;
-            transition: all 0.5s ease;
+            border-bottom: 8px solid var(--uij-primary, #32CD32);
+            transform: translate(-50%, -80%);
+            transition: all 0.3s ease;
         }
         
-        .file-icon.upload-basic-icon .upload-line {
+        .upload-icon.basic::after {
+            content: '';
             position: absolute;
+            left: 50%;
+            top: 50%;
             width: 2px;
             height: 16px;
-            background: var(--uij-text-secondary, #cccccc);
+            background: var(--uij-primary, #32CD32);
             border-radius: 1px;
-            top: 22px;
-            left: 24px;
-            transition: all 0.5s ease;
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
         }
         
-        .file-icon.upload-basic-icon .upload-base {
-            position: absolute;
-            width: 20px;
-            height: 3px;
-            background: var(--uij-text-secondary, #cccccc);
-            border-radius: 2px;
-            bottom: 12px;
-            left: 15px;
-            transition: all 0.5s ease;
-        }
-        
-        .file-icon-checkbox:checked + .file-icon.upload-basic-icon .upload-arrow {
-            border-bottom-color: var(--uij-primary, #32CD32);
-            animation: upload-arrow-rise 2s ease-in-out infinite;
-        }
-        
-        .file-icon-checkbox:checked + .file-icon.upload-basic-icon .upload-line {
-            background: var(--uij-primary, #32CD32);
-            animation: upload-line-flow 2s ease-in-out infinite;
-        }
-        
-        .file-icon-checkbox:checked + .file-icon.upload-basic-icon .upload-base {
-            background: var(--uij-primary, #32CD32);
-            animation: upload-base-glow 2s ease-in-out infinite 0.3s;
+        .upload-icon-checkbox:checked + .upload-icon.basic::before {
+            animation: upload-arrow-rise 1s ease-in-out infinite;
         }
         
         @keyframes upload-arrow-rise {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+            0%, 100% { transform: translate(-50%, -80%); }
+            50% { transform: translate(-50%, -90%); }
         }
         
-        @keyframes upload-line-flow {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(1.2); }
+        /* 2. Cloud Upload Icon */
+        .upload-icon.cloud::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 10px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 5px;
+            transform: translate(-50%, -40%);
+            transition: all 0.3s ease;
         }
         
-        @keyframes upload-base-glow {
-            0%, 100% { transform: scaleX(1); }
-            50% { transform: scaleX(1.3); }
+        .upload-icon.cloud::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -70%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.cloud::before {
+            animation: cloud-upload-float 2s ease-in-out infinite;
+        }
+        
+        @keyframes cloud-upload-float {
+            0%, 100% { transform: translate(-50%, -40%); }
+            50% { transform: translate(-50%, -50%); }
+        }
+        
+        /* 3. Folder Upload Icon */
+        .upload-icon.folder::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 14px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 4px 4px;
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.folder::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 0 0;
+            transform: translate(-50%, -70%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.folder::before {
+            animation: folder-upload-open 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes folder-upload-open {
+            0%, 100% { transform: translate(-50%, -30%) rotateX(0deg); }
+            50% { transform: translate(-50%, -30%) rotateX(20deg); }
+        }
+        
+        /* 4. File Upload Icon */
+        .upload-icon.file::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 20px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.file::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 2px;
+            background: var(--uij-bg-primary, #222222);
+            transform: translate(-50%, -40%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.file::before {
+            animation: file-upload-pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes file-upload-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        /* 5. Image Upload Icon */
+        .upload-icon.image::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 16px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.image::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--uij-bg-primary, #222222);
+            border-radius: 50%;
+            transform: translate(-30%, -60%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.image::before {
+            animation: image-upload-fade 1.8s ease-in-out infinite;
+        }
+        
+        @keyframes image-upload-fade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* 6. Plus Upload Icon */
+        .upload-icon.plus::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3px;
+            height: 16px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.plus::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.plus::before,
+        .upload-icon-checkbox:checked + .upload-icon.plus::after {
+            animation: plus-upload-pulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes plus-upload-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        /* 7. Box Upload Icon */
+        .upload-icon.box::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 14px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.box::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 3px;
+            background: var(--uij-text-muted, #999999);
+            transform: translate(-50%, -65%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.box::before {
+            animation: box-upload-lift 2s ease-in-out infinite;
+        }
+        
+        @keyframes box-upload-lift {
+            0%, 100% { transform: translate(-50%, -30%); }
+            50% { transform: translate(-50%, -40%); }
+        }
+        
+        /* 8. Tray Upload Icon */
+        .upload-icon.tray::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 12px;
+            border: 2px solid var(--uij-primary, #32CD32);
+            border-radius: 4px;
+            background: transparent;
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.tray::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -60%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.tray::before {
+            animation: tray-upload-fill 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes tray-upload-fill {
+            0%, 100% { border-color: var(--uij-primary, #32CD32); }
+            50% { border-color: var(--uij-text-secondary, #cccccc); }
+        }
+        
+        /* 9. Stack Upload Icon */
+        .upload-icon.stack::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 16px;
+            height: 4px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            transform: translate(-50%, -60%);
+            box-shadow: 0 6px 0 var(--uij-primary, #32CD32), 0 12px 0 var(--uij-primary, #32CD32);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.stack::before {
+            animation: stack-upload-build 2s ease-in-out infinite;
+        }
+        
+        @keyframes stack-upload-build {
+            0%, 100% { transform: translate(-50%, -60%) scale(1); }
+            50% { transform: translate(-50%, -60%) scale(1.1); }
+        }
+        
+        /* 10. Inbox Upload Icon */
+        .upload-icon.inbox::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 18px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px 2px 6px 6px;
+            transform: translate(-50%, -30%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon.inbox::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 12px;
+            height: 2px;
+            background: var(--uij-bg-primary, #222222);
+            transform: translate(-50%, -40%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-icon-checkbox:checked + .upload-icon.inbox::before {
+            animation: inbox-upload-receive 2s ease-in-out infinite;
+        }
+        
+        @keyframes inbox-upload-receive {
+            0%, 100% { transform: translate(-50%, -30%) scale(1); }
+            50% { transform: translate(-50%, -30%) scale(1.05); }
         }
         
         /* 2. File Upload Icon */
@@ -5238,7 +6752,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: #222222; /* rgba 제거 - 빛번짐 금지 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -5391,12 +6905,12 @@
         }
         
         .status.active {
-            background: rgba(50, 205, 50, 0.2);
+            background: #444444; /* rgba 제거 - 빛번짐 금직 */
             color: var(--uij-primary, #32CD32);
         }
         
         .status.inactive {
-            background: rgba(153, 153, 153, 0.2);
+            background: #666666; /* rgba 제거 - 빛번짐 금직 */
             color: var(--uij-text-muted, #999999);
         }
         
@@ -5567,7 +7081,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(50, 205, 50, 0.9);
+            background: #32CD32; /* rgba 제거 - 빛번짐 금직 */
             color: var(--uij-bg-primary, #222222);
             display: flex;
             flex-direction: column;
@@ -5896,7 +7410,7 @@
         
         .poll-radio:checked + .poll-option {
             border-color: var(--uij-primary, #32CD32);
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
         }
         
         .poll-bar {
@@ -5955,10 +7469,7 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #111111 25%, transparent 25%), 
-                        linear-gradient(-45deg, #111111 25%, transparent 25%), 
-                        linear-gradient(45deg, transparent 75%, #111111 75%), 
-                        linear-gradient(-45deg, transparent 75%, #111111 75%);
+            background: #333333; /* linear-gradient 제거 - 그라데이션 금지 */
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
@@ -6380,12 +7891,12 @@
             width: 4px;
             height: 14px;
             background: var(--uij-primary, #32CD32);
-            box-shadow: 6px 0 0 var(--uij-primary, #32CD32);
+            /* box-shadow 제거 - 그림자 효과 금지 */
             left: 50%;
         }
         
         .audio-play-btn:hover {
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
             transform: scale(1.05);
         }
         
@@ -6395,7 +7906,7 @@
         
         .audio-checkbox:checked + .audio-play-btn:hover::before {
             background: var(--uij-text-primary, #eeeeee);
-            box-shadow: 6px 0 0 var(--uij-text-primary, #eeeeee);
+            /* box-shadow 제거 - 그림자 효과 금지 */
         }
         
         .equalizer {
@@ -6608,7 +8119,7 @@
         .editor-btn:hover {
             border-color: var(--uij-primary, #32CD32);
             color: var(--uij-primary, #32CD32);
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
         }
         
         .toolbar-separator {
@@ -6644,7 +8155,7 @@
             font-size: 12px;
         }
         
-        /* ===== 계선량AI 스타일 대화창 ===== */
+        /* ===== 단순 채팅 UI ===== */
         .gyesunryang-chat-container {
             background: var(--uij-bg-secondary, #333333);
             border: 1px solid var(--uij-border, #444444);
@@ -6682,13 +8193,10 @@
             height: 20px;
             background: var(--uij-primary, #32CD32);
             border-radius: 50%;
-            animation: ai-pulse 2s ease-in-out infinite;
+            /* animation 제거 - 복잡한 애니메이션 금직 */
         }
 
-        @keyframes ai-pulse {
-            0%, 100% { opacity: 0.7; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1); }
-        }
+        /* ai-pulse 애니메이션 제거 - 복잡한 효과 금직 */
         
         .ai-status h4 {
             margin: 0 0 4px 0;
@@ -6703,7 +8211,7 @@
         .status-indicator::before {
             content: '●';
             margin-right: 6px;
-            animation: status-blink 2s ease-in-out infinite;
+            /* animation 제거 - 복잡한 애니메이션 금직 */
         }
         
         @keyframes status-blink {
@@ -6732,9 +8240,9 @@
         }
         
         .ai-message {
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
             color: var(--uij-text-primary, #eeeeee);
-            border: 1px solid rgba(50, 205, 50, 0.3);
+            border: 1px solid #32CD32; /* rgba 제거 - 빛번짐 금직 */
             border-bottom-left-radius: 4px;
             position: relative;
             animation: message-slide-in 0.5s ease-out;
@@ -6893,7 +8401,7 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
         
-        /* 계선량AI 토글 시스템 */
+        /* AI 토글 시스템 */
         .thinking-toggle-checkbox,
         .module-toggle-checkbox {
             display: none;
@@ -6913,7 +8421,7 @@
         }
         
         .thinking-toggle-btn:hover {
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
         }
         
         .thinking-process {
@@ -7214,7 +8722,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
+            background: #222222; /* rgba 제거 - 빛번짐 금지 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -7505,7 +9013,7 @@
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
-            background: rgba(34, 34, 34, 0.8);
+            background: #222222; /* rgba 제거 - 빛번짐 금직 */
             border: 2px solid var(--uij-border, #444444);
             border-radius: 50%;
             color: var(--uij-text-primary, #eeeeee);
@@ -7580,44 +9088,26 @@
         }
         
         /* ================================================= */
-        /* 8. MODERN CARD CAROUSEL                          */
+        /* 8. SIMPLE CARD SCROLL                            */
         /* ================================================= */
         
-        .card-carousel-container {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            height: 500px;
-            margin: 20px auto;
-            perspective: 1000px;
-            overflow: hidden;
-        }
-        
-        .card-slide-input {
-            display: none;
-        }
-        
-        .card-carousel {
-            position: relative;
-            width: 100%;
-            height: 100%;
+        .simple-card-scroll {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-style: preserve-3d;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            /* 복잡한 3D 효과 제거 - 단순한 가로 스크롤만 */
         }
         
-        .carousel-card {
-            position: absolute;
-            width: 300px;
+        .simple-card-scroll .carousel-card {
+            flex: 0 0 300px;
             height: 400px;
             background: var(--uij-bg-secondary, #333333);
-            border-radius: 16px;
+            border-radius: 12px;
             border: 1px solid var(--uij-border, #444444);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: center center;
-            backface-visibility: hidden;
             overflow: hidden;
+            /* 복잡한 3D transform 제거 */
         }
         
         .card-image {
@@ -7737,7 +9227,7 @@
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
-            background: rgba(238, 238, 238, 0.1);
+            background: #444444; /* rgba 제거 - 빛번짐 금직 */
             border: 1px solid var(--uij-primary, #32CD32);
             border-radius: 50%;
             display: flex;
@@ -7799,14 +9289,14 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(238, 238, 238, 0.3);
+            background: #666666; /* rgba 제거 - 빛번짐 금직 */
             border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .framer-control:hover {
-            background: rgba(50, 205, 50, 0.6);
+            background: #32CD32; /* rgba 제거 - 빛번짐 금직 */
             transform: scale(1.2);
         }
         
@@ -8141,12 +9631,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
             transition: background 0.4s ease;
         }
         
         .vanilla-slide-content:hover::before {
-            background: rgba(0, 0, 0, 0.1);
+            background: #444444; /* rgba 제거 - 빛번짐 금직 */
         }
         
         .vanilla-slide-content h3 {
@@ -8199,7 +9689,7 @@
             height: 50px;
             border-radius: 50%;
             border: 1px solid var(--uij-primary, #32CD32);
-            background: rgba(238, 238, 238, 0.1);
+            background: #444444; /* rgba 제거 - 빛번짐 금직 */
             color: var(--uij-primary, #32CD32);
             display: flex;
             justify-content: center;
@@ -8336,7 +9826,7 @@
         
         .tiempo-workout-types span {
             padding: 8px 16px;
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
             border: 1px solid var(--uij-primary, #32CD32);
             border-radius: 20px;
             color: var(--uij-primary, #32CD32);
@@ -8448,7 +9938,7 @@
         
         .workout-item {
             padding: 16px;
-            background: rgba(50, 205, 50, 0.1);
+            background: #333333; /* rgba 제거 - 빛번짐 금직 */
             border: 1px solid var(--uij-primary, #32CD32);
             border-radius: 8px;
             color: var(--uij-text-primary, #eeeeee);
@@ -8479,7 +9969,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(238, 238, 238, 0.3);
+            background: #666666; /* rgba 제거 - 빛번짐 금직 */
             border: 2px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -8493,7 +9983,7 @@
         }
         
         .nav-dot:hover {
-            background: rgba(50, 205, 50, 0.6);
+            background: #32CD32; /* rgba 제거 - 빛번짐 금직 */
             transform: scale(1.1);
         }
         
@@ -8605,7 +10095,7 @@
         .water-text {
             font-size: 64px;
             font-weight: bold;
-            color: rgba(238, 238, 238, 0.2);
+            color: #666666; /* rgba 제거 - 빛번짐 금직 */
             margin: 20px 0;
             text-align: center;
             height: 100px;
@@ -8652,9 +10142,9 @@
         }
         
         @keyframes text-water-rise {
-            0% { height: 10%; }
-            50% { height: 90%; }
-            100% { height: 10%; }
+            0% { height: 0%; }
+            50% { height: 100%; }
+            100% { height: 0%; }
         }
         
         @keyframes text-wave-ripple {
@@ -8706,7 +10196,7 @@
             background: transparent;
             border: 1px solid var(--uij-border, #444444);
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
         }
         
@@ -8718,42 +10208,54 @@
             height: 100px;
             line-height: 100px;
             position: relative;
+            background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: text-fill-water-rise 3s ease-in-out infinite;
         }
         
-        .text-only-water::before {
+        .text-only-water::after {
             content: 'WONJOOOO';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--uij-primary, #32CD32);
-            height: 50%;
-            bottom: 0;
-            top: auto;
-            background-size: 100% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: text-fill-rise 4s ease-in-out infinite;
-            z-index: 1;
+            font-size: 64px;
+            font-weight: bold;
+            line-height: 100px;
+            text-align: center;
+            color: var(--uij-primary, #32CD32);
+            clip-path: inset(100% 0 0 0);
+            animation: text-only-water-rise 3s ease-in-out infinite;
+            z-index: 2;
         }
         
-        .text-only-water::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--uij-primary, #32CD32);
-            opacity: 0.8;
-            border-radius: 45% 55% 40% 60%;
-            animation: text-water-ripple 2.5s ease-in-out infinite;
-            transform: translateY(-50%);
-            clip-path: text;
-            -webkit-clip-path: text;
+        
+        @keyframes background-water-rise {
+            0% { height: 0%; }
+            50% { height: 100%; }
+            100% { height: 0%; }
         }
+        
+        @keyframes text-only-water-rise {
+            0% { clip-path: inset(100% 0 0 0); }
+            50% { clip-path: inset(0% 0 0 0); }
+            100% { clip-path: inset(100% 0 0 0); }
+        }
+        
+        @keyframes text-only-water-fill {
+            0% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            }
+            50% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 100%, transparent 100%);
+            }
+            100% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            }
+        }
+        
         
         
         @keyframes text-fill-rise {
@@ -9380,19 +10882,13 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 3px;
-            height: 3px;
+            width: 4px;
+            height: 12px;
             background: var(--uij-primary, #32CD32);
-            border-radius: 50%;
+            border-radius: 50% 50% 20% 20%;
             transform: translate(-50%, -50%);
-            box-shadow: 
-                0 -8px 0 var(--uij-primary, #32CD32),
-                6px -4px 0 rgba(50, 205, 50, 0.8),
-                6px 4px 0 rgba(50, 205, 50, 0.6),
-                0 8px 0 rgba(50, 205, 50, 0.4),
-                -6px 4px 0 rgba(50, 205, 50, 0.6),
-                -6px -4px 0 rgba(50, 205, 50, 0.8);
-            animation: flower-bloom-petals 2s ease-in-out infinite;
+            animation: flower-petals 2s ease-in-out infinite;
+            transform-origin: 50% 80%;
         }
         
         .flower-spinner::after {
@@ -9400,19 +10896,28 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 2px;
-            height: 2px;
-            background: rgba(50, 205, 50, 0.5);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 
-                0 -6px 0 rgba(50, 205, 50, 0.5),
-                4px -3px 0 rgba(50, 205, 50, 0.5),
-                4px 3px 0 rgba(50, 205, 50, 0.5),
-                0 6px 0 rgba(50, 205, 50, 0.5),
-                -4px 3px 0 rgba(50, 205, 50, 0.5),
-                -4px -3px 0 rgba(50, 205, 50, 0.5);
-            animation: flower-bloom-petals 2s ease-in-out infinite reverse;
+            width: 4px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50% 50% 20% 20%;
+            transform: translate(-50%, -50%) rotate(60deg);
+            animation: flower-petals 2s ease-in-out infinite 0.3s;
+            transform-origin: 50% 80%;
+        }
+        
+        @keyframes flower-petals {
+            0%, 100% { 
+                transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
+                opacity: 0.6;
+            }
+            33% {
+                transform: translate(-50%, -50%) rotate(120deg) scale(1);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(-50%, -50%) rotate(240deg) scale(1);
+                opacity: 1;
+            }
         }
         
         /* 16. Breathing Spinner */
@@ -9462,7 +10967,7 @@
             background: var(--uij-text-muted, #999999);
             transform: translateX(-50%);
             transform-origin: top center;
-            animation: pendulum-swing-smooth 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+            animation: pendulum-swing-ultra-smooth 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
         }
         
         .pendulum-spinner::after {
@@ -9475,9 +10980,16 @@
             background: var(--uij-primary, #32CD32);
             border-radius: 50%;
             transform: translateX(-50%);
-            animation: pendulum-swing-smooth 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+            animation: pendulum-swing-ultra-smooth 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
             transform-origin: 50% -13px;
-            box-shadow: 0 0 12px rgba(50, 205, 50, 0.4);
+        }
+        
+        @keyframes pendulum-swing-ultra-smooth {
+            0% { transform: translateX(-50%) rotate(-30deg); }
+            25% { transform: translateX(-50%) rotate(30deg); }
+            50% { transform: translateX(-50%) rotate(-30deg); }
+            75% { transform: translateX(-50%) rotate(30deg); }
+            100% { transform: translateX(-50%) rotate(-30deg); }
         }
         
         /* 19. Liquid Spinner - 물결치는 수평선 */
@@ -9492,25 +11004,36 @@
         .liquid-spinner::before {
             content: '';
             position: absolute;
-            bottom: 8px;
-            left: -100%;
-            width: 300%;
-            height: 50%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
             background: var(--uij-primary, #32CD32);
-            border-radius: 100% 80% 120% 60% / 60% 40% 80% 50%;
-            animation: liquid-ripple 3s ease-in-out infinite;
+            border-radius: 50% 50% 0 0;
+            animation: liquid-wave 2s ease-in-out infinite;
         }
         
         .liquid-spinner::after {
             content: '';
             position: absolute;
-            bottom: 6px;
-            left: -100%;
-            width: 300%;
-            height: 45%;
-            background: rgba(50, 205, 50, 0.6);
-            border-radius: 80% 120% 100% 90% / 40% 60% 50% 70%;
-            animation: liquid-ripple 2.5s ease-in-out infinite reverse;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 40% 60% 0 0;
+            animation: liquid-wave 2.5s ease-in-out infinite 0.3s;
+        }
+        
+        @keyframes liquid-wave {
+            0%, 100% { 
+                transform: translateY(10px) scale(1);
+                border-radius: 50% 50% 0 0;
+            }
+            50% { 
+                transform: translateY(-5px) scale(1.1);
+                border-radius: 60% 40% 0 0;
+            }
         }
         
         
@@ -10031,20 +11554,20 @@
         
         @keyframes flower-bloom-petals {
             0% { 
-                transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
-                opacity: 0.6;
-            }
-            25% {
-                transform: translate(-50%, -50%) rotate(90deg) scale(1);
+                transform: translate(-50%, -50%) rotate(0deg) scale(0.3);
                 opacity: 0.8;
             }
+            25% {
+                transform: translate(-50%, -50%) rotate(90deg) scale(0.7);
+                opacity: 1;
+            }
             50% { 
-                transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
+                transform: translate(-50%, -50%) rotate(180deg) scale(1);
                 opacity: 1;
             }
             75% {
-                transform: translate(-50%, -50%) rotate(270deg) scale(1);
-                opacity: 0.8;
+                transform: translate(-50%, -50%) rotate(270deg) scale(0.7);
+                opacity: 1;
             }
             100% { 
                 transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
@@ -11136,120 +12659,278 @@
         </div>
     </div>
     
-    <!-- 1.7. 업로드 아이콘 애니메이션 모음 (CSS Only) -->
+    <!-- 1.6. 업로드 아이콘 애니메이션 모음 (CSS Only) -->
     <div class="demo-section">
         <h2>1.6. 업로드 아이콘 애니메이션 모음 (CSS Only)</h2>
-        <p>업로드 관련 아이콘 애니메이션 10가지</p>
+        <p>심플하고 정확한 업로드 아이콘 애니메이션 10가지</p>
         
-        <div class="file-icons-grid">
+        <div class="upload-icons-grid">
             <!-- 1. 기본 업로드 -->
-            <div class="file-icon-item">
-                <h3>1. Basic Upload</h3>
-                <input type="checkbox" id="upload-1" class="file-icon-checkbox">
-                <label for="upload-1" class="file-icon upload-basic-icon">
-                    <div class="upload-arrow"></div>
-                    <div class="upload-line"></div>
-                    <div class="upload-base"></div>
-                </label>
+            <div class="upload-icon-item">
+                <h3>1. Basic</h3>
+                <input type="checkbox" id="upload-1" class="upload-icon-checkbox">
+                <label for="upload-1" class="upload-icon basic"></label>
             </div>
             
-            <!-- 2. 파일 업로드 -->
-            <div class="file-icon-item">
-                <h3>2. File Upload</h3>
-                <input type="checkbox" id="upload-2" class="file-icon-checkbox">
-                <label for="upload-2" class="file-icon upload-file-icon">
-                    <div class="file-upload-doc"></div>
-                    <div class="file-up-arrow"></div>
-                    <div class="file-upload-progress"></div>
-                </label>
+            <!-- 2. 클라우드 업로드 -->
+            <div class="upload-icon-item">
+                <h3>2. Cloud</h3>
+                <input type="checkbox" id="upload-2" class="upload-icon-checkbox">
+                <label for="upload-2" class="upload-icon cloud"></label>
             </div>
             
-            <!-- 3. 클라우드 업로드 -->
-            <div class="file-icon-item">
-                <h3>3. Cloud Upload</h3>
-                <input type="checkbox" id="upload-3" class="file-icon-checkbox">
-                <label for="upload-3" class="file-icon upload-cloud-icon">
-                    <div class="cloud-upload"></div>
-                    <div class="cloud-up-arrow"></div>
-                    <div class="cloud-rises"></div>
-                </label>
+            <!-- 3. 폴더 업로드 -->
+            <div class="upload-icon-item">
+                <h3>3. Folder</h3>
+                <input type="checkbox" id="upload-3" class="upload-icon-checkbox">
+                <label for="upload-3" class="upload-icon folder"></label>
             </div>
             
-            <!-- 4. 이미지 업로드 -->
-            <div class="file-icon-item">
-                <h3>4. Image Upload</h3>
-                <input type="checkbox" id="upload-4" class="file-icon-checkbox">
-                <label for="upload-4" class="file-icon upload-image-icon">
-                    <div class="image-upload-frame"></div>
-                    <div class="image-upload-photo"></div>
-                    <div class="image-up-arrow"></div>
-                </label>
+            <!-- 4. 파일 업로드 -->
+            <div class="upload-icon-item">
+                <h3>4. File</h3>
+                <input type="checkbox" id="upload-4" class="upload-icon-checkbox">
+                <label for="upload-4" class="upload-icon file"></label>
             </div>
             
-            <!-- 5. 폴더 업로드 -->
-            <div class="file-icon-item">
-                <h3>5. Folder Upload</h3>
-                <input type="checkbox" id="upload-5" class="file-icon-checkbox">
-                <label for="upload-5" class="file-icon upload-folder-icon">
-                    <div class="folder-upload-back"></div>
-                    <div class="folder-upload-front"></div>
-                    <div class="folder-up-arrow"></div>
-                </label>
+            <!-- 5. 이미지 업로드 -->
+            <div class="upload-icon-item">
+                <h3>5. Image</h3>
+                <input type="checkbox" id="upload-5" class="upload-icon-checkbox">
+                <label for="upload-5" class="upload-icon image"></label>
             </div>
             
-            <!-- 6. 드래그 앤 드롭 -->
-            <div class="file-icon-item">
-                <h3>6. Drag & Drop</h3>
-                <input type="checkbox" id="upload-6" class="file-icon-checkbox">
-                <label for="upload-6" class="file-icon upload-drag-icon">
-                    <div class="drag-zone"></div>
-                    <div class="drag-plus"></div>
-                    <div class="drag-float"></div>
-                </label>
+            <!-- 6. 플러스 업로드 -->
+            <div class="upload-icon-item">
+                <h3>6. Plus</h3>
+                <input type="checkbox" id="upload-6" class="upload-icon-checkbox">
+                <label for="upload-6" class="upload-icon plus"></label>
             </div>
             
-            <!-- 7. 배치 업로드 -->
-            <div class="file-icon-item">
-                <h3>7. Batch Upload</h3>
-                <input type="checkbox" id="upload-7" class="file-icon-checkbox">
-                <label for="upload-7" class="file-icon upload-batch-icon">
-                    <div class="batch-stack"></div>
-                    <div class="batch-files"></div>
-                    <div class="batch-up-arrow"></div>
-                </label>
+            <!-- 7. 박스 업로드 -->
+            <div class="upload-icon-item">
+                <h3>7. Box</h3>
+                <input type="checkbox" id="upload-7" class="upload-icon-checkbox">
+                <label for="upload-7" class="upload-icon box"></label>
             </div>
             
-            <!-- 8. FTP 업로드 -->
-            <div class="file-icon-item">
-                <h3>8. FTP Upload</h3>
-                <input type="checkbox" id="upload-8" class="file-icon-checkbox">
-                <label for="upload-8" class="file-icon upload-ftp-icon">
-                    <div class="ftp-server"></div>
-                    <div class="ftp-connection"></div>
-                    <div class="ftp-up-arrow"></div>
-                </label>
+            <!-- 8. 트레이 업로드 -->
+            <div class="upload-icon-item">
+                <h3>8. Tray</h3>
+                <input type="checkbox" id="upload-8" class="upload-icon-checkbox">
+                <label for="upload-8" class="upload-icon tray"></label>
             </div>
             
-            <!-- 9. 스트림 업로드 -->
-            <div class="file-icon-item">
-                <h3>9. Stream Upload</h3>
-                <input type="checkbox" id="upload-9" class="file-icon-checkbox">
-                <label for="upload-9" class="file-icon upload-stream-icon">
-                    <div class="stream-waves"></div>
-                    <div class="stream-signal"></div>
-                    <div class="stream-up-arrow"></div>
-                </label>
+            <!-- 9. 스택 업로드 -->
+            <div class="upload-icon-item">
+                <h3>9. Stack</h3>
+                <input type="checkbox" id="upload-9" class="upload-icon-checkbox">
+                <label for="upload-9" class="upload-icon stack"></label>
             </div>
             
-            <!-- 10. 동기화 업로드 -->
-            <div class="file-icon-item">
-                <h3>10. Sync Upload</h3>
-                <input type="checkbox" id="upload-10" class="file-icon-checkbox">
-                <label for="upload-10" class="file-icon upload-sync-icon">
-                    <div class="sync-circle"></div>
-                    <div class="sync-arrows"></div>
-                    <div class="sync-dots"></div>
-                </label>
+            <!-- 10. 인박스 업로드 -->
+            <div class="upload-icon-item">
+                <h3>10. Inbox</h3>
+                <input type="checkbox" id="upload-10" class="upload-icon-checkbox">
+                <label for="upload-10" class="upload-icon inbox"></label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 1.2. 검색 아이콘 애니메이션 모음 (CSS Only) - 새로 제작 -->
+    <div class="demo-section">
+        <h2>1.2. 검색 아이콘 애니메이션 모음 (CSS Only)</h2>
+        <p>정확하고 심플한 검색 아이콘 애니메이션 10가지</p>
+        
+        <div class="search-icons-grid">
+            <!-- 1. 기본 검색 -->
+            <div class="search-icon-item">
+                <h3>1. Basic</h3>
+                <input type="checkbox" id="search-1" class="search-icon-checkbox">
+                <label for="search-1" class="search-icon basic"></label>
+            </div>
+            
+            <!-- 2. 줌인 검색 -->
+            <div class="search-icon-item">
+                <h3>2. Zoom</h3>
+                <input type="checkbox" id="search-2" class="search-icon-checkbox">
+                <label for="search-2" class="search-icon zoom"></label>
+            </div>
+            
+            <!-- 3. 회전 검색 -->
+            <div class="search-icon-item">
+                <h3>3. Rotate</h3>
+                <input type="checkbox" id="search-3" class="search-icon-checkbox">
+                <label for="search-3" class="search-icon rotate"></label>
+            </div>
+            
+            <!-- 4. 펄스 검색 -->
+            <div class="search-icon-item">
+                <h3>4. Pulse</h3>
+                <input type="checkbox" id="search-4" class="search-icon-checkbox">
+                <label for="search-4" class="search-icon pulse"></label>
+            </div>
+            
+            <!-- 5. 플립 검색 -->
+            <div class="search-icon-item">
+                <h3>5. Flip</h3>
+                <input type="checkbox" id="search-5" class="search-icon-checkbox">
+                <label for="search-5" class="search-icon flip"></label>
+            </div>
+            
+            <!-- 6. 바운스 검색 -->
+            <div class="search-icon-item">
+                <h3>6. Bounce</h3>
+                <input type="checkbox" id="search-6" class="search-icon-checkbox">
+                <label for="search-6" class="search-icon bounce"></label>
+            </div>
+            
+            <!-- 7. 페이드 검색 -->
+            <div class="search-icon-item">
+                <h3>7. Fade</h3>
+                <input type="checkbox" id="search-7" class="search-icon-checkbox">
+                <label for="search-7" class="search-icon fade"></label>
+            </div>
+            
+            <!-- 8. 슬라이드 검색 -->
+            <div class="search-icon-item">
+                <h3>8. Slide</h3>
+                <input type="checkbox" id="search-8" class="search-icon-checkbox">
+                <label for="search-8" class="search-icon slide"></label>
+            </div>
+            
+            <!-- 9. 스윙 검색 -->
+            <div class="search-icon-item">
+                <h3>9. Swing</h3>
+                <input type="checkbox" id="search-9" class="search-icon-checkbox">
+                <label for="search-9" class="search-icon swing"></label>
+            </div>
+            
+            <!-- 4. 펄스 검색 -->
+            <div class="search-icon-item">
+                <h3>4. Pulse</h3>
+                <input type="checkbox" id="search-4" class="search-icon-checkbox">
+                <label for="search-4" class="search-icon pulse"></label>
+            </div>
+            
+            <!-- 5. 플립 검색 -->
+            <div class="search-icon-item">
+                <h3>5. Flip</h3>
+                <input type="checkbox" id="search-5" class="search-icon-checkbox">
+                <label for="search-5" class="search-icon flip"></label>
+            </div>
+            
+            <!-- 6. 바운스 검색 -->
+            <div class="search-icon-item">
+                <h3>6. Bounce</h3>
+                <input type="checkbox" id="search-6" class="search-icon-checkbox">
+                <label for="search-6" class="search-icon bounce"></label>
+            </div>
+            
+            <!-- 7. 페이드 검색 -->
+            <div class="search-icon-item">
+                <h3>7. Fade</h3>
+                <input type="checkbox" id="search-7" class="search-icon-checkbox">
+                <label for="search-7" class="search-icon fade"></label>
+            </div>
+            
+            <!-- 8. 슬라이드 검색 -->
+            <div class="search-icon-item">
+                <h3>8. Slide</h3>
+                <input type="checkbox" id="search-8" class="search-icon-checkbox">
+                <label for="search-8" class="search-icon slide"></label>
+            </div>
+            
+            <!-- 9. 스윙 검색 -->
+            <div class="search-icon-item">
+                <h3>9. Swing</h3>
+                <input type="checkbox" id="search-9" class="search-icon-checkbox">
+                <label for="search-9" class="search-icon swing"></label>
+            </div>
+            
+            <!-- 10. 확대 검색 -->
+            <div class="search-icon-item">
+                <h3>10. Focus</h3>
+                <input type="checkbox" id="search-10" class="search-icon-checkbox">
+                <label for="search-10" class="search-icon focus"></label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 1.7. 휴지통 아이콘 애니메이션 모음 (CSS Only) -->
+    <div class="demo-section">
+        <h2>1.7. 휴지통 아이콘 애니메이션 모음 (CSS Only)</h2>
+        <p>휴지통 관련 아이콘 애니메이션 10가지</p>
+        
+        <div class="trash-icons-grid">
+            <!-- 1. 기본 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>1. Basic</h3>
+                <input type="checkbox" id="trash-1" class="trash-icon-checkbox">
+                <label for="trash-1" class="trash-icon basic"></label>
+            </div>
+            
+            <!-- 2. 삭제 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>2. Delete</h3>
+                <input type="checkbox" id="trash-2" class="trash-icon-checkbox">
+                <label for="trash-2" class="trash-icon delete"></label>
+            </div>
+            
+            <!-- 3. 가득찬 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>3. Full</h3>
+                <input type="checkbox" id="trash-3" class="trash-icon-checkbox">
+                <label for="trash-3" class="trash-icon full"></label>
+            </div>
+            
+            <!-- 4. 비우기 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>4. Empty</h3>
+                <input type="checkbox" id="trash-4" class="trash-icon-checkbox">
+                <label for="trash-4" class="trash-icon empty"></label>
+            </div>
+            
+            <!-- 5. 복원 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>5. Restore</h3>
+                <input type="checkbox" id="trash-5" class="trash-icon-checkbox">
+                <label for="trash-5" class="trash-icon restore"></label>
+            </div>
+            
+            <!-- 6. 경고 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>6. Warning</h3>
+                <input type="checkbox" id="trash-6" class="trash-icon-checkbox">
+                <label for="trash-6" class="trash-icon warning"></label>
+            </div>
+            
+            <!-- 7. 영구삭제 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>7. Destroy</h3>
+                <input type="checkbox" id="trash-7" class="trash-icon-checkbox">
+                <label for="trash-7" class="trash-icon destroy"></label>
+            </div>
+            
+            <!-- 8. 자동삭제 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>8. Auto</h3>
+                <input type="checkbox" id="trash-8" class="trash-icon-checkbox">
+                <label for="trash-8" class="trash-icon auto"></label>
+            </div>
+            
+            <!-- 9. 안전삭제 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>9. Secure</h3>
+                <input type="checkbox" id="trash-9" class="trash-icon-checkbox">
+                <label for="trash-9" class="trash-icon secure"></label>
+            </div>
+            
+            <!-- 10. 파쇄 휴지통 -->
+            <div class="trash-icon-item">
+                <h3>10. Shred</h3>
+                <input type="checkbox" id="trash-10" class="trash-icon-checkbox">
+                <label for="trash-10" class="trash-icon shred"></label>
             </div>
         </div>
     </div>
@@ -11832,16 +13513,16 @@
         </div>
     </div>
     
-    <!-- 16. 계선량AI 스타일 대화창 (CSS Only) -->
+    <!-- 16. AI 채팅 UI (CSS Only) -->
     <div class="demo-section">
-        <h2>16. AI 대화 실시간 효과 (CSS Only)</h2>
-        <p>실시간 AI 채팅 인터페이스 시뮬레이션</p>
+        <h2>16. 단순 채팅 UI (CSS Only)</h2>
+        <p>깔끔하고 단순한 채팅 인터페이스</p>
         
         <div class="gyesunryang-chat-container">
             <div class="chat-header">
                 <div class="ai-avatar"></div>
                 <div class="ai-status">
-                    <h4>계선량AI</h4>
+                    <h4>AI</h4>
                     <span class="status-indicator"></span>
                 </div>
             </div>
@@ -12023,18 +13704,11 @@
     
     <!-- 8. Modern Card Carousel -->
     <div class="demo-section">
-        <h2>8. 모던 카드 캐러셀</h2>
-        <p>부드러운 3D 변환과 스케일 효과를 가진 카드 캐러셀 (CSS Only)</p>
+        <h2>8. 단순 카드 스크롤</h2>
+        <p>깔끔한 가로 스크롤 카드 레이아웃 (CSS Only)</p>
         
-        <!-- Modern Card Carousel -->
-        <div class="card-carousel-container">
-            <input type="radio" name="card-slide" id="card-slide-1" class="card-slide-input" checked>
-            <input type="radio" name="card-slide" id="card-slide-2" class="card-slide-input">
-            <input type="radio" name="card-slide" id="card-slide-3" class="card-slide-input">
-            <input type="radio" name="card-slide" id="card-slide-4" class="card-slide-input">
-            <input type="radio" name="card-slide" id="card-slide-5" class="card-slide-input">
-            
-            <div class="card-carousel">
+        <!-- Simple Card Scroll -->
+        <div class="simple-card-scroll">
                 <!-- Card 1 -->
                 <div class="carousel-card" data-card="1">
                     <div class="card-image"></div>
