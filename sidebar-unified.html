@@ -73,7 +73,6 @@
             font-weight: 600;
             background: transparent !important;
             transform: translateY(-1px);
-            text-shadow: 0 0 8px rgba(238, 238, 238, 0.3);
         }
 
         .header-menu-item.active {
@@ -242,7 +241,6 @@
 
         .sidebar-toggle-right:hover svg path {
             fill: #32CD32;
-            filter: drop-shadow(0 0 4px rgba(50, 205, 50, 0.6));
         }
 
         .sidebar-toggle-right.active svg {
@@ -282,7 +280,6 @@
             border-left-color: #32CD32;
             color: #ffffff;
             font-weight: 500;
-            box-shadow: inset 0 0 0 1px rgba(50, 205, 50, 0.2);
         }
 
         .nav-item.active {
@@ -307,7 +304,6 @@
             background: #4a4a4a;
             border-left-color: #32CD32;
             color: #ffffff;
-            box-shadow: inset 0 0 0 1px rgba(50, 205, 50, 0.2);
         }
 
         .system-item .label {
@@ -597,34 +593,34 @@
         
         /* 모든 버튼 공통 호버 효과 */
         .btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            filter: brightness(1.1);
+            color: #ffffff;
+            border-color: #32CD32;
             font-weight: 600;
         }
 
         .btn-primary {
-            background: #32CD32;
-            color: #000000;
+            background: transparent !important;
+            color: #32CD32;
+            border: 1px solid #32CD32;
         }
 
         .btn-primary:hover {
-            background: #28a428;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 4px 16px rgba(50, 205, 50, 0.3);
+            background: transparent !important;
+            color: #ffffff;
+            border-color: #32CD32;
             font-weight: 600;
         }
 
         .btn-secondary {
-            background: #444444;
-            color: #eeeeee;
+            background: transparent !important;
+            color: #888888;
             border: 1px solid #555555;
         }
 
         .btn-secondary:hover {
-            background: #555555;
-            border-color: #666666;
+            background: transparent !important;
+            border-color: #888888;
             color: #ffffff;
-            transform: translateY(-2px) scale(1.02);
             font-weight: 600;
         }
         
@@ -641,9 +637,8 @@
         }
         
         .btn-outline:hover {
-            background: #32CD32;
-            color: #000000;
-            transform: translateY(-2px) scale(1.05);
+            border-color: #32CD32;
+            color: #32CD32;
             font-weight: 600;
         }
         
@@ -659,8 +654,6 @@
         
         .btn-ghost:hover {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px) scale(1.02);
             font-weight: 600;
         }
 
@@ -686,7 +679,7 @@
         }
 
         .circle-btn:hover {
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
         }
 
         .square-btn {
@@ -707,7 +700,7 @@
         }
 
         .square-btn:hover {
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
         }
         
         .btn-danger {
@@ -724,7 +717,6 @@
         .btn-danger:hover {
             border-color: #999999;
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.05);
             font-weight: 600;
         }
 
@@ -735,12 +727,10 @@
         
         input:hover, select:hover, textarea:hover {
             border-color: #32CD32 !important;
-            box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.2);
         }
         
         input:focus, select:focus, textarea:focus {
             border-color: #32CD32 !important;
-            box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.3);
             outline: none;
         }
         
@@ -751,8 +741,7 @@
         }
         
         [onclick]:hover, [role="button"]:hover, .clickable:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.1);
+            color: #32CD32;
         }
         
         /* UijeongBoo CSS-only 드롭다운 */
@@ -791,7 +780,6 @@
         .uij-dropdown-btn:hover {
             border-color: #32CD32;
             background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.2);
         }
         
         .uij-dropdown-btn:hover::after {
@@ -800,7 +788,7 @@
         
         .uij-dropdown-checkbox:checked + .uij-dropdown-btn {
             border-color: #32CD32;
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
         }
         
         .uij-dropdown-checkbox:checked + .uij-dropdown-btn::after {
@@ -844,7 +832,6 @@
             margin-top: 4px;
             max-height: 200px;
             overflow-y: auto;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
         
         .uij-dropdown-checkbox:checked ~ .uij-dropdown-menu {
@@ -874,7 +861,7 @@
         }
         
         .uij-dropdown-item.selected {
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
             color: #32CD32;
             font-weight: 600;
         }
@@ -922,7 +909,6 @@
         
         .uij-checkbox-label:hover::before {
             border-color: #32CD32;
-            box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.2);
         }
         
         .uij-checkbox:checked + .uij-checkbox-label::before {
@@ -934,7 +920,7 @@
             content: '✓';
             position: absolute;
             left: 5px;
-            color: #000000;
+            color: #eeeeee;
             font-weight: bold;
             font-size: 12px;
         }
@@ -986,13 +972,11 @@
         
         .uij-radio-label:hover::before {
             border-color: #32CD32;
-            box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.2);
         }
         
         .uij-radio:checked + .uij-radio-label::before {
             border-color: #32CD32;
             background: #32CD32;
-            box-shadow: inset 0 0 0 3px #333333;
         }
         
         .uij-radio:checked + .uij-radio-label {
@@ -1026,13 +1010,13 @@
         .chart-btn:hover {
             border-color: #32CD32;
             color: #eeeeee;
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
         }
         
         .chart-btn.active {
             border-color: #32CD32;
             color: #32CD32;
-            background: rgba(50, 205, 50, 0.15);
+            background: transparent;
             font-weight: 600;
         }
         
@@ -1060,7 +1044,6 @@
         .interactive-dot:hover {
             r: 6;
             stroke-width: 2;
-            filter: drop-shadow(0 0 8px rgba(50, 205, 50, 0.6));
         }
         
         .chart-stats {
@@ -1109,13 +1092,13 @@
         .tech-category-btn:hover {
             border-color: #32CD32;
             color: #eeeeee;
-            background: rgba(50, 205, 50, 0.1);
+            background: transparent;
         }
         
         .tech-category-btn.active {
             border-color: #32CD32;
             color: #32CD32;
-            background: rgba(50, 205, 50, 0.15);
+            background: transparent;
             font-weight: 600;
         }
         
@@ -1148,7 +1131,7 @@
         }
         
         .interactive-skill:hover {
-            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #32CD32;
         }
         
         .skill-details {
@@ -1172,12 +1155,10 @@
         }
         
         .interactive-bar-chart .bar:hover {
-            transform: scaleY(1.05);
-            filter: brightness(1.2);
+            border: 2px solid #32CD32;
         }
         
         .interactive-bar-chart .bar:hover .bar-value {
-            transform: translateY(-5px);
             color: #32CD32;
             font-weight: 600;
         }
@@ -1190,12 +1171,12 @@
         }
         
         .interactive-progress:hover {
-            transform: scale(1.05);
+            border: 2px solid #32CD32;
         }
         
         .interactive-progress:hover .circular-progress-text {
-            color: #32CD32;
-            transform: scale(1.1);
+            color: #ffffff;
+            font-weight: 800;
         }
         
         .progress-controls {
@@ -1256,7 +1237,8 @@
         }
         
         .accordion-header:hover {
-            background: #3a3a3a;
+            border-left: 2px solid #32CD32;
+            color: #ffffff;
         }
         
         .accordion-icon {
@@ -1294,7 +1276,9 @@
         .tabs-header {
             display: flex;
             background: #333333;
-            border-bottom: 1px solid #444444;
+            border: 1px solid #444444;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
         }
         
         .tab-button {
@@ -1305,19 +1289,34 @@
             color: #bbbbbb;
             font-size: 14px;
             transition: all 0.25s ease;
-            border-right: 1px solid #444444;
+            flex: 1;
+            text-align: center;
+            position: relative;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         
-        .tab-button:last-child {
-            border-right: none;
+        .tab-button:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            bottom: 25%;
+            width: 1px;
+            background: #444444;
+            transition: opacity 0.25s ease;
+        }
+        
+        .tab-button:hover::after,
+        .tab-button.active::after,
+        .tab-button:hover + .tab-button::after {
+            opacity: 0;
         }
         
         .tab-button:hover {
-            background: transparent !important;
-            color: #eeeeee;
+            color: #ffffff;
+            font-weight: 600;
         }
         
         .tab-button.active {
@@ -1328,6 +1327,9 @@
         
         .tabs-content {
             background: #2a2a2a;
+            border: 1px solid #444444;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
         }
         
         .tab-panel {
@@ -1361,9 +1363,14 @@
         }
         
         .dropdown-btn:hover, .dropdown-search:focus {
-            background: #3a3a3a !important;
             border-color: #32CD32;
+            color: #ffffff;
             outline: none;
+        }
+        
+        .dropdown.active .dropdown-btn {
+            border-radius: 6px 6px 0 0;
+            border-bottom-color: transparent;
         }
         
         .dropdown-arrow {
@@ -1382,8 +1389,8 @@
             right: 0;
             background: #333333;
             border: 1px solid #555555;
-            border-radius: 6px;
-            margin-top: 4px;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
             max-height: 200px;
             overflow-y: auto;
             z-index: 1000;
@@ -1414,7 +1421,8 @@
         }
         
         .dropdown-item:hover {
-            background: #444444;
+            color: #32CD32;
+            font-weight: 600;
         }
         
         .checkbox-item {
@@ -1449,8 +1457,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             margin: 0 auto;
         }
 
@@ -1458,12 +1466,12 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 110px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: #32CD32;
             font-family: 'SF Pro Display', system-ui, sans-serif;
@@ -1525,7 +1533,6 @@
         .step.active .step-number {
             background: #32CD32;
             color: #000000;
-            box-shadow: 0 0 12px rgba(50, 205, 50, 0.5);
         }
         
         .step-label {
@@ -1554,14 +1561,10 @@
         
         .card:hover {
             border-color: #555555;
-            transform: translateY(-3px);
-            background: #383838;
         }
         
         .card.interactive:hover {
             border-color: #32CD32;
-            transform: translateY(-6px);
-            box-shadow: 0 8px 24px rgba(50, 205, 50, 0.15);
         }
         
         .card-header {
@@ -1646,6 +1649,71 @@
             margin-top: 16px;
             display: flex;
             gap: 10px;
+        }
+        
+        /* 이미지 전용 카드 */
+        .card.image-only {
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+        
+        .card.image-only .card-image {
+            margin: 0;
+        }
+        
+        .card.image-only .card-image > div {
+            transition: all 0.3s ease;
+        }
+        
+        .card.image-only:hover .card-image > div {
+            border: 2px solid #32CD32;
+        }
+        
+        /* 세로형 이미지 카드 */
+        .card.image-vertical {
+            padding: 0;
+            background: transparent;
+            border: none;
+            aspect-ratio: 3/4;
+        }
+        
+        .card.image-vertical .card-image {
+            margin: 0;
+            height: 100%;
+        }
+        
+        .card.image-vertical .card-image > div {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        
+        .card.image-vertical:hover .card-image > div {
+            border: 2px solid #32CD32;
+        }
+        
+        /* 가로형 카드 */
+        .card.horizontal {
+            min-height: 140px;
+        }
+        
+        .card.horizontal .card-header {
+            padding: 0;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .card.horizontal .card-body {
+            padding: 0;
+        }
+        
+        .card.horizontal .card-footer {
+            padding: 0;
+            margin-top: 0;
+        }
+        
+        .card.horizontal:hover .card-image > div {
+            border: 2px solid #32CD32;
         }
 
         /* Status Bar */
@@ -1880,7 +1948,6 @@
         /* Chat Button Animations */
         .chat-toggle-btn:hover {
             transform: scale(1.1) translateY(-2px);
-            box-shadow: 0 4px 20px rgba(50, 205, 50, 0.4);
         }
 
         .chat-toggle-btn:active {
@@ -1917,7 +1984,6 @@
 
         .chat-toggle-btn:hover::after {
             border-top-color: #32CD32;
-            filter: drop-shadow(0 2px 8px rgba(50, 205, 50, 0.3));
         }
 
         /* Mobile menu visibility */
@@ -1997,37 +2063,51 @@
 
         .flowing-cards {
             display: flex;
-            gap: 0px;
+            gap: 16px;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
             white-space: nowrap;
             width: max-content;
+            will-change: transform;
         }
 
         .flowing-row:nth-child(1) .flowing-cards {
-            animation: flowRight 15s linear infinite;
+            animation: flowRight 25s linear infinite;
         }
 
         .flowing-row:nth-child(2) .flowing-cards {
-            animation: flowLeft 18s linear infinite;
+            animation: flowLeft 32s linear infinite;
         }
 
         .flowing-row:nth-child(3) .flowing-cards {
-            animation: flowRight 21s linear infinite;
+            animation: flowRight 28s linear infinite;
         }
 
         .flowing-row:nth-child(4) .flowing-cards {
-            animation: flowLeft 16s linear infinite;
+            animation: flowLeft 35s linear infinite;
         }
 
         .flowing-row:nth-child(5) .flowing-cards {
-            animation: flowRight 19s linear infinite;
+            animation: flowRight 30s linear infinite;
         }
 
-        /* 호버 시 자연스러운 감속 */
-        .flowing-cards-container:hover .flowing-cards {
-            animation-duration: 60s !important;
-            transition: animation-duration 2s ease-out;
+        /* 각 줄 호버 - 재생만 멈춤 */
+        .flowing-row:hover .flowing-cards {
+            animation-play-state: paused;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* 클릭 가능한 카드 */
+        .flow-card {
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #555555;
+        }
+        
+        .flow-card:hover {
+            border: 2px solid #32CD32;
+            border-color: #32CD32;
         }
 
 
@@ -2036,13 +2116,13 @@
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%);
+                transform: translateX(-33.333%);
             }
         }
 
         @keyframes flowLeft {
             0% {
-                transform: translateX(-50%);
+                transform: translateX(-33.333%);
             }
             100% {
                 transform: translateX(0);
@@ -2089,11 +2169,7 @@
         }
 
         .flow-card:hover {
-            transform: translateY(-1px) scale(1.02);
             border-color: #32CD32;
-            background: #4a4a4a;
-            box-shadow: 0 4px 16px rgba(50, 205, 50, 0.15);
-            z-index: 10;
         }
         
 
@@ -2104,9 +2180,7 @@
         }
 
         .minimal-style .flow-card:hover {
-            background: #333333;
             border-color: #32CD32;
-            box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.3);
         }
 
         .flow-card-icon {
@@ -2320,7 +2394,7 @@
             justify-content: center;
             font-size: 14px;
             font-weight: 600;
-            color: #000000;
+            color: #eeeeee;
             flex-shrink: 0;
         }
 
@@ -2378,7 +2452,6 @@
         }
 
         .minimal-style .carousel-card:hover {
-            background: #333333;
             border-color: #32CD32;
         }
 
@@ -2476,7 +2549,6 @@
 
         .chart-container:hover {
             border-color: #32CD32;
-            background: #4a4a4a;
         }
 
         .chart-container:hover .chart-title {
@@ -2532,10 +2604,7 @@
         }
 
         .bar:hover {
-            transform: scaleY(1.1) scaleX(1.05);
-            background: linear-gradient(180deg, #32CD32, #28a428) !important;
-            box-shadow: 0 -4px 12px rgba(50, 205, 50, 0.4);
-            z-index: 2;
+            border: 1px solid #32CD32;
         }
 
         .bar.animate {
@@ -2743,8 +2812,8 @@
 
         /* Circular Progress */
         .circular-progress {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             margin: 0 auto;
             position: relative;
             display: flex;
@@ -2762,6 +2831,7 @@
             fill: none;
             stroke: #555555;
             stroke-width: 8;
+            stroke-linecap: round;
         }
 
         .circular-progress-fill {
@@ -2778,17 +2848,17 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 110px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
             font-weight: 700;
             color: #32CD32;
+            pointer-events: none;
             z-index: 10;
             text-align: center;
-            pointer-events: none;
             line-height: 1;
         }
 
@@ -2812,26 +2882,20 @@
         }
 
         .metric-card:hover {
-            transform: translateY(-4px) scale(1.02);
             border-color: #32CD32;
-            background: #4a4a4a;
-            box-shadow: 0 8px 25px rgba(50, 205, 50, 0.2);
         }
 
         .metric-card:hover .metric-card-icon {
-            transform: scale(1.2) rotate(5deg);
             color: #32CD32;
-            opacity: 1;
         }
 
         .metric-card:hover .metric-card-value {
             color: #32CD32;
-            transform: scale(1.1);
+            font-weight: 600;
         }
 
         .metric-card:hover .metric-card-trend {
-            transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(50, 205, 50, 0.3);
+            color: #ffffff;
         }
 
         .metric-card-icon {
@@ -2879,10 +2943,7 @@
         }
 
         .skill-bars:hover {
-            transform: translateY(-2px);
             border-color: #32CD32;
-            background: #4a4a4a;
-            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.15);
         }
 
         .skill-item {
@@ -2893,12 +2954,11 @@
 
         .skill-item:hover .skill-label {
             color: #32CD32;
-            transform: translateX(4px);
+            font-weight: 600;
         }
 
         .skill-item:hover .skill-bar-fill {
-            background: linear-gradient(90deg, #32CD32, #28a028);
-            box-shadow: 0 0 8px rgba(50, 205, 50, 0.4);
+            border: 1px solid #32CD32;
         }
 
         .skill-item:last-child {
@@ -3631,7 +3691,7 @@
                                 <div style="text-align: center;">
                                     <div class="circular-progress" data-progress="85">
                                         <svg width="110" height="110">
-                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6"/>
+                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6" stroke-linecap="round"/>
                                             <circle cx="55" cy="55" r="45" fill="none" stroke="#32CD32" stroke-width="6" 
                                                     stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="42.4"
                                                     transform="rotate(-90 55 55)"/>
@@ -3644,7 +3704,7 @@
                                 <div style="text-align: center;">
                                     <div class="circular-progress" data-progress="92">
                                         <svg width="110" height="110">
-                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6"/>
+                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6" stroke-linecap="round"/>
                                             <circle cx="55" cy="55" r="45" fill="none" stroke="#32CD32" stroke-width="6" 
                                                     stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="22.6"
                                                     transform="rotate(-90 55 55)"/>
@@ -3657,7 +3717,7 @@
                                 <div style="text-align: center;">
                                     <div class="circular-progress" data-progress="78">
                                         <svg width="110" height="110">
-                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6"/>
+                                            <circle cx="55" cy="55" r="45" fill="none" stroke="#2a2a2a" stroke-width="6" stroke-linecap="round"/>
                                             <circle cx="55" cy="55" r="45" fill="none" stroke="#32CD32" stroke-width="6" 
                                                     stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="62.2"
                                                     transform="rotate(-90 55 55)"/>
@@ -3719,7 +3779,7 @@
                         
                         <div class="card">
                             <div class="card-image">
-                                <div style="width: 100%; height: 160px; background: linear-gradient(135deg, #32CD32 0%, #2AB82A 100%); display: flex; align-items: center; justify-content: center; color: #000; font-weight: 600; font-size: 16px;">
+                                <div style="width: 100%; height: 160px; background: #444444; display: flex; align-items: center; justify-content: center; color: #888888; font-weight: 500; font-size: 16px;">
                                     이미지 영역
                                 </div>
                             </div>
@@ -3740,13 +3800,13 @@
                             </div>
                             <div class="card-body">
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                                    <div style="text-align: center; padding: 16px; background: rgba(50, 205, 50, 0.1); border-radius: 8px;">
+                                    <div style="text-align: center; padding: 16px; background: transparent; border: 1px solid #32CD32; border-radius: 8px;">
                                         <div style="font-size: 28px; color: #32CD32; font-weight: 700; margin-bottom: 4px;">1,234</div>
-                                        <div style="font-size: 12px; color: #999999; font-weight: 500;">총 방문자</div>
+                                        <div style="font-size: 12px; color: #bbbbbb; font-weight: 500;">총 방문자</div>
                                     </div>
-                                    <div style="text-align: center; padding: 16px; background: rgba(50, 205, 50, 0.1); border-radius: 8px;">
+                                    <div style="text-align: center; padding: 16px; background: transparent; border: 1px solid #32CD32; border-radius: 8px;">
                                         <div style="font-size: 28px; color: #32CD32; font-weight: 700; margin-bottom: 4px;">87%</div>
-                                        <div style="font-size: 12px; color: #999999; font-weight: 500;">성공률</div>
+                                        <div style="font-size: 12px; color: #bbbbbb; font-weight: 500;">성공률</div>
                                     </div>
                                 </div>
                             </div>
@@ -3760,7 +3820,7 @@
                                 <div class="card-list">
                                     <div class="card-list-item">
                                         <span>프로젝트 A</span>
-                                        <span style="color: #32CD32; background: rgba(50, 205, 50, 0.15);">완료</span>
+                                        <span style="color: #32CD32; background: transparent;">완료</span>
                                     </div>
                                     <div class="card-list-item">
                                         <span>프로젝트 B</span>
@@ -3791,6 +3851,51 @@
                             <div class="card-body">
                                 <h4 style="margin-bottom: 12px; color: #eeeeee;">컴팩트 카드</h4>
                                 <p style="margin-bottom: 0; font-size: 14px;">최소한의 공간을 사용하는 간단한 카드입니다.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 이미지 전용 카드 -->
+                        <div class="card image-only">
+                            <div class="card-image">
+                                <div style="width: 100%; height: 200px; background: #444444; display: flex; align-items: center; justify-content: center; color: #32CD32; font-weight: 600; font-size: 18px; border-radius: 8px;">
+                                    IMAGE ONLY
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 세로형 이미지 카드 -->
+                        <div class="card image-vertical">
+                            <div class="card-image">
+                                <div style="width: 100%; height: 280px; background: #444444; display: flex; align-items: center; justify-content: center; color: #32CD32; font-weight: 600; font-size: 16px; border-radius: 8px; position: relative;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 20px; margin-bottom: 8px;">VERTICAL</div>
+                                        <div style="font-size: 14px; opacity: 0.8;">IMAGE</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 가로형 카드 -->
+                        <div class="card horizontal" style="grid-column: 1 / -1;">
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <div class="card-image" style="flex-shrink: 0;">
+                                    <div style="width: 120px; height: 120px; background: #444444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #32CD32; font-weight: 600; font-size: 14px;">
+                                        THUMB
+                                    </div>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div class="card-header" style="margin-bottom: 12px; gap: 16px;">
+                                        <h4 style="margin: 0;">가로형 카드</h4>
+                                        <span class="card-badge">HOT</span>
+                                    </div>
+                                    <div class="card-body" style="margin-bottom: 16px;">
+                                        <p style="margin: 0; color: #bbbbbb; line-height: 1.5;">이미지와 콘텐츠가 가로로 배치된 카드입니다. 긴 설명이나 상세 정보를 표시하기에 적합합니다.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">자세히 보기</button>
+                                        <button class="btn btn-secondary">공유</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3894,7 +3999,7 @@
                                 <div class="bar-label">Jun</div>
                             </div>
                         </div>
-                        <div class="chart-details" id="barDetails" style="margin-top: 12px; padding: 8px; background: rgba(50, 205, 50, 0.1); border-radius: 6px; display: none;">
+                        <div class="chart-details" id="barDetails" style="margin-top: 12px; padding: 8px; background: transparent; border-radius: 6px; display: none;">
                             <div class="detail-title" style="color: #32CD32; font-weight: 600; font-size: 14px;"></div>
                             <div class="detail-value" style="color: #eeeeee; font-size: 12px; margin-top: 4px;"></div>
                         </div>
@@ -3909,9 +4014,9 @@
                             <button class="chart-btn" onclick="setProgressType('goals', this)">Goals</button>
                         </div>
                         <div class="circular-progress interactive-progress" data-percentage="87" onclick="animateProgress()">
-                            <svg>
-                                <circle class="circular-progress-bg" cx="60" cy="60" r="45"></circle>
-                                <circle class="circular-progress-fill" cx="60" cy="60" r="45" id="progressFill"></circle>
+                            <svg width="110" height="110">
+                                <circle class="circular-progress-bg" cx="55" cy="55" r="45"></circle>
+                                <circle class="circular-progress-fill" cx="55" cy="55" r="45" id="progressFill"></circle>
                             </svg>
                             <div class="circular-progress-text" id="progressText">87%</div>
                         </div>
@@ -4123,16 +4228,16 @@
             <div class="demo-section">
                 <h3>Feedback Elements</h3>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <div style="padding: 12px; background: rgba(50, 205, 50, 0.2); border: 1px solid #32CD32; border-radius: 6px; color: #eeeeee;">
+                    <div style="padding: 12px; background: transparent; border: 1px solid #32CD32; border-radius: 6px; color: #32CD32;">
                         성공: 작업이 성공적으로 완료되었습니다.
                     </div>
-                    <div style="padding: 12px; background: transparent; border: 1px solid #666666; border-radius: 6px; color: #eeeeee;">
+                    <div style="padding: 12px; background: transparent; border: 1px solid #888888; border-radius: 6px; color: #bbbbbb;">
                         경고: 확인이 필요한 사항이 있습니다.
                     </div>
-                    <div style="padding: 12px; background: transparent; border: 1px solid #666666; border-radius: 6px; color: #eeeeee;">
+                    <div style="padding: 12px; background: transparent; border: 1px solid #888888; border-radius: 6px; color: #bbbbbb;">
                         오류: 문제가 발생했습니다.
                     </div>
-                    <div style="padding: 12px; background: transparent; border: 1px solid #666666; border-radius: 6px; color: #eeeeee;">
+                    <div style="padding: 12px; background: transparent; border: 1px solid #888888; border-radius: 6px; color: #bbbbbb;">
                         정보: 참고할 정보입니다.
                     </div>
                 </div>
@@ -5164,6 +5269,8 @@
         }
 
         function showPage(pageId) {
+            console.log('showPage 호출됨:', pageId);
+            
             // Hide all pages
             document.querySelectorAll('.page-content').forEach(page => {
                 page.classList.add('hidden');
@@ -5171,8 +5278,13 @@
             
             // Show selected page
             const targetPage = document.getElementById(pageId + '-page');
+            console.log('타겟 페이지:', targetPage);
+            
             if (targetPage) {
                 targetPage.classList.remove('hidden');
+                console.log('페이지 표시됨:', pageId);
+            } else {
+                console.error('페이지를 찾을 수 없음:', pageId + '-page');
             }
             
             // Update sidebar active states
@@ -5396,11 +5508,11 @@
                 { icon: 'Git', title: 'Version', subtitle: 'Control' }
             ];
 
-            // Calculate needed cards - enough to fill screen + extra for seamless loop
+            // Calculate needed cards - 무한 순환을 위한 충분한 카드 생성
             const cardWidth = 180 + 16; // card width + gap
             const screenWidth = window.innerWidth;
             const visibleCards = Math.ceil(screenWidth / cardWidth);
-            const totalCards = Math.max(visibleCards * 8, 150); // 최소 8배 또는 150개로 완전한 커버리지 확보
+            const totalCards = Math.max(visibleCards * 12, 200); // 최소 12배 또는 200개로 완전한 커버리지 확보
             
             // Generate cards for each row
             for (let row = 1; row <= 5; row++) {
@@ -5408,34 +5520,25 @@
                 console.log(`Row ${row} container:`, container);
                 if (container) {
                     let html = '';
-                    // 첫 번째 세트
-                    for (let i = 0; i < totalCards; i++) {
-                        const card = cardData[i % cardData.length];
-                        html += `
-                            <div class="flow-card">
-                                <div class="flow-card-icon">${card.icon}</div>
-                                <div class="flow-card-content">
-                                    <div class="flow-card-title">${card.title}</div>
-                                    <div class="flow-card-subtitle">${card.subtitle}</div>
+                    
+                    // 3개 세트로 완전한 무한 순환 생성 (빈 공간 완전 제거)
+                    for (let set = 0; set < 3; set++) {
+                        for (let i = 0; i < totalCards; i++) {
+                            const card = cardData[i % cardData.length];
+                            html += `
+                                <div class="flow-card">
+                                    <div class="flow-card-icon">${card.icon}</div>
+                                    <div class="flow-card-content">
+                                        <div class="flow-card-title">${card.title}</div>
+                                        <div class="flow-card-subtitle">${card.subtitle}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
+                        }
                     }
-                    // 두 번째 세트 (끊임없는 루프를 위해)
-                    for (let i = 0; i < totalCards; i++) {
-                        const card = cardData[i % cardData.length];
-                        html += `
-                            <div class="flow-card">
-                                <div class="flow-card-icon">${card.icon}</div>
-                                <div class="flow-card-content">
-                                    <div class="flow-card-title">${card.title}</div>
-                                    <div class="flow-card-subtitle">${card.subtitle}</div>
-                                </div>
-                            </div>
-                        `;
-                    }
+                    
                     container.innerHTML = html;
-                    console.log(`Row ${row}에 ${totalCards * 2}개 카드 생성됨 (실제 카드 ${totalCards}개 × 2세트) - 화면 너비: ${screenWidth}px, 필요 카드: ${visibleCards}개`);
+                    console.log(`Row ${row}에 ${totalCards * 3}개 카드 생성됨 (${totalCards}개 × 3세트) - 무한 순환 보장`);
                 } else {
                     console.error(`Row ${row} container not found!`);
                 }
@@ -5670,45 +5773,10 @@
             initCounterAnimations();
             generateFlowingCards();
             
-            // Flowing Cards 점진적 속도 제어 시작
-            setTimeout(() => {
-                if (flowingCardsController) {
-                    flowingCardsController.destroy();
-                }
-                flowingCardsController = new FlowingCardsController();
-                console.log('✅ Flowing Cards 점진적 속도 제어 활성화됨');
+            console.log('✅ Flowing Cards 기본 애니메이션 설정 완료');
+            
+            console.log('✅ Flowing Cards 완전 정지 호버 시스템 활성화됨');
 
-        // 자연스러운 호버 효과 구현
-        document.querySelectorAll('.flowing-cards').forEach((element, index) => {
-            let isHovered = false;
-            let animationSpeed = 1;
-            let targetSpeed = 1;
-            
-            element.addEventListener('mouseenter', () => {
-                isHovered = true;
-                targetSpeed = 0.1; // 거의 정지
-                smoothTransition();
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                isHovered = false;
-                targetSpeed = 1; // 원래 속도
-                smoothTransition();
-            });
-            
-            function smoothTransition() {
-                const step = () => {
-                    const diff = targetSpeed - animationSpeed;
-                    if (Math.abs(diff) > 0.01) {
-                        animationSpeed += diff * 0.05; // 부드러운 전환
-                        element.style.animationDuration = `${(12 + index * 3) / animationSpeed}s`;
-                        requestAnimationFrame(step);
-                    }
-                };
-                step();
-            }
-        });
-            }, 1500); // 카드 생성 후 1.5초 뒤에 시작 (안정화 시간 확보)
             
             // Update status bar every 5 seconds
             setInterval(updateStatusBar, 5000);
@@ -5901,7 +5969,7 @@
             document.querySelectorAll('.chart-line-point').forEach(point => {
                 point.addEventListener('mouseenter', function() {
                     this.style.r = '6';
-                    this.style.filter = 'drop-shadow(0 0 8px rgba(50, 205, 50, 0.8))';
+                    this.style.filter = '';
                     
                     // Show tooltip with detailed data
                     const tooltip = document.createElement('div');
@@ -5916,7 +5984,6 @@
                         border: 1px solid #32CD32;
                         pointer-events: none;
                         z-index: 1000;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                     `;
                     
                     const rect = this.getBoundingClientRect();
@@ -5984,7 +6051,7 @@
             // Enhanced Progress Circles
             document.querySelectorAll('.progress-circle').forEach(circle => {
                 circle.addEventListener('mouseenter', function() {
-                    this.style.filter = 'drop-shadow(0 0 16px rgba(50, 205, 50, 0.5))';
+                    this.style.filter = '';
                     this.style.transform = 'scale(1.1)';
                 });
                 
@@ -6028,8 +6095,8 @@
                 .performance-details {
                     margin-top: 16px;
                     padding: 16px;
-                    background: rgba(50, 205, 50, 0.05);
-                    border: 1px solid rgba(50, 205, 50, 0.2);
+                    background: transparent;
+                    border: 1px solid #32CD32;
                     border-radius: 8px;
                     display: none;
                 }
@@ -6148,56 +6215,20 @@
                 }
             }
         });
-        // 자연스러운 호버 효과 구현
-        function initFlowingCardsHover() {
-            document.querySelectorAll('.flowing-row').forEach((row, rowIndex) => {
-                const flowingCards = row.querySelector('.flowing-cards');
-                if (!flowingCards) return;
-                
-                let currentScale = 1;
-                let targetScale = 1;
-                let isTransitioning = false;
-                
-                const baseSpeed = [12, 15, 18, 10, 14][rowIndex] || 12;
-                
-                row.addEventListener('mouseenter', () => {
-                    targetScale = 0.1; // 거의 정지
-                    startTransition();
+        // Flowing Cards - 간단한 클릭 이벤트
+        function setupFlowingCardsClicks() {
+            document.querySelectorAll('.flow-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.flow-card-title')?.textContent || 'Unknown';
+                    showNotification(`${title} 카드가 선택되었습니다!`, 'info');
                 });
-                
-                row.addEventListener('mouseleave', () => {
-                    targetScale = 1; // 원래 속도
-                    startTransition();
-                });
-                
-                function startTransition() {
-                    if (isTransitioning) return;
-                    isTransitioning = true;
-                    
-                    function animate() {
-                        const diff = targetScale - currentScale;
-                        if (Math.abs(diff) > 0.005) {
-                            currentScale += diff * 0.08; // 부드러운 전환
-                            const newDuration = baseSpeed / currentScale;
-                            flowingCards.style.animationDuration = newDuration + 's';
-                            requestAnimationFrame(animate);
-                        } else {
-                            currentScale = targetScale;
-                            flowingCards.style.animationDuration = (baseSpeed / currentScale) + 's';
-                            isTransitioning = false;
-                        }
-                    }
-                    animate();
-                }
             });
         }
         
         // 페이지 로드 시 초기화
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initFlowingCardsHover);
-        } else {
-            initFlowingCardsHover();
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(setupFlowingCardsClicks, 100);
+        });
 
         // 실시간 디자인 규칙 감지 시스템 활성화
         function activateDesignRulesEnforcer() {
