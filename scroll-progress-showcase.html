@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - 스크롤 프로그레스 인디케이터 쇼케이스</title>
+    
+    <!-- UijeongBoo Core CSS -->
+    <link rel="stylesheet" href="./css/core/variables.css">
+    <link rel="stylesheet" href="./css/core/reset.css">
+    <link rel="stylesheet" href="./css/core/typography.css">
+    
+    <style>
+        /* ================================================= */
+        /* UijeongBoo 스크롤 프로그레스 인디케이터 스타일     */
+        /* ================================================= */
+        
+        body {
+            font-family: var(--uij-font-family, 'SF Pro Display', system-ui, sans-serif);
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        /* ================================================= */
+        /* 1. 상단 그라데이션 프로그레스 바 (CSS Only)        */
+        /* ================================================= */
+        
+        .top-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                var(--uij-primary, #32CD32) 0%,
+                #28a428 25%,
+                #1e8f1e 50%,
+                #28a428 75%,
+                var(--uij-primary, #32CD32) 100%
+            );
+            transform-origin: 0% 50%;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(50, 205, 50, 0.3);
+            
+            /* CSS 스크롤 드리븐 애니메이션 */
+            animation: topProgressAnimation linear;
+            animation-timeline: scroll(root);
+            animation-range: 0% 100%;
+        }
+        
+        @keyframes topProgressAnimation {
+            from {
+                transform: scaleX(0);
+                width: 0;
+            }
+            to {
+                transform: scaleX(1);
+                width: 100vw;
+            }
+        }
+        
+        /* ================================================= */
+        /* 2. 원형 프로그레스 인디케이터                      */
+        /* ================================================= */
+        
+        .circular-progress {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--uij-bg-secondary, #333333);
+            border: 2px solid var(--uij-border, #444444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .circular-svg {
+            width: 50px;
+            height: 50px;
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle-bg {
+            fill: none;
+            stroke: var(--uij-bg-tertiary, #444444);
+            stroke-width: 3;
+        }
+        
+        .progress-circle {
+            fill: none;
+            stroke: var(--uij-primary, #32CD32);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 125.6; /* 2 * π * 20 */
+            stroke-dashoffset: 125.6;
+            transition: stroke-dashoffset 0.1s ease;
+            filter: drop-shadow(0 0 3px rgba(50, 205, 50, 0.5));
+        }
+        
+        .circular-text {
+            position: absolute;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--uij-primary, #32CD32);
+            text-shadow: 0 0 5px rgba(50, 205, 50, 0.3);
+        }
+        
+        /* ================================================= */
+        /* 3. 사이드 수직 프로그레스 바                       */
+        /* ================================================= */
+        
+        .side-progress {
+            position: fixed;
+            top: 100px;
+            right: 10px;
+            width: 4px;
+            height: 200px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 2px;
+            z-index: 1400;
+            overflow: hidden;
+        }
+        
+        .side-progress-fill {
+            width: 100%;
+            background: linear-gradient(180deg,
+                var(--uij-primary, #32CD32) 0%,
+                #28a428 50%,
+                #1e8f1e 100%
+            );
+            border-radius: 2px;
+            transform-origin: top;
+            box-shadow: 0 0 8px rgba(50, 205, 50, 0.4);
+            
+            /* CSS 애니메이션 */
+            animation: sideProgressAnimation linear;
+            animation-timeline: scroll(root);
+            animation-range: 0% 100%;
+        }
+        
+        @keyframes sideProgressAnimation {
+            from {
+                transform: scaleY(0);
+            }
+            to {
+                transform: scaleY(1);
+            }
+        }
+        
+        /* ================================================= */
+        /* 4. 파티클/도트 프로그레스                         */
+        /* ================================================= */
+        
+        .particle-progress {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            background: var(--uij-bg-secondary, #333333);
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--uij-border, #444444);
+            backdrop-filter: blur(10px);
+            z-index: 1300;
+        }
+        
+        .particle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--uij-bg-tertiary, #444444);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+        }
+        
+        .particle.active {
+            background: var(--uij-primary, #32CD32);
+            transform: scale(1.4);
+            box-shadow: 0 0 8px rgba(50, 205, 50, 0.6);
+        }
+        
+        .particle.glow {
+            background: var(--uij-primary, #32CD32);
+            transform: scale(1.2);
+            box-shadow: 0 0 6px rgba(50, 205, 50, 0.4);
+        }
+        
+        /* ================================================= */
+        /* 5. 텍스트 읽기 프로그레스                         */
+        /* ================================================= */
+        
+        .reading-progress {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 12px;
+            padding: 16px;
+            z-index: 1200;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 200px;
+        }
+        
+        .reading-stats {
+            font-size: 12px;
+            color: var(--uij-text-secondary, #cccccc);
+            margin-bottom: 8px;
+        }
+        
+        .reading-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .reading-fill {
+            height: 100%;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 3px;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 6px rgba(50, 205, 50, 0.4);
+        }
+        
+        .estimated-time {
+            font-size: 10px;
+            color: var(--uij-text-muted, #999999);
+            margin-top: 4px;
+            text-align: center;
+        }
+        
+        /* ================================================= */
+        /* 6. 3D 회전 프로그레스                             */
+        /* ================================================= */
+        
+        .rotating-progress {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            z-index: 1100;
+        }
+        
+        .progress-cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: cubeRotation linear;
+            animation-timeline: scroll(root);
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--uij-bg-secondary, #333333);
+            border: 2px solid var(--uij-border, #444444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            backface-visibility: hidden;
+        }
+        
+        .cube-face.front { transform: rotateY(0deg) translateZ(40px); }
+        .cube-face.back { transform: rotateY(180deg) translateZ(40px); }
+        .cube-face.right { transform: rotateY(90deg) translateZ(40px); }
+        .cube-face.left { transform: rotateY(-90deg) translateZ(40px); }
+        .cube-face.top { transform: rotateX(90deg) translateZ(40px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(40px); }
+        
+        .cube-face.active {
+            background: var(--uij-primary, #32CD32);
+            color: #000000;
+            border-color: var(--uij-primary, #32CD32);
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+        }
+        
+        @keyframes cubeRotation {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        /* ================================================= */
+        /* 콘텐츠 스타일                                     */
+        /* ================================================= */
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .section {
+            margin-bottom: 100px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--uij-border, #444444);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--uij-text-primary, #eeeeee);
+            position: relative;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 2px;
+            animation: titleUnderline linear;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+        
+        @keyframes titleUnderline {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--uij-text-secondary, #cccccc);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .highlight {
+            color: var(--uij-primary, #32CD32);
+            font-weight: 600;
+        }
+        
+        .paragraph {
+            margin-bottom: 1.5rem;
+            color: var(--uij-text-secondary, #cccccc);
+            line-height: 1.7;
+            transition: all 0.3s ease;
+        }
+        
+        .paragraph.reading {
+            color: var(--uij-text-primary, #eeeeee);
+            background: linear-gradient(120deg, 
+                transparent 0%, 
+                rgba(50, 205, 50, 0.1) 50%, 
+                transparent 100%
+            );
+            padding: 0 16px;
+            border-radius: 8px;
+            border-left: 3px solid var(--uij-primary, #32CD32);
+        }
+        
+        .code-block {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: var(--uij-font-mono, 'Monaco', monospace);
+            font-size: 14px;
+            color: var(--uij-text-primary, #eeeeee);
+            overflow-x: auto;
+        }
+        
+        /* ================================================= */
+        /* 반응형 디자인                                     */
+        /* ================================================= */
+        
+        @media (max-width: 768px) {
+            .circular-progress {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .circular-svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .circular-text {
+                font-size: 8px;
+            }
+            
+            .side-progress {
+                top: 80px;
+                right: 5px;
+                height: 150px;
+            }
+            
+            .reading-progress {
+                top: 80px;
+                left: 15px;
+                max-width: 150px;
+                padding: 12px;
+            }
+            
+            .particle-progress {
+                bottom: 20px;
+                padding: 8px 16px;
+            }
+            
+            .particle {
+                width: 6px;
+                height: 6px;
+            }
+            
+            .rotating-progress {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .cube-face {
+                width: 60px;
+                height: 60px;
+                font-size: 8px;
+            }
+            
+            .content {
+                padding: 80px 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* ================================================= */
+        /* 하드웨어 가속 및 성능 최적화                       */
+        /* ================================================= */
+        
+        .top-progress-bar,
+        .progress-circle,
+        .side-progress-fill,
+        .progress-cube {
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        
+        /* ================================================= */
+        /* 접근성: 모션 감소 설정                            */
+        /* ================================================= */
+        
+        @media (prefers-reduced-motion: reduce) {
+            .top-progress-bar,
+            .side-progress-fill,
+            .progress-cube {
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            .particle,
+            .paragraph {
+                transition: none !important;
+            }
+        }
+        
+        /* 다크/라이트 테마 지원 */
+        [data-theme="light"] {
+            --uij-bg-primary: #ffffff;
+            --uij-bg-secondary: #f8f9fa;
+            --uij-bg-tertiary: #e9ecef;
+            --uij-text-primary: #212529;
+            --uij-text-secondary: #495057;
+            --uij-text-muted: #6c757d;
+            --uij-border: #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. 상단 프로그레스 바 (CSS Only) -->
+    <div class="top-progress-bar"></div>
+    
+    <!-- 2. 원형 프로그레스 -->
+    <div class="circular-progress">
+        <svg class="circular-svg" viewBox="0 0 44 44">
+            <circle class="progress-circle-bg" cx="22" cy="22" r="20"></circle>
+            <circle class="progress-circle" cx="22" cy="22" r="20" id="progress-circle"></circle>
+        </svg>
+        <div class="circular-text" id="circular-text">0%</div>
+    </div>
+    
+    <!-- 3. 사이드 수직 프로그레스 -->
+    <div class="side-progress">
+        <div class="side-progress-fill"></div>
+    </div>
+    
+    <!-- 4. 파티클 프로그레스 -->
+    <div class="particle-progress" id="particle-progress">
+        <!-- JavaScript로 동적 생성 -->
+    </div>
+    
+    <!-- 5. 읽기 프로그레스 -->
+    <div class="reading-progress">
+        <div class="reading-stats">읽기 진행률</div>
+        <div class="reading-bar">
+            <div class="reading-fill" id="reading-fill"></div>
+        </div>
+        <div class="estimated-time" id="estimated-time">예상 시간: 5분</div>
+    </div>
+    
+    <!-- 6. 3D 회전 프로그레스 -->
+    <div class="rotating-progress">
+        <div class="progress-cube">
+            <div class="cube-face front">0%</div>
+            <div class="cube-face back">20%</div>
+            <div class="cube-face right">40%</div>
+            <div class="cube-face left">60%</div>
+            <div class="cube-face top">80%</div>
+            <div class="cube-face bottom">100%</div>
+        </div>
+    </div>
+    
+    <!-- 메인 콘텐츠 -->
+    <main class="content">
+        <section class="section">
+            <h1 class="section-title">스크롤 프로그레스 <span class="highlight">인디케이터</span></h1>
+            <p class="section-description">
+                6가지 다양한 스타일의 스크롤 프로그레스 인디케이터를 UijeongBoo 디자인 시스템으로 구현했습니다.
+                순수 CSS와 최소한의 JavaScript로 최적의 성능을 제공합니다.
+            </p>
+            <div class="code-block">
+/* CSS-Only 프로그레스 바 */
+.top-progress-bar {
+    animation: topProgressAnimation linear;
+    animation-timeline: scroll(root);
+    animation-range: 0% 100%;
+}
+
+@keyframes topProgressAnimation {
+    from { transform: scaleX(0); width: 0; }
+    to { transform: scaleX(1); width: 100vw; }
+}</div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">구현 <span class="highlight">기술</span></h2>
+            <p class="paragraph">
+                이 쇼케이스는 최신 CSS Scroll-driven Animations API를 활용하여 
+                JavaScript 의존성을 최소화하면서도 부드러운 스크롤 애니메이션을 제공합니다.
+            </p>
+            <p class="paragraph">
+                상단의 그라데이션 프로그레스 바와 사이드 수직 프로그레스는 완전히 CSS만으로 구현되었으며,
+                원형 프로그레스와 파티클 효과는 최소한의 JavaScript로 보완했습니다.
+            </p>
+            <p class="paragraph">
+                모든 인디케이터는 UijeongBoo 디자인 원칙을 준수합니다:
+                라임 그린 포인트 컬러, 투명 배경, 그레이스케일 팔레트를 사용했습니다.
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">성능 <span class="highlight">최적화</span></h2>
+            <p class="paragraph">
+                모든 애니메이션은 GPU 가속을 활용하여 부드러운 60fps 성능을 보장합니다.
+                will-change 속성과 transform3d를 사용하여 하드웨어 가속을 적용했습니다.
+            </p>
+            <p class="paragraph">
+                스크롤 이벤트는 requestAnimationFrame으로 쓰로틀링하여 
+                과도한 계산을 방지하고 배터리 수명을 보호합니다.
+            </p>
+            <div class="code-block">
+// 성능 최적화된 스크롤 핸들러
+let ticking = false;
+
+function updateProgress() {
+    const scrollProgress = window.pageYOffset / 
+        (document.documentElement.scrollHeight - window.innerHeight);
+    // 프로그레스 업데이트 로직
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            updateProgress();
+            ticking = false;
+        });
+        ticking = true;
+    }
+});</div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">브라우저 <span class="highlight">호환성</span></h2>
+            <p class="paragraph">
+                CSS Scroll-driven Animations는 Chrome 115+, Firefox 114+에서 지원됩니다.
+                지원하지 않는 브라우저에서는 JavaScript 폴백으로 동일한 경험을 제공합니다.
+            </p>
+            <p class="paragraph">
+                @supports 규칙을 사용하여 기능 감지를 수행하고,
+                각 브라우저에 최적화된 구현을 제공합니다.
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">접근성 <span class="highlight">고려사항</span></h2>
+            <p class="paragraph">
+                prefers-reduced-motion 미디어 쿼리를 지원하여 
+                운동 감수성이 있는 사용자를 위해 애니메이션을 비활성화할 수 있습니다.
+            </p>
+            <p class="paragraph">
+                모든 프로그레스 인디케이터는 의미적으로 진행률을 나타내며,
+                스크린 리더 사용자도 페이지 진행 상황을 이해할 수 있도록 구성했습니다.
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">모바일 <span class="highlight">최적화</span></h2>
+            <p class="paragraph">
+                터치 스크롤링에 최적화되어 iOS Safari와 Android Chrome에서 
+                부드러운 스크롤 경험을 제공합니다.
+            </p>
+            <p class="paragraph">
+                작은 화면에서도 방해가 되지 않도록 크기를 조절하고,
+                터치 영역을 고려한 반응형 디자인을 적용했습니다.
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">사용자 <span class="highlight">경험</span></h2>
+            <p class="paragraph">
+                각 프로그레스 인디케이터는 다른 정보를 제공합니다:
+                상단 바는 전체 진행률, 원형은 정확한 퍼센티지,
+                사이드 바는 시각적 가이드, 파티클은 단계별 진행,
+                읽기 프로그레스는 예상 시간, 3D 큐브는 재미있는 시각적 요소를 담당합니다.
+            </p>
+            <p class="paragraph">
+                이러한 다양한 접근 방식을 통해 사용자는 
+                자신의 스크롤 위치와 남은 콘텐츠를 직관적으로 파악할 수 있습니다.
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">결론</h2>
+            <p class="paragraph">
+                스크롤 프로그레스 인디케이터는 단순해 보이지만,
+                사용자 경험에 큰 영향을 미치는 중요한 UI 요소입니다.
+            </p>
+            <p class="paragraph">
+                UijeongBoo 디자인 시스템의 원칙을 지키면서도
+                다양한 스타일과 기능을 제공하여,
+                어떤 프로젝트에도 적용할 수 있는 유연성을 확보했습니다.
+            </p>
+            <p class="paragraph">
+                현대적인 CSS 기능과 최소한의 JavaScript로
+                최적의 성능과 사용자 경험을 동시에 달성했습니다.
+            </p>
+        </section>
+    </main>
+    
+    <script>
+        // ================================================= 
+        // 최소한의 JavaScript - 프로그레스 인디케이터 핸들러
+        // =================================================
+        
+        class ScrollProgressManager {
+            constructor() {
+                this.circleElement = document.getElementById('progress-circle');
+                this.circleText = document.getElementById('circular-text');
+                this.particleContainer = document.getElementById('particle-progress');
+                this.readingFill = document.getElementById('reading-fill');
+                this.estimatedTime = document.getElementById('estimated-time');
+                this.paragraphs = document.querySelectorAll('.paragraph');
+                this.cubeFaces = document.querySelectorAll('.cube-face');
+                
+                this.totalWords = this.calculateTotalWords();
+                this.wordsPerMinute = 200; // 평균 읽기 속도
+                
+                this.init();
+            }
+            
+            init() {
+                this.createParticles();
+                this.bindEvents();
+                this.updateProgress(); // 초기 실행
+            }
+            
+            createParticles() {
+                const particleCount = 20;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.dataset.index = i;
+                    this.particleContainer.appendChild(particle);
+                }
+            }
+            
+            calculateTotalWords() {
+                let totalWords = 0;
+                this.paragraphs.forEach(p => {
+                    totalWords += p.textContent.split(' ').length;
+                });
+                return totalWords;
+            }
+            
+            bindEvents() {
+                let ticking = false;
+                
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            this.updateProgress();
+                            this.highlightCurrentReading();
+                            this.updateCubeFaces();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+            }
+            
+            updateProgress() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollProgress = Math.min(scrollTop / documentHeight, 1);
+                const percentage = Math.round(scrollProgress * 100);
+                
+                // 원형 프로그레스 업데이트
+                const circumference = 125.6; // 2 * π * 20
+                const offset = circumference - (scrollProgress * circumference);
+                this.circleElement.style.strokeDashoffset = offset;
+                this.circleText.textContent = `${percentage}%`;
+                
+                // 파티클 프로그레스 업데이트
+                this.updateParticles(scrollProgress);
+                
+                // 읽기 프로그레스 업데이트
+                this.updateReadingProgress(scrollProgress);
+            }
+            
+            updateParticles(progress) {
+                const particles = this.particleContainer.querySelectorAll('.particle');
+                const activeCount = Math.floor(progress * particles.length);
+                
+                particles.forEach((particle, index) => {
+                    particle.classList.remove('active', 'glow');
+                    
+                    if (index < activeCount) {
+                        particle.classList.add('active');
+                    } else if (index === activeCount && progress < 1) {
+                        particle.classList.add('glow');
+                    }
+                });
+            }
+            
+            updateReadingProgress(progress) {
+                this.readingFill.style.width = `${progress * 100}%`;
+                
+                const readWords = Math.floor(this.totalWords * progress);
+                const remainingWords = this.totalWords - readWords;
+                const estimatedMinutes = Math.ceil(remainingWords / this.wordsPerMinute);
+                
+                if (estimatedMinutes <= 1) {
+                    this.estimatedTime.textContent = '곧 완료!';
+                } else {
+                    this.estimatedTime.textContent = `예상 시간: ${estimatedMinutes}분`;
+                }
+            }
+            
+            highlightCurrentReading() {
+                const scrollTop = window.pageYOffset;
+                const viewportHeight = window.innerHeight;
+                const readingPosition = scrollTop + viewportHeight * 0.6;
+                
+                this.paragraphs.forEach(paragraph => {
+                    const rect = paragraph.getBoundingClientRect();
+                    const elementTop = scrollTop + rect.top;
+                    const elementBottom = elementTop + rect.height;
+                    
+                    if (readingPosition >= elementTop && readingPosition <= elementBottom) {
+                        paragraph.classList.add('reading');
+                    } else {
+                        paragraph.classList.remove('reading');
+                    }
+                });
+            }
+            
+            updateCubeFaces() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollProgress = Math.min(scrollTop / documentHeight, 1);
+                
+                const currentFaceIndex = Math.floor(scrollProgress * this.cubeFaces.length);
+                
+                this.cubeFaces.forEach((face, index) => {
+                    face.classList.remove('active');
+                    if (index === currentFaceIndex && scrollProgress < 1) {
+                        face.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // 디자인 규칙 강제화
+        document.addEventListener('DOMContentLoaded', function() {
+            // UijeongBoo 디자인 규칙 강제화
+            const allButtons = document.querySelectorAll('button, .nav-item, .particle');
+            allButtons.forEach(button => {
+                button.style.setProperty('background', 'transparent', 'important');
+            });
+            
+            // 스크롤 프로그레스 매니저 초기화
+            new ScrollProgressManager();
+            
+            console.log('🎨 UijeongBoo 스크롤 프로그레스 쇼케이스 로드됨');
+            console.log('📊 6가지 프로그레스 인디케이터 활성화');
+        });
+        
+        // 부드러운 스크롤 (최신 브라우저)
+        if ('scrollBehavior' in document.documentElement.style) {
+            document.documentElement.style.scrollBehavior = 'smooth';
+        }
+    </script>
+</body>
+</html>

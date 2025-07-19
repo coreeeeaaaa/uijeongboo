@@ -1,0 +1,455 @@
+<!-- UijeongBoo Sidebar Component -->
+<!-- Version: 1.0 -->
+<!-- Usage: Include this file and customize navigation items -->
+
+<aside class="uij-sidebar" data-uij-component="sidebar">
+    <!-- Sidebar Header -->
+    <div class="uij-sidebar-header">
+        <h2 class="uij-sidebar-title">Navigation</h2>
+    </div>
+    
+    <!-- Sidebar Content -->
+    <div class="uij-sidebar-content">
+        <!-- Main Navigation -->
+        <nav class="uij-nav-section">
+            <h3 class="uij-nav-section-title">Main</h3>
+            <a href="#dashboard" class="uij-nav-item active">
+                <span class="nav-icon">📊</span>
+                Dashboard
+            </a>
+            <a href="#projects" class="uij-nav-item">
+                <span class="nav-icon">📁</span>
+                Projects
+            </a>
+            <a href="#tasks" class="uij-nav-item">
+                <span class="nav-icon">✅</span>
+                Tasks
+            </a>
+            <a href="#calendar" class="uij-nav-item">
+                <span class="nav-icon">📅</span>
+                Calendar
+            </a>
+        </nav>
+        
+        <!-- Secondary Navigation -->
+        <nav class="uij-nav-section">
+            <h3 class="uij-nav-section-title">Tools</h3>
+            <a href="#analytics" class="uij-nav-item">
+                <span class="nav-icon">📈</span>
+                Analytics
+            </a>
+            <a href="#reports" class="uij-nav-item">
+                <span class="nav-icon">📋</span>
+                Reports
+            </a>
+            <a href="#settings" class="uij-nav-item">
+                <span class="nav-icon">⚙️</span>
+                Settings
+            </a>
+        </nav>
+        
+        <!-- User Section -->
+        <nav class="uij-nav-section">
+            <h3 class="uij-nav-section-title">Account</h3>
+            <a href="#profile" class="uij-nav-item">
+                <span class="nav-icon">👤</span>
+                Profile
+            </a>
+            <a href="#preferences" class="uij-nav-item">
+                <span class="nav-icon">🎛️</span>
+                Preferences
+            </a>
+            <a href="#logout" class="uij-nav-item">
+                <span class="nav-icon">🚪</span>
+                Logout
+            </a>
+        </nav>
+    </div>
+</aside>
+
+<!-- Sidebar Overlay -->
+<div class="uij-sidebar-overlay"></div>
+
+<!-- Sidebar Styles (Inline for component isolation) -->
+<style>
+/* Sidebar Container */
+.uij-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--uij-bg-secondary, #333333);
+    border-right: 1px solid var(--uij-border, #444444);
+    transform: translateX(-100%);
+    transition: transform var(--uij-transition-slow, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    z-index: var(--uij-z-fixed, 1005);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.uij-sidebar.open {
+    transform: translateX(0);
+}
+
+/* Sidebar Header */
+.uij-sidebar-header {
+    padding: var(--uij-spacing-md, 16px) var(--uij-spacing-lg, 24px);
+    border-bottom: 1px solid var(--uij-border, #444444);
+    display: flex;
+    align-items: center;
+    height: 64px;
+    background: var(--uij-bg-secondary, #333333);
+}
+
+.uij-sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--uij-text-primary, #eeeeee);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+/* Sidebar Content */
+.uij-sidebar-content {
+    padding: var(--uij-spacing-md, 16px) 0;
+    height: calc(100% - 64px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Navigation Section */
+.uij-nav-section {
+    margin-bottom: var(--uij-spacing-lg, 24px);
+}
+
+.uij-nav-section-title {
+    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-lg, 24px);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--uij-text-disabled, #666666);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 var(--uij-spacing-sm, 8px) 0;
+}
+
+/* Navigation Item */
+.uij-nav-item {
+    display: flex;
+    align-items: center;
+    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-lg, 24px);
+    color: var(--uij-text-muted, #999999);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: var(--uij-transition-fast, 0.15s);
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: transparent !important; /* CRITICAL: Enforce transparent background */
+}
+
+.uij-nav-item:hover {
+    background: var(--uij-bg-tertiary, #444444) !important;
+    border-left-color: var(--uij-primary, #32CD32);
+    color: var(--uij-text-secondary, #cccccc);
+}
+
+.uij-nav-item.active {
+    background: var(--uij-bg-tertiary, #444444) !important;
+    border-left-color: var(--uij-primary, #32CD32);
+    color: var(--uij-text-primary, #eeeeee);
+    font-weight: 500;
+}
+
+.uij-nav-item .nav-icon {
+    margin-right: var(--uij-spacing-sm, 8px);
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Sidebar Overlay */
+.uij-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--uij-z-fixed, 1004);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--uij-transition-normal, 0.25s);
+    cursor: pointer;
+}
+
+.uij-sidebar.open + .uij-sidebar-overlay,
+.uij-sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .uij-sidebar {
+        width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .uij-sidebar {
+        width: 100vw;
+    }
+    
+    .uij-nav-item {
+        font-size: 15px;
+        padding: 12px var(--uij-spacing-lg, 24px);
+    }
+    
+    .uij-nav-item .nav-icon {
+        font-size: 18px;
+        width: 24px;
+    }
+}
+
+/* Scrollbar Styling */
+.uij-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.uij-sidebar::-webkit-scrollbar-track {
+    background: var(--uij-bg-secondary, #333333);
+}
+
+.uij-sidebar::-webkit-scrollbar-thumb {
+    background: var(--uij-bg-quaternary, #555555);
+    border-radius: 3px;
+}
+
+.uij-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--uij-bg-light, #666666);
+}
+</style>
+
+<!-- Sidebar JavaScript (Inline for component isolation) -->
+<script>
+(function() {
+    'use strict';
+    
+    // Initialize sidebar component
+    function initSidebar() {
+        const sidebar = document.querySelector('.uij-sidebar');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+        
+        if (!sidebar) return;
+        
+        // Setup sidebar behavior
+        setupSidebarBehavior(sidebar, overlay);
+        
+        // Enforce design rules
+        enforceDesignRules(sidebar);
+        
+        // Setup navigation
+        setupNavigation(sidebar);
+        
+        // Setup responsive behavior
+        setupResponsiveBehavior(sidebar);
+        
+        console.log('UijeongBoo Sidebar component initialized');
+    }
+    
+    // Setup sidebar behavior
+    function setupSidebarBehavior(sidebar, overlay) {
+        let isOpen = false;
+        
+        // Toggle function
+        function toggle() {
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                open();
+            } else {
+                close();
+            }
+        }
+        
+        // Open function
+        function open() {
+            isOpen = true;
+            sidebar.classList.add('open');
+            
+            if (overlay) {
+                overlay.classList.add('show');
+            }
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Dispatch event
+            const event = new CustomEvent('uij:sidebar-opened', {
+                detail: { sidebar: sidebar }
+            });
+            document.dispatchEvent(event);
+        }
+        
+        // Close function
+        function close() {
+            isOpen = false;
+            sidebar.classList.remove('open');
+            
+            if (overlay) {
+                overlay.classList.remove('show');
+            }
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+            
+            // Dispatch event
+            const event = new CustomEvent('uij:sidebar-closed', {
+                detail: { sidebar: sidebar }
+            });
+            document.dispatchEvent(event);
+        }
+        
+        // Overlay click
+        if (overlay) {
+            overlay.addEventListener('click', close);
+        }
+        
+        // Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                close();
+            }
+        });
+        
+        // Listen for hamburger events
+        document.addEventListener('uij:hamburger-clicked', toggle);
+        
+        // Expose functions
+        sidebar._uijSidebar = {
+            toggle: toggle,
+            open: open,
+            close: close,
+            isOpen: () => isOpen
+        };
+    }
+    
+    // Enforce design rules
+    function enforceDesignRules(sidebar) {
+        const navItems = sidebar.querySelectorAll('.uij-nav-item');
+        
+        // Force transparent backgrounds where needed
+        navItems.forEach(item => {
+            // Allow background changes for hover/active states but watch for violations
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const target = mutation.target;
+                        // Allow background for active/hover states, but prevent other colors
+                        const computedStyle = getComputedStyle(target);
+                        const bgColor = computedStyle.backgroundColor;
+                        
+                        // Check if background color violates rules (not transparent, tertiary, or allowed)
+                        if (bgColor && 
+                            bgColor !== 'transparent' && 
+                            bgColor !== 'rgba(0, 0, 0, 0)' &&
+                            !bgColor.includes('68, 68, 68') && // #444444
+                            !bgColor.includes('51, 51, 51')) { // #333333
+                            
+                            console.warn('Invalid background color detected:', bgColor);
+                            target.style.setProperty('background', 'transparent', 'important');
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(item, {
+                attributes: true,
+                attributeFilter: ['style']
+            });
+        });
+    }
+    
+    // Setup navigation
+    function setupNavigation(sidebar) {
+        const navItems = sidebar.querySelectorAll('.uij-nav-item');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all items in the same section
+                const section = item.closest('.uij-nav-section');
+                const sectionItems = section.querySelectorAll('.uij-nav-item');
+                sectionItems.forEach(si => si.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Auto-close on mobile
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        if (sidebar._uijSidebar) {
+                            sidebar._uijSidebar.close();
+                        }
+                    }, 150);
+                }
+                
+                // Dispatch custom event
+                const event = new CustomEvent('uij:sidebar-nav-changed', {
+                    detail: { 
+                        activeItem: item,
+                        href: item.getAttribute('href'),
+                        text: item.textContent.trim()
+                    }
+                });
+                document.dispatchEvent(event);
+            });
+        });
+    }
+    
+    // Setup responsive behavior
+    function setupResponsiveBehavior(sidebar) {
+        function handleResize() {
+            const width = window.innerWidth;
+            
+            if (width <= 480) {
+                sidebar.style.width = '100vw';
+            } else if (width <= 768) {
+                sidebar.style.width = '280px';
+            } else {
+                sidebar.style.width = '280px';
+                
+                // Auto-close on desktop if open
+                if (sidebar.classList.contains('open')) {
+                    if (sidebar._uijSidebar) {
+                        sidebar._uijSidebar.close();
+                    }
+                }
+            }
+        }
+        
+        // Initial call
+        handleResize();
+        
+        // Listen for resize
+        window.addEventListener('resize', handleResize);
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        initSidebar();
+    }
+})();
+</script>

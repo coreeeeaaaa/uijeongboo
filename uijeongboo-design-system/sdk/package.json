@@ -1,0 +1,49 @@
+{
+  "name": "saaaaha-design-system-sdk",
+  "version": "1.0.0",
+  "description": "SAAAAHA Personal Design System SDK - Lime & Coral Pink themed design framework",
+  "main": "saaaaha-sdk.js",
+  "keywords": [
+    "design-system",
+    "saaaaha", 
+    "lime",
+    "coral-pink",
+    "flat-design",
+    "dark-mode"
+  ],
+  "author": "SAAAAHA Design Team",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node test.js",
+    "validate": "node validate-colors.js"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "files": [
+    "saaaaha-sdk.js",
+    "saaaaha.min.css",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "file:///Users/a/personaluse/agents/saaaaha"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "saaaaha": {
+    "colors": {
+      "primary": "#32CD32",
+      "secondary": "#FF7F7F",
+      "backgrounds": ["#111111", "#222222", "#333333", "#444444"]
+    },
+    "designPrinciples": [
+      "flat-design-only",
+      "no-shadows-except-minimal",
+      "perfect-antialiasing",
+      "minimal-padding",
+      "line-separators"
+    ]
+  }
+}

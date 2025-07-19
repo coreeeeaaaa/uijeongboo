@@ -1,0 +1,84 @@
+{
+  "name": "uijeongboo-design-framework",
+  "version": "1.0.0",
+  "description": "Modular minimalist dark theme design framework with lime accent and transparent button system",
+  "main": "js/core/framework.js",
+  "scripts": {
+    "audit": "node js/utils/enforcer-cli.js audit",
+    "fix": "node js/utils/enforcer-cli.js fix",
+    "watch": "node js/utils/enforcer-cli.js watch",
+    "check-colors": "node js/utils/enforcer-cli.js check-colors",
+    "enforce-buttons": "node js/utils/enforcer-cli.js enforce-buttons",
+    "build": "npm run audit && npm run test",
+    "test": "echo 'Testing UijeongBoo design rules...' && npm run audit",
+    "serve": "python3 -m http.server 8000 || python -m SimpleHTTPServer 8000",
+    "dev": "npm run serve",
+    "lint:css": "echo 'Linting CSS for design rule violations...' && npm run check-colors",
+    "lint:buttons": "npm run enforce-buttons",
+    "pre-commit": "npm run audit && echo 'Design rules verified!'"
+  },
+  "keywords": [
+    "design-system",
+    "ui-framework",
+    "dark-theme",
+    "minimalist",
+    "modular",
+    "css",
+    "javascript",
+    "components"
+  ],
+  "author": "UijeongBoo Framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uijeongboo/design-framework.git"
+  },
+  "files": [
+    "css/",
+    "js/",
+    "components/",
+    "*.html",
+    "*.md",
+    "logos/"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chokidar": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "uijeongboo": {
+    "version": "1.0.0",
+    "rules": {
+      "enforceTransparentButtons": true,
+      "allowOnlyLimeAccent": true,
+      "forbidBoxShadows": true,
+      "grayscaleOnly": true
+    },
+    "components": [
+      "header",
+      "sidebar",
+      "buttons",
+      "navigation",
+      "forms"
+    ],
+    "modules": {
+      "core": [
+        "variables",
+        "reset",
+        "typography",
+        "layout"
+      ],
+      "utilities": [
+        "spacing",
+        "colors"
+      ]
+    }
+  }
+}

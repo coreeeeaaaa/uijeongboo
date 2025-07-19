@@ -1,0 +1,462 @@
+/* ================================================= */
+/* UijeongBoo Animations - CSS-Only Performance     */
+/* ================================================= */
+
+/* CRITICAL: All animations use CSS-only for maximum performance */
+/* NO JavaScript required for scroll animations */
+
+/* Flowing Cards Animation */
+.uij-flowing-cards-container {
+    margin: 40px 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--uij-bg-secondary);
+    border-radius: var(--uij-radius-xl);
+    padding: var(--uij-spacing-lg) 0;
+    border: 1px solid var(--uij-border);
+}
+
+.uij-flowing-cards-title {
+    text-align: center;
+    color: var(--uij-primary);
+    margin-bottom: var(--uij-spacing-lg);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.uij-flowing-row {
+    display: flex;
+    gap: var(--uij-spacing-md);
+    margin-bottom: var(--uij-spacing-md);
+    position: relative;
+    height: 80px;
+    align-items: center;
+}
+
+.uij-flowing-row:last-child {
+    margin-bottom: 0;
+}
+
+.uij-flowing-cards {
+    display: flex;
+    gap: var(--uij-spacing-md);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    white-space: nowrap;
+}
+
+/* Different directions and speeds for each row */
+.uij-flowing-row:nth-child(2) .uij-flowing-cards {
+    animation: uij-flow-right 30s linear infinite;
+}
+
+.uij-flowing-row:nth-child(3) .uij-flowing-cards {
+    animation: uij-flow-left 25s linear infinite;
+}
+
+.uij-flowing-row:nth-child(4) .uij-flowing-cards {
+    animation: uij-flow-right 35s linear infinite;
+}
+
+@keyframes uij-flow-right {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes uij-flow-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.uij-flow-card {
+    flex-shrink: 0;
+    width: 180px;
+    height: 60px;
+    background: var(--uij-bg-tertiary);
+    border: 1px solid var(--uij-border-light);
+    border-radius: var(--uij-radius-lg);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: var(--uij-transition-normal);
+    cursor: pointer;
+}
+
+.uij-flow-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--uij-primary);
+    background: var(--uij-bg-quaternary);
+}
+
+.uij-flow-card-icon {
+    font-size: 20px;
+    line-height: 1;
+    color: var(--uij-text-secondary);
+}
+
+.uij-flow-card-content {
+    flex: 1;
+}
+
+.uij-flow-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--uij-text-primary);
+    margin-bottom: 2px;
+}
+
+.uij-flow-card-subtitle {
+    font-size: 12px;
+    color: var(--uij-text-muted);
+}
+
+/* Infinite Carousel */
+.uij-infinite-carousel {
+    margin: 40px 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--uij-bg-secondary);
+    border-radius: var(--uij-radius-xl);
+    padding: var(--uij-spacing-xl) 0;
+    border: 1px solid var(--uij-border);
+}
+
+.uij-infinite-carousel-title {
+    text-align: center;
+    color: var(--uij-primary);
+    margin-bottom: var(--uij-spacing-xl);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.uij-carousel-track {
+    display: flex;
+    gap: var(--uij-spacing-lg);
+    animation: uij-carousel-flow 40s linear infinite;
+    width: fit-content;
+}
+
+@keyframes uij-carousel-flow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.uij-carousel-card {
+    flex-shrink: 0;
+    width: 280px;
+    height: 160px;
+    background: linear-gradient(135deg, var(--uij-bg-tertiary), var(--uij-border-light));
+    border: 1px solid var(--uij-border-light);
+    border-radius: var(--uij-radius-xl);
+    padding: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--uij-transition-normal);
+}
+
+.uij-carousel-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--uij-primary);
+}
+
+.uij-carousel-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.uij-carousel-card-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--uij-primary);
+    border-radius: var(--uij-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.uij-carousel-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--uij-text-primary);
+}
+
+.uij-carousel-card-description {
+    font-size: 14px;
+    color: var(--uij-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.uij-carousel-card-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uij-carousel-card-tag {
+    background: var(--uij-bg-light);
+    color: var(--uij-text-primary);
+    padding: 4px 8px;
+    border-radius: var(--uij-radius-sm);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.uij-carousel-card-arrow {
+    color: var(--uij-text-muted);
+    font-size: 18px;
+    transition: var(--uij-transition-normal);
+}
+
+.uij-carousel-card:hover .uij-carousel-card-arrow {
+    color: var(--uij-primary);
+    transform: translateX(4px);
+}
+
+/* CSS-Only Scroll Animations using animation-timeline */
+/* Modern browsers only - with fallbacks */
+
+/* Counter Animation */
+@keyframes uij-count-up {
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Bar Chart Animation */
+@keyframes uij-bar-grow {
+    from {
+        height: 0%;
+        opacity: 0.5;
+    }
+    to {
+        height: var(--target-height);
+        opacity: 1;
+    }
+}
+
+/* Skill Bar Animation */
+@keyframes uij-skill-bar-fill {
+    from { width: 0%; }
+    to { width: var(--target-width); }
+}
+
+/* Circular Progress Animation */
+@keyframes uij-circular-progress {
+    from { stroke-dashoffset: 283; }
+    to { stroke-dashoffset: var(--target-offset); }
+}
+
+/* Line Chart Animation */
+@keyframes uij-line-path-draw {
+    from {
+        stroke-dashoffset: 1000;
+        stroke: var(--uij-text-disabled);
+    }
+    to {
+        stroke-dashoffset: 0;
+        stroke: var(--uij-primary);
+    }
+}
+
+/* Fade In Up Animation */
+@keyframes uij-fade-in-up {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply scroll animations with animation-timeline (if supported) */
+@supports (animation-timeline: view()) {
+    .uij-metric-card-value {
+        animation: uij-count-up 0.8s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 50%;
+    }
+
+    .uij-bar {
+        animation: uij-bar-grow 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 20% entry 80%;
+    }
+
+    .uij-skill-bar-fill {
+        animation: uij-skill-bar-fill 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+    }
+
+    .uij-circular-progress-fill {
+        animation: uij-circular-progress 2s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+    }
+
+    .uij-line-path {
+        animation: uij-line-path-draw 2s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+    }
+
+    .uij-line-dots {
+        animation: uij-fade-in-up 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 40% entry 90%;
+    }
+
+    .uij-metric-card {
+        animation: uij-fade-in-up 0.6s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+    }
+}
+
+/* Fallback for browsers without animation-timeline support */
+@supports not (animation-timeline: view()) {
+    .uij-metric-card-value,
+    .uij-bar,
+    .uij-skill-bar-fill,
+    .uij-circular-progress-fill,
+    .uij-line-path,
+    .uij-line-dots,
+    .uij-metric-card {
+        animation-timeline: auto;
+        animation-delay: 0s;
+    }
+    
+    /* Show final states immediately */
+    .uij-bar { height: var(--target-height); }
+    .uij-skill-bar-fill { width: var(--target-width); }
+    .uij-circular-progress-fill { stroke-dashoffset: var(--target-offset); }
+    .uij-line-path { stroke: var(--uij-primary); stroke-dashoffset: 0; }
+}
+
+/* Loading Animation */
+@keyframes uij-spin {
+    to { transform: rotate(360deg); }
+}
+
+.uij-loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--uij-bg-tertiary);
+    border-top-color: var(--uij-primary);
+    border-radius: 50%;
+    animation: uij-spin 1s linear infinite;
+}
+
+/* Pulse Animation */
+@keyframes uij-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.uij-pulse {
+    animation: uij-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Bounce Animation */
+@keyframes uij-bounce {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+.uij-bounce {
+    animation: uij-bounce 1s ease infinite;
+}
+
+/* Shake Animation */
+@keyframes uij-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.uij-shake {
+    animation: uij-shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Responsive Animations */
+@media (max-width: 768px) {
+    .uij-flowing-row {
+        height: 60px;
+    }
+    
+    .uij-flow-card {
+        width: 140px;
+        height: 50px;
+        padding: 8px 12px;
+    }
+    
+    .uij-carousel-card {
+        width: 220px;
+        height: 140px;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .uij-flow-card {
+        width: 120px;
+        height: 45px;
+    }
+    
+    .uij-carousel-card {
+        width: 200px;
+        height: 120px;
+        padding: 12px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .uij-flowing-cards,
+    .uij-carousel-track {
+        animation-duration: 120s; /* Much slower */
+    }
+    
+    .uij-flow-card:hover,
+    .uij-carousel-card:hover {
+        transform: none;
+    }
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

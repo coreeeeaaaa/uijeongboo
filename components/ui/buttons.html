@@ -1,0 +1,540 @@
+<!-- UijeongBoo Button Components -->
+<!-- Version: 1.0 -->
+<!-- Usage: Include this file for button examples and templates -->
+
+<!-- Button Examples Section -->
+<section class="button-examples">
+    <h2 class="uij-h2">Button Components</h2>
+    <p class="uij-paragraph">All buttons follow UijeongBoo design rules: transparent backgrounds and lime accent only.</p>
+    
+    <!-- Primary Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Primary Buttons</h3>
+        <div class="button-row">
+            <button class="uij-btn primary">Primary Button</button>
+            <button class="uij-btn primary sm">Small Primary</button>
+            <button class="uij-btn primary lg">Large Primary</button>
+            <button class="uij-btn primary" disabled>Disabled Primary</button>
+        </div>
+    </div>
+    
+    <!-- Secondary Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Secondary Buttons</h3>
+        <div class="button-row">
+            <button class="uij-btn secondary">Secondary Button</button>
+            <button class="uij-btn secondary sm">Small Secondary</button>
+            <button class="uij-btn secondary lg">Large Secondary</button>
+            <button class="uij-btn secondary" disabled>Disabled Secondary</button>
+        </div>
+    </div>
+    
+    <!-- Outline Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Outline Buttons</h3>
+        <div class="button-row">
+            <button class="uij-btn outline">Outline Button</button>
+            <button class="uij-btn outline sm">Small Outline</button>
+            <button class="uij-btn outline lg">Large Outline</button>
+            <button class="uij-btn outline" disabled>Disabled Outline</button>
+        </div>
+    </div>
+    
+    <!-- Ghost Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Ghost Buttons</h3>
+        <div class="button-row">
+            <button class="uij-btn ghost">Ghost Button</button>
+            <button class="uij-btn ghost sm">Small Ghost</button>
+            <button class="uij-btn ghost lg">Large Ghost</button>
+            <button class="uij-btn ghost" disabled>Disabled Ghost</button>
+        </div>
+    </div>
+    
+    <!-- Icon Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Icon Buttons</h3>
+        <div class="button-row">
+            <button class="uij-btn icon primary" aria-label="Settings">⚙️</button>
+            <button class="uij-btn icon secondary" aria-label="Search">🔍</button>
+            <button class="uij-btn icon outline" aria-label="Add">➕</button>
+            <button class="uij-btn icon ghost" aria-label="Close">✕</button>
+        </div>
+    </div>
+    
+    <!-- Button Groups -->
+    <div class="button-group">
+        <h3 class="uij-h3">Button Groups</h3>
+        <div class="uij-btn-group">
+            <button class="uij-btn secondary">Left</button>
+            <button class="uij-btn secondary">Center</button>
+            <button class="uij-btn secondary">Right</button>
+        </div>
+    </div>
+    
+    <!-- Loading Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Loading States</h3>
+        <div class="button-row">
+            <button class="uij-btn primary loading">Loading...</button>
+            <button class="uij-btn secondary loading">Please wait</button>
+        </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="button-group">
+        <h3 class="uij-h3">Common Actions</h3>
+        <div class="button-row">
+            <button class="uij-btn primary" data-action="save">Save Changes</button>
+            <button class="uij-btn secondary" data-action="cancel">Cancel</button>
+            <button class="uij-btn outline" data-action="delete">Delete</button>
+            <button class="uij-btn ghost" data-action="reset">Reset</button>
+        </div>
+    </div>
+</section>
+
+<!-- Button Component Styles -->
+<style>
+/* Button Examples Layout */
+.button-examples {
+    padding: var(--uij-spacing-lg, 24px);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.button-group {
+    margin-bottom: var(--uij-spacing-xl, 32px);
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--uij-spacing-md, 16px);
+    align-items: center;
+    margin-top: var(--uij-spacing-md, 16px);
+}
+
+/* Base Button - CRITICAL DESIGN RULES */
+.uij-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-md, 16px);
+    font-family: var(--uij-font-family, 'SF Pro Display', system-ui, sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    border: 1px solid var(--uij-border-light, #555555);
+    border-radius: var(--uij-radius-md, 8px);
+    cursor: pointer;
+    transition: var(--uij-transition-fast, 0.15s);
+    white-space: nowrap;
+    background: transparent !important; /* CRITICAL: NEVER CHANGE */
+    color: var(--uij-text-secondary, #cccccc);
+    position: relative;
+    overflow: hidden;
+    outline: none;
+}
+
+.uij-btn:hover {
+    background: transparent !important; /* CRITICAL: NEVER CHANGE */
+    border-color: var(--uij-border-light, #555555);
+    color: var(--uij-text-primary, #eeeeee);
+    transform: translateY(-1px);
+}
+
+.uij-btn:active {
+    transform: translateY(0);
+    transition: var(--uij-transition-fast, 0.15s);
+}
+
+.uij-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    pointer-events: none;
+}
+
+/* Primary Button - ONLY LIME COLOR ALLOWED */
+.uij-btn.primary {
+    background: var(--uij-primary, #32CD32) !important; /* EXCEPTION: Only lime allowed */
+    border-color: var(--uij-primary, #32CD32);
+    color: #000000;
+    font-weight: 600;
+}
+
+.uij-btn.primary:hover {
+    background: #28a428 !important; /* Darker lime on hover */
+    border-color: #28a428;
+    color: #000000;
+}
+
+/* Secondary Button - TRANSPARENT */
+.uij-btn.secondary {
+    background: transparent !important;
+    border-color: var(--uij-border-light, #555555);
+    color: var(--uij-text-primary, #eeeeee);
+}
+
+.uij-btn.secondary:hover {
+    background: transparent !important;
+    border-color: var(--uij-primary, #32CD32);
+    color: var(--uij-primary, #32CD32);
+}
+
+/* Outline Button */
+.uij-btn.outline {
+    background: transparent !important;
+    border-color: var(--uij-primary, #32CD32);
+    color: var(--uij-primary, #32CD32);
+}
+
+.uij-btn.outline:hover {
+    background: transparent !important;
+    border-color: var(--uij-primary, #32CD32);
+    color: var(--uij-text-primary, #eeeeee);
+    box-shadow: inset 0 0 0 1px var(--uij-primary, #32CD32);
+}
+
+/* Ghost Button */
+.uij-btn.ghost {
+    background: transparent !important;
+    border-color: transparent;
+    color: var(--uij-text-muted, #999999);
+}
+
+.uij-btn.ghost:hover {
+    background: transparent !important;
+    border-color: transparent;
+    color: var(--uij-text-primary, #eeeeee);
+}
+
+/* Button Sizes */
+.uij-btn.sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.uij-btn.lg {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.uij-btn.xl {
+    padding: 16px 32px;
+    font-size: 18px;
+}
+
+/* Icon Buttons */
+.uij-btn.icon {
+    padding: var(--uij-spacing-sm, 8px);
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.uij-btn.icon.sm {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    font-size: 14px;
+}
+
+.uij-btn.icon.lg {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    font-size: 18px;
+}
+
+/* Button Group */
+.uij-btn-group {
+    display: inline-flex;
+    border-radius: var(--uij-radius-md, 8px);
+    overflow: hidden;
+}
+
+.uij-btn-group .uij-btn {
+    border-radius: 0;
+    border-right-width: 0;
+}
+
+.uij-btn-group .uij-btn:first-child {
+    border-top-left-radius: var(--uij-radius-md, 8px);
+    border-bottom-left-radius: var(--uij-radius-md, 8px);
+}
+
+.uij-btn-group .uij-btn:last-child {
+    border-top-right-radius: var(--uij-radius-md, 8px);
+    border-bottom-right-radius: var(--uij-radius-md, 8px);
+    border-right-width: 1px;
+}
+
+/* Loading State */
+.uij-btn.loading {
+    color: transparent;
+    pointer-events: none;
+}
+
+.uij-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: uij-spin 1s linear infinite;
+}
+
+.uij-btn.primary.loading::after {
+    border-top-color: #000000;
+}
+
+@keyframes uij-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .button-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .uij-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .uij-btn.icon {
+        width: 44px;
+        height: 44px;
+        align-self: center;
+    }
+    
+    .uij-btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .uij-btn-group .uij-btn {
+        border-radius: 0;
+        border-right-width: 1px;
+        border-bottom-width: 0;
+    }
+    
+    .uij-btn-group .uij-btn:first-child {
+        border-radius: var(--uij-radius-md, 8px) var(--uij-radius-md, 8px) 0 0;
+    }
+    
+    .uij-btn-group .uij-btn:last-child {
+        border-radius: 0 0 var(--uij-radius-md, 8px) var(--uij-radius-md, 8px);
+        border-bottom-width: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .uij-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .button-examples {
+        padding: var(--uij-spacing-md, 16px);
+    }
+}
+</style>
+
+<!-- Button Component JavaScript -->
+<script>
+(function() {
+    'use strict';
+    
+    // Initialize button components
+    function initButtons() {
+        const buttons = document.querySelectorAll('.uij-btn');
+        
+        // Enforce design rules on all buttons
+        enforceDesignRules(buttons);
+        
+        // Setup button interactions
+        setupButtonInteractions(buttons);
+        
+        // Setup loading states
+        setupLoadingStates(buttons);
+        
+        console.log('UijeongBoo Button components initialized');
+    }
+    
+    // Enforce critical design rules
+    function enforceDesignRules(buttons) {
+        buttons.forEach(button => {
+            // Force transparent background for non-primary buttons
+            if (!button.classList.contains('primary')) {
+                button.style.setProperty('background', 'transparent', 'important');
+            }
+            
+            // Watch for violations
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const target = mutation.target;
+                        
+                        // Re-enforce rules if violated
+                        if (!target.classList.contains('primary')) {
+                            const bgColor = getComputedStyle(target).backgroundColor;
+                            if (bgColor !== 'transparent' && 
+                                bgColor !== 'rgba(0, 0, 0, 0)' &&
+                                !bgColor.includes('50, 205, 50')) { // #32CD32
+                                
+                                console.warn('Button background violation detected:', bgColor);
+                                target.style.setProperty('background', 'transparent', 'important');
+                            }
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(button, {
+                attributes: true,
+                attributeFilter: ['style']
+            });
+        });
+    }
+    
+    // Setup button interactions
+    function setupButtonInteractions(buttons) {
+        buttons.forEach(button => {
+            // Handle button actions
+            button.addEventListener('click', (e) => {
+                const action = button.dataset.action;
+                
+                if (action) {
+                    handleButtonAction(action, button, e);
+                }
+                
+                // Add click feedback
+                addClickFeedback(button);
+                
+                // Dispatch custom event
+                const event = new CustomEvent('uij:button-clicked', {
+                    detail: { 
+                        button: button,
+                        action: action,
+                        type: getButtonType(button)
+                    }
+                });
+                document.dispatchEvent(event);
+            });
+            
+            // Keyboard navigation
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+    }
+    
+    // Handle button actions
+    function handleButtonAction(action, button, event) {
+        switch (action) {
+            case 'save':
+                console.log('Save action triggered');
+                // Add loading state
+                button.classList.add('loading');
+                setTimeout(() => button.classList.remove('loading'), 2000);
+                break;
+                
+            case 'cancel':
+                console.log('Cancel action triggered');
+                break;
+                
+            case 'delete':
+                console.log('Delete action triggered');
+                if (confirm('Are you sure you want to delete this item?')) {
+                    button.classList.add('loading');
+                    setTimeout(() => button.classList.remove('loading'), 1500);
+                }
+                break;
+                
+            case 'reset':
+                console.log('Reset action triggered');
+                break;
+                
+            default:
+                console.log('Custom action triggered:', action);
+        }
+    }
+    
+    // Add click feedback
+    function addClickFeedback(button) {
+        button.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 100);
+    }
+    
+    // Get button type
+    function getButtonType(button) {
+        if (button.classList.contains('primary')) return 'primary';
+        if (button.classList.contains('secondary')) return 'secondary';
+        if (button.classList.contains('outline')) return 'outline';
+        if (button.classList.contains('ghost')) return 'ghost';
+        return 'default';
+    }
+    
+    // Setup loading states
+    function setupLoadingStates(buttons) {
+        // Demo loading states for example buttons
+        const loadingButtons = document.querySelectorAll('.uij-btn.loading');
+        
+        loadingButtons.forEach(button => {
+            // Simulate loading completion
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.textContent = 'Completed!';
+                
+                setTimeout(() => {
+                    button.textContent = button.textContent.replace('Completed!', 'Loading...');
+                    button.classList.add('loading');
+                }, 2000);
+            }, 3000);
+        });
+    }
+    
+    // Public API for loading states
+    window.UijeongBooButtons = {
+        setLoading: function(button, loading = true) {
+            if (loading) {
+                button.classList.add('loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('loading');
+                button.disabled = false;
+            }
+        },
+        
+        isLoading: function(button) {
+            return button.classList.contains('loading');
+        }
+    };
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initButtons);
+    } else {
+        initButtons();
+    }
+})();
+</script>

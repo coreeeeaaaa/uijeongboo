@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - 스크롤 애니메이션 가이드</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    
+    <style>
+        :root {
+            --uij-primary: #32CD32;
+            --uij-bg-primary: #222222;
+            --uij-bg-secondary: #333333;
+            --uij-bg-tertiary: #444444;
+            --uij-text-primary: #eeeeee;
+            --uij-text-secondary: #cccccc;
+            --uij-border: #444444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 접근성: 모션 민감도 고려 */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* 접근성: 고대비 모드 지원 */
+        @media (prefers-contrast: high) {
+            :root {
+                --uij-border: #ffffff;
+                --uij-text-secondary: #ffffff;
+            }
+        }
+
+        /* 접근성: 포커스 표시 강화 */
+        *:focus {
+            outline: 2px solid var(--uij-primary);
+            outline-offset: 2px;
+        }
+
+        /* 접근성: 스크린 리더 전용 텍스트 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: var(--uij-bg-primary);
+            color: var(--uij-text-primary);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--uij-bg-secondary);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--uij-primary);
+            width: 100%;
+            transform: scaleX(0);
+            transform-origin: left;
+            will-change: transform;
+        }
+
+        .sidebar {
+            width: 350px;
+            background: var(--uij-bg-secondary);
+            border-right: 1px solid var(--uij-border);
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--uij-border);
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--uij-primary);
+            margin-bottom: 10px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.9rem;
+            color: var(--uij-text-secondary);
+        }
+
+        .component-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .component-item {
+            background: var(--uij-bg-primary);
+            border: 1px solid var(--uij-border);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        .component-item:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+        }
+
+        .component-item:hover {
+            border-color: var(--uij-primary);
+            background: var(--uij-bg-tertiary);
+            will-change: transform;
+        }
+
+        .component-item.active {
+            border-color: var(--uij-primary);
+            background: var(--uij-bg-tertiary);
+            transform: translateY(-2px);
+        }
+
+        .component-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--uij-text-primary);
+            margin-bottom: 5px;
+        }
+
+        .component-desc {
+            font-size: 0.8rem;
+            color: var(--uij-text-secondary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main-header {
+            background: var(--uij-bg-secondary);
+            border-bottom: 1px solid var(--uij-border);
+            padding: 20px 30px;
+            position: relative;
+        }
+
+        /* 로딩 상태 표시 */
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--uij-border);
+            border-top: 2px solid var(--uij-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .loading-indicator.active {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        /* 브레드크럼 네비게이션 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--uij-text-secondary);
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-item:not(:last-child)::after {
+            content: '>';
+            margin: 0 8px;
+            color: var(--uij-border);
+        }
+
+        .breadcrumb-link {
+            color: var(--uij-primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb-link:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--uij-text-primary);
+            margin-bottom: 5px;
+        }
+
+        .main-subtitle {
+            color: var(--uij-text-secondary);
+        }
+
+        .demo-area {
+            flex: 1;
+            padding: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .demo-container {
+            flex: 1;
+            border: 1px solid var(--uij-border);
+            border-radius: 12px;
+            background: var(--uij-bg-secondary);
+            overflow: hidden;
+            position: relative;
+            contain: layout style paint;
+        }
+
+        .demo-content {
+            height: 100%;
+            overflow-y: auto;
+            background: var(--uij-bg-primary);
+            will-change: scroll-position;
+            transform: translateZ(0);
+        }
+
+        .welcome-screen {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .welcome-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--uij-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .welcome-icon::before {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: var(--uij-bg-primary);
+            border-radius: 8px;
+            transform: rotate(45deg);
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            color: var(--uij-primary);
+            margin-bottom: 10px;
+        }
+
+        .welcome-text {
+            color: var(--uij-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 200px;
+                border-right: none;
+                border-bottom: 1px solid var(--uij-border);
+            }
+            
+            .component-list {
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 10px;
+            }
+            
+            .component-item {
+                min-width: 120px;
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 스크롤 진행률 표시 -->
+    <div class="scroll-progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 사이드바 -->
+    <aside class="sidebar" role="navigation" aria-label="스크롤 애니메이션 메뉴">
+        <div class="sidebar-header">
+            <h1 class="sidebar-title">스크롤 애니메이션</h1>
+            <p class="sidebar-subtitle">인터랙티브 컴포넌트 라이브러리</p>
+        </div>
+        
+        <nav class="component-list" role="list">
+            <button class="component-item" onclick="showDemo('classic', this)" tabindex="0" role="listitem" aria-describedby="classic-desc">
+                <div class="component-name">클래식 접근법</div>
+                <div class="component-desc" id="classic-desc">기본적인 페이드 인 효과</div>
+                <span class="sr-only">클래식 접근법 데모 보기</span>
+            </button>
+            
+            <button class="component-item" onclick="showDemo('parallax', this)" tabindex="0" role="listitem" aria-describedby="parallax-desc">
+                <div class="component-name">패럴랙스 레이어링</div>
+                <div class="component-desc" id="parallax-desc">깊이감 있는 다층 스크롤</div>
+                <span class="sr-only">패럴랙스 레이어링 데모 보기</span>
+            </button>
+            
+            <button class="component-item" onclick="showDemo('morphing', this)" tabindex="0" role="listitem" aria-describedby="morphing-desc">
+                <div class="component-name">모핑 애니메이션</div>
+                <div class="component-desc" id="morphing-desc">스크롤에 따른 모양 변화</div>
+                <span class="sr-only">모핑 애니메이션 데모 보기</span>
+            </button>
+            
+            <button class="component-item" onclick="showDemo('liquid', this)" tabindex="0" role="listitem" aria-describedby="liquid-desc">
+                <div class="component-name">리퀴드 모션</div>
+                <div class="component-desc" id="liquid-desc">액체같은 부드러운 변형</div>
+                <span class="sr-only">리퀴드 모션 데모 보기</span>
+            </button>
+            
+            <button class="component-item" onclick="showDemo('physics', this)" tabindex="0" role="listitem" aria-describedby="physics-desc">
+                <div class="component-name">물리 기반 스크롤</div>
+                <div class="component-desc" id="physics-desc">실제 바운스와 드래그</div>
+                <span class="sr-only">물리 기반 스크롤 데모 보기</span>
+            </button>
+        </nav>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content" role="main">
+        <header class="main-header">
+            <h2 class="main-title" id="mainTitle">UijeongBoo 스크롤 애니메이션 가이드</h2>
+            <p class="main-subtitle" id="mainSubtitle">좌측 메뉴에서 애니메이션을 선택하여 실제 동작을 확인하세요</p>
+            <nav class="breadcrumb" id="breadcrumb">
+                <div class="breadcrumb-item">
+                    <span class="breadcrumb-link" onclick="goHome()">홈</span>
+                </div>
+            </nav>
+            <div class="loading-indicator" id="loadingIndicator" aria-label="로딩 중"></div>
+        </header>
+        
+        <section class="demo-area" aria-live="polite" aria-label="애니메이션 데모 영역">
+            <div class="demo-container">
+                <div class="demo-content" id="demoContent" tabindex="-1" role="region" aria-label="데모 컨텐츠">
+                    <div class="welcome-screen">
+                        <div class="welcome-icon" role="img" aria-label="디자인 아이콘"></div>
+                        <h2 class="welcome-title">스크롤 애니메이션 데모</h2>
+                        <p class="welcome-text">좌측 메뉴에서 원하는 애니메이션을 선택하면<br>이 영역에서 실제 동작을 확인할 수 있습니다</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 스크롤 진행률 업데이트 (성능 최적화)
+        let ticking = false;
+        function updateScrollProgress() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const demoContent = document.getElementById('demoContent');
+                    if (demoContent.scrollHeight > demoContent.clientHeight) {
+                        const scrolled = demoContent.scrollTop;
+                        const maxHeight = demoContent.scrollHeight - demoContent.clientHeight;
+                        const progress = (scrolled / maxHeight) * 100;
+                        document.getElementById('progressBar').style.transform = `scaleX(${progress / 100})`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        // 활성 메뉴 표시 및 접근성 개선
+        function setActiveMenu(type, clickedElement) {
+            document.querySelectorAll('.component-item').forEach(item => {
+                item.classList.remove('active');
+                item.setAttribute('aria-pressed', 'false');
+            });
+            
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+                clickedElement.setAttribute('aria-pressed', 'true');
+            }
+            
+            // 스크린 리더에게 변경 사항 알림
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'assertive');
+            announcement.className = 'sr-only';
+            announcement.textContent = `${type} 데모가 로드되었습니다`;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // 키보드 네비게이션 지원
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // ESC 키로 메인 콘텐츠로 포커스 이동
+                document.getElementById('demoContent').focus();
+            }
+            
+            if (e.key === 'Tab' && e.shiftKey) {
+                // Shift+Tab으로 역방향 네비게이션
+                const focusableElements = document.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+                const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
+                if (currentIndex === 0) {
+                    e.preventDefault();
+                    focusableElements[focusableElements.length - 1].focus();
+                }
+            }
+        });
+
+        // 홈으로 돌아가기
+        function goHome() {
+            document.querySelectorAll('.component-item').forEach(item => {
+                item.classList.remove('active');
+                item.setAttribute('aria-pressed', 'false');
+            });
+            
+            const mainTitle = document.getElementById('mainTitle');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            const demoContent = document.getElementById('demoContent');
+            const breadcrumb = document.getElementById('breadcrumb');
+            
+            mainTitle.textContent = 'UijeongBoo 스크롤 애니메이션 가이드';
+            mainSubtitle.textContent = '좌측 메뉴에서 애니메이션을 선택하여 실제 동작을 확인하세요';
+            
+            // 브레드크럼 리셋
+            breadcrumb.innerHTML = `
+                <div class="breadcrumb-item">
+                    <span class="breadcrumb-link" onclick="goHome()">홈</span>
+                </div>
+            `;
+            
+            // 웰컴 화면 복원
+            demoContent.innerHTML = `
+                <div class="welcome-screen">
+                    <div class="welcome-icon" role="img" aria-label="디자인 아이콘"></div>
+                    <h2 class="welcome-title">스크롤 애니메이션 데모</h2>
+                    <p class="welcome-text">좌측 메뉴에서 원하는 애니메이션을 선택하면<br>이 영역에서 실제 동작을 확인할 수 있습니다</p>
+                </div>
+            `;
+        }
+
+        // 로딩 상태 관리
+        function showLoading() {
+            document.getElementById('loadingIndicator').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingIndicator').classList.remove('active');
+        }
+
+        // 브레드크럼 업데이트
+        function updateBreadcrumb(demoName) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = `
+                <div class="breadcrumb-item">
+                    <span class="breadcrumb-link" onclick="goHome()">홈</span>
+                </div>
+                <div class="breadcrumb-item">
+                    <span>${demoName}</span>
+                </div>
+            `;
+        }
+
+        // 에러 핸들링
+        function showError(message) {
+            const demoContent = document.getElementById('demoContent');
+            demoContent.innerHTML = `
+                <div style="height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px;">
+                    <div style="width: 80px; height: 80px; background: #ff6b6b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative;">
+                        <div style="width: 4px; height: 30px; background: white; border-radius: 2px; position: absolute; top: 15px;"></div>
+                        <div style="width: 4px; height: 4px; background: white; border-radius: 50%; position: absolute; bottom: 15px;"></div>
+                    </div>
+                    <h3 style="color: var(--uij-text-primary); margin-bottom: 10px;">오류가 발생했습니다</h3>
+                    <p style="color: var(--uij-text-secondary); margin-bottom: 20px;">${message}</p>
+                    <button onclick="goHome()" style="background: var(--uij-primary); color: #000; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">홈으로 돌아가기</button>
+                </div>
+            `;
+        }
+
+        // 데모 표시 (개선된 버전)
+        function showDemo(type, element) {
+            try {
+                showLoading();
+                setActiveMenu(type, element);
+                
+                // 약간의 딜레이로 로딩 표시
+                setTimeout(() => {
+                    const mainTitle = document.getElementById('mainTitle');
+                    const mainSubtitle = document.getElementById('mainSubtitle');
+                    const demoContent = document.getElementById('demoContent');
+            
+                    if (type === 'classic') {
+                        mainTitle.textContent = '클래식 접근법 데모';
+                        mainSubtitle.textContent = '스크롤하면서 요소가 부드럽게 나타나는 페이드 인 효과';
+                        updateBreadcrumb('클래식 접근법');
+                
+                demoContent.innerHTML = `
+                    <div style="padding: 40px;">
+                        <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                            <div class="fade-demo" style="opacity: 0; transform: translateY(50px); transition: all 0.8s ease; width: 250px; height: 250px; background: var(--uij-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.5rem;">첫 번째 요소</div>
+                        </div>
+                        <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                            <div class="fade-demo" style="opacity: 0; transform: translateY(50px); transition: all 0.8s ease; width: 250px; height: 250px; background: var(--uij-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.5rem;">두 번째 요소</div>
+                        </div>
+                        <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                            <div class="fade-demo" style="opacity: 0; transform: translateY(50px); transition: all 0.8s ease; width: 250px; height: 250px; background: var(--uij-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.5rem;">세 번째 요소</div>
+                        </div>
+                    </div>
+                `;
+                
+                const fadeElements = demoContent.querySelectorAll('.fade-demo');
+                demoContent.addEventListener('scroll', () => {
+                    fadeElements.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        const containerRect = demoContent.getBoundingClientRect();
+                        if (rect.top < containerRect.bottom - 100) {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }
+                    });
+                    updateScrollProgress();
+                });
+            }
+                    else if (type === 'parallax') {
+                        mainTitle.textContent = '패럴랙스 레이어링 데모';
+                        mainSubtitle.textContent = '다층 요소가 다른 속도로 움직여 깊이감을 만드는 효과';
+                        updateBreadcrumb('패럴랙스 레이어링');
+                
+                demoContent.innerHTML = `
+                    <div style="position: relative; height: 400vh; overflow: hidden;">
+                        <!-- 배경 레이어 -->
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, var(--uij-bg-primary), var(--uij-bg-secondary)); z-index: 1;" id="bgLayer"></div>
+                        
+                        <!-- 원거리 레이어 -->
+                        <div style="position: absolute; top: 200px; left: 20%; width: 200px; height: 200px; background: linear-gradient(45deg, var(--uij-primary), #228B22); border-radius: 50%; opacity: 0.6; z-index: 2;" id="farLayer"></div>
+                        
+                        <!-- 중거리 레이어 -->
+                        <div style="position: absolute; top: 300px; right: 20%; width: 150px; height: 300px; background: linear-gradient(135deg, #32CD32, #90EE90); border-radius: 20px; opacity: 0.8; z-index: 3;" id="midLayer"></div>
+                        
+                        <!-- 근거리 레이어 -->
+                        <div style="position: absolute; top: 150px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; background: var(--uij-primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.5rem; z-index: 4;" id="nearLayer">메인 레이어</div>
+                        
+                        <!-- 콘텐츠 -->
+                        <div style="position: relative; z-index: 5; padding: 40px; text-align: center;">
+                            <div style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                <h2 style="color: var(--uij-primary); font-size: 3rem; margin-bottom: 20px;">패럴랙스 스크롤</h2>
+                                <p style="font-size: 1.2rem; color: var(--uij-text-secondary);">아래로 스크롤하여 깊이감을 확인하세요</p>
+                            </div>
+                            <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                                <p style="font-size: 1.5rem; color: var(--uij-text-primary);">각 레이어가 다른 속도로 움직입니다</p>
+                            </div>
+                            <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                                <p style="font-size: 1.5rem; color: var(--uij-primary);">깊이감이 느껴지시나요?</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const farLayer = document.getElementById('farLayer');
+                const midLayer = document.getElementById('midLayer');
+                const nearLayer = document.getElementById('nearLayer');
+                
+                // 패럴랙스 최적화를 위한 스로틀링
+                let parallaxTicking = false;
+                demoContent.addEventListener('scroll', () => {
+                    if (!parallaxTicking) {
+                        requestAnimationFrame(() => {
+                            const scrollTop = demoContent.scrollTop;
+                            
+                            // transform만 사용하여 성능 최적화
+                            farLayer.style.transform = `translate3d(0, ${scrollTop * 0.2}px, 0)`;
+                            midLayer.style.transform = `translate3d(0, ${scrollTop * 0.4}px, 0)`;
+                            nearLayer.style.transform = `translate3d(-50%, ${scrollTop * 0.6}px, 0)`;
+                            
+                            updateScrollProgress();
+                            parallaxTicking = false;
+                        });
+                        parallaxTicking = true;
+                    }
+                }, { passive: true });
+            }
+            else if (type === 'morphing') {
+                mainTitle.textContent = '모핑 애니메이션 데모';
+                mainSubtitle.textContent = '스크롤에 따라 요소의 모양이 자연스럽게 변화하는 효과';
+                updateBreadcrumb('모핑 애니메이션');
+                
+                demoContent.innerHTML = `
+                    <div style="padding: 40px;">
+                        <div style="height: 500vh; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <div style="position: sticky; top: 200px; width: 250px; height: 250px; background: var(--uij-primary); display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.2rem; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);" id="morphingEl">모핑</div>
+                        </div>
+                    </div>
+                `;
+                
+                const morphingEl = document.getElementById('morphingEl');
+                // 모핑 애니메이션 최적화
+                let morphingTicking = false;
+                demoContent.addEventListener('scroll', () => {
+                    if (!morphingTicking) {
+                        requestAnimationFrame(() => {
+                            const scrollTop = demoContent.scrollTop;
+                            const maxScroll = demoContent.scrollHeight - demoContent.clientHeight;
+                            const progress = Math.max(0, Math.min(1, scrollTop / maxScroll));
+                            
+                            // GPU 가속 transform만 사용
+                            const borderRadius1 = 12 + (50 - 12) * Math.sin(progress * Math.PI * 2);
+                            const borderRadius2 = 12 + (30) * Math.sin(progress * Math.PI * 3);
+                            const rotation = progress * 360 * 2;
+                            const scale = 0.8 + 0.4 * (1 + Math.sin(progress * Math.PI * 4)) / 2;
+                            const skewX = Math.sin(progress * Math.PI * 6) * 20;
+                            
+                            morphingEl.style.borderRadius = `${borderRadius1}px ${borderRadius2}px ${borderRadius1}px ${borderRadius2}px`;
+                            morphingEl.style.transform = `translate3d(0, 0, 0) rotate(${rotation}deg) scale(${scale}) skewX(${skewX}deg)`;
+                            morphingEl.style.background = `linear-gradient(${progress * 360}deg, var(--uij-primary), #228B22)`;
+                            
+                            updateScrollProgress();
+                            morphingTicking = false;
+                        });
+                        morphingTicking = true;
+                    }
+                }, { passive: true });
+            }
+            else if (type === 'liquid') {
+                mainTitle.textContent = '리퀴드 모션 데모';
+                mainSubtitle.textContent = '스크롤 속도에 따라 프리미엄 액체 효과로 변형되는 애니메이션';
+                updateBreadcrumb('리퀴드 모션');
+                
+                demoContent.innerHTML = `
+                    <div style="padding: 40px; background: radial-gradient(circle at center, var(--uij-bg-secondary), var(--uij-bg-primary));">
+                        <div style="height: 400vh; display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative;">
+                            <div style="position: sticky; top: 150px; margin-bottom: 50px;">
+                                <div style="width: 300px; height: 150px; background: linear-gradient(45deg, var(--uij-primary), #90EE90); border-radius: 75px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1.3rem; filter: blur(0.5px); transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(50, 205, 50, 0.3);" id="liquidEl1">메인 드롭</div>
+                            </div>
+                            <div style="position: sticky; top: 250px;">
+                                <div style="width: 200px; height: 200px; background: radial-gradient(circle, var(--uij-primary), #228B22); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 1rem; filter: blur(0.3px); transition: all 0.1s ease;" id="liquidEl2">서브 드롭</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const liquidEl1 = document.getElementById('liquidEl1');
+                const liquidEl2 = document.getElementById('liquidEl2');
+                let lastScrollTop = 0;
+                
+                demoContent.addEventListener('scroll', () => {
+                    const scrollTop = demoContent.scrollTop;
+                    const velocity = scrollTop - lastScrollTop;
+                    const absVelocity = Math.abs(velocity);
+                    
+                    // 메인 드롭 효과
+                    const intensity1 = Math.min(absVelocity * 0.15, 0.5);
+                    const skew1 = Math.max(-25, Math.min(25, velocity * 0.4));
+                    const scaleX1 = 1 + intensity1 * 0.8;
+                    const scaleY1 = Math.max(0.6, 1 - intensity1 * 0.6);
+                    const blur1 = 0.5 + intensity1 * 2;
+                    
+                    liquidEl1.style.transform = `skew(${skew1}deg) scale(${scaleX1}, ${scaleY1})`;
+                    liquidEl1.style.filter = `blur(${blur1}px)`;
+                    liquidEl1.style.borderRadius = `${75 - intensity1 * 30}px`;
+                    
+                    // 서브 드롭 효과 (더 민감하게)
+                    const intensity2 = Math.min(absVelocity * 0.2, 0.7);
+                    const wobble = Math.sin(Date.now() * 0.01) * intensity2 * 10;
+                    const scaleX2 = 1 + intensity2 * 0.6;
+                    const scaleY2 = Math.max(0.5, 1 - intensity2 * 0.8);
+                    
+                    liquidEl2.style.transform = `skew(${wobble}deg) scale(${scaleX2}, ${scaleY2}) rotate(${velocity * 0.2}deg)`;
+                    liquidEl2.style.borderRadius = `${50 - intensity2 * 20}% ${50 + intensity2 * 30}%`;
+                    
+                    // 자연스러운 복원
+                    setTimeout(() => {
+                        liquidEl1.style.transform = 'skew(0deg) scale(1, 1)';
+                        liquidEl1.style.filter = 'blur(0.5px)';
+                        liquidEl1.style.borderRadius = '75px';
+                        
+                        liquidEl2.style.transform = 'skew(0deg) scale(1, 1) rotate(0deg)';
+                        liquidEl2.style.borderRadius = '50%';
+                    }, 150);
+                    
+                    lastScrollTop = scrollTop;
+                    updateScrollProgress();
+                });
+            }
+            else if (type === 'physics') {
+                mainTitle.textContent = '물리 기반 스크롤 데모';
+                mainSubtitle.textContent = '실제 물리 법칙을 시뮬레이션한 바운스와 드래그 효과';
+                updateBreadcrumb('물리 기반 스크롤');
+                
+                demoContent.innerHTML = `
+                    <div style="height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; padding: 40px 40px 120px 40px;" id="physicsContainer">
+                        <div style="flex: 1; position: relative; border: 2px solid var(--uij-border); border-radius: 12px; background: var(--uij-bg-secondary);">
+                            <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--uij-primary), #90EE90); border-radius: 50%; position: absolute; cursor: pointer; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 5px 15px rgba(50, 205, 50, 0.4); transition: box-shadow 0.2s ease;" id="physicsBall"></div>
+                        </div>
+                        <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: var(--uij-text-secondary); font-size: 1.1rem; text-align: center; background: var(--uij-bg-secondary); padding: 15px 25px; border-radius: 8px; border: 1px solid var(--uij-border); z-index: 10;">
+                            <div style="color: var(--uij-primary); font-weight: bold; margin-bottom: 5px;">물리 시뮬레이션</div>
+                            공을 드래그하여 중력, 마찰, 바운스 효과를 확인하세요
+                        </div>
+                    </div>
+                `;
+                
+                const ball = document.getElementById('physicsBall');
+                const container = document.getElementById('physicsContainer').firstElementChild;
+                let physics = {
+                    x: 250, y: 150,
+                    vx: 0, vy: 0,
+                    gravity: 0.4,
+                    friction: 0.985,
+                    bounce: -0.75,
+                    isDragging: false
+                };
+                
+                ball.addEventListener('mousedown', (e) => {
+                    physics.isDragging = true;
+                    physics.vx = 0;
+                    physics.vy = 0;
+                    ball.style.boxShadow = '0 8px 25px rgba(50, 205, 50, 0.6)';
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (physics.isDragging) {
+                        const rect = container.getBoundingClientRect();
+                        physics.x = e.clientX - rect.left - 50;
+                        physics.y = e.clientY - rect.top - 50;
+                        updatePosition();
+                    }
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (physics.isDragging) {
+                        physics.isDragging = false;
+                        ball.style.boxShadow = '0 5px 15px rgba(50, 205, 50, 0.4)';
+                    }
+                });
+                
+                function animate() {
+                    if (!physics.isDragging) {
+                        physics.vy += physics.gravity;
+                        physics.x += physics.vx;
+                        physics.y += physics.vy;
+                        
+                        const containerWidth = container.clientWidth - 100;
+                        const containerHeight = container.clientHeight - 100;
+                        
+                        if (physics.x <= 0) { 
+                            physics.x = 0; 
+                            physics.vx *= physics.bounce;
+                        }
+                        if (physics.x >= containerWidth) { 
+                            physics.x = containerWidth; 
+                            physics.vx *= physics.bounce;
+                        }
+                        if (physics.y <= 0) { 
+                            physics.y = 0; 
+                            physics.vy *= physics.bounce;
+                        }
+                        if (physics.y >= containerHeight) { 
+                            physics.y = containerHeight; 
+                            physics.vy *= physics.bounce;
+                        }
+                        
+                        physics.vx *= physics.friction;
+                        physics.vy *= physics.friction;
+                        updatePosition();
+                    }
+                    requestAnimationFrame(animate);
+                }
+                
+                function updatePosition() {
+                    ball.style.left = physics.x + 'px';
+                    ball.style.top = physics.y + 'px';
+                }
+                
+                animate();
+            }
+        }
+
+                    } else {
+                        showError('지원하지 않는 데모 타입입니다.');
+                        return;
+                    }
+                    
+                    hideLoading();
+                }, 200);
+                
+            } catch (error) {
+                hideLoading();
+                showError('데모를 로드하는 중 오류가 발생했습니다: ' + error.message);
+                console.error('Demo loading error:', error);
+            }
+        }
+
+        console.log('🎨 UijeongBoo 스크롤 애니메이션 가이드가 로드되었습니다!');
+    </script>
+</body>
+</html>

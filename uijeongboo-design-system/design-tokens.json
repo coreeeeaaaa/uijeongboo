@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-17",
+  "author": "SAAAAHA",
+  "description": "Personal design system that evolves with user preferences",
+  
+  "colors": {
+    "primary": {
+      "lime": {
+        "value": "#32CD32",
+        "rgb": "50, 205, 50", 
+        "description": "Main brand color - vibrant lime",
+        "history": ["Initial selection based on SAAAAHA logo"]
+      },
+      "accent": {
+        "value": "#6666ff",
+        "description": "Link and interactive elements"
+      }
+    },
+    "neutral": {
+      "bg-primary": {
+        "value": "#222222",
+        "description": "Main background - from toggling_firebase analysis"
+      },
+      "bg-secondary": {
+        "value": "#111111", 
+        "description": "Dark mode background"
+      },
+      "surface-primary": {
+        "value": "#333333",
+        "description": "Cards, panels, surfaces"
+      },
+      "surface-secondary": {
+        "value": "#2a2a2a",
+        "description": "Deeper surfaces"
+      },
+      "border": {
+        "value": "#444444",
+        "description": "Borders and dividers"
+      },
+      "border-hover": {
+        "value": "#555555",
+        "description": "Hover state borders"
+      },
+      "text-primary": {
+        "value": "#eeeeee",
+        "description": "Primary text color"
+      },
+      "text-secondary": {
+        "value": "#999999", 
+        "description": "Secondary text color"
+      },
+      "text-muted": {
+        "value": "#666666",
+        "description": "Muted text color"
+      }
+    }
+  },
+  
+  "spacing": {
+    "unit": 4,
+    "description": "Compact spacing based on toggling_firebase analysis",
+    "scale": {
+      "0": 0,
+      "1": 4,
+      "2": 8, 
+      "3": 12,
+      "4": 16,
+      "5": 20,
+      "6": 24,
+      "8": 32,
+      "10": 40,
+      "12": 48,
+      "16": 64,
+      "20": 80
+    },
+    "compact": {
+      "description": "Actual usage patterns from toggling_firebase",
+      "padding-sm": "0.25rem",
+      "padding-md": "0.5rem", 
+      "padding-lg": "0.75rem",
+      "gap-sm": "0.25rem",
+      "gap-md": "0.5rem"
+    },
+    "preferences": {
+      "padding": {
+        "default": "12px",
+        "reason": "Compact design preference from analysis"
+      }
+    }
+  },
+  
+  "typography": {
+    "fontFamily": {
+      "primary": "SF Pro Display, Inter, system-ui",
+      "mono": "SF Mono, Consolas, monospace"
+    },
+    "scale": {
+      "xs": 12,
+      "sm": 14,
+      "base": 16,
+      "lg": 18,
+      "xl": 20,
+      "2xl": 24,
+      "3xl": 32,
+      "4xl": 48,
+      "5xl": 64
+    }
+  },
+  
+  "shapes": {
+    "borderRadius": {
+      "none": 0,
+      "sm": 4,
+      "md": 8,
+      "lg": 16,
+      "xl": 24,
+      "full": 9999,
+      "macos": "20%"
+    },
+    "preferences": {
+      "iconStyle": "macOS rounded corners",
+      "circleQuality": "4x supersampling with antialiasing"
+    }
+  },
+  
+  "userPreferences": {
+    "aesthetics": [
+      "Clean geometric shapes",
+      "No pixelation or distortion", 
+      "Smooth, perfect circles",
+      "Minimalist approach",
+      "No emojis anywhere",
+      "Concise text only"
+    ],
+    "technicalRequirements": [
+      "Antialiasing mandatory",
+      "High-resolution support",
+      "Cross-platform compatibility",
+      "Mobile-first responsive",
+      "Platform separation (mobile/web)"
+    ],
+    "interactionRules": [
+      "Toggle buttons must be consistent",
+      "Open/close symmetry required", 
+      "Same position, same appearance",
+      "Matching animation timing",
+      "Sidebar resize handles always available",
+      "Consistent slide animations (0.2s ease)"
+    ],
+    "sidebarRules": [
+      "Left sidebar: function-focused (navigation, tools, workspace)",
+      "Right sidebar: system-focused (settings, account, status, info)",
+      "No content enforcement - roles only",
+      "Resizable by default with disable option",
+      "Fixed toggle button positions",
+      "Consistent open/close animations"
+    ],
+    "development": [
+      "Mobile/web structure separation",
+      "Shared tokens, separate implementation",
+      "Progressive enhancement"
+    ],
+    "evolutionLog": []
+  }
+}

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - 스크롤 애니메이션 가이드</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    
+    <style>
+        :root {
+            --uij-primary: #32CD32;
+            --uij-bg-primary: #222222;
+            --uij-bg-secondary: #333333;
+            --uij-bg-tertiary: #444444;
+            --uij-text-primary: #eeeeee;
+            --uij-text-secondary: #cccccc;
+            --uij-border: #444444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: var(--uij-bg-primary);
+            color: var(--uij-text-primary);
+            line-height: 1.6;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--uij-bg-secondary);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--uij-primary);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            padding: 80px 0 120px 0;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--uij-bg-primary), var(--uij-bg-secondary));
+        }
+
+        .hero-content {
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--uij-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--uij-text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--uij-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--uij-border);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--uij-text-primary);
+            text-align: center;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .component-card {
+            background: var(--uij-bg-secondary);
+            border: 1px solid var(--uij-border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+        }
+
+        .component-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .component-card:hover {
+            border-color: var(--uij-primary);
+            background: var(--uij-bg-tertiary);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .component-number {
+            background: var(--uij-primary);
+            color: #000000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .component-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--uij-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .component-designer {
+            font-size: 0.9rem;
+            color: var(--uij-primary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .component-description {
+            color: var(--uij-text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .demo-preview {
+            background: var(--uij-bg-primary);
+            border: 1px solid var(--uij-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-preview:hover {
+            border-color: var(--uij-primary);
+            background: var(--uij-bg-tertiary);
+        }
+
+        .demo-element {
+            width: 60px;
+            height: 60px;
+            background: var(--uij-primary);
+            border-radius: 8px;
+            transition: all 0.6s ease;
+        }
+
+        .demo-preview:hover .demo-element {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .demo-label {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: var(--uij-primary);
+            color: #000000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .demo-preview:hover .demo-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--uij-bg-primary);
+            border: 1px solid var(--uij-border);
+            border-radius: 12px;
+            width: 90vw;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--uij-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--uij-text-primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: 1px solid var(--uij-border);
+            color: var(--uij-text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            border-color: var(--uij-primary);
+            color: var(--uij-primary);
+        }
+
+        .modal-content {
+            padding: 30px;
+        }
+
+        .demo-iframe {
+            width: 100%;
+            height: 60vh;
+            border: 1px solid var(--uij-border);
+            border-radius: 8px;
+            background: var(--uij-bg-secondary);
+            margin-bottom: 20px;
+        }
+
+        .guidelines-section {
+            background: linear-gradient(135deg, var(--uij-bg-secondary), var(--uij-bg-primary));
+            margin-top: 80px;
+            padding: 100px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal {
+                width: 95vw;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 스크롤 진행률 표시 -->
+    <div class="scroll-progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">스크롤 애니메이션 디자인 컴포넌트 가이드</h1>
+                <h2 class="hero-subtitle">사용자 경험을 향상시키는 15가지 매력적인 스크롤 애니메이션 패턴</h2>
+                <p class="hero-description">
+                    스크롤은 사용자 경험의 핵심 요소입니다. 흥미로운 스크롤 경험은 사용자의 사이트 체류 시간을 늘리고 감정적 연결을 만들어냅니다. 
+                    다음은 프로젝트에서 활용할 수 있는 15가지 최신 스크롤 아이디어로, 실제 스크롤에 반응하는 인터랙티브한 데모를 제공합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 컴포넌트 섹션 -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">인터랙티브 컴포넌트 라이브러리</h2>
+            
+            <div class="components-grid">
+                <!-- 1. 클래식 접근법 -->
+                <div class="component-card" onclick="openModal('classic')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">클래식 접근법 (Classic Approach)</h3>
+                            <p class="component-designer">디자이너: DΞNYS</p>
+                        </div>
+                        <div class="component-number">1</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        기존 객체가 투명해지면서 새로운 객체가 나타나는 방식으로, 모든 유형의 웹사이트에 적합한 범용적 옵션입니다.
+                    </p>
+                </div>
+
+                <!-- 2. 패럴랙스 레이어링 -->
+                <div class="component-card" onclick="openModal('parallax')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">패럴랙스 레이어링</h3>
+                            <p class="component-designer">디자이너: APPLE DESIGN TEAM</p>
+                        </div>
+                        <div class="component-number">2</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        다른 속도로 움직이는 레이어들이 깊이감과 입체감을 만들어내며, 스크롤 속도에 따라 다양한 시각적 효과를 제공합니다.
+                    </p>
+                </div>
+
+                <!-- 3. 마그네틱 스크롤 -->
+                <div class="component-card" onclick="openModal('magnetic')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">마그네틱 스크롤</h3>
+                            <p class="component-designer">디자이너: STRIPE DESIGN</p>
+                        </div>
+                        <div class="component-number">3</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        마우스 커서나 스크롤 위치에 반응하여 요소가 자연스럽게 끌리는 효과로, 사용자 상호작용을 향상시킵니다.
+                    </p>
+                </div>
+
+                <!-- 4. 모핑 애니메이션 -->
+                <div class="component-card" onclick="openModal('morphing')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">모핑 애니메이션</h3>
+                            <p class="component-designer">디자이너: FRAMER MOTION</p>
+                        </div>
+                        <div class="component-number">4</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        스크롤에 따라 요소의 모양이 단계적으로 변화하며, 유동적이고 예측 불가능한 시각적 경험을 제공합니다.
+                    </p>
+                </div>
+
+                <!-- 5. 리퀴드 모션 -->
+                <div class="component-card" onclick="openModal('liquid')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">리퀴드 모션</h3>
+                            <p class="component-designer">디자이너: AWWWARDS SOTD</p>
+                        </div>
+                        <div class="component-number">5</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        액체와 같은 자연스러운 움직임으로 스크롤 경험을 부드럽고 유기적으로 만들어 사용자에게 편안함을 제공합니다.
+                    </p>
+                </div>
+
+                <!-- 6. 물리 기반 스크롤 -->
+                <div class="component-card" onclick="openModal('physics')">
+                    <div class="component-header">
+                        <div>
+                            <h3 class="component-title">물리 기반 스크롤</h3>
+                            <p class="component-designer">디자이너: LENIS SMOOTH</p>
+                        </div>
+                        <div class="component-number">6</div>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-element"></div>
+                        <div class="demo-label">클릭하여 상세 보기</div>
+                    </div>
+                    
+                    <p class="component-description">
+                        실제 물리 법칙을 시뮬레이션하여 리얼한 바운스, 관성, 마찰 효과를 만들어 내어 생동감 있는 인터랙션을 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 가이드라인 섹션 -->
+    <section class="guidelines-section">
+        <div class="container">
+            <h2 class="section-title">구현 가이드라인</h2>
+            <div style="text-align: center; padding: 60px 40px; background: var(--uij-bg-primary); border-radius: 12px; border: 1px solid var(--uij-border);">
+                <p style="font-size: 1.2rem; color: var(--uij-text-secondary); margin-bottom: 16px;">
+                    이러한 컴포넌트들을 프로젝트의 컨셉과 가장 잘 맞는 것을 선택하여 활용하시면 됩니다.
+                </p>
+                <p style="color: var(--uij-primary); font-weight: 600;">
+                    UijeongBoo Design Framework - 인터랙티브 스크롤 애니메이션 가이드
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 모달 -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">데모 제목</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-content">
+                <iframe id="demoIframe" class="demo-iframe" frameborder="0"></iframe>
+                <p id="modalDescription">이 효과는 실제 웹사이트에서 스크롤 인터랙션으로 구현할 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 스크롤 진행률 업데이트
+        function updateScrollProgress() {
+            const scrolled = window.pageYOffset;
+            const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // 인터섹션 옵저버로 카드 애니메이션
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // 모든 카드에 옵저버 적용
+        document.querySelectorAll('.component-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // 데모 페이지 생성
+        function createDemoPage(type) {
+            if (type === 'classic') {
+                return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>클래식 접근법</title>
+<style>
+body { background: #222; color: #fff; font-family: system-ui; margin: 0; }
+.section { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.fade-element { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
+.fade-element.visible { opacity: 1; transform: translateY(0); }
+.demo-box { width: 200px; height: 200px; background: #32CD32; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #000; }
+</style></head>
+<body>
+<div class="section"><div class="fade-element"><div class="demo-box">클래식 효과</div></div></div>
+<div class="section"><div class="fade-element"><div class="demo-box">페이드 인</div></div></div>
+<div class="section"><div class="fade-element"><div class="demo-box">부드러운 등장</div></div></div>
+<script>
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if (entry.isIntersecting) entry.target.classList.add('visible');
+});
+}, { threshold: 0.3 });
+document.querySelectorAll('.fade-element').forEach(el => observer.observe(el));
+</script>
+</body></html>`;
+            }
+            
+            if (type === 'parallax') {
+                return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>패럴랙스 레이어링</title>
+<style>
+body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 300vh; }
+.parallax-container { position: relative; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+.parallax-layer { position: absolute; will-change: transform; }
+.parallax-bg { width: 120%; height: 120%; background: linear-gradient(45deg, #32CD32, #1a8a1a); top: -10%; left: -10%; border-radius: 20px; }
+.parallax-content { position: relative; z-index: 2; text-align: center; }
+.demo-title { font-size: 3rem; margin-bottom: 20px; color: #32CD32; }
+</style></head>
+<body>
+<div class="parallax-container">
+<div class="parallax-layer parallax-bg"></div>
+<div class="parallax-content">
+<h1 class="demo-title">패럴랙스 레이어링</h1>
+<p>아래로 스크롤하여 깊이감을 확인하세요</p>
+</div>
+</div>
+<div style="height: 200vh; background: linear-gradient(to bottom, #333, #222); display: flex; align-items: center; justify-content: center;">
+<h2 style="color: #32CD32;">배경이 다른 속도로 움직입니다</h2>
+</div>
+<script>
+function updateParallax() {
+const scrollY = window.pageYOffset;
+const bg = document.querySelector('.parallax-bg');
+bg.style.transform = 'translateY(' + (scrollY * 0.5) + 'px)';
+}
+window.addEventListener('scroll', updateParallax, { passive: true });
+</script>
+</body></html>`;
+            }
+            
+            if (type === 'magnetic') {
+                return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>마그네틱 스크롤</title>
+<style>
+body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; cursor: none; }
+.magnetic-cursor { position: fixed; width: 20px; height: 20px; background: #32CD32; border-radius: 50%; pointer-events: none; z-index: 1000; }
+.magnetic-element { width: 200px; height: 200px; background: #333; border: 2px solid #32CD32; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.2s ease; cursor: pointer; }
+</style></head>
+<body>
+<div class="magnetic-cursor"></div>
+<div class="magnetic-element">마우스를 올려보세요</div>
+<script>
+const cursor = document.querySelector('.magnetic-cursor');
+const element = document.querySelector('.magnetic-element');
+document.addEventListener('mousemove', (e) => {
+cursor.style.left = e.clientX + 'px';
+cursor.style.top = e.clientY + 'px';
+});
+element.addEventListener('mousemove', (e) => {
+const rect = element.getBoundingClientRect();
+const centerX = rect.left + rect.width / 2;
+const centerY = rect.top + rect.height / 2;
+const deltaX = (e.clientX - centerX) * 0.2;
+const deltaY = (e.clientY - centerY) * 0.2;
+element.style.transform = 'translate(' + deltaX + 'px, ' + deltaY + 'px) scale(1.05)';
+});
+element.addEventListener('mouseleave', () => {
+element.style.transform = 'translate(0, 0) scale(1)';
+});
+</script>
+</body></html>`;
+            }
+            
+            // 기본값
+            return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>데모</title>
+<style>
+body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+.demo-box { width: 200px; height: 200px; background: #32CD32; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #000; }
+</style></head>
+<body>
+<div class="demo-box">스크롤 데모</div>
+</body></html>`;
+                parallax: `
+                    <!DOCTYPE html>
+                    <html><head><meta charset="UTF-8"><title>패럴랙스 레이어링</title>
+                    <style>
+                        body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 300vh; }
+                        .parallax-container { position: relative; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+                        .parallax-layer { position: absolute; will-change: transform; }
+                        .parallax-bg { width: 120%; height: 120%; background: linear-gradient(45deg, #32CD32, #1a8a1a); top: -10%; left: -10%; border-radius: 20px; }
+                        .parallax-content { position: relative; z-index: 2; text-align: center; }
+                        .demo-title { font-size: 3rem; margin-bottom: 20px; color: #32CD32; }
+                    </style></head>
+                    <body>
+                        <div class="parallax-container">
+                            <div class="parallax-layer parallax-bg"></div>
+                            <div class="parallax-content">
+                                <h1 class="demo-title">패럴랙스 레이어링</h1>
+                                <p>아래로 스크롤하여 깊이감을 확인하세요</p>
+                            </div>
+                        </div>
+                        <div style="height: 200vh; background: linear-gradient(to bottom, #333, #222); display: flex; align-items: center; justify-content: center;">
+                            <h2 style="color: #32CD32;">배경이 다른 속도로 움직입니다</h2>
+                        </div>
+                        <script>
+                            function updateParallax() {
+                                const scrollY = window.pageYOffset;
+                                const bg = document.querySelector('.parallax-bg');
+                                bg.style.transform = 'translateY(' + (scrollY * 0.5) + 'px)';
+                            }
+                            window.addEventListener('scroll', updateParallax, { passive: true });
+                        </script>
+                    </body></html>
+                `,
+                magnetic: `
+                    <!DOCTYPE html>
+                    <html><head><meta charset="UTF-8"><title>마그네틱 스크롤</title>
+                    <style>
+                        body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; cursor: none; }
+                        .magnetic-cursor { position: fixed; width: 20px; height: 20px; background: #32CD32; border-radius: 50%; pointer-events: none; z-index: 1000; }
+                        .magnetic-element { width: 200px; height: 200px; background: #333; border: 2px solid #32CD32; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.2s ease; cursor: pointer; }
+                    </style></head>
+                    <body>
+                        <div class="magnetic-cursor"></div>
+                        <div class="magnetic-element">마우스를 올려보세요</div>
+                        <script>
+                            const cursor = document.querySelector('.magnetic-cursor');
+                            const element = document.querySelector('.magnetic-element');
+                            
+                            document.addEventListener('mousemove', (e) => {
+                                cursor.style.left = e.clientX + 'px';
+                                cursor.style.top = e.clientY + 'px';
+                            });
+                            
+                            element.addEventListener('mousemove', (e) => {
+                                const rect = element.getBoundingClientRect();
+                                const centerX = rect.left + rect.width / 2;
+                                const centerY = rect.top + rect.height / 2;
+                                const deltaX = (e.clientX - centerX) * 0.2;
+                                const deltaY = (e.clientY - centerY) * 0.2;
+                                element.style.transform = 'translate(' + deltaX + 'px, ' + deltaY + 'px) scale(1.05)';
+                            });
+                            
+                            element.addEventListener('mouseleave', () => {
+                                element.style.transform = 'translate(0, 0) scale(1)';
+                            });
+                        </script>
+                    </body></html>
+                `,
+                morphing: `
+                    <!DOCTYPE html>
+                    <html><head><meta charset="UTF-8"><title>모핑 애니메이션</title>
+                    <style>
+                        body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 400vh; }
+                        .morphing-container { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+                        .morphing-element { width: 200px; height: 200px; background: #32CD32; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #000; }
+                    </style></head>
+                    <body>
+                        <div class="morphing-container">
+                            <div class="morphing-element">모핑</div>
+                        </div>
+                        <script>
+                            function updateMorphing() {
+                                const scrollY = window.pageYOffset;
+                                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                                const progress = scrollY / maxScroll;
+                                const element = document.querySelector('.morphing-element');
+                                
+                                const morphStage = Math.floor(progress * 4);
+                                let borderRadius, rotation, scale;
+                                
+                                switch(morphStage) {
+                                    case 0:
+                                        borderRadius = '16px';
+                                        rotation = progress * 90;
+                                        scale = 1;
+                                        break;
+                                    case 1:
+                                        borderRadius = '50%';
+                                        rotation = 90 + (progress - 0.25) * 4 * 90;
+                                        scale = 1.2;
+                                        break;
+                                    case 2:
+                                        borderRadius = '0px';
+                                        rotation = 180 + (progress - 0.5) * 4 * 90;
+                                        scale = 0.9;
+                                        break;
+                                    default:
+                                        borderRadius = '50% 0';
+                                        rotation = 270 + (progress - 0.75) * 4 * 90;
+                                        scale = 1.3;
+                                }
+                                
+                                element.style.borderRadius = borderRadius;
+                                element.style.transform = 'rotate(' + rotation + 'deg) scale(' + scale + ')';
+                            }
+                            
+                            window.addEventListener('scroll', updateMorphing, { passive: true });
+                        </script>
+                    </body></html>
+                `,
+                liquid: `
+                    <!DOCTYPE html>
+                    <html><head><meta charset="UTF-8"><title>리퀴드 모션</title>
+                    <style>
+                        body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 400vh; }
+                        .liquid-container { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+                        .liquid-element { width: 200px; height: 120px; background: #32CD32; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #000; filter: blur(1px); transition: all 0.3s ease; }
+                    </style></head>
+                    <body>
+                        <div class="liquid-container">
+                            <div class="liquid-element">리퀴드</div>
+                        </div>
+                        <script>
+                            let lastScrollY = 0;
+                            function updateLiquid() {
+                                const scrollY = window.pageYOffset;
+                                const velocity = scrollY - lastScrollY;
+                                const element = document.querySelector('.liquid-element');
+                                
+                                const intensity = Math.abs(velocity) * 0.1;
+                                const skew = Math.max(-15, Math.min(15, velocity * 0.3));
+                                const scaleX = 1 + intensity;
+                                const scaleY = Math.max(0.7, 1 - intensity * 0.3);
+                                
+                                element.style.transform = 'skew(' + skew + 'deg) scale(' + scaleX + ', ' + scaleY + ')';
+                                
+                                setTimeout(() => {
+                                    element.style.transform = 'skew(0deg) scale(1, 1)';
+                                }, 100);
+                                
+                                lastScrollY = scrollY;
+                            }
+                            
+                            window.addEventListener('scroll', updateLiquid, { passive: true });
+                        </script>
+                    </body></html>
+                `,
+                physics: `
+                    <!DOCTYPE html>
+                    <html><head><meta charset="UTF-8"><title>물리 기반 스크롤</title>
+                    <style>
+                        body { background: #222; color: #fff; font-family: system-ui; margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+                        .physics-playground { width: 600px; height: 400px; border: 2px solid #444; border-radius: 16px; position: relative; overflow: hidden; }
+                        .physics-ball { width: 60px; height: 60px; background: #32CD32; border-radius: 50%; position: absolute; cursor: pointer; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+                        .instructions { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #999; font-size: 0.9rem; text-align: center; }
+                    </style></head>
+                    <body>
+                        <div class="physics-playground">
+                            <div class="physics-ball"></div>
+                        </div>
+                        <div class="instructions">공을 클릭하거나 드래그하여 물리 효과를 확인하세요</div>
+                        <script>
+                            const ball = document.querySelector('.physics-ball');
+                            const playground = document.querySelector('.physics-playground');
+                            let physics = {
+                                x: 270, y: 170,
+                                vx: 0, vy: 0,
+                                gravity: 0.3,
+                                friction: 0.98,
+                                bounce: -0.8,
+                                isDragging: false
+                            };
+                            
+                            ball.addEventListener('mousedown', (e) => {
+                                physics.isDragging = true;
+                                physics.vx = 0;
+                                physics.vy = 0;
+                            });
+                            
+                            document.addEventListener('mousemove', (e) => {
+                                if (physics.isDragging) {
+                                    const rect = playground.getBoundingClientRect();
+                                    physics.x = e.clientX - rect.left - 30;
+                                    physics.y = e.clientY - rect.top - 30;
+                                    updatePosition();
+                                }
+                            });
+                            
+                            document.addEventListener('mouseup', () => {
+                                physics.isDragging = false;
+                            });
+                            
+                            function animate() {
+                                if (!physics.isDragging) {
+                                    physics.vy += physics.gravity;
+                                    physics.x += physics.vx;
+                                    physics.y += physics.vy;
+                                    
+                                    if (physics.x <= 0) { physics.x = 0; physics.vx *= physics.bounce; }
+                                    if (physics.x >= 540) { physics.x = 540; physics.vx *= physics.bounce; }
+                                    if (physics.y <= 0) { physics.y = 0; physics.vy *= physics.bounce; }
+                                    if (physics.y >= 340) { physics.y = 340; physics.vy *= physics.bounce; }
+                                    
+                                    physics.vx *= physics.friction;
+                                    physics.vy *= physics.friction;
+                                    updatePosition();
+                                }
+                                requestAnimationFrame(animate);
+                            }
+                            
+                            function updatePosition() {
+                                ball.style.left = physics.x + 'px';
+                                ball.style.top = physics.y + 'px';
+                            }
+                            
+                            animate();
+                        </script>
+                    </body></html>
+                `
+            };
+            
+            return demoPages[type] || demoPages.classic;
+        }
+
+        // 모달 열기
+        function openModal(type) {
+            const overlay = document.getElementById('modalOverlay');
+            const title = document.getElementById('modalTitle');
+            const iframe = document.getElementById('demoIframe');
+            const description = document.getElementById('modalDescription');
+            
+            const demos = {
+                classic: { title: '클래식 접근법 - 실제 동작 데모', desc: '부드러운 페이드 인 효과가 실제로 적용된 페이지입니다. 스크롤하여 효과를 확인하세요.' },
+                parallax: { title: '패럴랙스 레이어링 - 실제 동작 데모', desc: '다층 배경이 서로 다른 속도로 움직이는 효과입니다. 스크롤하여 깊이감을 느껴보세요.' },
+                magnetic: { title: '마그네틱 스크롤 - 실제 동작 데모', desc: '마우스 위치에 반응하는 자석 효과입니다. 요소에 마우스를 올려보세요.' },
+                morphing: { title: '모핑 애니메이션 - 실제 동작 데모', desc: '스크롤에 따라 모양이 연속적으로 변화합니다. 스크롤하여 변화를 확인하세요.' },
+                liquid: { title: '리퀴드 모션 - 실제 동작 데모', desc: '액체처럼 부드러운 변형 효과입니다. 스크롤 속도에 따라 변화합니다.' },
+                physics: { title: '물리 기반 스크롤 - 실제 동작 데모', desc: '실제 물리 법칙을 시뮬레이션합니다. 공을 드래그하여 물리 효과를 체험하세요.' }
+            };
+
+            const demo = demos[type] || demos.classic;
+            title.textContent = demo.title;
+            description.textContent = demo.desc;
+            
+            // 데모 페이지를 blob URL로 생성
+            const pageContent = createDemoPage(type);
+            const blob = new Blob([pageContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            iframe.src = url;
+            
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            const overlay = document.getElementById('modalOverlay');
+            const iframe = document.getElementById('demoIframe');
+            
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // URL 정리
+            if (iframe.src.startsWith('blob:')) {
+                URL.revokeObjectURL(iframe.src);
+            }
+            iframe.src = '';
+        }
+
+        // 이벤트 리스너
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        
+        // 모달 외부 클릭시 닫기
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        console.log('🎨 UijeongBoo 스크롤 애니메이션 가이드가 로드되었습니다!');
+    </script>
+</body>
+</html>

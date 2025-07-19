@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실제 스크롤 애니메이션</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #222;
+            color: #fff;
+            font-family: system-ui;
+            height: 500vh;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: #32CD32;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            position: relative;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #222, #333);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: #32CD32;
+            margin-bottom: 20px;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .scroll-element {
+            width: 300px;
+            height: 300px;
+            background: #32CD32;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            font-weight: bold;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .scroll-element.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .parallax-section {
+            position: relative;
+            background: #111;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(45deg, #32CD32, #1a8a1a);
+            will-change: transform;
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .magnetic-section {
+            background: #333;
+            cursor: none;
+        }
+
+        .magnetic-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background: #32CD32;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .magnetic-element {
+            width: 400px;
+            height: 400px;
+            background: #444;
+            border: 3px solid #32CD32;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .morphing-section {
+            background: #111;
+        }
+
+        .morphing-element {
+            width: 300px;
+            height: 300px;
+            background: #32CD32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .liquid-section {
+            background: #222;
+        }
+
+        .liquid-element {
+            width: 300px;
+            height: 200px;
+            background: #32CD32;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            font-weight: bold;
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="magnetic-cursor" id="cursor"></div>
+
+    <section class="section hero">
+        <div>
+            <h1>실제 스크롤 애니메이션</h1>
+            <p>아래로 스크롤하여 다양한 효과를 확인하세요</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="scroll-element" data-scroll>
+            페이드 인
+        </div>
+    </section>
+
+    <section class="section parallax-section">
+        <div class="parallax-bg" id="parallaxBg"></div>
+        <div class="parallax-content">
+            <div class="scroll-element" data-scroll style="background: #fff; color: #000;">
+                패럴랙스
+            </div>
+        </div>
+    </section>
+
+    <section class="section magnetic-section">
+        <div class="magnetic-element" id="magneticEl">
+            마그네틱<br>마우스를 올려보세요
+        </div>
+    </section>
+
+    <section class="section morphing-section">
+        <div class="morphing-element" id="morphingEl">
+            모핑
+        </div>
+    </section>
+
+    <section class="section liquid-section">
+        <div class="liquid-element" id="liquidEl">
+            리퀴드
+        </div>
+    </section>
+
+    <script>
+        // 스크롤 진행률
+        function updateProgress() {
+            const scrolled = window.pageYOffset;
+            const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // 스크롤 요소 표시
+        function handleScrollElements() {
+            const elements = document.querySelectorAll('[data-scroll]');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        // 패럴랙스 효과
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.getElementById('parallaxBg');
+            if (parallaxBg) {
+                parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        }
+
+        // 마그네틱 효과
+        const cursor = document.getElementById('cursor');
+        const magneticEl = document.getElementById('magneticEl');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        magneticEl.addEventListener('mousemove', (e) => {
+            const rect = magneticEl.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const deltaX = (e.clientX - centerX) * 0.3;
+            const deltaY = (e.clientY - centerY) * 0.3;
+            magneticEl.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.05)`;
+        });
+
+        magneticEl.addEventListener('mouseleave', () => {
+            magneticEl.style.transform = 'translate(0, 0) scale(1)';
+        });
+
+        // 모핑 효과
+        function updateMorphing() {
+            const scrolled = window.pageYOffset;
+            const morphingEl = document.getElementById('morphingEl');
+            const progress = (scrolled / (document.documentElement.scrollHeight - window.innerHeight));
+            
+            const stage = Math.floor(progress * 4);
+            let borderRadius, rotation, scale;
+            
+            switch(stage) {
+                case 0:
+                    borderRadius = '20px';
+                    rotation = progress * 180;
+                    scale = 1;
+                    break;
+                case 1:
+                    borderRadius = '50%';
+                    rotation = 180 + (progress - 0.25) * 4 * 90;
+                    scale = 1.2;
+                    break;
+                case 2:
+                    borderRadius = '0px';
+                    rotation = 270 + (progress - 0.5) * 4 * 90;
+                    scale = 0.8;
+                    break;
+                default:
+                    borderRadius = '50% 0';
+                    rotation = 360 + (progress - 0.75) * 4 * 90;
+                    scale = 1.3;
+            }
+            
+            morphingEl.style.borderRadius = borderRadius;
+            morphingEl.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+        }
+
+        // 리퀴드 효과
+        let lastScrollY = 0;
+        function updateLiquid() {
+            const scrollY = window.pageYOffset;
+            const velocity = scrollY - lastScrollY;
+            const liquidEl = document.getElementById('liquidEl');
+            
+            const intensity = Math.abs(velocity) * 0.2;
+            const skew = Math.max(-20, Math.min(20, velocity * 0.5));
+            const scaleX = 1 + intensity;
+            const scaleY = Math.max(0.6, 1 - intensity * 0.4);
+            
+            liquidEl.style.transform = `skew(${skew}deg) scale(${scaleX}, ${scaleY})`;
+            
+            setTimeout(() => {
+                liquidEl.style.transform = 'skew(0deg) scale(1, 1)';
+            }, 100);
+            
+            lastScrollY = scrollY;
+        }
+
+        // 스크롤 이벤트
+        window.addEventListener('scroll', () => {
+            updateProgress();
+            handleScrollElements();
+            updateParallax();
+            updateMorphing();
+            updateLiquid();
+        }, { passive: true });
+
+        // 초기 실행
+        handleScrollElements();
+    </script>
+</body>
+</html>

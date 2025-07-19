@@ -1,0 +1,226 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - Core Styles       */
+/* Version: 1.0                                     */
+/* License: MIT                                     */
+/* ================================================= */
+
+/* IMPORTANT DESIGN RULES - DO NOT VIOLATE */
+/* 1. NO EMOJIS ANYWHERE IN THE FRAMEWORK */
+/* 2. ONLY LIME COLOR (#32CD32) ALLOWED FOR ACCENTS */
+/* 3. ALL OTHER COLORS MUST BE GRAYSCALE */
+/* 4. TRANSPARENT BUTTONS ONLY */
+/* 5. NO BOX-SHADOWS */
+
+:root {
+    /* Core Color Palette - GRAYSCALE ONLY + LIME */
+    --uij-primary: #32CD32;          /* ONLY allowed color accent */
+    --uij-bg-primary: #222222;       /* Main background */
+    --uij-bg-secondary: #333333;     /* Cards/Sidebar */
+    --uij-bg-tertiary: #444444;      /* Hover/Input fields */
+    --uij-bg-quaternary: #555555;    /* Borders/Disabled */
+    --uij-bg-light: #666666;         /* Light elements */
+    
+    /* Text Colors - GRAYSCALE ONLY */
+    --uij-text-primary: #eeeeee;     /* Primary text */
+    --uij-text-secondary: #cccccc;   /* Secondary text */
+    --uij-text-muted: #999999;       /* Muted text */
+    --uij-text-disabled: #666666;    /* Disabled text */
+    
+    /* State Colors - MINIMAL USE */
+    --uij-success: #32CD32;          /* Success = Lime only */
+    --uij-warning: #888888;          /* Warning = Gray */
+    --uij-danger: #888888;           /* Danger = Gray */
+    --uij-info: #888888;             /* Info = Gray */
+    
+    /* Borders - GRAYSCALE ONLY */
+    --uij-border: #444444;           /* Default border */
+    --uij-border-light: #555555;     /* Light border */
+    --uij-border-focus: #32CD32;     /* Focus border = Lime only */
+    
+    /* Animations & Transitions */
+    --uij-transition-fast: 0.15s ease;
+    --uij-transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --uij-transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Typography */
+    --uij-font-family: 'SF Pro Display', system-ui, sans-serif;
+    --uij-font-mono: 'Monaco', 'Menlo', monospace;
+    
+    /* Spacing */
+    --uij-spacing-xs: 4px;
+    --uij-spacing-sm: 8px;
+    --uij-spacing-md: 16px;
+    --uij-spacing-lg: 24px;
+    --uij-spacing-xl: 32px;
+    --uij-spacing-2xl: 48px;
+    
+    /* Border Radius */
+    --uij-radius-sm: 4px;
+    --uij-radius-md: 6px;
+    --uij-radius-lg: 8px;
+    --uij-radius-xl: 12px;
+    
+    /* Z-Index Scale */
+    --uij-z-dropdown: 1000;
+    --uij-z-sticky: 1001;
+    --uij-z-fixed: 1002;
+    --uij-z-modal-backdrop: 1003;
+    --uij-z-modal: 1004;
+    --uij-z-popover: 1005;
+    --uij-z-tooltip: 1006;
+    --uij-z-toast: 1007;
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Styles */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--uij-font-family);
+    background: var(--uij-bg-primary);
+    color: var(--uij-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-sm);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: var(--uij-spacing-md);
+    color: var(--uij-text-secondary);
+}
+
+/* Links */
+a {
+    color: var(--uij-text-secondary);
+    text-decoration: none;
+    transition: var(--uij-transition-fast);
+}
+
+a:hover {
+    color: var(--uij-text-primary);
+}
+
+/* Selection */
+::selection {
+    background: var(--uij-primary);
+    color: #000000;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--uij-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--uij-bg-light);
+    border-radius: var(--uij-radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--uij-border-light);
+}
+
+/* Focus Styles */
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: 2px;
+}
+
+/* Text Overflow Prevention - CRITICAL RULE */
+.uij-no-wrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Utility Classes */
+.uij-hidden {
+    display: none !important;
+}
+
+.uij-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.uij-text-center {
+    text-align: center;
+}
+
+.uij-text-left {
+    text-align: left;
+}
+
+.uij-text-right {
+    text-align: right;
+}
+
+/* Responsive Text Prevention */
+@media (max-width: 768px) {
+    h1, h2, h3, h4, h5, h6, p, a, span, div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Allow wrapping only for specific content areas */
+    .uij-content-area,
+    .uij-description,
+    .uij-body-text {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .uij-no-print {
+        display: none !important;
+    }
+}
