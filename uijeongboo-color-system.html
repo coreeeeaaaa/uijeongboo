@@ -35,6 +35,8 @@
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            contain: layout;
         }
 
         .header {
@@ -95,6 +97,9 @@
             padding: 32px;
             margin-bottom: 32px;
             display: none;
+            position: relative;
+            contain: layout style;
+            min-height: 400px; /* 최소 높이로 레이아웃 점프 방지 */
         }
 
         .section.active {
@@ -124,6 +129,7 @@
         .color-widget-container {
             position: relative;
             display: inline-block;
+            contain: layout;
         }
         
         .color-widget-trigger {
@@ -297,6 +303,8 @@
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 12px;
             margin-bottom: 20px;
+            position: relative;
+            overflow: visible;
         }
 
         .color-card {
@@ -306,11 +314,14 @@
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
+            transform-origin: center;
+            will-change: transform;
         }
 
         .color-card:hover {
             border-color: var(--uij-primary);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            z-index: 5;
         }
 
         .color-swatch {
@@ -367,6 +378,8 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 24px;
+            position: relative;
+            overflow: visible;
         }
 
         .demo-item {
@@ -644,6 +657,9 @@
         .color-grid-demo {
             scrollbar-width: thin;
             scrollbar-color: transparent transparent;
+            position: relative;
+            height: 140px; /* 고정 높이로 레이아웃 안정성 확보 */
+            align-items: flex-start;
         }
 
         .color-grid-demo::-webkit-scrollbar {
@@ -675,28 +691,25 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
+            transform-origin: center;
             border: 1px solid var(--uij-border);
             overflow: hidden;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            will-change: transform;
         }
 
         .color-card-3d:hover {
-            width: 140px;
-            height: 140px;
-            transform: rotateY(-3deg) rotateX(2deg) translateY(-8px);
+            transform: rotateY(-3deg) rotateX(2deg) translateY(-8px) scale(1.15);
             border-color: var(--uij-primary);
+            z-index: 10;
         }
 
         .color-card-3d:nth-child(even):hover {
-            width: 140px;
-            height: 140px;
-            transform: rotateY(3deg) rotateX(2deg) translateY(-8px);
+            transform: rotateY(3deg) rotateX(2deg) translateY(-8px) scale(1.15);
         }
 
         .color-card-3d:hover + .color-card-3d {
-            width: 130px;
-            height: 130px;
-            transform: rotateY(-1deg) translateY(-4px);
+            transform: rotateY(-1deg) translateY(-4px) scale(1.08);
         }
 
         .color-info-3d {
@@ -778,14 +791,11 @@
             }
             
             .color-card-3d:hover {
-                width: 110px;
-                height: 110px;
-                transform: translateY(-4px);
+                transform: translateY(-4px) scale(1.1);
             }
             
             .color-card-3d:hover + .color-card-3d {
-                width: 105px;
-                height: 105px;
+                transform: scale(1.05);
             }
         }
     </style>
