@@ -7,9 +7,10 @@
 - **허용 색상 팔레트 (완전 제한)**:
   - #32CD32 (라임 그린 - 포인트 전용)
   - #222222, #333333, #444444, #555555, #666666, #777777, #888888, #999999 (그레이)
-  - #eeeeee, #ffffff (밝은 그레이/화이트)
+  - #eeeeee (밝은 그레이만 허용)
   - transparent (투명)
-- **절대 금지 색상**: 빨강, 파랑, 노랑, 주황, 보라, 분홍 등 모든 컬러
+- **흰색 (#ffffff) 완전 금지**: 입력창, 카드, 배경 등 모든 곳에서 흰색 사용 절대 금지
+- **절대 금지 색상**: 빨강, 파랑, 노랑, 주황, 보라, 분홍, **흰색** 등 모든 컬러
 - **위반 발견 시 즉시 그레이스케일로 교체 필수**
 
 ### 2. 버튼 배경 투명화 강제
@@ -18,10 +19,17 @@
 - 호버 상태에서도 투명 배경 유지
 - `!important` 사용하여 강제 적용
 
-### 3. 그림자 금지
+### 3. 완전한 플랫 디자인 강제 (CRITICAL)
 - **모든 box-shadow 사용 금지**
-- 플랫 디자인 강제 적용
-- 깊이감은 색상 변화로만 표현
+- **모든 border 사용 금지** (카드, 입력창, 버튼 등)
+- **모든 padding 최소화** (4px, 8px, 12px, 16px만 허용)
+- **카드 배경: #444444만 허용** (흰색, 회색 배경 금지)
+- **입력창 배경: #333333만 허용** (흰색 배경 절대 금지)
+- **완전 플랫 디자인**: 입체감, 깊이감, 테두리 모두 금지
+- **깊이감은 오직 색상 변화로만 표현**
+- **섹션 내부 카드/아이템은 배경색 제거** (미니멀 디자인 원칙)
+- **채팅 메시지는 배경색 없이 테두리나 사이드 보더로만 구분**
+- **모든 요소는 border-radius: 8px 적용** (둥근 모서리 필수)
 
 ### 4. 이모지 사용 절대 금지 (CRITICAL)
 - **모든 이모지 문자 사용 완전 금지** (🚫❌✅⚡🎨📱💻 등 모든 유니코드 이모지)
@@ -38,7 +46,27 @@
 - **텍스트가 밀리거나 가려지는 현상 절대 금지**
 - **모든 해상도에서 완벽한 텍스트 표시 보장**
 
-### 6. 애니메이션 품질 강제 규칙 (CRITICAL)
+### 6. 메뉴 호버 안정성 절대 규칙 (CRITICAL)
+- **메뉴 호버 시 떨림/흔들림 절대 금지**
+- **font-weight 변경으로 인한 레이아웃 변화 금지**
+- **transform, translateY 등으로 인한 위치 이동 금지**
+- **호버 시 크기/위치 변화 없이 색상 변경만 허용**
+- **안정적이고 부드러운 호버 효과만 사용**
+- **메뉴 아이템 크기 고정 필수**
+
+### 7. JavaScript 최소화 및 HTML/CSS 우선 원칙 (CRITICAL)
+- **모든 인터랙션을 HTML/CSS로 구현** (JavaScript 최소화)
+- **메뉴 시스템**: CSS `:target` 또는 `input[type="radio"]` 사용
+- **모달/팝업**: CSS `input[type="checkbox"]` + `label` 조합 활용
+- **탭 시스템**: CSS `input[type="radio"]` + `label` 조합 활용
+- **아코디언**: CSS `details` + `summary` 태그 또는 체크박스 활용
+- **호버 효과**: 순수 CSS `:hover`, `:focus`, `:active` 사용
+- **상태 관리**: CSS `input` 상태와 `~`, `+` 선택자 활용
+- **JavaScript는 오직 필수 불가피한 경우만** (API 호출, 복잡한 계산 등)
+- **DOM 조작 최소화**, CSS 상태 변경 우선
+- **이벤트 리스너 대신 CSS 상태 선택자 활용**
+
+### 7. 애니메이션 품질 강제 규칙 (CRITICAL)
 - **Flowing Cards 무한 애니메이션 필수 요구사항**:
   - **한 줄당 최소 60개 카드** 생성으로 완전한 무한 루프
   - **실제 카드 데이터 순환 반복** (`i % cardData.length`)
@@ -78,22 +106,69 @@ css/
     └── responsive.css    # 반응형 유틸리티
 ```
 
-### JavaScript 모듈 구조
+### HTML/CSS 우선 구현 패턴 (FRAMEWORK STANDARD)
+
+#### 메뉴 시스템 표준 패턴
+```html
+<!-- CSS만으로 메뉴 시스템 구현 -->
+<div class="uij-menu-system">
+    <input type="radio" name="menu" id="dashboard" checked>
+    <input type="radio" name="menu" id="projects">
+    <input type="radio" name="menu" id="settings">
+    
+    <nav class="uij-menu">
+        <label for="dashboard" class="uij-menu-item">Dashboard</label>
+        <label for="projects" class="uij-menu-item">Projects</label>
+        <label for="settings" class="uij-menu-item">Settings</label>
+    </nav>
+    
+    <div class="uij-pages">
+        <div class="uij-page" id="dashboard-content">Dashboard Content</div>
+        <div class="uij-page" id="projects-content">Projects Content</div>
+        <div class="uij-page" id="settings-content">Settings Content</div>
+    </div>
+</div>
+```
+
+#### 모달/팝업 표준 패턴
+```html
+<!-- CSS만으로 모달 구현 -->
+<input type="checkbox" id="modal-toggle" class="uij-modal-toggle">
+<label for="modal-toggle" class="uij-modal-trigger">Open Modal</label>
+<div class="uij-modal">
+    <div class="uij-modal-content">
+        <label for="modal-toggle" class="uij-modal-close">×</label>
+        <p>Modal Content</p>
+    </div>
+</div>
+```
+
+#### 사이드바 표준 패턴
+```html
+<!-- CSS만으로 사이드바 구현 -->
+<input type="checkbox" id="sidebar-toggle" class="uij-sidebar-toggle">
+<label for="sidebar-toggle" class="uij-sidebar-trigger">메뉴</label>
+<div class="uij-sidebar">
+    <nav class="uij-sidebar-nav">
+        <a href="#" class="uij-nav-item">Menu 1</a>
+        <a href="#" class="uij-nav-item">Menu 2</a>
+    </nav>
+</div>
+<div class="uij-overlay"></div>
+```
+
+### JavaScript 최소화 구조 (사용시에만)
 ```
 js/
 ├── core/
-│   ├── framework.js      # 프레임워크 코어
-│   ├── design-enforcer.js # 디자인 규칙 강제
-│   └── config.js         # 설정 관리
-├── components/
-│   ├── sidebar.js        # 사이드바 로직
-│   ├── hamburger.js      # 햄버거 메뉴
-│   ├── tabs.js           # 탭 컴포넌트
-│   └── modal.js          # 모달 컴포넌트
+│   ├── framework.js      # 프레임워크 코어 (필수시만)
+│   └── config.js         # 설정 관리 (필수시만)
+├── api/
+│   ├── data.js           # 데이터 처리 (필수시만)
+│   └── communication.js  # 서버 통신 (필수시만)
 └── utils/
-    ├── dom.js            # DOM 조작
-    ├── events.js         # 이벤트 관리
-    └── responsive.js     # 반응형 유틸리티
+    ├── validation.js     # 입력 검증 (필수시만)
+    └── calculation.js    # 복잡한 계산 (필수시만)
 ```
 
 ### HTML 컴포넌트 구조
@@ -174,6 +249,73 @@ grep -r "box-shadow" --include="*.css" .
 3. 반응형 고려
 4. 예제 코드 함께 제공
 
+---
+
+## 📋 최종 검증 체크리스트 (CRITICAL)
+
+### ✅ 필수 확인 항목 (AI 에이전트용)
+1. **흰색 배경 완전 제거** - 모든 #ffffff, white 배경 검색 및 삭제
+2. **입력창 다크 테마 강제** - 모든 input 요소 #333333 배경 적용
+3. **카드 다크 테마 강제** - 모든 카드 요소 #444444 배경 적용  
+4. **모든 border 완전 제거** - 카드, 입력창, 컨테이너 border 삭제
+5. **이모지 제거 완료** - 모든 파일에서 이모지 검색 및 제거
+6. **텍스트 오버플로우 처리** - 모든 텍스트 요소 ellipsis 적용
+7. **색상 팔레트 엄격 준수** - 라임 그린과 그레이스케일만 사용
+8. **버튼 투명 배경 강제** - Primary 제외 모든 버튼 transparent
+9. **그림자 완전 제거** - 모든 box-shadow, text-shadow 속성 삭제
+10. **완전 플랫 디자인** - 입체감, 깊이감, 테두리 모두 제거
+
+### 🚫 절대 금지 검증 (NEVER ALLOW)
+```css
+/* AI 에이전트는 이런 코드를 절대 생성하지 말 것 */
+background: #ffffff;           /* 흰색 배경 금지 */
+background: white;             /* 흰색 배경 금지 */
+border: 1px solid #ddd;        /* 모든 보더 금지 */
+box-shadow: 0 2px 4px rgba;    /* 모든 그림자 금지 */
+padding: 24px;                 /* 비허용 패딩 금지 */
+color: #ff0000;                /* 비허용 색상 금지 */
+```
+
+### ✅ 강제 사용 검증 (MUST USE)
+```css
+/* AI 에이전트는 이런 코드만 생성할 것 */
+.input-element {
+    background: #333333 !important;
+    color: #eeeeee !important;
+    border: none !important;
+}
+
+.card-element {
+    background: #444444 !important;
+    color: #eeeeee !important;
+    border: none !important;
+    padding: 16px !important;
+}
+
+.button-element {
+    background: transparent !important;
+    color: #eeeeee !important;
+    border: 1px solid #555555 !important;
+}
+```
+
+### 🔍 자동 검증 명령어
+```bash
+# 흰색 배경 검사
+grep -r "#ffffff\|white" --include="*.css" .
+
+# 보더 검사  
+grep -r "border:" --include="*.css" .
+
+# 그림자 검사
+grep -r "box-shadow\|text-shadow" --include="*.css" .
+
+# 이모지 검사
+grep -r "[\u{1F600}-\u{1F64F}]" --include="*.html" --include="*.js" .
+```
+
+이 체크리스트를 **모든 AI 에이전트가 코드 생성 전에 반드시 확인**해야 합니다.
+
 ### 7. UI 우선순위 원칙 (CRITICAL)
 - **아이콘이 텍스트보다 무조건 우선순위**
 - **음악 재생 버튼에 "재생" 글자 절대 금지** → 플레이 아이콘만
@@ -191,20 +333,140 @@ grep -r "box-shadow" --include="*.css" .
 - **24x24px 표준 크기, 선 굵기 2px 이하**
 - **단색 fill 또는 stroke만 허용**
 
-### 9. 그라데이션 완전 금지 (ABSOLUTE)
+### 9. 입력창 및 폼 요소 강제 규칙 (CRITICAL)
+- **모든 입력창 배경: #333333 고정**
+- **입력창 텍스트 색상: #eeeeee 고정**
+- **placeholder 색상: #888888 고정**
+- **모든 border 제거**: `border: none !important`
+- **focus 시에도 border 금지**: `outline: 2px solid #32CD32`만 허용
+- **흰색 배경 절대 금지** - 입력창에서 흰색 배경 사용 시즉시 수정
+
+### 10. 카드 및 컨테이너 강제 규칙 (CRITICAL)
+- **모든 카드 배경: #444444 고정**
+- **카드 텍스트: #eeeeee 고정**
+- **모든 border, box-shadow 제거**
+- **카드 간격: 16px gap만 허용**
+- **패딩: 16px 고정** (8px, 12px, 20px 등 금지)
+- **border-radius: 8px 또는 12px만 허용**
+
+### 11. 절대 금지 스타일 목록 (NEVER USE)
+```css
+/* 절대 사용 금지 */
+background: #ffffff;        /* 흰색 배경 금지 */
+background: white;          /* 흰색 배경 금지 */
+border: 1px solid #ddd;     /* 모든 보더 금지 */
+border: 1px solid #ccc;     /* 모든 보더 금지 */
+border: 1px solid #999;     /* 모든 보더 금지 */
+box-shadow: any;            /* 모든 그림자 금지 */
+padding: 24px;              /* 허용된 패딩 외 금지 */
+padding: 20px;              /* 허용된 패딩 외 금지 */
+color: #000000;             /* 순수 검정 텍스트 금지 */
+```
+
+### 12. 강제 적용 스타일 (MUST USE)
+```css
+/* 반드시 사용해야 할 스타일 */
+.uij-input {
+    background: #333333 !important;
+    color: #eeeeee !important;
+    border: none !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+}
+
+.uij-card {
+    background: #444444 !important;
+    color: #eeeeee !important;
+    border: none !important;
+    padding: 16px !important;
+    border-radius: 8px !important;
+}
+
+.uij-button {
+    background: transparent !important;
+    color: #eeeeee !important;
+    border: 1px solid #555555 !important;
+    padding: 8px 16px !important;
+}
+
+.uij-button-primary {
+    background: #32CD32 !important;
+    color: #000000 !important;
+    border: none !important;
+}
+```
+
+### 13. 그라데이션 완전 금지 (ABSOLUTE)
 - **모든 그라데이션 효과 절대 금지**
 - **linear-gradient 사용 절대 금지**
 - **radial-gradient 사용 절대 금지**
 - **단색(solid color) 또는 투명(transparent)만 허용**
 - **색상 전환은 hover 상태 변화로만 표현**
 
-### 10. 그림자 효과 완전 금지 (강화)
+### 10. 그림자/빛번짐 효과 완전 금지 (강화)
 - **모든 요소 뒤 그림자 절대 금지**
 - **버튼 그림자 절대 금지**
 - **카드 그림자 절대 금지**
 - **텍스트 그림자(text-shadow) 절대 금지**
 - **드롭 섀도우(drop-shadow) 절대 금지**
+- **빛번짐 효과 절대 금지**
+- **글로우(glow) 효과 절대 금지**
+- **블러(blur) 효과 절대 금지**
 - **완전한 플랫 디자인 강제 적용**
+
+```css
+/* 절대 금지되는 그림자/빛번짐 효과들 */
+
+/* 금지: box-shadow 모든 형태 */
+.forbidden-shadow {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);     /* 금지 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);     /* 금지 */
+    box-shadow: 0 0 20px rgba(50,205,50,0.5);  /* 금지 - 라임 글로우도 금지 */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* 금지 - 내부 그림자도 금지 */
+}
+
+/* 금지: text-shadow 모든 형태 */
+.forbidden-text-shadow {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);  /* 금지 */
+    text-shadow: 0 0 10px #32CD32;             /* 금지 - 텍스트 글로우도 금지 */
+}
+
+/* 금지: filter 그림자 효과들 */
+.forbidden-filter {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* 금지 */
+    filter: blur(2px);                              /* 금지 */
+    filter: glow(color=#32CD32, strength=3);        /* 금지 */
+}
+
+/* 금지: backdrop-filter 빛번짐 */
+.forbidden-backdrop {
+    backdrop-filter: blur(10px);    /* 금지 */
+}
+
+/* 올바른 플랫 디자인 - 그림자 없음 */
+.correct-flat-design {
+    /* 그림자 대신 색상 변화로 깊이감 표현 */
+    background: #333333;
+    border: 1px solid #444444;
+    /* box-shadow: none; - 기본값이므로 생략 가능 */
+}
+
+.correct-hover-effect {
+    /* 그림자 대신 transform으로 효과 */
+    transform: translateY(-2px);
+    background: #444444; /* 색상 변화만 */
+}
+```
+
+**완전 금지 목록:**
+- `box-shadow` (모든 형태)
+- `text-shadow` (모든 형태)  
+- `filter: drop-shadow()`
+- `filter: blur()`
+- `filter: glow()`
+- `backdrop-filter: blur()`
+- 모든 빛번짐, 글로우, 블러 효과
+- 내부 그림자(inset shadow)도 금지
 
 ### 11. 레이아웃 정렬 완벽성 강제 (CRITICAL)
 - **중심축에 벗어난 배열 절대 금지**
@@ -268,27 +530,60 @@ grep -r "box-shadow" --include="*.css" .
 ```
 
 ### 14. 색상 대비 강제 (CRITICAL)
-- **배경색과 글자색 구분 안되는 것 절대 금지**
-- **모든 텍스트 최소 4.5:1 대비율 필수**
-- **요소 간 색상 구분 명확성 보장**
-- **접근성 기준 WCAG 2.1 AA 준수**
-- **잘 안보이는 색상 조합 완전 금지**
+- **4.5:1 이상 대비율 강제 - 계산으로 검증 필수**
+- **배경과 텍스트가 명확히 구분되어야 함**
+- **읽기 어려운 모든 조합 자동 차단**
 
+**허용되는 안전한 조합만:**
 ```css
-/* 올바른 색상 대비 */
-.text-on-dark {
-    background: #222222;
-    color: #eeeeee;       /* 충분한 대비 */
+/* 강제 승인된 조합들만 사용 */
+.dark-bg-light-text {
+    background: #222222;    /* 어두운 배경 */
+    color: #eeeeee;         /* 밝은 텍스트 */
 }
-.text-on-light {
-    background: #eeeeee;
-    color: #222222;       /* 충분한 대비 */
+.light-bg-dark-text {
+    background: #eeeeee;    /* 밝은 배경 */
+    color: #222222;         /* 어두운 텍스트 */
 }
+.dark-bg-accent {
+    background: #222222;    /* 어두운 배경 */
+    color: #32CD32;         /* 라임 강조 */
+}
+.transparent-accent {
+    background: transparent;
+    color: #32CD32;         /* 라임만 */
+}
+```
 
-/* 금지된 색상 조합 */
-.bad-contrast {
-    background: #333333;
-    color: #555555;       /* 금지 - 대비 부족 */
+**절대 원칙:**
+- **어두운 배경(#222-#555) = 밝은 텍스트(#eee-#fff) 필수**
+- **밝은 배경(#eee-#fff) = 어두운 텍스트(#222-#555) 필수**  
+- **같은 명도대 조합 완전 금지**
+- **대비율 4.5:1 미만 모든 조합 자동 거부**
+
+/* 버튼별 강제 색상 조합 */
+.primary-button {
+    background: #32CD32 !important;
+    color: #000000 !important;   /* 라임 배경에 검정 글씨 */
+}
+.secondary-button {
+    background: transparent !important;
+    color: #eeeeee !important;
+    border: 1px solid #eeeeee !important;
+}
+.outline-button {
+    background: transparent !important;
+    color: #32CD32 !important;
+    border: 1px solid #32CD32 !important;
+}
+.ghost-button {
+    background: transparent !important;
+    color: #999999 !important;
+}
+.danger-button {
+    background: transparent !important;
+    color: #eeeeee !important;
+    border: 1px solid #eeeeee !important;
 }
 ```
 
@@ -327,5 +622,364 @@ gallery.addEventListener('wheel', (e) => {
     opacity: 1;
 }
 ```
+
+### 16. 접근성 UI 표시 완전 금지 (CRITICAL)
+- **브라우저 접근성 도구 표시 완전 금지**
+- **탭 순서 표시 아이콘 절대 금지**
+- **포커스 링 제거 필수**
+- **접근성 오버레이 숨김 필수**
+- **깔끔한 UI 유지 강제**
+- **모든 브라우저 확장 프로그램 접근성 표시 차단**
+
+```css
+/* 접근성 UI 완전 제거 */
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+*:focus-visible {
+    outline: none !important;
+}
+
+*[tabindex] {
+    outline: none !important;
+}
+
+/* 브라우저 확장 프로그램 접근성 요소 숨김 */
+[data-*^="accessibility"],
+[class*="accessibility"],
+[id*="accessibility"],
+[class*="focus"],
+[data-*^="focus"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 접근성 오버레이 완전 차단 */
+body::after,
+body::before,
+html::after,
+html::before {
+    display: none !important;
+}
+```
+
+### 17. 원형 요소 중앙정렬 강제 (CRITICAL)
+- **모든 원형 요소(border-radius: 50%) 내부 완벽 중앙정렬 필수**
+- **글자, 기호, 아이콘이 정확히 중앙에 위치해야 함**
+- **베이스라인 문제로 인한 쏠림 현상 절대 금지**
+- **원형 버튼, 아바타, 아이콘 모두 적용**
+- **픽셀 단위 완벽 정렬 보장**
+
+```css
+/* 원형 요소 필수 중앙정렬 */
+.circle-element,
+[style*="border-radius: 50%"],
+[style*="border-radius:50%"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    text-align: center !important;
+}
+
+/* 원형 버튼 완벽 중앙정렬 */
+.circle-button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50%;
+    line-height: 1 !important;
+    font-family: monospace; /* 등폭 폰트로 정확한 정렬 */
+}
+
+/* 원형 내부 텍스트/기호 중앙정렬 */
+.circle-button::before,
+.circle-button::after {
+    position: absolute;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+/* 특수 기호들 중앙정렬 */
+.play-button::after {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-40%, -50%) !important; /* 플레이 버튼은 시각적 중앙 */
+}
+
+/* 일시정지 기호 (||) 중앙정렬 */
+.pause-button::after,
+.pause-button::before {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+```
+
+**강제 적용 규칙:**
+- 모든 원형 요소는 `display: flex + align-items: center + justify-content: center` 필수
+- `line-height: 1` 강제 적용으로 베이스라인 문제 해결
+- `transform: translate(-50%, -50%)` 사용하여 정확한 픽셀 정렬
+- 등폭 폰트 사용으로 기호 정렬 정확성 보장
+
+### 18. 무한 스크롤/플로잉 애니메이션 강제 (CRITICAL)
+- **모든 무한 스크롤과 플로잉 애니메이션은 시작과 끝이 없어야 함**
+- **완벽한 순환 루프 필수 - 빈 공간이나 끊김 절대 금지**
+- **기존 요소들을 순환 반복하여 무한 효과 생성**
+- **시각적으로 연속성이 보장되어야 함**
+- **애니메이션 재시작이나 갑작스런 점프 금지**
+
+```css
+/* 무한 플로잉 애니메이션 필수 구조 */
+.flowing-container {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+}
+
+.flowing-content {
+    display: flex;
+    animation: infiniteFlow linear infinite;
+    /* 요소들이 끊김없이 연결되도록 충분한 개수 생성 */
+}
+
+@keyframes infiniteFlow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+```
+
+```javascript
+/* JavaScript로 순환 요소 생성 필수 */
+function createInfiniteFlow(container, items, itemWidth) {
+    const containerWidth = container.offsetWidth;
+    const totalNeeded = Math.ceil(containerWidth / itemWidth) * 3; // 3배수로 여유있게
+    
+    // 기존 아이템들을 순환 반복
+    for (let i = 0; i < totalNeeded; i++) {
+        const item = items[i % items.length].cloneNode(true);
+        container.appendChild(item);
+    }
+}
+```
+
+**필수 요구사항:**
+- **시작점과 끝점이 완벽하게 연결되어 무한 루프**
+- **기존 데이터 순환 반복** (`i % dataArray.length`)
+- **빈 공간 없이 화면 가득 채움**
+- **부드러운 애니메이션 속도** (최소 60초 이상)
+- **끊김 없는 연속성** 보장
+
+**금지 사항:**
+- 애니메이션 중간에 빈 공간 발생
+- 갑작스러운 재시작이나 점프
+- 요소 부족으로 인한 끊김 현상
+- 너무 빠른 애니메이션 속도
+
+### 19. Border 연결성 완전 강제 (CRITICAL)
+- **모든 border들은 끊기지 않고 부드럽게 연결되어야 함**
+- **모서리가 둥글게 처리되면서 완벽하게 연결 필수**
+- **끊어지거나 어색한 border 처리 절대 금지**
+- **seamless한 border 연속성 강제**
+- **모든 경계선의 완벽한 시각적 통일성 보장**
+
+### 20. 채팅/메시지 UI 그림자 완전 금지 (CRITICAL)
+- **모든 메시지 박스 그림자 효과 절대 금지**
+- **채팅 컨테이너 drop-shadow 완전 차단**
+- **카드형 메시지의 모든 그림자 제거 필수**
+- **완전한 플랫 메시지 디자인 강제**
+- **그림자 대신 border와 배경색 변화로만 구분**
+
+```css
+/* 올바른 플랫 채팅 메시지 디자인 */
+.message-container {
+    background: #333333;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    /* box-shadow: none; - 그림자 완전 금지 */
+}
+
+.user-message {
+    background: #444444;
+    border: 1px solid #555555;
+    color: #eeeeee;
+    margin-left: auto;
+    max-width: 80%;
+}
+
+.ai-message {
+    background: #333333;
+    border: 1px solid #32CD32;
+    color: #eeeeee;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+/* 절대 금지된 그림자 효과들 */
+.forbidden-message {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);     /* 금지 */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* 금지 */
+    box-shadow: 0 4px 12px rgba(50,205,50,0.3); /* 금지 - 라임 글로우도 금지 */
+}
+
+.forbidden-chat-container {
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* 금지 - 내부 그림자 */
+    backdrop-filter: blur(10px);                  /* 금지 - 블러 효과 */
+}
+```
+
+**강제 적용 원칙:**
+- **완전한 플랫 디자인** - 모든 그림자 효과 제거
+- **border + 배경색만으로 구분** - 그림자 없이도 명확한 구분
+- **라임 그린 accent만 허용** - 그림자 대신 테두리 색상으로 강조
+- **rgba 투명도 금지** - 모든 그림자/글로우 효과 차단
+
+```css
+/* 올바른 부드러운 모서리 처리 */
+.card-container {
+    border-radius: 12px;          /* 일관된 모서리 반경 */
+    overflow: hidden;             /* 내부 요소 잘림 방지 */
+    border: 1px solid #444444;    /* 연속된 경계선 */
+}
+
+.image-area {
+    border-radius: 12px 12px 0 0; /* 상단만 둥글게 */
+    border: none;                  /* 중복 경계선 제거 */
+    display: block;                /* 빈 공간 제거 */
+}
+
+.content-area {
+    border-radius: 0 0 12px 12px;  /* 하단만 둥글게 */
+    border-top: 1px solid #444444; /* 구분선만 */
+}
+
+/* 금지된 각진/끊긴 처리들 */
+.broken-container {
+    border-radius: 0;              /* 금지 - 완전 각진 모서리 */
+    border: 1px solid #444444;
+    border-bottom: none;           /* 금지 - 경계선 끊김 */
+}
+
+.jagged-image {
+    border-radius: 8px;            /* 금지 - 불일치하는 반경 */
+    border: 2px solid #555555;     /* 금지 - 중복 경계선 */
+}
+
+.disconnected-section {
+    margin-top: 2px;               /* 금지 - 끊김 유발하는 여백 */
+    border-top: 1px solid #333333; /* 금지 - 색상 불일치 */
+}
+```
+
+**강제 적용 규칙:**
+- **border-radius 값 완벽 일치** - 연결되는 요소들의 모서리 반경 통일
+- **경계선 연속성 보장** - 끊어지거나 색상이 다른 경계선 금지
+- **overflow: hidden 필수** - 내부 요소가 삐져나와 각져 보이는 현상 방지
+- **seamless 연결** - 카드 내부 구역들의 완벽한 시각적 연결
+- **일관된 spacing** - 불규칙한 여백으로 인한 끊김 현상 방지
+
+**절대 금지 사항:**
+- 경계선이 중간에 끊어지는 디자인
+- 서로 다른 border-radius 값으로 인한 각짐
+- 컨테이너와 내부 요소의 불일치하는 모서리 처리
+- 색상이나 굵기가 다른 경계선의 혼재
+- 여백으로 인해 연결성이 깨지는 레이아웃
+
+### 21. 캐러셀/슬라이더 완전성 강제 (CRITICAL)
+- **모든 슬라이드에 대한 CSS 규칙 완전 구현 필수**
+- **누락된 :checked 상태 처리 절대 금지**
+- **복잡한 3D 효과 대신 단순한 슬라이드 전환만 허용**
+- **perspective, transform-style: preserve-3d 사용 금지**
+- **과도한 CSS 체크박스 해킹 금지**
+
+```css
+/* 올바른 단순 캐러셀 */
+.simple-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+    /* 3D 효과 없는 단순한 구조 */
+}
+
+.carousel-item {
+    flex: 0 0 300px;
+    background: #333333;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    padding: 20px;
+    /* transform: none; - 복잡한 3D 변환 금지 */
+}
+
+/* 금지된 복잡한 3D 캐러셀 */
+.forbidden-carousel {
+    perspective: 1000px;              /* 금지 */
+    transform-style: preserve-3d;     /* 금지 */
+}
+
+.forbidden-card {
+    transform: rotateY(45deg) translateZ(100px); /* 금지 - 복잡한 3D */
+    backface-visibility: hidden;      /* 금지 */
+}
+```
+
+**강제 원칙:**
+- **모든 슬라이드 상태 완전 구현** - 누락 금지
+- **단순한 가로 스크롤 방식** - 3D 효과 금지  
+- **CSS 체크박스 해킹 최소화** - 과도한 복잡성 차단
+- **scroll-behavior: smooth** - 자연스러운 전환
+
+### 22. 복잡한 실시간 효과 완전 금지 (CRITICAL)
+- **"AI 대화 실시간 효과" 같은 복잡한 시뮬레이션 절대 금지**
+- **typing 효과, 실시간 애니메이션 금지**
+- **과도한 CSS 체크박스 해킹 금지**
+- **단순하고 정적인 UI만 허용**
+
+### 23. 음악/미디어 플레이어 중앙정렬 강제 (CRITICAL)
+- **일시정지 버튼(||)이 왼쪽으로 쏠리는 현상 절대 금지**
+- **재생 버튼 중앙정렬 완벽 보장**
+- **모든 미디어 컨트롤 픽셀 단위 정렬**
+
+### 24. 검색 아이콘 완벽 중앙정렬 강제 (CRITICAL)
+- **모든 검색 아이콘 `translate(-50%, -50%)` 필수**
+- **잘못된 `translate(-60%, -60%)` 사용 금지**
+- **검색 핸들 위치 정확한 배치**
+
+### 25. 선택/호버 시 레이아웃 밀림 금지 (CRITICAL)
+- **요소 선택 시 다른 요소 밀리는 현상 금지**
+- **호버 상태에서 덜덜 떨림 금지**
+- **안정적인 transform만 사용**
+
+### 26. 색상 대비 4.5:1 이상 강제 (CRITICAL)
+- **검정 배경 + 검정 글씨 조합 절대 금지**
+- **밝은 배경 + 밝은 글씨 조합 절대 금지**
+- **대비율 계산으로 자동 검증**
+- **읽기 어려운 모든 조합 차단**
+
+### 27. 수평 스크롤 갤러리 호버 전환 강제 (CRITICAL)
+- **갤러리 영역 호버 시 가로 스크롤 필수**
+- **세로 스크롤을 가로로 자동 변환**
+- **wheel 이벤트 preventDefault 필수**
+
+### 28. 접근성 UI 완전 차단 (CRITICAL)
+- **탭 순서 아이콘 절대 표시 금지**
+- **브라우저 접근성 도구 숨김**
+- **깔끔한 UI 유지 강제**
+
+### 29. 무한 애니메이션 순환 보장 (CRITICAL)
+- **시작과 끝 없는 완벽한 순환**
+- **기존 데이터 반복으로 무한 효과**
+- **빈 공간이나 끊김 절대 금지**
+
+### 30. 복잡한 "개시발스러운" 효과 금지 (CRITICAL)
+- **이상하고 복잡한 CSS 애니메이션 금지**
+- **과도한 JavaScript 의존성 금지**
+- **UIJEONGBOO 미니멀 원칙 준수**
 
 이 규칙들은 **절대 위반할 수 없는 핵심 원칙**이며, 모든 에이전트와 사용자가 반드시 준수해야 합니다.
