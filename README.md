@@ -1,6 +1,12 @@
 # UijeongBoo Design System Framework
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-brightgreen)](https://coreeeeaaaa.github.io/uijeongboo/)
+
 A comprehensive, Tailwind CSS replacement with your personal design preferences baked in.
+
+## 🚀 Live Demo
+
+[View Live Demo](https://coreeeeaaaa.github.io/uijeongboo/) - Interactive examples and component showcase
 
 ## 🎯 Tailwind Replacement Features
 
@@ -96,6 +102,16 @@ A comprehensive, Tailwind CSS replacement with your personal design preferences 
 ```html
 <!-- Single CSS file - no build process needed -->
 <link rel="stylesheet" href="path/to/uijeongboo.css">
+```
+
+### SDK Usage
+
+```javascript
+import { UijeongBooSDK } from './web_sdk/uijeongboo-web-sdk.js';
+
+const sdk = new UijeongBooSDK();
+const button = sdk.button('Click me', 'primary');
+document.body.appendChild(button);
 ```
 
 ## 🎨 Available Classes
