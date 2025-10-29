@@ -766,10 +766,30 @@
 }
 
 /* ===================================
-   Platform Separation Classes
+   Button Components
    =================================== */
-.mobile-only {
-  display: block;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  background: transparent;
+  color: var(--uij-lime);
+  height: 48px;
+  min-width: 120px;
+}
+
+.demo-button {
+  height: 48px !important;
+  min-width: 120px !important;
+  padding: 12px 24px !important;
 }
 
 .web-only {
