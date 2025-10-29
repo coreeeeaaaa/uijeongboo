@@ -1,4 +1,4 @@
-# SAAAAHA Design System Framework
+# UijeongBoo Design System Framework
 
 A comprehensive, Tailwind CSS replacement with your personal design preferences baked in.
 
@@ -95,7 +95,7 @@ A comprehensive, Tailwind CSS replacement with your personal design preferences 
 
 ```html
 <!-- Single CSS file - no build process needed -->
-<link rel="stylesheet" href="path/to/saaaaha.css">
+<link rel="stylesheet" href="path/to/uijeongboo.css">
 ```
 
 ## 🎨 Available Classes
