@@ -2,13 +2,13 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-brightgreen)](https://coreeeeaaaa.github.io/uijeongboo/)
 
-A comprehensive, Tailwind CSS replacement with your personal design preferences baked in.
+A comprehensive design system framework with modular components and utilities.
 
 ## 🚀 Live Demo
 
 [View Live Demo](https://coreeeeaaaa.github.io/uijeongboo/) - Interactive examples and component showcase
 
-## 🎯 Tailwind Replacement Features
+## 🎯 Core Features
 
 ### ✅ Complete Layout System
 ```html
@@ -145,21 +145,20 @@ document.body.appendChild(button);
 - Focus: `focus:ring`, `focus:outline-none`
 - Cursor: `cursor-pointer`, `cursor-not-allowed`
 
-## 🔥 Why Replace Tailwind?
+## 🔥 Why Choose UijeongBoo?
 
-1. **Your preferences baked-in**: No more repeating color codes
+1. **Modular design**: Easy to customize and extend
 2. **No build process**: Single CSS file
 3. **Lightweight**: Only what you need
-4. **Consistent**: Enforces your design rules
+4. **Consistent**: Enforces design rules
 5. **No external dependencies**: Self-contained
 
 ## 🎯 Perfect for
 
 - Personal projects with consistent design
-- Avoiding Tailwind's complexity
 - Teams that need design consistency
 - Projects where build process is unwanted
 
 ---
 
-**Ready to use as complete Tailwind replacement!** 🎨
+**Ready to use!** 🎨

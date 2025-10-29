@@ -14,7 +14,7 @@
     "watch": "node js/utils/enforcer-cli.js watch .",
     "dev": "python3 -m http.server 8000"
   },
-  "keywords": ["css", "framework", "design-system", "tailwind-alternative"],
+  "keywords": ["css", "framework", "design-system", "ui-components"],
   "author": "UijeongBoo",
   "license": "MIT",
   "repository": {
