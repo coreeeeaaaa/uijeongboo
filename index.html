@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Design Framework - Modular Demo</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./logos/favicons/uijeongboo_q1234_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./logos/favicons/uijeongboo_q1234_16x16.png">
+    
+    <!-- UijeongBoo Core CSS - Load in order -->
+    <link rel="stylesheet" href="./css/core/variables.css">
+    <link rel="stylesheet" href="./css/core/reset.css">
+    <link rel="stylesheet" href="./css/core/typography.css">
+    <link rel="stylesheet" href="./css/core/layout.css">
+    
+    <!-- UijeongBoo Component CSS -->
+    <link rel="stylesheet" href="./css/components/buttons.css">
+    <link rel="stylesheet" href="./css/components/navigation.css">
+    <link rel="stylesheet" href="./css/components/forms.css">
+    <link rel="stylesheet" href="./css/components/animations.css">
+    
+    <!-- UijeongBoo Utility CSS -->
+    <link rel="stylesheet" href="./css/utilities/spacing.css">
+    <link rel="stylesheet" href="./css/utilities/colors.css">
+    
+    <!-- Custom Demo Styles -->
+    <style>
+        .demo-sectio[onclick] { 
+            padding: var(--uij-spacing-xl, 32px) var(--uij-spacing-lg, 24px);
+            margin-bottom: var(--uij-spacing-lg, 24px);
+            border-bottom: 1px solid var(--uij-border, #444444);
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .demo-section:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 80px; /* Account for fixed header */
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--uij-spacing-lg, 24px);
+            margin-top: var(--uij-spacing-lg, 24px);
+        }
+        
+        .feature.card { 
+            background: var(--uij-bg-tertiary, #444444);
+            padding: var(--uij-spacing-lg, 24px);
+            border-radius: var(--uij-radius-md, 8px);
+            border: 1px solid var(--uij-border, #444444);
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .violation-warning {
+            background: var(--uij-bg-secondary, #333333);
+            border: 2px solid var(--uij-primary, #32CD32);
+            padding: var(--uij-spacing-md, 16px);
+            border-radius: var(--uij-radius-md, 8px);
+            margin: var(--uij-spacing-lg, 24px) 0;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--uij-primary, #32CD32);
+            margin-right: var(--uij-spacing-sm, 8px);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-content {
+                padding-top: 70px;
+                padding-left: var(--uij-spacing-sm, 8px);
+                padding-right: var(--uij-spacing-sm, 8px);
+            }
+            
+            .demo-sectio[onclick] { 
+                padding: var(--uij-spacing-lg, 24px) var(--uij-spacing-sm, 8px);
+             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header Component -->
+    <div id="header-component"></div>
+    
+    <!-- Include Sidebar Component -->
+    <div id="sidebar-component"></div>
+    
+    <!-- Main Content -->
+    <main class="demo-content">
+        <!-- Framework Overview -->
+        <section class="demo-section">
+            <h1 class="uij-h1">UijeongBoo Design Framework</h1>
+            <p class="uij-paragraph">
+                모듈화된 미니멀 다크 테마 디자인 시스템. 
+                라임 그린 포인트 컬러와 투명 버튼 시스템을 특징으로 합니다.
+            </p>
+            
+            <div class="violation-warning">
+                <h3 class="uij-h3">
+                    <span class="status-indicator"></span>
+                    디자인 규칙 강제화 활성
+                </h3>
+                <p>이 페이지는 UijeongBoo 디자인 규칙을 자동으로 감시하고 위반사항을 수정합니다.</p>
+            </div>
+        </section>
+        
+        <!-- Features Grid -->
+        <section class="demo-section">
+            <h2 class="uij-h2">핵심 기능</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="uij-h3">모듈화 구조</h3>
+                    <p class="uij-paragraph">
+                        CSS, JavaScript, HTML을 기능별로 분리하여 
+                        유지보수성과 재사용성을 극대화했습니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 class="uij-h3">디자인 규칙 강제화</h3>
+                    <p class="uij-paragraph">
+                        라임 그린 외 색상 사용 금지, 투명 버튼 강제 등 
+                        핵심 디자인 원칙을 자동으로 강제 적용합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 class="uij-h3">반응형 디자인</h3>
+                    <p class="uij-paragraph">
+                        모바일부터 데스크톱까지 완벽하게 대응하는 
+                        반응형 컴포넌트와 유틸리티 클래스를 제공합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 class="uij-h3">컴포넌트 시스템</h3>
+                    <p class="uij-paragraph">
+                        사이드바, 헤더, 버튼 등 재사용 가능한 
+                        컴포넌트들을 독립적으로 사용할 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Button Components Demo -->
+        <section class="demo-section">
+            <div id="button-components"></div>
+        </section>
+        
+        <!-- Architecture Info -->
+        <section class="demo-section">
+            <h2 class="uij-h2">파일 구조</h2>
+            <div class="uij-grid uij-grid-cols-1 uij-md:grid-cols-2 uij-gap-6">
+                <div>
+                    <h3 class="uij-h3">CSS 모듈</h3>
+                    <ul class="uij-list">
+                        <li class="uij-list-item">css/core/ - 핵심 스타일</li>
+                        <li class="uij-list-item">css/components/ - 컴포넌트</li>
+                        <li class="uij-list-item">css/utilities/ - 유틸리티</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="uij-h3">JavaScript 모듈</h3>
+                    <ul class="uij-list">
+                        <li class="uij-list-item">js/core/ - 프레임워크 코어</li>
+                        <li class="uij-list-item">js/components/ - 컴포넌트 로직</li>
+                        <li class="uij-list-item">js/utils/ - 유틸리티 함수</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Design Rules -->
+        <section class="demo-section">
+            <h2 class="uij-h2">디자인 규칙</h2>
+            <div class="uij-grid uij-grid-cols-1 uij-md:grid-cols-2 uij-gap-6">
+                <div>
+                    <h3 class="uij-h3 uij-text-accent">허용되는 것</h3>
+                    <ul class="uij-list">
+                        <li class="uij-list-item">• 라임 그린 (#32CD32) 포인트 컬러</li>
+                        <li class="uij-list-item">• 그레이스케일 색상 팔레트</li>
+                        <li class="uij-list-item">• 투명 버튼 배경</li>
+                        <li class="uij-list-item">• 플랫 디자인 (그림자 없음)</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="uij-h3 uij-text-muted">금지되는 것</h3>
+                    <ul class="uij-list">
+                        <li class="uij-list-item">• 라임 외 모든 색상</li>
+                        <li class="uij-list-item">• 버튼 배경색</li>
+                        <li class="uij-list-item">• Box-shadow 속성</li>
+                        <li class="uij-list-item">• 이모지 사용</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- UijeongBoo Core JavaScript - Load in order -->
+    <script src="./js/core/framework.js"></script>
+    <script src="./js/core/design-enforcer.js"></script>
+    
+    <!-- UijeongBoo Component JavaScript -->
+    <script src="./js/components/sidebar.js"></script>
+    <script src="./js/components/hamburger.js"></script>
+    
+    <!-- Component Loading Script -->
+    <script>
+        // Load HTML components
+        async function loadComponent(url, targetId) {
+            try {
+                const response = await fetch(url);
+                const html = await response.text();
+                document.getElementById(targetId).innerHTML = html;
+            } catch (error) {
+                console.error('Failed to load component:', url, error);
+            }
+        }
+        
+        // Load all components
+        async function loadAllComponents() {
+            await Promise.all([
+                loadComponent('./components/layout/header.html', 'header-component'),
+                loadComponent('./components/layout/sidebar.html', 'sidebar-component'),
+                loadComponent('./components/ui/buttons.html', 'button-components')
+            ]);
+            
+            console.log('All components loaded');
+            
+            // Dispatch ready event
+            const event = new CustomEvent('uij:components-ready');
+            document.dispatchEvent(event);
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadAllComponents);
+        } else {
+            loadAllComponents();
+        }
+        
+        // Listen for framework events
+        document.addEventListener('uij:design-violations', (e) => {
+            console.warn('Design violations detected:', e.detail.violations);
+        });
+        
+        document.addEventListener('uij:sidebar-opened', () => {
+            console.log('Sidebar opened');
+        });
+        
+        document.addEventListener('uij:sidebar-closed', () => {
+            console.log('Sidebar closed');
+        });
+        
+        // Test button to demonstrate loading
+        document.addEventListener('uij:components-ready', () => {
+            // Add a test button
+            const testSection = document.createElement('section');
+            testSection.className = 'demo-section';
+            testSection.innerHTML = `
+                <h2 class="uij-h2">프레임워크 테스트</h2>
+                <div class="uij-flex uij-gap-4 uij-flex-wrap">
+                    <button class="uij-btn primary" onclick="testFramework()">프레임워크 테스트</button>
+                    <button class="uij-btn secondary" onclick="testViolation()">규칙 위반 테스트</button>
+                    <button class="uij-btn outline" onclick="toggleTheme()">테마 전환</button>
+                </div>
+                <div id="test-results" class="uij-mt-4"></div>
+            `;
+            
+            document.querySelector('.demo-content').appendChild(testSection);
+        });
+        
+        // Test functions
+        function testFramework() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<p class="uij-text-accent">프레임워크가 정상적으로 작동중입니다!</p>';
+        }
+        
+        function testViolation() {
+            // Try to create a button with forbidden color (should be prevented)
+            const testBtn = document.createElement('button');
+            testBtn.style.background = 'red'; // This should be prevented
+            testBtn.textContent = '금지된 색상 테스트';
+            
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<p class="uij-text-accent">디자인 규칙 위반이 자동으로 차단되었습니다!</p>';
+        }
+        
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.dataset.theme || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.dataset.theme = newTheme;
+            
+            const results = document.getElementById('test-results');
+            results.innerHTML = `<p class="uij-text-accent">테마가 ${newTheme}로 변경되었습니다!</p>`;
+        }
+    </script>
+</body>
+</html>

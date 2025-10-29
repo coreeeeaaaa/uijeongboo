@@ -1,0 +1,560 @@
+/* ================================================= */
+/* UijeongBoo Animations - CSS-Only Performance     */
+/* ================================================= */
+
+/* CRITICAL: All animations use CSS-only for maximum performance */
+/* NO JavaScript required for scroll animations */
+
+/* Basic Animation Classes */
+.uij-fade-in {
+    animation: uij-fade-in 0.3s ease-in-out;
+}
+
+.uij-slide-in {
+    animation: uij-slide-in 0.3s ease-out;
+}
+
+.uij-slide-in-left {
+    animation: uij-slide-in-left 0.3s ease-out;
+}
+
+.uij-slide-in-right {
+    animation: uij-slide-in-right 0.3s ease-out;
+}
+
+.uij-bounce {
+    animation: uij-bounce 0.5s ease-in-out;
+}
+
+.uij-pulse {
+    animation: uij-pulse 2s infinite;
+}
+
+.uij-spin {
+    animation: uij-spin 1s linear infinite;
+}
+
+/* Keyframes */
+@keyframes uij-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes uij-slide-in {
+    from { transform: translateY(-10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes uij-slide-in-left {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes uij-slide-in-right {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes uij-bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes uij-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@keyframes uij-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Hover Animations */
+.uij-hover-scale:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+.uij-hover-lift:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+/* Loading States */
+.uij-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.uij-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top-color: var(--uij-primary);
+    border-radius: 50%;
+    animation: uij-spin 1s linear infinite;
+}
+
+/* Flowing Cards Animation */
+.uij-flowing-cards-container {
+    margin: 40px 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--uij-bg-secondary);
+    border-radius: var(--uij-radius-xl);
+    padding: var(--uij-spacing-lg) 0;
+    border: 1px solid var(--uij-border);
+}
+
+.uij-flowing-cards.title { 
+    text-align: center;
+    color: var(--uij-primary);
+    margin-bottom: var(--uij-spacing-lg);
+    font-size: 20px;
+    font-weight: 600;
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-flowing-row {
+    display: flex;
+    gap: var(--uij-spacing-md);
+    margin-bottom: var(--uij-spacing-md);
+    position: relative;
+    height: 80px;
+    align-items: center;
+}
+
+.uij-flowing-row:last-child {
+    margin-bottom: 0;
+}
+
+.uij-flowing-cards {
+    display: flex;
+    gap: var(--uij-spacing-md);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    white-space: nowrap;
+}
+
+/* Different directions and speeds for each row */
+.uij-flowing-row:nth-child(2) .uij-flowing-cards {
+    animation: uij-flow-right 30s linear infinite;
+}
+
+.uij-flowing-row:nth-child(3) .uij-flowing-cards {
+    animation: uij-flow-left 25s linear infinite;
+}
+
+.uij-flowing-row:nth-child(4) .uij-flowing-cards {
+    animation: uij-flow-right 35s linear infinite;
+}
+
+@keyframes uij-flow-right {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes uij-flow-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.uij-flow-card {
+    flex-shrink: 0;
+    width: 180px;
+    height: 60px;
+    background: var(--uij-bg-tertiary);
+    border: 1px solid var(--uij-border-light);
+    border-radius: var(--uij-radius-lg);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: var(--uij-transition-normal);
+    cursor: pointer;
+}
+
+.uij-flow-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--uij-primary);
+    background: var(--uij-bg-quaternary);
+}
+
+.uij-flow-card-ico { 
+    font-size: 20px;
+    line-height: 1;
+    color: var(--uij-text-secondary);
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-flow-card-content {
+    flex: 1;
+}
+
+.uij-flow-card.title { 
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--uij-text-primary);
+    margin-bottom: 2px;
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-flow-card-su.title { 
+    font-size: 12px;
+    color: var(--uij-text-muted);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Infinite Carousel */
+.uij-infinite-carouse { 
+    margin: 40px 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--uij-bg-secondary);
+    border-radius: var(--uij-radius-xl);
+    padding: var(--uij-spacing-xl) 0;
+    border: 1px solid var(--uij-border);
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-infinite-carousel.title { 
+    text-align: center;
+    color: var(--uij-primary);
+    margin-bottom: var(--uij-spacing-xl);
+    font-size: 20px;
+    font-weight: 600;
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-carousel-trac { 
+    display: flex;
+    gap: var(--uij-spacing-lg);
+    animation: uij-carousel-flow 40s linear infinite;
+    width: fit-content;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@keyframes uij-carousel-flow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.uij-carousel-card {
+    flex-shrink: 0;
+    width: 280px;
+    height: 160px;
+    background: linear-gradient(135deg, var(--uij-bg-tertiary), var(--uij-border-light));
+    border: 1px solid var(--uij-border-light);
+    border-radius: var(--uij-radius-xl);
+    padding: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--uij-transition-normal);
+}
+
+.uij-carousel-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--uij-primary);
+}
+
+.uij-carousel-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.uij-carousel-card-ico { 
+    width: 32px;
+    height: 32px;
+    background: var(--uij-primary);
+    border-radius: var(--uij-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #000000;
+    font-weight: 600;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-carousel-card.title { 
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--uij-text-primary);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-carousel-card-descriptio { 
+    font-size: 14px;
+    color: var(--uij-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-carousel-card-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uij-carousel-card-tag {
+    background: var(--uij-bg-light);
+    color: var(--uij-text-primary);
+    padding: 4px 8px;
+    border-radius: var(--uij-radius-sm);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.uij-carousel-card-arrow {
+    color: var(--uij-text-muted);
+    font-size: 18px;
+    transition: var(--uij-transition-normal);
+}
+
+.uij-carousel-card:hover .uij-carousel-card-arrow {
+    color: var(--uij-primary);
+    transform: translateX(4px);
+}
+
+/* CSS-Only Scroll Animations using animation-timeline */
+/* Modern browsers only - with fallbacks */
+
+/* Counter Animation */
+@keyframes uij-count-up {
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    t {  
+        transform: translateY(0);
+        opacity: 1;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Bar Chart Animation */
+@keyframes uij-bar-grow {
+    from {
+        height: 0%;
+        opacity: 0.5;
+    }
+    t { 
+        height: var(--target-height);
+        opacity: 1;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Skill Bar Animation */
+@keyframes uij-skill-bar-fil { 
+    from { width: 0%;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    t {  width: var(--target-width);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Circular Progress Animation */
+@keyframes uij-circular-progress {
+    from { stroke-dashoffset: 283; }
+    t {  stroke-dashoffset: var(--target-offset);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Line Chart Animation */
+@keyframes uij-line-path-draw {
+    from {
+        stroke-dashoffset: 1000;
+        stroke: var(--uij-text-disabled);
+    }
+    t { 
+        stroke-dashoffset: 0;
+        stroke: var(--uij-primary);
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Fade In Up Animation */
+@keyframes uij-fade-in-up {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    t { 
+        transform: translateY(0);
+        opacity: 1;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Apply scroll animations with animation-timeline (if supported) */
+@supports (animation-timeline: view()) {
+    .uij-metric-card-value {
+        animation: uij-count-up 0.8s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 50%;
+    }
+
+    .uij-bar {
+        animation: uij-bar-grow 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 20% entry 80%;
+    }
+
+    .uij-skill-bar-fil { 
+        animation: uij-skill-bar-fill 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .uij-circular-progress-fil { 
+        animation: uij-circular-progress 2s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .uij-line-path {
+        animation: uij-line-path-draw 2s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+    }
+
+    .uij-line-dots {
+        animation: uij-fade-in-up 1s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 40% entry 90%;
+    }
+
+    .uij-metric.card { 
+        animation: uij-fade-in-up 0.6s ease-out forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+}
+
+/* Fallback for browsers without animation-timeline support */
+@supports not (animation-timeline: view()) {
+    .uij-metric-card-value,
+    .uij-bar,
+    .uij-skill-bar-fill,
+    .uij-circular-progress-fill,
+    .uij-line-path,
+    .uij-line-dots,
+    .uij-metric.card { 
+        animation-timeline: auto;
+        animation-delay: 0s;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+    
+    /* Show final states immediately */
+    .uij-bar { height: var(--target-height); }
+    .uij-skill-bar-fil {  width: var(--target-width);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .uij-circular-progress-fil {  stroke-dashoffset: var(--target-offset);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .uij-line-path { stroke: var(--uij-primary); stroke-dashoffset: 0; }
+}
+
+/* Loading Animation */
+@keyframes uij-spi { 
+    to { transform: rotate(360deg);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+.uij-loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--uij-bg-tertiary);
+    border-top-color: var(--uij-primary);
+    border-radius: 50%;
+    animation: uij-spin 1s linear infinite;
+}
+
+/* Pulse Animation */
+@keyframes uij-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.uij-pulse {
+    animation: uij-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Bounce Animation */
+@keyframes uij-bounce {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+.uij-bounce {
+    animation: uij-bounce 1s ease infinite;
+}
+
+/* Shake Animation */
+@keyframes uij-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.uij-shake {
+    animation: uij-shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Responsive Animations */
+@media (max-width: 768px) {
+    .uij-flowing-row {
+        height: 60px;
+    }
+    
+    .uij-flow.card { 
+        width: 140px;
+        height: 50px;
+        padding: 8px 12px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+    
+    .uij-carousel.card { 
+        width: 220px;
+        height: 140px;
+        padding: 16px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+}
+
+@media (max-width: 480px) {
+    .uij-flow.card { 
+        width: 120px;
+        height: 45px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+    
+    .uij-carousel.card { 
+        width: 200px;
+        height: 120px;
+        padding: 12px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .uij-flowing-cards,
+    .uij-carousel-trac { 
+        animation-duration: 120s; /* Much slower */
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    
+    .uij-flow-card:hover,
+    .uij-carousel-card:hover {
+        transform: none;
+    }
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

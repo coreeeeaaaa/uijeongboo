@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Animation Effects</title>
+    
+    <!-- UijeongBoo CSS Links -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    
+    <style>
+        :root {
+            --uij-bg-primary: #222222;
+            --uij-bg-secondary: #333333;
+            --uij-bg-tertiary: #444444;
+            --uij-primary: #32CD32;
+            --uij-text-primary: #eeeeee;
+            --uij-text-secondary: #cccccc;
+            --uij-text-muted: #999999;
+            --uij-border: #444444;
+        }
+
+        body {
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--uij-primary, #32CD32);
+            margin-bottom: 16px;
+        }
+
+        .page-description {
+            font-size: 18px;
+            color: var(--uij-text-secondary, #cccccc);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .demo-section h2 {
+            color: var(--uij-primary, #32CD32);
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .demo-section p {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .demo-section h3 {
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 24px;
+        }
+
+        /* ================================================= */
+        /* CSS ANIMATIONS                                   */
+        /* ================================================= */
+        
+        .css-animations-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .animation-box {
+            width: 60px;
+            height: 60px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 8px;
+            margin: 20px auto;
+        }
+        
+        .animation-circle {
+            width: 60px;
+            height: 60px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+        
+        .pulse { animation: pulse 2s infinite; }
+        .bounce { animation: bounce 1s infinite; }
+        .rotate { animation: rotate 2s linear infinite; }
+        .scale { animation: scale 1s ease-in-out infinite alternate; }
+        .slide { animation: slide 2s ease-in-out infinite alternate; }
+        .circle-pulse { animation: circle-pulse 2s infinite; }
+        .circle-bounce { animation: circle-bounce 1s infinite; }
+        .circle-rotate { animation: circle-rotate 2s linear infinite; }
+        .circle-scale { animation: circle-scale 1s ease-in-out infinite alternate; }
+        .circle-slide { animation: circle-slide 2s ease-in-out infinite alternate; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes scale {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+        
+        @keyframes slide {
+            from { transform: translateX(-20px); }
+            to { transform: translateX(20px); }
+        }
+        
+        /* Circle animations */
+        @keyframes circle-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+        
+        @keyframes circle-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-25px); }
+            60% { transform: translateY(-15px); }
+        }
+        
+        @keyframes circle-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes circle-scale {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+        
+        @keyframes circle-slide {
+            from { transform: translateX(-25px); }
+            to { transform: translateX(25px); }
+        }
+
+        /* ================================================= */
+        /* CSS WATER WAVE EFFECTS (No JavaScript!)         */
+        /* ================================================= */
+        
+        /* Water Text Fill Effect */
+        .water-text-container {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 8px;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .water-text {
+            font-size: 64px;
+            font-weight: bold;
+            color: #666666;
+            margin: 20px 0;
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .water-text-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--uij-primary, #32CD32);
+            animation: text-water-rise 4s ease-in-out infinite;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .water-text-wave::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -60%;
+            width: 220%;
+            height: 40px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 40% 60% 30% 70%;
+            animation: text-wave-ripple 2.2s ease-in-out infinite;
+        }
+        
+        .water-text-wave::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -40%;
+            width: 180%;
+            height: 30px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 60% 40% 70% 30%;
+            opacity: 0.8;
+            animation: text-wave-ripple 1.8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes text-water-rise {
+            0% { height: 0%; }
+            50% { height: 100%; }
+            100% { height: 0%; }
+        }
+        
+        @keyframes text-wave-ripple {
+            0%, 100% { 
+                transform: translateY(0) scaleX(1) rotate(0deg) translateX(0);
+                border-radius: 42% 58% 38% 62%;
+            }
+            16% { 
+                transform: translateY(-5px) scaleX(1.15) rotate(1.8deg) translateX(5px);
+                border-radius: 68% 32% 65% 35%;
+            }
+            32% { 
+                transform: translateY(-2px) scaleX(0.85) rotate(-1.2deg) translateX(-3px);
+                border-radius: 28% 72% 25% 75%;
+            }
+            48% { 
+                transform: translateY(-7px) scaleX(1.25) rotate(2.2deg) translateX(8px);
+                border-radius: 75% 25% 70% 30%;
+            }
+            64% { 
+                transform: translateY(-3px) scaleX(0.75) rotate(-1.5deg) translateX(-6px);
+                border-radius: 25% 75% 35% 65%;
+            }
+            80% { 
+                transform: translateY(-6px) scaleX(1.1) rotate(1deg) translateX(4px);
+                border-radius: 58% 42% 55% 45%;
+            }
+        }
+        
+        /* Text-Only Water Fill Effect */
+        .text-only-water-container {
+            padding: 20px;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 8px;
+            overflow: visible;
+            position: relative;
+        }
+        
+        .text-only-water {
+            font-size: 64px;
+            font-weight: bold;
+            color: var(--uij-text-primary, #eeeeee);
+            margin: 20px 0;
+            height: 100px;
+            line-height: 100px;
+            position: relative;
+            background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: text-fill-water-rise 3s ease-in-out infinite;
+        }
+        
+        .text-only-water::after {
+            content: 'WONJOOOO';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 64px;
+            font-weight: bold;
+            line-height: 100px;
+            text-align: center;
+            color: var(--uij-primary, #32CD32);
+            clip-path: inset(100% 0 0 0);
+            animation: text-only-water-rise 3s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        @keyframes text-only-water-rise {
+            0% { clip-path: inset(100% 0 0 0); }
+            50% { clip-path: inset(0% 0 0 0); }
+            100% { clip-path: inset(100% 0 0 0); }
+        }
+        
+        @keyframes text-fill-water-rise {
+            0% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            }
+            50% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 100%, transparent 100%);
+            }
+            100% { 
+                background: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 0%, transparent 0%);
+            }
+        }
+        
+        /* Water Button Effect */
+        .water-button {
+            position: relative;
+            padding: 15px 30px;
+            border: 2px solid var(--uij-primary, #32CD32);
+            background: transparent !important;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            color: var(--uij-primary, #32CD32);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .water-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--uij-primary, #32CD32);
+            transition: height 0.6s ease-in-out;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .water-wave::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -10%;
+            width: 120%;
+            height: 16px;
+            background: inherit;
+            border-radius: 45% 55% 35% 65%;
+            animation: water-surface 1.8s ease-in-out infinite;
+        }
+        
+        .water-wave::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -15%;
+            width: 130%;
+            height: 12px;
+            background: inherit;
+            border-radius: 60% 40% 70% 30%;
+            opacity: 0.7;
+            animation: water-surface 2.2s ease-in-out infinite reverse;
+        }
+        
+        .water-button:hover .water-wave {
+            height: 100%;
+        }
+        
+        @keyframes water-surface {
+            0%, 100% { 
+                transform: scaleX(1) translateY(0) rotate(0deg);
+                border-radius: 48% 52% 45% 55%;
+            }
+            16% { 
+                transform: scaleX(1.08) translateY(-3px) rotate(0.8deg);
+                border-radius: 62% 38% 55% 45%;
+            }
+            32% { 
+                transform: scaleX(0.94) translateY(-1px) rotate(-0.6deg);
+                border-radius: 35% 65% 42% 58%;
+            }
+            48% { 
+                transform: scaleX(1.12) translateY(-4px) rotate(1.2deg);
+                border-radius: 58% 42% 60% 40%;
+            }
+            64% { 
+                transform: scaleX(0.88) translateY(-2px) rotate(-0.4deg);
+                border-radius: 42% 58% 38% 62%;
+            }
+            80% { 
+                transform: scaleX(1.06) translateY(-3px) rotate(0.5deg);
+                border-radius: 55% 45% 52% 48%;
+            }
+        }
+        
+        .water-button:hover {
+            color: var(--uij-bg-primary, #222222);
+            transform: scale(1.05);
+        }
+        
+        /* Water Section Fill Effect */
+        .water-section {
+            position: relative;
+            height: 200px;
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--uij-bg-tertiary, #444444);
+            cursor: pointer;
+        }
+        
+        .water-section-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--uij-primary, #32CD32);
+            opacity: 0.9;
+            transition: height 1.0s ease-in-out;
+            overflow: hidden;
+        }
+        
+        .water-section-wave::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -20%;
+            width: 140%;
+            height: 24px;
+            background: inherit;
+            border-radius: 42% 58% 35% 65%;
+            animation: section-water-surface 2.1s ease-in-out infinite;
+        }
+        
+        .water-section-wave::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -10%;
+            width: 120%;
+            height: 16px;
+            background: inherit;
+            border-radius: 65% 35% 70% 30%;
+            opacity: 0.8;
+            animation: section-water-surface 2.7s ease-in-out infinite reverse;
+        }
+        
+        .water-section:hover .water-section-wave {
+            height: 100%;
+        }
+        
+        @keyframes section-water-surface {
+            0%, 100% { 
+                transform: scaleX(1) translateY(0) rotate(0deg);
+                border-radius: 45% 55% 48% 52%;
+            }
+            20% { 
+                transform: scaleX(1.18) translateY(-4px) rotate(1.5deg);
+                border-radius: 65% 35% 58% 42%;
+            }
+            40% { 
+                transform: scaleX(0.82) translateY(-2px) rotate(-1deg);
+                border-radius: 32% 68% 35% 65%;
+            }
+            60% { 
+                transform: scaleX(1.22) translateY(-5px) rotate(2deg);
+                border-radius: 68% 32% 62% 38%;
+            }
+            80% { 
+                transform: scaleX(0.78) translateY(-3px) rotate(-0.8deg);
+                border-radius: 38% 62% 45% 55%;
+            }
+        }
+        
+        .water-section-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--uij-text-primary, #eeeeee);
+            font-weight: bold;
+            transition: color 0.5s ease;
+        }
+        
+        .water-section:hover .water-section-content {
+            color: var(--uij-bg-primary, #222222);
+        }
+        
+        /* Water Loading Screen Effect */
+        .water-loading {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 50%;
+            background: var(--uij-bg-secondary, #333333);
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .water-loading-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .water-loading-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: var(--uij-primary, #32CD32);
+            opacity: 0.8;
+            animation: loading-water-level 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+        
+        .water-loading-wave::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -15%;
+            width: 130%;
+            height: 20px;
+            background: inherit;
+            border-radius: 38% 62% 42% 58%;
+            animation: loading-water-surface 1.9s ease-in-out infinite;
+        }
+        
+        .water-loading-wave::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -25%;
+            width: 150%;
+            height: 12px;
+            background: inherit;
+            border-radius: 68% 32% 75% 25%;
+            opacity: 0.6;
+            animation: loading-water-surface 2.3s ease-in-out infinite reverse;
+        }
+        
+        .water-loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--uij-text-primary, #eeeeee);
+            font-weight: bold;
+            z-index: 10;
+            transition: color 0.3s ease;
+        }
+        
+        @keyframes loading-water-level {
+            0% { height: 20%; }
+            50% { height: 80%; }
+            100% { height: 20%; }
+        }
+        
+        @keyframes loading-water-surface {
+            0%, 100% { 
+                transform: scaleX(1) translateY(0) rotate(0deg);
+                border-radius: 42% 58% 45% 55%;
+            }
+            14% { 
+                transform: scaleX(1.25) translateY(-3px) rotate(2deg);
+                border-radius: 68% 32% 62% 38%;
+            }
+            28% { 
+                transform: scaleX(0.75) translateY(-1px) rotate(-1.5deg);
+                border-radius: 28% 72% 32% 68%;
+            }
+            42% { 
+                transform: scaleX(1.3) translateY(-4px) rotate(2.5deg);
+                border-radius: 72% 28% 65% 35%;
+            }
+            56% { 
+                transform: scaleX(0.7) translateY(-2px) rotate(-1deg);
+                border-radius: 35% 65% 28% 72%;
+            }
+            70% { 
+                transform: scaleX(1.15) translateY(-3px) rotate(1.2deg);
+                border-radius: 58% 42% 55% 45%;
+            }
+            84% { 
+                transform: scaleX(0.85) translateY(-1px) rotate(-0.8deg);
+                border-radius: 38% 62% 42% 58%;
+            }
+        }
+
+        /* ================================================= */
+        /* CSS LOADING SPINNERS (No JavaScript!)           */
+        /* ================================================= */
+        
+        .spinners-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .spinner-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+        
+        /* 1. Rotating Spinner */
+        .rotating-spinner {
+            border: 4px solid var(--uij-bg-tertiary, #444444);
+            border-top: 4px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: rotate-360 1s linear infinite;
+        }
+        
+        /* 2. Arc Spinner */
+        .arc-spinner {
+            border: 4px solid transparent;
+            border-top: 4px solid var(--uij-primary, #32CD32);
+            border-right: 4px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: rotate-360 0.8s linear infinite;
+        }
+        
+        /* 3. Dot Rotation Spinner */
+        .dot-rotation-spinner {
+            position: relative;
+        }
+        
+        .dot-rotation-spinner::before,
+        .dot-rotation-spinner::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: dot-orbit 1.2s linear infinite;
+        }
+        
+        .dot-rotation-spinner::before {
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            transform-origin: 50% 17px;
+        }
+        
+        .dot-rotation-spinner::after {
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            transform-origin: 50% 17px;
+            animation-delay: 0.6s;
+        }
+        
+        /* 4. Pulse Spinner */
+        .pulse-spinner {
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: pulse-scale 1.5s ease-in-out infinite;
+        }
+        
+        /* 5. Bouncing Dots Spinner */
+        .bouncing-dots-spinner {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bouncing-dots-spinner::before,
+        .bouncing-dots-spinner::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: bounce-smooth 2s ease-in-out infinite;
+        }
+        
+        .bouncing-dots-spinner::before {
+            animation-delay: 0s;
+        }
+        
+        .bouncing-dots-spinner::after {
+            animation-delay: 1s;
+        }
+        
+        /* 6. Square Spinner */
+        .square-spinner {
+            background: var(--uij-primary, #32CD32);
+            animation: square-rotate 2s linear infinite;
+        }
+        
+        /* 7. Chain Spinner */
+        .chain-spinner {
+            position: relative;
+        }
+        
+        .chain-spinner::before,
+        .chain-spinner::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: chain-move 2s linear infinite;
+        }
+        
+        .chain-spinner::before {
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .chain-spinner::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: 1s;
+        }
+        
+        /* 8. Grid Spinner */
+        .grid-spinner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .grid-spinner div {
+            background: var(--uij-primary, #32CD32);
+            animation: grid-fade-smooth 2.7s ease-in-out infinite;
+        }
+        
+        .grid-spinner div:nth-child(1) { animation-delay: 0s; }
+        .grid-spinner div:nth-child(2) { animation-delay: 0.15s; }
+        .grid-spinner div:nth-child(3) { animation-delay: 0.3s; }
+        .grid-spinner div:nth-child(4) { animation-delay: 0.45s; }
+        .grid-spinner div:nth-child(5) { animation-delay: 0.6s; }
+        .grid-spinner div:nth-child(6) { animation-delay: 0.75s; }
+        .grid-spinner div:nth-child(7) { animation-delay: 0.9s; }
+        .grid-spinner div:nth-child(8) { animation-delay: 1.05s; }
+        .grid-spinner div:nth-child(9) { animation-delay: 1.2s; }
+        
+        /* 9. Snake Spinner */
+        .snake-spinner {
+            border: 3px solid transparent;
+            border-top: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            position: relative;
+            animation: snake-spin 1.5s linear infinite;
+        }
+        
+        .snake-spinner::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 3px solid transparent;
+            border-bottom: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: snake-trail 2s linear infinite reverse;
+        }
+        
+        /* 10. Morphing Spinner */
+        .morphing-spinner {
+            background: var(--uij-primary, #32CD32);
+            animation: morph-shape 2s ease-in-out infinite;
+        }
+        
+        /* 11. Wave Spinner */
+        .wave-spinner {
+            position: relative;
+            background: transparent;
+        }
+        
+        .wave-spinner::before,
+        .wave-spinner::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: wave-flow 1.5s ease-in-out infinite;
+        }
+        
+        .wave-spinner::before {
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .wave-spinner::after {
+            right: 0;
+            animation-delay: 0.75s;
+        }
+        
+        /* 12. Orbit Spinner */
+        .orbit-spinner {
+            position: relative;
+            border: 2px solid var(--uij-bg-tertiary, #444444);
+            border-radius: 50%;
+            background: transparent;
+        }
+        
+        .orbit-spinner::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: orbit-around 1.8s linear infinite;
+            transform-origin: 50% 24px;
+        }
+        
+        /* 13. Ripple Spinner */
+        .ripple-spinner {
+            position: relative;
+            background: transparent;
+        }
+        
+        .ripple-spinner::before,
+        .ripple-spinner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 1px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ripple-expand 2.5s ease-out infinite;
+        }
+        
+        .ripple-spinner::after {
+            animation-delay: 1.25s;
+            border-width: 1px;
+        }
+        
+        /* 14. Elastic Spinner */
+        .elastic-spinner {
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: elastic-bounce 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+        
+        /* 15. Flower Spinner */
+        .flower-spinner {
+            position: relative;
+            background: transparent;
+        }
+        
+        .flower-spinner::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50% 50% 20% 20%;
+            transform: translate(-50%, -50%);
+            animation: flower-petals 2s ease-in-out infinite;
+            transform-origin: 50% 80%;
+        }
+        
+        .flower-spinner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 12px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50% 50% 20% 20%;
+            transform: translate(-50%, -50%) rotate(60deg);
+            animation: flower-petals 2s ease-in-out infinite 0.3s;
+            transform-origin: 50% 80%;
+        }
+        
+        @keyframes flower-petals {
+            0%, 100% { 
+                transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
+                opacity: 0.6;
+            }
+            33% {
+                transform: translate(-50%, -50%) rotate(120deg) scale(1);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(-50%, -50%) rotate(240deg) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* 16. Breathing Spinner */
+        .breathing-spinner {
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: breathing-pulse 2s ease-in-out infinite;
+        }
+        
+        /* 17. Spiral Spinner */
+        .spiral-spinner {
+            position: relative;
+            background: transparent;
+            border: 3px solid transparent;
+            border-top: 3px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: spiral-rotate 1s linear infinite;
+        }
+        
+        .spiral-spinner::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-bottom: 2px solid var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spiral-rotate 0.5s linear infinite reverse;
+        }
+        
+        /* 18. Pendulum Spinner */
+        .pendulum-spinner {
+            position: relative;
+            background: transparent;
+        }
+        
+        .pendulum-spinner::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            width: 2px;
+            height: 18px;
+            background: var(--uij-text-muted, #999999);
+            transform: translateX(-50%);
+            transform-origin: top center;
+            animation: pendulum-swing-ultra-smooth 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+        
+        .pendulum-spinner::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: pendulum-swing-ultra-smooth 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            transform-origin: 50% -13px;
+        }
+        
+        @keyframes pendulum-swing-ultra-smooth {
+            0% { transform: translateX(-50%) rotate(-30deg); }
+            25% { transform: translateX(-50%) rotate(30deg); }
+            50% { transform: translateX(-50%) rotate(-30deg); }
+            75% { transform: translateX(-50%) rotate(30deg); }
+            100% { transform: translateX(-50%) rotate(-30deg); }
+        }
+        
+        /* 19. Liquid Spinner */
+        .liquid-spinner {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--uij-bg-tertiary, #444444);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .liquid-spinner::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50% 50% 0 0;
+            animation: liquid-wave 2s ease-in-out infinite;
+        }
+        
+        .liquid-spinner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 40% 60% 0 0;
+            animation: liquid-wave 2.5s ease-in-out infinite 0.3s;
+        }
+        
+        @keyframes liquid-wave {
+            0%, 100% { 
+                transform: translateY(10px) scale(1);
+                border-radius: 50% 50% 0 0;
+            }
+            50% { 
+                transform: translateY(-5px) scale(1.1);
+                border-radius: 60% 40% 0 0;
+            }
+        }
+        
+        /* 20. Magnetic Spinner */
+        .magnetic-spinner {
+            position: relative;
+            background: transparent;
+        }
+        
+        .magnetic-spinner::before,
+        .magnetic-spinner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: magnetic-attract 1.8s ease-in-out infinite;
+        }
+        
+        .magnetic-spinner::before {
+            left: 0;
+        }
+        
+        .magnetic-spinner::after {
+            right: 0;
+            animation-delay: 0.9s;
+        }
+        
+        /* Keyframes for Spinners */
+        @keyframes rotate-360 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes dot-orbit {
+            0% { transform: rotate(0deg) translateX(15px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(15px) rotate(-360deg); }
+        }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(0.8); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+        
+        @keyframes bounce-smooth {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+                opacity: 0.7;
+            }
+            25% { 
+                transform: translateY(-8px) scale(1.1);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-12px) scale(1.2);
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-8px) scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes square-rotate {
+            0% { 
+                transform: rotate(0deg); 
+                border-radius: 0; 
+            }
+            100% { 
+                transform: rotate(360deg); 
+                border-radius: 0; 
+            }
+        }
+        
+        @keyframes chain-move {
+            0% { 
+                transform: translateX(-20px) translateY(0px);
+                opacity: 0;
+            }
+            25% { 
+                transform: translateX(0px) translateY(-10px);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateX(20px) translateY(0px);
+                opacity: 1;
+            }
+            75% { 
+                transform: translateX(40px) translateY(10px);
+                opacity: 0.5;
+            }
+            100% { 
+                transform: translateX(60px) translateY(0px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes grid-fade-smooth {
+            0%, 100% { 
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            20% { 
+                opacity: 0.6;
+                transform: scale(0.9);
+            }
+            40% { 
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            60% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            80% { 
+                opacity: 0.6;
+                transform: scale(0.9);
+            }
+        }
+        
+        @keyframes snake-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes snake-trail {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: rotate(-180deg) scale(1.05);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: rotate(-360deg) scale(1);
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes morph-shape {
+            0% { border-radius: 50%; transform: rotate(0deg); }
+            25% { border-radius: 0; transform: rotate(90deg); }
+            50% { border-radius: 50%; transform: rotate(180deg); }
+            75% { border-radius: 0; transform: rotate(270deg); }
+            100% { border-radius: 50%; transform: rotate(360deg); }
+        }
+        
+        @keyframes wave-flow {
+            0% { 
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            10% { 
+                transform: translateY(-2px) scale(1.05);
+                opacity: 0.9;
+            }
+            20% { 
+                transform: translateY(-5px) scale(1.1);
+                opacity: 1;
+            }
+            30% { 
+                transform: translateY(-6.5px) scale(1.15);
+                opacity: 0.95;
+            }
+            40% { 
+                transform: translateY(-8px) scale(1.2);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-6.5px) scale(1.15);
+                opacity: 0.95;
+            }
+            60% { 
+                transform: translateY(-5px) scale(1.1);
+                opacity: 1;
+            }
+            70% { 
+                transform: translateY(-1px) scale(1.02);
+                opacity: 0.95;
+            }
+            80% { 
+                transform: translateY(2px) scale(0.95);
+                opacity: 0.9;
+            }
+            90% { 
+                transform: translateY(1px) scale(0.98);
+                opacity: 0.85;
+            }
+            100% { 
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes orbit-around {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+        
+        @keyframes ripple-expand {
+            0% { 
+                width: 0;
+                height: 0;
+                opacity: 1;
+                border-width: 2px;
+            }
+            25% { 
+                width: 15px;
+                height: 15px;
+                opacity: 0.8;
+                border-width: 2px;
+            }
+            50% { 
+                width: 30px;
+                height: 30px;
+                opacity: 0.5;
+                border-width: 1px;
+            }
+            75% { 
+                width: 35px;
+                height: 35px;
+                opacity: 0.2;
+                border-width: 1px;
+            }
+            100% { 
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+                border-width: 0px;
+            }
+        }
+        
+        @keyframes elastic-bounce {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.05); }
+            10% { transform: scale(1.12); }
+            15% { transform: scale(1.22); }
+            20% { transform: scale(1.35); }
+            25% { transform: scale(1.45); }
+            30% { transform: scale(1.52); }
+            35% { transform: scale(1.58); }
+            40% { transform: scale(1.62); }
+            45% { transform: scale(1.68); }
+            50% { transform: scale(1.8); }
+            55% { transform: scale(1.72); }
+            60% { transform: scale(1.62); }
+            65% { transform: scale(1.48); }
+            70% { transform: scale(1.35); }
+            75% { transform: scale(1.22); }
+            80% { transform: scale(1.12); }
+            85% { transform: scale(1.05); }
+            90% { transform: scale(0.98); }
+            95% { transform: scale(0.99); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes breathing-pulse {
+            0%, 100% { 
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+            50% { 
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes spiral-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes magnetic-attract {
+            0%, 100% { 
+                transform: translateY(-50%) translateX(0);
+            }
+            50% { 
+                transform: translateY(-50%) translateX(12px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1 class="page-title">UijeongBoo - Animation Effects</h1>
+        <p class="page-description">
+            JavaScript 없이 CSS만으로 구현한 다양한 애니메이션 효과들을 한 눈에 확인해보세요.
+            기본 CSS 애니메이션부터 물결 효과, 로딩 스피너까지 다양한 컴포넌트를 제공합니다.
+        </p>
+    </div>
+
+    <!-- CSS Animations Section -->
+    <div class="demo-section">
+        <h2>CSS 애니메이션</h2>
+        <p>다양한 CSS 애니메이션 효과들</p>
+        
+        <div style="margin-bottom: 30px;">
+            <h3 style="margin-bottom: 16px;">사각형 애니메이션</h3>
+            <div class="css-animations-demo">
+                <div>
+                    <div class="animation-box pulse"></div>
+                    <p style="text-align: center;">Pulse</p>
+                </div>
+                
+                <div>
+                    <div class="animation-box bounce"></div>
+                    <p style="text-align: center;">Bounce</p>
+                </div>
+                
+                <div>
+                    <div class="animation-box rotate"></div>
+                    <p style="text-align: center;">Rotate</p>
+                </div>
+                
+                <div>
+                    <div class="animation-box scale"></div>
+                    <p style="text-align: center;">Scale</p>
+                </div>
+                
+                <div>
+                    <div class="animation-box slide"></div>
+                    <p style="text-align: center;">Slide</p>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <h3 style="margin-bottom: 16px;">원형 애니메이션</h3>
+            <div class="css-animations-demo">
+                <div>
+                    <div class="animation-circle circle-pulse"></div>
+                    <p style="text-align: center;">Pulse</p>
+                </div>
+                
+                <div>
+                    <div class="animation-circle circle-bounce"></div>
+                    <p style="text-align: center;">Bounce</p>
+                </div>
+                
+                <div>
+                    <div class="animation-circle circle-rotate"></div>
+                    <p style="text-align: center;">Rotate</p>
+                </div>
+                
+                <div>
+                    <div class="animation-circle circle-scale"></div>
+                    <p style="text-align: center;">Scale</p>
+                </div>
+                
+                <div>
+                    <div class="animation-circle circle-slide"></div>
+                    <p style="text-align: center;">Slide</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Wave Effects Section -->
+    <div class="demo-section">
+        <h2>물결 차오르는 효과 (CSS Only)</h2>
+        <p>JavaScript 없이 CSS만으로 구현한 물이 차오르는 애니메이션</p>
+        
+        <!-- Water Text Effects -->
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin-bottom: 16px;">텍스트 물결 차오름</h3>
+            
+            <!-- Background Water Fill -->
+            <div style="margin-bottom: 30px;">
+                <p style="margin-bottom: 16px;">배경에서 물결이 일렁이며 차오르는 로딩 효과</p>
+                <div class="water-text-container">
+                    <div class="water-text">WONJOOOO</div>
+                    <div class="water-text-wave"></div>
+                </div>
+            </div>
+            
+            <!-- Text-Only Water Fill -->
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 16px;">글자에만 물이 차오르는 효과 (배경 투명)</p>
+                <div class="text-only-water-container">
+                    <div class="text-only-water">WONJOOOO</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-grid">
+            <!-- Water Button -->
+            <div>
+                <h3 style="margin-bottom: 16px;">버튼 물결 효과</h3>
+                <p style="margin-bottom: 16px;">호버 시 버튼 안에 물이 차오르는 효과</p>
+                <button class="water-button">
+                    <div class="water-wave"></div>
+                    Hover Me
+                </button>
+            </div>
+            
+            <!-- Water Section -->
+            <div>
+                <h3 style="margin-bottom: 16px;">섹션 물결 효과</h3>
+                <p style="margin-bottom: 16px;">클릭 영역에 물이 차오르는 효과</p>
+                <div class="water-section">
+                    <div class="water-section-wave"></div>
+                    <div class="water-section-content">Hover Section</div>
+                </div>
+            </div>
+            
+            <!-- Water Loading -->
+            <div>
+                <h3 style="margin-bottom: 16px;">로딩 물결 효과</h3>
+                <p style="margin-bottom: 16px;">원형 로딩 스피너 물결 애니메이션</p>
+                <div class="water-loading">
+                    <div class="water-loading-container">
+                        <div class="water-loading-wave"></div>
+                    </div>
+                    <div class="water-loading-text">LOAD</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinners Section -->
+    <div class="demo-section">
+        <h2>로딩 스피너 모음 (CSS Only)</h2>
+        <p>JavaScript 없이 CSS만으로 구현한 20가지 다양한 로딩 스피너</p>
+        
+        <div class="spinners-demo">
+            <div class="spinner-item">
+                <div class="spinner rotating-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Rotating</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner arc-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Arc</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner dot-rotation-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Dot Rotation</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner pulse-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Pulse</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner bouncing-dots-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Bouncing Dots</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner square-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Square</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner chain-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Chain</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="grid-spinner">
+                    <div></div><div></div><div></div>
+                    <div></div><div></div><div></div>
+                    <div></div><div></div><div></div>
+                </div>
+                <p style="text-align: center; font-size: 12px;">Grid</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner snake-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Snake</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner morphing-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Morphing</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner wave-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Wave</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner orbit-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Orbit</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner ripple-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Ripple</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner elastic-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Elastic</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner flower-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Flower</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner breathing-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Breathing</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner spiral-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Spiral</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner pendulum-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Pendulum</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner liquid-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Liquid</p>
+            </div>
+            
+            <div class="spinner-item">
+                <div class="spinner magnetic-spinner"></div>
+                <p style="text-align: center; font-size: 12px;">Magnetic</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="demo-section" style="text-align: center; margin-top: 60px;">
+        <h2>UijeongBoo 애니메이션 프레임워크</h2>
+        <p>모든 애니메이션은 JavaScript 없이 순수 CSS만으로 구현되었습니다.</p>
+        <p style="color: var(--uij-text-muted, #999999); font-size: 14px; margin-top: 20px;">
+            다크 테마 · 라임 그린 액센트 · 미니멀 디자인 · 플랫 스타일
+        </p>
+    </div>
+</body>
+</html>

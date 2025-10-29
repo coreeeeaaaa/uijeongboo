@@ -1,0 +1,164 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - Color Utilities   */
+/* Version: 1.0                                     */
+/* License: Apache 2.0                              */
+/* ================================================= */
+
+/* 
+ * CRITICAL COLOR RULES - NEVER VIOLATE
+ * 1. ONLY LIME COLOR (#32CD32) ALLOWED FOR ACCENTS
+ * 2. ALL OTHER COLORS MUST BE GRAYSCALE
+ * 3. NO OTHER COLORS PERMITTED
+ */
+
+/* Background Colors - GRAYSCALE ONLY + LIME */
+.uij-bg-primary { background-color: var(--uij-bg-primary) !important; }
+.uij-bg-secondary { background-color: var(--uij-bg-secondary) !important; }
+.uij-bg-tertiary { background-color: var(--uij-bg-tertiary) !important; }
+.uij-bg-quaternary { background-color: var(--uij-bg-quaternary) !important; }
+.uij-bg-light { background-color: var(--uij-bg-light) !important; }
+
+/* ONLY lime accent allowed */
+.uij-bg-accent { background-color: var(--uij-primary) !important; }
+.uij-bg-lime { background-color: var(--uij-primary) !important; }
+
+/* State backgrounds - GRAYSCALE ONLY */
+.uij-bg-success { background-color: var(--uij-success) !important; } /* This is lime */
+.uij-bg-warning { background-color: var(--uij-warning) !important; } /* This is gray */
+.uij-bg-danger { background-color: var(--uij-danger) !important; } /* This is gray */
+.uij-bg-inf {  background-color: var(--uij-info) !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } /* This is gray */
+
+/* Transparent background - CRITICAL FOR BUTTONS */
+.uij-bg-transparent { background-color: transparent !important; }
+
+/* Text Colors - GRAYSCALE ONLY + LIME */
+.uij-text-primary { color: var(--uij-text-primary) !important; }
+.uij-text-secondary { color: var(--uij-text-secondary) !important; }
+.uij-text-muted { color: var(--uij-text-muted) !important; }
+.uij-text-disabled { color: var(--uij-text-disabled) !important; }
+
+/* ONLY lime accent allowed */
+.uij-text-accent { color: var(--uij-primary) !important; }
+.uij-text-lime { color: var(--uij-primary) !important; }
+
+/* State text colors - GRAYSCALE ONLY */
+.uij-text-success { color: var(--uij-success) !important; } /* This is lime */
+.uij-text-warning { color: var(--uij-warning) !important; } /* This is gray */
+.uij-text-danger { color: var(--uij-danger) !important; } /* This is gray */
+.uij-text-inf {  color: var(--uij-info) !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } /* This is gray */
+
+/* White and Black */
+.uij-text-white { color: #eeeeee !important; }
+.uij-text-blac {  color: #000000 !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Border Colors - GRAYSCALE ONLY + LIME */
+.uij-border-primary { border-color: var(--uij-border) !important; }
+.uij-border-light { border-color: var(--uij-border-light) !important; }
+.uij-border-focus { border-color: var(--uij-border-focus) !important; } /* This is lime */
+
+/* ONLY lime accent allowed */
+.uij-border-accent { border-color: var(--uij-primary) !important; }
+.uij-border-lime { border-color: var(--uij-primary) !important; }
+
+/* Transparent border */
+.uij-border-transparent { border-color: transparent !important; }
+
+/* Border Styles */
+.uij-border { border-width: 1px; border-style: solid; }
+.uij-border-0 { border-width: 0; }
+.uij-border-2 { border-width: 2px; border-style: solid; }
+.uij-border-4 { border-width: 4px; border-style: solid; }
+.uij-border-8 { border-width: 8px; border-style: solid; }
+
+/* Individual borders */
+.uij-border-t { border-top-width: 1px; border-top-style: solid; }
+.uij-border-r { border-right-width: 1px; border-right-style: solid; }
+.uij-border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+.uij-border- {  border-left-width: 1px; border-left-style: solid;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-border-t-0 { border-top-width: 0; }
+.uij-border-r-0 { border-right-width: 0; }
+.uij-border-b-0 { border-bottom-width: 0; }
+.uij-border-l-0 { border-left-width: 0; }
+
+.uij-border-t-2 { border-top-width: 2px; border-top-style: solid; }
+.uij-border-r-2 { border-right-width: 2px; border-right-style: solid; }
+.uij-border-b-2 { border-bottom-width: 2px; border-bottom-style: solid; }
+.uij-border-l-2 { border-left-width: 2px; border-left-style: solid; }
+
+/* Border Radius */
+.uij-rounded-none { border-radius: 0; }
+.uij-rounded-sm { border-radius: var(--uij-radius-sm); }
+.uij-rounded { border-radius: var(--uij-radius-md); }
+.uij-rounded-md { border-radius: var(--uij-radius-md); }
+.uij-rounded-lg { border-radius: var(--uij-radius-lg); }
+.uij-rounded-x {  border-radius: var(--uij-radius-xl);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.uij-rounded-ful {  border-radius: var(--uij-radius-full);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Individual border radius */
+.uij-rounded-t-none { border-top-left-radius: 0; border-top-right-radius: 0; }
+.uij-rounded-r-none { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.uij-rounded-b-none { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
+.uij-rounded-l-none { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+
+.uij-rounded-t { border-top-left-radius: var(--uij-radius-md); border-top-right-radius: var(--uij-radius-md); }
+.uij-rounded-r { border-top-right-radius: var(--uij-radius-md); border-bottom-right-radius: var(--uij-radius-md); }
+.uij-rounded-b { border-bottom-right-radius: var(--uij-radius-md); border-bottom-left-radius: var(--uij-radius-md); }
+.uij-rounded- {  border-top-left-radius: var(--uij-radius-md); border-bottom-left-radius: var(--uij-radius-md);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-rounded-t {  border-top-left-radius: var(--uij-radius-md);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.uij-rounded-tr { border-top-right-radius: var(--uij-radius-md); }
+.uij-rounded-br { border-bottom-right-radius: var(--uij-radius-md); }
+.uij-rounded-b {  border-bottom-left-radius: var(--uij-radius-md);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Opacity */
+.uij-opacity-0 { opacity: 0; }
+.uij-opacity-25 { opacity: 0.25; }
+.uij-opacity-50 { opacity: 0.5; }
+.uij-opacity-75 { opacity: 0.75; }
+.uij-opacity-100 { opacity: 1; }
+
+/* 
+ * FORBIDDEN COLORS - DO NOT USE
+ * These utilities are explicitly forbidden in UijeongBoo design system
+ * 
+ * .uij-bg-red - FORBIDDEN
+ * .uij-bg-blue - FORBIDDEN
+ * .uij-bg-green - FORBIDDEN (except lime #32CD32)
+ * .uij-bg-yellow - FORBIDDEN
+ * .uij-bg-purple - FORBIDDEN
+ * .uij-bg-pink - FORBIDDEN
+ * .uij-bg-orange - FORBIDDEN
+ * .uij-text-red - FORBIDDEN
+ * .uij-text-blue - FORBIDDEN
+ * .uij-text-green - FORBIDDEN (except lime #32CD32)
+ * .uij-text-yellow - FORBIDDEN
+ * .uij-text-purple - FORBIDDEN
+ * .uij-text-pink - FORBIDDEN
+ * .uij-text-orange - FORBIDDEN
+ * 
+ * ONLY ALLOWED COLORS:
+ * - Grayscale: #000, #111, #222, #333, #444, #555, #666, #777, #888, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff
+ * - Lime accent: #32CD32
+ */
+
+/* Hover States - GRAYSCALE + LIME ONLY */
+.uij-hover\:bg-accent:hover { background-color: var(--uij-primary) !important; }
+.uij-hover\:bg-secondary:hover { background-color: var(--uij-bg-secondary) !important; }
+.uij-hover\:bg-tertiary:hover { background-color: var(--uij-bg-tertiary) !important; }
+.uij-hover\:bg-transparent:hover { background-color: transparent !important; }
+
+.uij-hover\:text-accent:hover { color: var(--uij-primary) !important; }
+.uij-hover\:text-primary:hover { color: var(--uij-text-primary) !important; }
+.uij-hover\:text-secondary:hover { color: var(--uij-text-secondary) !important; }
+
+.uij-hover\:border-accent:hover { border-color: var(--uij-primary) !important; }
+.uij-hover\:border-light:hover { border-color: var(--uij-border-light) !important; }
+
+/* Focus States - LIME ONLY FOR FOCUS */
+.uij-focus\:border-accent:focus { border-color: var(--uij-primary) !important; }
+.uij-focus\:text-accent:focus { color: var(--uij-primary) !important; }
+
+/* Active States */
+.uij-active\:bg-accent:active { background-color: var(--uij-primary) !important; }
+.uij-active\:text-accent:active { color: var(--uij-primary) !important; }

@@ -1,0 +1,210 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - Accessibility       */
+/* License: Apache 2.0                              */
+/* ================================================= */
+
+/* Focus Management */
+.uij-focus\:ring:focus {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: 2px;
+}
+
+.uij-focus\:ring-inset:focus {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: -2px;
+}
+
+/* Screen Reader Only */
+.uij-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.uij-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Skip Links */
+.uij-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--uij-primary);
+    color: #000000;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: var(--uij-radius-md);
+    z-index: var(--uij-z-tooltip);
+    transition: top 0.3s ease;
+}
+
+.uij-skip-link:focus {
+    top: 6px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .uij-text-primary { color: #ffffff !important; }
+    .uij-bg-primary { background: #000000 !important; }
+    .uij-border { border-color: #ffffff !important; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Color Blind Friendly */
+.uij-color-blind-friendly {
+    /* Use patterns or shapes instead of color alone */
+}
+
+/* Keyboard Navigation */
+.uij-keyboard-nav [tabindex]:focus,
+.uij-keyboard-nav button:focus,
+.uij-keyboard-nav a:focus,
+.uij-keyboard-nav input:focus,
+.uij-keyboard-nav select:focus,
+.uij-keyboard-nav textarea:focus {
+    outline: 3px solid var(--uij-primary);
+    outline-offset: 2px;
+}
+
+/* ARIA Live Regions */
+.uij-live-region[aria-live] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.uij-live-region[aria-live="assertive"] {
+    /* For important updates */
+}
+
+.uij-live-region[aria-live="polite"] {
+    /* For non-critical updates */
+}
+
+/* Error States */
+.uij-error {
+    border-color: var(--uij-danger) !important;
+    background: rgba(136, 136, 136, 0.1) !important;
+}
+
+.uij-error-message {
+    color: var(--uij-danger);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Success States */
+.uij-success {
+    border-color: var(--uij-primary) !important;
+    background: rgba(50, 205, 50, 0.1) !important;
+}
+
+.uij-success-message {
+    color: var(--uij-primary);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Warning States */
+.uij-warning {
+    border-color: var(--uij-warning) !important;
+    background: rgba(136, 136, 136, 0.1) !important;
+}
+
+.uij-warning-message {
+    color: var(--uij-warning);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Form Accessibility */
+.uij-form-group {
+    margin-bottom: var(--uij-spacing-md);
+}
+
+.uij-form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-xs);
+}
+
+.uij-form-label.required::after {
+    content: '*';
+    color: var(--uij-danger);
+    margin-left: 4px;
+}
+
+.uij-form-help {
+    font-size: 12px;
+    color: var(--uij-text-muted);
+    margin-top: var(--uij-spacing-xs);
+}
+
+/* Button Accessibility */
+.uij-btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.uij-btn[aria-pressed="true"] {
+    background: var(--uij-primary) !important;
+    color: #000000 !important;
+}
+
+/* Modal Accessibility */
+.uij-modal[aria-hidden="true"] {
+    display: none;
+}
+
+.uij-modal[role="dialog"] {
+    /* Ensure proper dialog semantics */
+}
+
+/* Table Accessibility */
+.uij-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.uij-table th,
+.uij-table td {
+    padding: var(--uij-spacing-sm) var(--uij-spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--uij-border);
+}
+
+.uij-table th {
+    font-weight: 600;
+    color: var(--uij-text-primary);
+}
+
+.uij-table td {
+    color: var(--uij-text-secondary);
+}

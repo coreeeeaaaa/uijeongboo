@@ -1,0 +1,164 @@
+/* ================================================= */
+/* UijeongBoo Tooltips - DARK BACKGROUND ONLY       */
+/* ================================================= */
+
+/* CRITICAL RULE: ALL TOOLTIPS MUST HAVE DARK BACKGROUND */
+
+.uij-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.uij-tooltip-content {
+    position: absolute;
+    background: var(--uij-bg-secondary) !important; /* CRITICAL: Dark background */
+    color: var(--uij-text-primary);
+    padding: var(--uij-spacing-sm) var(--uij-spacing-md);
+    border-radius: var(--uij-radius-md);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    z-index: var(--uij-z-tooltip);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--uij-transition-fast);
+    pointer-events: none;
+    max-width: 200px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Positioning */
+.uij-tooltip-content.top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    margin-bottom: 8px;
+}
+
+.uij-tooltip-content.bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    margin-top: 8px;
+}
+
+.uij-tooltip-content.left {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%) translateX(-8px);
+    margin-right: 8px;
+}
+
+.uij-tooltip-content.right {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) translateX(8px);
+    margin-left: 8px;
+}
+
+/* Arrow styles - using background color only */
+.uij-tooltip-content::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    background: transparent;
+}
+
+.uij-tooltip-content.top::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--uij-bg-secondary);
+    border-bottom: none;
+}
+
+.uij-tooltip-content.bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--uij-bg-secondary);
+    border-top: none;
+}
+
+.uij-tooltip-content.left::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--uij-bg-secondary);
+    border-right: none;
+}
+
+.uij-tooltip-content.right::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--uij-bg-secondary);
+    border-left: none;
+}
+
+/* Show tooltip on hover */
+.uij-tooltip:hover .uij-tooltip-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+.uij-tooltip:hover .uij-tooltip-content.bottom {
+    transform: translateX(-50%) translateY(8px);
+}
+
+.uij-tooltip:hover .uij-tooltip-content.left {
+    transform: translateY(-50%) translateX(-8px);
+}
+
+.uij-tooltip:hover .uij-tooltip-content.right {
+    transform: translateY(-50%) translateX(8px);
+}
+
+/* Tooltip sizes */
+.uij-tooltip-content.sm {
+    padding: var(--uij-spacing-xs) var(--uij-spacing-sm);
+    font-size: 11px;
+}
+
+.uij-tooltip-content.lg {
+    padding: var(--uij-spacing-md) var(--uij-spacing-lg);
+    font-size: 14px;
+}
+
+/* Accessible tooltip - always visible */
+.uij-tooltip.always-visible .uij-tooltip-content {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .uij-tooltip-content {
+        max-width: 150px;
+        font-size: 11px;
+        padding: var(--uij-spacing-xs) var(--uij-spacing-sm);
+    }
+
+    .uij-tooltip-content.top,
+    .uij-tooltip-content.bottom {
+        left: 0;
+        right: 0;
+        transform: translateY(-8px);
+        margin: 0;
+    }
+
+    .uij-tooltip-content.left,
+    .uij-tooltip-content.right {
+        top: 0;
+        bottom: 0;
+        transform: translateX(-8px);
+        margin: 0;
+    }
+}

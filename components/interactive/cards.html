@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Card & Gallery Components</title>
+    
+    <!-- UijeongBoo CSS Framework -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    
+    <style>
+        /* Base styling */
+        body {
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: var(--uij-primary, #32CD32);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 18px;
+            color: var(--uij-text-secondary, #cccccc);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .demo-section {
+            margin: 80px 0;
+            padding: 40px;
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 16px;
+            border: 1px solid var(--uij-border, #444444);
+        }
+
+        .demo-section h2 {
+            font-size: 32px;
+            color: var(--uij-primary, #32CD32);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .demo-section p {
+            font-size: 16px;
+            color: var(--uij-text-secondary, #cccccc);
+            margin-bottom: 40px;
+        }
+
+        /* ===== GRID STYLES ===== */
+        .responsive-grid {
+            display: grid;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .grid-section h4 {
+            margin-bottom: 16px;
+            color: var(--uij-primary, #32CD32);
+        }
+        
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            grid-auto-rows: minmax(80px, auto);
+        }
+        
+        .masonry-item {
+            background: var(--uij-bg-tertiary, #444444);
+            border: 1px solid var(--uij-border, #555555);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .masonry-item:hover {
+            border-color: var(--uij-primary, #32CD32);
+            transform: translateY(-2px);
+        }
+        
+        .masonry-item.short {
+            grid-row: span 1;
+        }
+        
+        .masonry-item.medium {
+            grid-row: span 2;
+        }
+        
+        .masonry-item.tall {
+            grid-row: span 3;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .grid-card {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .grid-card:hover {
+            border-color: var(--uij-primary, #32CD32);
+            transform: translateY(-4px);
+        }
+        
+        .grid-card h5 {
+            margin-bottom: 12px;
+            color: var(--uij-primary, #32CD32);
+        }
+
+        /* ===== CSS ONLY SLIDER/CAROUSEL ===== */
+        .css-slider {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+            background: var(--uij-bg-secondary, #333333);
+        }
+        
+        .css-slider-radio {
+            display: none;
+        }
+        
+        .css-slider-slides {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .css-slider-slide {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--uij-text-primary, #eeeeee);
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.6s ease;
+        }
+        
+        .css-slider-slide:nth-child(1) { 
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        .css-slider-slide:nth-child(2) { 
+            background: var(--uij-bg-quaternary, #555555);
+        }
+        .css-slider-slide:nth-child(3) { 
+            background: var(--uij-bg-light, #666666);
+        }
+        .css-slider-slide:nth-child(4) { 
+            background: var(--uij-bg-secondary, #333333);
+        }
+        .css-slider-slide:nth-child(5) { 
+            background: var(--uij-bg-primary, #222222);
+        }
+        
+        .css-slider-radio:nth-child(1):checked ~ .css-slider-slides {
+            transform: translateX(0);
+        }
+        .css-slider-radio:nth-child(2):checked ~ .css-slider-slides {
+            transform: translateX(-20%);
+        }
+        .css-slider-radio:nth-child(3):checked ~ .css-slider-slides {
+            transform: translateX(-40%);
+        }
+        .css-slider-radio:nth-child(4):checked ~ .css-slider-slides {
+            transform: translateX(-60%);
+        }
+        .css-slider-radio:nth-child(5):checked ~ .css-slider-slides {
+            transform: translateX(-80%);
+        }
+        
+        /* Navigation Arrows */
+        .css-slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: #222222;
+            border: 2px solid var(--uij-border, #444444);
+            border-radius: 50%;
+            color: var(--uij-text-primary, #eeeeee);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .css-slider-nav:hover {
+            background: var(--uij-primary, #32CD32);
+            color: var(--uij-bg-primary, #222222);
+            border-color: var(--uij-primary, #32CD32);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .css-slider-prev {
+            left: 15px;
+        }
+        
+        .css-slider-next {
+            right: 15px;
+        }
+        
+        /* Dots Navigation */
+        .css-slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+        
+        .css-slider-control {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--uij-text-muted, #999999);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .css-slider-control:hover {
+            background: var(--uij-text-secondary, #cccccc);
+            transform: scale(1.2);
+        }
+        
+        .css-slider-radio:checked + .css-slider-control {
+            background: var(--uij-primary, #32CD32);
+            transform: scale(1.3);
+            border-color: var(--uij-primary, #32CD32);
+        }
+        
+        /* Slide Content */
+        .css-slider-slide h3 {
+            margin-bottom: 16px;
+            color: var(--uij-primary, #32CD32);
+        }
+        
+        .css-slider-slide p {
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.8;
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        /* ===== SIMPLE CARD SCROLL ===== */
+        .simple-card-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+        
+        .simple-card-scroll .carousel-card {
+            flex: 0 0 300px;
+            height: 400px;
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+            overflow: hidden;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: var(--uij-bg-tertiary, #444444);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            background: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.7;
+        }
+        
+        .card-content {
+            padding: 24px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .carousel-card h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--uij-text-primary, #eeeeee);
+            margin-bottom: 12px;
+        }
+        
+        .carousel-card p {
+            font-size: 14px;
+            color: var(--uij-text-secondary, #cccccc);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 4px 8px;
+            background: var(--uij-bg-tertiary, #444444);
+            color: var(--uij-primary, #32CD32);
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid var(--uij-primary, #32CD32);
+        }
+
+        /* ===== INTERACTIVE PORTFOLIO GALLERY ===== */
+        :root {
+            --vanilla-color-1: var(--uij-primary, #32CD32);
+            --vanilla-color-2: var(--uij-bg-light, #666666);
+            --vanilla-color-3: var(--uij-bg-tertiary, #444444);
+            --vanilla-color-4: var(--uij-bg-secondary, #333333);
+            --vanilla-color-5: var(--uij-text-muted, #999999);
+            --vanilla-color-6: var(--uij-text-secondary, #cccccc);
+        }
+        
+        .vanilla-slider-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .vanilla-slide-wrapper {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--uij-border, #444444);
+        }
+        
+        .vanilla-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            opacity: 0;
+            transform: translateX(50px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+            pointer-events: none;
+        }
+        
+        .vanilla-slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+        
+        .vanilla-slide.exit-left {
+            transform: translateX(-50px) scale(0.95);
+            opacity: 0;
+        }
+        
+        .vanilla-slide.exit-right {
+            transform: translateX(50px) scale(0.95);
+            opacity: 0;
+        }
+        
+        .vanilla-slide-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vanilla-slide-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #333333;
+            transition: background 0.4s ease;
+        }
+        
+        .vanilla-slide-content:hover::before {
+            background: #444444;
+        }
+        
+        .vanilla-slide-content h3 {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--uij-text-primary, #eeeeee);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            transform: translateY(20px);
+            transition: transform 0.6s ease 0.1s;
+        }
+        
+        .vanilla-slide-content p {
+            font-size: 16px;
+            color: var(--uij-text-secondary, #cccccc);
+            position: relative;
+            z-index: 2;
+            transform: translateY(20px);
+            transition: transform 0.6s ease 0.2s;
+        }
+        
+        .vanilla-slide.active .vanilla-slide-content h3,
+        .vanilla-slide.active .vanilla-slide-content p {
+            transform: translateY(0);
+        }
+        
+        /* Each slide colors - Flat design */
+        .vanilla-slide[data-slide="1"] .vanilla-slide-content { 
+            background: var(--vanilla-color-1);
+        }
+        .vanilla-slide[data-slide="2"] .vanilla-slide-content { 
+            background: var(--vanilla-color-2);
+        }
+        .vanilla-slide[data-slide="3"] .vanilla-slide-content { 
+            background: var(--vanilla-color-3);
+        }
+        .vanilla-slide[data-slide="4"] .vanilla-slide-content { 
+            background: var(--vanilla-color-4);
+        }
+        .vanilla-slide[data-slide="5"] .vanilla-slide-content { 
+            background: var(--vanilla-color-5);
+        }
+        .vanilla-slide[data-slide="6"] .vanilla-slide-content { 
+            background: var(--vanilla-color-6);
+        }
+        
+        .vanilla-nav-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--uij-primary, #32CD32);
+            background: #444444;
+            color: var(--uij-primary, #32CD32);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .vanilla-nav-button svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .vanilla-nav-button:hover {
+            background: var(--uij-primary, #32CD32);
+            color: var(--uij-bg-primary, #222222);
+            transform: scale(1.1);
+        }
+        
+        .vanilla-nav-button:active {
+            transform: scale(0.95);
+        }
+        
+        .vanilla-nav-button:focus {
+            outline: 2px solid var(--uij-primary, #32CD32);
+            outline-offset: 2px;
+        }
+        
+        /* Dynamic color change classes */
+        .vanilla-nav-button.color-1 { 
+            background: var(--vanilla-color-1); 
+            border-color: var(--vanilla-color-1);
+            color: var(--uij-bg-primary, #222222);
+        }
+        .vanilla-nav-button.color-2 { 
+            background: var(--vanilla-color-2); 
+            border-color: var(--vanilla-color-2);
+            color: var(--uij-text-primary, #eeeeee);
+        }
+        .vanilla-nav-button.color-3 { 
+            background: var(--vanilla-color-3); 
+            border-color: var(--vanilla-color-3);
+            color: var(--uij-text-primary, #eeeeee);
+        }
+        .vanilla-nav-button.color-4 { 
+            background: var(--vanilla-color-4); 
+            border-color: var(--vanilla-color-4);
+            color: var(--uij-text-primary, #eeeeee);
+        }
+        .vanilla-nav-button.color-5 { 
+            background: var(--vanilla-color-5); 
+            border-color: var(--vanilla-color-5);
+            color: var(--uij-text-primary, #eeeeee);
+        }
+        .vanilla-nav-button.color-6 { 
+            background: var(--vanilla-color-6); 
+            border-color: var(--vanilla-color-6);
+            color: var(--uij-bg-primary, #222222);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .demo-section {
+                padding: 20px;
+                margin: 40px 0;
+            }
+            
+            .demo-section h2 {
+                font-size: 24px;
+            }
+            
+            .vanilla-slider-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .vanilla-slide-wrapper {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .simple-card-scroll .carousel-card {
+                flex: 0 0 250px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Card & Gallery Components</h1>
+        <p class="intro-text">
+            UijeongBoo Framework의 카드와 갤러리 컴포넌트들을 소개합니다. 
+            순수 CSS와 최소한의 JavaScript로 구현된 인터랙티브 컴포넌트들입니다.
+        </p>
+
+        <!-- 1. Grid Layout Components -->
+        <div class="demo-section">
+            <h2>1. 그리드 레이아웃 (CSS Only)</h2>
+            <p>반응형 CSS 그리드 시스템으로 구현된 매소니리 그리드와 카드 그리드</p>
+            
+            <div class="responsive-grid">
+                <!-- Masonry Grid -->
+                <div class="grid-section">
+                    <h4>Masonry Grid</h4>
+                    <div class="masonry-grid">
+                        <div class="masonry-item short">Short</div>
+                        <div class="masonry-item tall">Tall Content</div>
+                        <div class="masonry-item medium">Medium</div>
+                        <div class="masonry-item short">Short</div>
+                        <div class="masonry-item tall">Tall Content</div>
+                        <div class="masonry-item medium">Medium</div>
+                    </div>
+                </div>
+                
+                <!-- Card Grid -->
+                <div class="grid-section">
+                    <h4>Card Grid</h4>
+                    <div class="card-grid">
+                        <div class="grid-card">
+                            <h5>카드 1</h5>
+                            <p>CSS Grid로 구현한 카드 레이아웃</p>
+                        </div>
+                        <div class="grid-card">
+                            <h5>카드 2</h5>
+                            <p>반응형으로 자동 조정됩니다</p>
+                        </div>
+                        <div class="grid-card">
+                            <h5>카드 3</h5>
+                            <p>모바일에서도 완벽 동작</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CSS Only Slider -->
+        <div class="demo-section">
+            <h2>2. 슬라이더/캐러셀 (CSS Only)</h2>
+            <p>라디오 버튼으로 구현한 순수 CSS 슬라이더</p>
+            
+            <div class="css-slider">
+                <input type="radio" id="slide-1" name="slider" class="css-slider-radio" checked>
+                <input type="radio" id="slide-2" name="slider" class="css-slider-radio">
+                <input type="radio" id="slide-3" name="slider" class="css-slider-radio">
+                <input type="radio" id="slide-4" name="slider" class="css-slider-radio">
+                <input type="radio" id="slide-5" name="slider" class="css-slider-radio">
+                
+                <div class="css-slider-slides">
+                    <div class="css-slider-slide">
+                        <h3>프레임워크 소개</h3>
+                        <p>UijeongBoo는 라임그린과 그레이스케일만을 사용하는 미니멀 디자인 프레임워크입니다</p>
+                    </div>
+                    <div class="css-slider-slide">
+                        <h3>CSS 컴포넌트</h3>
+                        <p>모든 UI 요소는 JavaScript 없이 순수 CSS만으로 구현되어 빠르고 가벼운 성능을 제공합니다</p>
+                    </div>
+                    <div class="css-slider-slide">
+                        <h3>반응형 디자인</h3>
+                        <p>모바일부터 데스크톱까지 완벽하게 대응하는 반응형 레이아웃을 지원합니다</p>
+                    </div>
+                    <div class="css-slider-slide">
+                        <h3>애니메이션 효과</h3>
+                        <p>부드러운 전환과 인터랙티브한 호버 효과로 우수한 사용자 경험을 제공합니다</p>
+                    </div>
+                    <div class="css-slider-slide">
+                        <h3>디자인 철학</h3>
+                        <p>엄격한 디자인 규칙을 통해 일관성 있고 깔끔한 사용자 인터페이스를 구현합니다</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Arrows -->
+                <label for="slide-5" class="css-slider-nav css-slider-prev">‹</label>
+                <label for="slide-2" class="css-slider-nav css-slider-next">›</label>
+                
+                <!-- Dots Navigation -->
+                <div class="css-slider-controls">
+                    <label for="slide-1" class="css-slider-control"></label>
+                    <label for="slide-2" class="css-slider-control"></label>
+                    <label for="slide-3" class="css-slider-control"></label>
+                    <label for="slide-4" class="css-slider-control"></label>
+                    <label for="slide-5" class="css-slider-control"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Simple Card Scroll -->
+        <div class="demo-section">
+            <h2>3. 단순 카드 스크롤</h2>
+            <p>깔끔한 가로 스크롤 카드 레이아웃</p>
+            
+            <div class="simple-card-scroll">
+                <!-- Card 1 -->
+                <div class="carousel-card" data-card="1">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h3>웹 개발</h3>
+                        <p>React, Vue, Angular를 활용한 모던 프론트엔드 개발</p>
+                        <div class="card-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="carousel-card" data-card="2">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h3>모바일 앱</h3>
+                        <p>React Native와 Flutter를 이용한 크로스플랫폼 개발</p>
+                        <div class="card-tags">
+                            <span class="tag">Flutter</span>
+                            <span class="tag">Native</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="carousel-card" data-card="3">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h3>UI/UX 디자인</h3>
+                        <p>사용자 중심의 직관적이고 아름다운 인터페이스 설계</p>
+                        <div class="card-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Design</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="carousel-card" data-card="4">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h3>백엔드 개발</h3>
+                        <p>Node.js, Python을 활용한 확장 가능한 서버 아키텍처</p>
+                        <div class="card-tags">
+                            <span class="tag">Node.js</span>
+                            <span class="tag">API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="carousel-card" data-card="5">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h3>데이터 분석</h3>
+                        <p>머신러닝과 빅데이터를 활용한 인사이트 도출</p>
+                        <div class="card-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">ML</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Interactive Portfolio Gallery -->
+        <div class="demo-section">
+            <h2>4. 인터랙티브 포트폴리오 갤러리</h2>
+            <p>마우스 호버와 클릭으로 작동하는 동적 포트폴리오 갤러리</p>
+            
+            <div class="vanilla-slider-container">
+                <button class="vanilla-nav-button vanilla-prev-btn" aria-label="Previous slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                
+                <div class="vanilla-slide-wrapper">
+                    <div class="vanilla-slide active" data-slide="1">
+                        <div class="vanilla-slide-content">
+                            <h3>Creative Design</h3>
+                            <p>Beautiful animations with vanilla JS</p>
+                        </div>
+                    </div>
+                    <div class="vanilla-slide" data-slide="2">
+                        <div class="vanilla-slide-content">
+                            <h3>Smooth Transitions</h3>
+                            <p>No frameworks needed</p>
+                        </div>
+                    </div>
+                    <div class="vanilla-slide" data-slide="3">
+                        <div class="vanilla-slide-content">
+                            <h3>Interactive Elements</h3>
+                            <p>Pure JavaScript magic</p>
+                        </div>
+                    </div>
+                    <div class="vanilla-slide" data-slide="4">
+                        <div class="vanilla-slide-content">
+                            <h3>Modern UI</h3>
+                            <p>Clean UijeongBoo design</p>
+                        </div>
+                    </div>
+                    <div class="vanilla-slide" data-slide="5">
+                        <div class="vanilla-slide-content">
+                            <h3>Performance</h3>
+                            <p>Lightweight and fast</p>
+                        </div>
+                    </div>
+                    <div class="vanilla-slide" data-slide="6">
+                        <div class="vanilla-slide-content">
+                            <h3>Responsive</h3>
+                            <p>Works on all devices</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="vanilla-nav-button vanilla-next-btn" aria-label="Next slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Vanilla JavaScript Slider Class
+        class VanillaSlider {
+            constructor() {
+                this.currentSlide = 1;
+                this.totalSlides = 6;
+                this.isAnimating = false;
+                
+                this.prevBtn = document.querySelector('.vanilla-prev-btn');
+                this.nextBtn = document.querySelector('.vanilla-next-btn');
+                this.slides = document.querySelectorAll('.vanilla-slide');
+                this.buttons = document.querySelectorAll('.vanilla-nav-button');
+                
+                this.init();
+            }
+            
+            init() {
+                this.prevBtn.addEventListener('click', () => this.goToPrevSlide());
+                this.nextBtn.addEventListener('click', () => this.goToNextSlide());
+                this.updateButtonColors();
+                
+                // Keyboard accessibility
+                this.prevBtn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goToPrevSlide();
+                    }
+                });
+                
+                this.nextBtn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goToNextSlide();
+                    }
+                });
+            }
+            
+            goToPrevSlide() {
+                if (this.isAnimating) return;
+                
+                const newSlide = this.currentSlide === 1 ? this.totalSlides : this.currentSlide - 1;
+                this.changeSlide(newSlide, 'prev');
+            }
+            
+            goToNextSlide() {
+                if (this.isAnimating) return;
+                
+                const newSlide = this.currentSlide === this.totalSlides ? 1 : this.currentSlide + 1;
+                this.changeSlide(newSlide, 'next');
+            }
+            
+            changeSlide(newSlideIndex, direction) {
+                if (this.isAnimating || newSlideIndex === this.currentSlide) return;
+                
+                this.isAnimating = true;
+                
+                const currentSlideEl = document.querySelector(`.vanilla-slide[data-slide="${this.currentSlide}"]`);
+                const newSlideEl = document.querySelector(`.vanilla-slide[data-slide="${newSlideIndex}"]`);
+                
+                // Current slide exit animation
+                currentSlideEl.classList.remove('active');
+                currentSlideEl.classList.add(direction === 'next' ? 'exit-left' : 'exit-right');
+                
+                // New slide enter animation preparation
+                newSlideEl.classList.remove('exit-left', 'exit-right');
+                newSlideEl.style.transform = direction === 'next' ? 'translateX(50px) scale(0.95)' : 'translateX(-50px) scale(0.95)';
+                
+                // After slight delay, activate new slide
+                setTimeout(() => {
+                    newSlideEl.classList.add('active');
+                    newSlideEl.style.transform = '';
+                    
+                    this.currentSlide = newSlideIndex;
+                    this.updateButtonColors();
+                    
+                    // Cleanup after animation completes
+                    setTimeout(() => {
+                        currentSlideEl.classList.remove('exit-left', 'exit-right');
+                        this.isAnimating = false;
+                    }, 600);
+                    
+                }, 50);
+            }
+            
+            updateButtonColors() {
+                // Remove all color classes
+                this.buttons.forEach(btn => {
+                    for (let i = 1; i <= 6; i++) {
+                        btn.classList.remove(`color-${i}`);
+                    }
+                });
+                
+                // Add current slide color class
+                this.buttons.forEach(btn => {
+                    btn.classList.add(`color-${this.currentSlide}`);
+                });
+            }
+        }
+        
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new VanillaSlider();
+        });
+    </script>
+</body>
+</html>

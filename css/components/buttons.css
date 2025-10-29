@@ -1,0 +1,219 @@
+/* ================================================= */
+/* UijeongBoo Buttons - TRANSPARENT BACKGROUND ONLY */
+/* ================================================= */
+
+/* CRITICAL RULE: ALL BUTTONS MUST HAVE TRANSPARENT BACKGROUND */
+
+.uij-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--uij-spacing-sm) var(--uij-spacing-md);
+    font-family: var(--uij-font-family);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    border: 1px solid var(--uij-border-light);
+    border-radius: var(--uij-radius-md);
+    cursor: pointer;
+    transition: var(--uij-transition-fast);
+    white-space: nowrap;
+    background: transparent !important; /* CRITICAL: NEVER CHANGE */
+    color: var(--uij-text-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.uij-btn:hover {
+    background: transparent !important; /* CRITICAL: NEVER CHANGE */
+    border-color: var(--uij-border-light);
+    color: var(--uij-text-primary);
+    transform: translateY(-1px);
+}
+
+.uij-btn:active {
+    transform: translateY(0);
+    transition: var(--uij-transition-fast);
+}
+
+.uij-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Primary Button - ONLY LIME COLOR ALLOWED */
+.uij-btn.primary {
+    background: var(--uij-primary) !important; /* EXCEPTION: Only lime allowed */
+    border-color: var(--uij-primary);
+    color: #000000;
+}
+
+.uij-btn.primary:hover {
+    background: #28a428 !important; /* Darker lime on hover */
+    border-color: #28a428;
+    color: #000000;
+}
+
+/* Secondary Button - TRANSPARENT */
+.uij-btn.secondary {
+    background: transparent !important;
+    border-color: var(--uij-border-light);
+    color: var(--uij-text-primary);
+}
+
+.uij-btn.secondary:hover {
+    background: transparent !important;
+    border-color: var(--uij-primary);
+    color: var(--uij-primary);
+}
+
+/* Outline Button */
+.uij-btn.outline {
+    background: transparent !important;
+    border-color: var(--uij-primary);
+    color: var(--uij-primary);
+}
+
+.uij-btn.outline:hover {
+    background: transparent !important;
+    border-color: var(--uij-primary);
+    color: var(--uij-text-primary);
+    
+}
+
+/* Ghost Button */
+.uij-btn.ghost {
+    background: transparent !important;
+    border-color: transparent;
+    color: var(--uij-text-muted);
+}
+
+.uij-btn.ghost:hover {
+    background: transparent !important;
+    border-color: transparent;
+    color: var(--uij-text-primary);
+}
+
+/* Danger Button - GRAYSCALE ONLY */
+.uij-btn.danger {
+    background: transparent !important;
+    border-color: var(--uij-text-muted);
+    color: var(--uij-text-muted);
+}
+
+.uij-btn.danger:hover {
+    background: transparent !important;
+    border-color: var(--uij-text-secondary);
+    color: var(--uij-text-secondary);
+}
+
+/* Button Sizes */
+.uij-btn.sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.uij-btn.lg {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.uij-btn.x { 
+    padding: 16px 32px;
+    font-size: 18px;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Button with Icon */
+.uij-btn.ico { 
+    padding: var(--uij-spacing-sm);
+    width: 40px;
+    height: 40px;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-btn.icon.sm {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+}
+
+.uij-btn.icon.lg {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+}
+
+/* Button Group */
+.uij-btn-group {
+    display: inline-flex;
+    border-radius: var(--uij-radius-md);
+    overflow: hidden;
+}
+
+.uij-btn-group .uij.btn { 
+    border-radius: 0;
+    border-right-width: 0;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.uij-btn-group .uij-btn:first-child {
+    border-top-left-radius: var(--uij-radius-md);
+    border-bottom-left-radius: var(--uij-radius-md);
+}
+
+.uij-btn-group .uij-btn:last-child {
+    border-top-right-radius: var(--uij-radius-md);
+    border-bottom-right-radius: var(--uij-radius-md);
+    border-right-width: 1px;
+}
+
+/* Loading State */
+.uij-btn.loading {
+    color: transparent;
+    pointer-events: none;
+}
+
+.uij-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: uij-spin 1s linear infinite;
+}
+
+@keyframes uij-spi { 
+    to {
+        transform: rotate(360deg);
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .uij.btn { 
+        padding: 10px 16px;
+        font-size: 14px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+    
+    .uij-btn.sm {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .uij-btn.lg {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .uij.btn { 
+        padding: 8px 12px;
+        font-size: 13px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+}

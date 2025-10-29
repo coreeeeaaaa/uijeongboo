@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Tabs - Interactive Components</title>
+    <link rel="stylesheet" href="../../css/uijeongboo-core.css">
+    <link rel="stylesheet" href="../../css/components/tabs.css">
+</head>
+<body>
+    <div class="uij-container">
+        <h1>UijeongBoo Tabs</h1>
+        <p>Use Tab/Shift+Tab to navigate, Arrow keys to switch tabs, Enter/Space to activate.</p>
+
+        <div class="uij-section">
+            <h2>Basic Tabs</h2>
+            <div class="uij-tabs" id="basic-tabs">
+                <ul class="uij-tab-list" role="tablist">
+                    <li><button class="uij-tab active" role="tab" aria-selected="true" aria-controls="tab1">Tab 1</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="tab2">Tab 2</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="tab3">Tab 3</button></li>
+                </ul>
+                <div class="uij-tab-panels">
+                    <div class="uij-tab-panel active" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                        <h3>Content for Tab 1</h3>
+                        <p>This is the content for the first tab. It demonstrates basic tab functionality.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                        <h3>Content for Tab 2</h3>
+                        <p>This is the content for the second tab. Use keyboard navigation to switch between tabs.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="tab3" role="tabpanel" aria-labelledby="tab3">
+                        <h3>Content for Tab 3</h3>
+                        <p>This is the content for the third tab. All tabs follow accessibility guidelines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Pill Style Tabs</h2>
+            <div class="uij-tabs pills" id="pill-tabs">
+                <ul class="uij-tab-list" role="tablist">
+                    <li><button class="uij-tab active" role="tab" aria-selected="true" aria-controls="pill1">Home</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="pill2">Profile</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="pill3">Settings</button></li>
+                </ul>
+                <div class="uij-tab-panels">
+                    <div class="uij-tab-panel active" id="pill1" role="tabpanel" aria-labelledby="pill1">
+                        <h3>Home</h3>
+                        <p>Welcome to the home section. This uses pill-style tabs.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="pill2" role="tabpanel" aria-labelledby="pill2">
+                        <h3>Profile</h3>
+                        <p>Your profile information appears here.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="pill3" role="tabpanel" aria-labelledby="pill3">
+                        <h3>Settings</h3>
+                        <p>Configure your preferences in this section.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Vertical Tabs</h2>
+            <div class="uij-tabs vertical" id="vertical-tabs">
+                <ul class="uij-tab-list" role="tablist">
+                    <li><button class="uij-tab active" role="tab" aria-selected="true" aria-controls="vert1">Section A</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="vert2">Section B</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="vert3">Section C</button></li>
+                </ul>
+                <div class="uij-tab-panels">
+                    <div class="uij-tab-panel active" id="vert1" role="tabpanel" aria-labelledby="vert1">
+                        <h3>Section A</h3>
+                        <p>Content for section A in vertical layout.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="vert2" role="tabpanel" aria-labelledby="vert2">
+                        <h3>Section B</h3>
+                        <p>Content for section B in vertical layout.</p>
+                    </div>
+                    <div class="uij-tab-panel" id="vert3" role="tabpanel" aria-labelledby="vert3">
+                        <h3>Section C</h3>
+                        <p>Content for section C in vertical layout.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Tab Sizes</h2>
+            <div class="uij-tabs" id="size-tabs">
+                <ul class="uij-tab-list" role="tablist">
+                    <li><button class="uij-tab sm active" role="tab" aria-selected="true" aria-controls="size1">Small</button></li>
+                    <li><button class="uij-tab" role="tab" aria-selected="false" aria-controls="size2">Default</button></li>
+                    <li><button class="uij-tab lg" role="tab" aria-selected="false" aria-controls="size3">Large</button></li>
+                </ul>
+                <div class="uij-tab-panels">
+                    <div class="uij-tab-panel active" id="size1" role="tabpanel" aria-labelledby="size1">
+                        <p>Small tab size</p>
+                    </div>
+                    <div class="uij-tab-panel" id="size2" role="tabpanel" aria-labelledby="size2">
+                        <p>Default tab size</p>
+                    </div>
+                    <div class="uij-tab-panel" id="size3" role="tabpanel" aria-labelledby="size3">
+                        <p>Large tab size</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality with keyboard navigation
+        class UijTabs {
+            constructor(container) {
+                this.container = container;
+                this.tabs = container.querySelectorAll('.uij-tab');
+                this.panels = container.querySelectorAll('.uij-tab-panel');
+                this.currentIndex = 0;
+
+                this.init();
+            }
+
+            init() {
+                this.tabs.forEach((tab, index) => {
+                    tab.addEventListener('click', () => this.switchToTab(index));
+                    tab.addEventListener('keydown', (e) => this.handleKeydown(e, index));
+                });
+
+                // Set initial active tab
+                this.updateActiveTab(0);
+            }
+
+            switchToTab(index) {
+                if (index >= 0 && index < this.tabs.length) {
+                    this.updateActiveTab(index);
+                }
+            }
+
+            updateActiveTab(activeIndex) {
+                this.tabs.forEach((tab, index) => {
+                    const isActive = index === activeIndex;
+                    tab.classList.toggle('active', isActive);
+                    tab.setAttribute('aria-selected', isActive);
+                    tab.setAttribute('tabindex', isActive ? '0' : '-1');
+                });
+
+                this.panels.forEach((panel, index) => {
+                    panel.classList.toggle('active', index === activeIndex);
+                });
+
+                this.currentIndex = activeIndex;
+                this.tabs[activeIndex].focus();
+            }
+
+            handleKeydown(e, index) {
+                let newIndex = this.currentIndex;
+
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        newIndex = Math.max(0, this.currentIndex - 1);
+                        break;
+                    case 'ArrowRight':
+                        newIndex = Math.min(this.tabs.length - 1, this.currentIndex + 1);
+                        break;
+                    case 'Home':
+                        newIndex = 0;
+                        break;
+                    case 'End':
+                        newIndex = this.tabs.length - 1;
+                        break;
+                    case 'Enter':
+                    case ' ':
+                        this.switchToTab(index);
+                        return;
+                    default:
+                        return;
+                }
+
+                e.preventDefault();
+                this.switchToTab(newIndex);
+            }
+        }
+
+        // Initialize all tab components
+        document.querySelectorAll('.uij-tabs').forEach(container => {
+            new UijTabs(container);
+        });
+    </script>
+
+    <script src="../../js/core/framework.js"></script>
+</body>
+</html>

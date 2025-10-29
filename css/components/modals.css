@@ -1,0 +1,132 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - Modal Components   */
+/* License: Apache 2.0                              */
+/* ================================================= */
+
+/* Modal Base Styles */
+.uij-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--uij-z-modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.uij-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.uij-modal-dialog {
+    background: var(--uij-bg-secondary);
+    border-radius: var(--uij-radius-lg);
+    border: 1px solid var(--uij-border);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.uij-modal.open .uij-modal-dialog {
+    transform: scale(1);
+}
+
+.uij-modal-header {
+    padding: var(--uij-spacing-lg);
+    border-bottom: 1px solid var(--uij-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.uij-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--uij-text-primary);
+    margin: 0;
+}
+
+.uij-modal-close {
+    background: transparent;
+    border: none;
+    color: var(--uij-text-muted);
+    cursor: pointer;
+    padding: var(--uij-spacing-sm);
+    border-radius: var(--uij-radius-md);
+    transition: color 0.2s ease;
+}
+
+.uij-modal-close:hover {
+    color: var(--uij-text-primary);
+}
+
+.uij-modal-body {
+    padding: var(--uij-spacing-lg);
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.uij-modal-footer {
+    padding: var(--uij-spacing-lg);
+    border-top: 1px solid var(--uij-border);
+    display: flex;
+    gap: var(--uij-spacing-md);
+    justify-content: flex-end;
+}
+
+/* Modal Sizes */
+.uij-modal-sm .uij-modal-dialog { max-width: 400px; }
+.uij-modal-md .uij-modal-dialog { max-width: 600px; }
+.uij-modal-lg .uij-modal-dialog { max-width: 800px; }
+.uij-modal-xl .uij-modal-dialog { max-width: 1000px; }
+.uij-modal-full .uij-modal-dialog { max-width: 95vw; max-height: 95vh; }
+
+/* Accessibility */
+.uij-modal[aria-hidden="true"] {
+    display: none;
+}
+
+.uij-modal[role="dialog"] {
+    /* Modal with dialog role */
+}
+
+.uij-modal[aria-labelledby] {
+    /* Modal with accessible title */
+}
+
+.uij-modal[aria-describedby] {
+    /* Modal with accessible description */
+}
+
+.uij-modal-close[aria-label="Close"] {
+    /* Close button with label */
+}
+
+.uij-modal-close:focus {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .uij-modal-dialog {
+        margin: var(--uij-spacing-md);
+        max-width: calc(100vw - 2 * var(--uij-spacing-md));
+        max-height: calc(100vh - 2 * var(--uij-spacing-md));
+    }
+
+    .uij-modal-header,
+    .uij-modal-body,
+    .uij-modal-footer {
+        padding: var(--uij-spacing-md);
+    }
+}

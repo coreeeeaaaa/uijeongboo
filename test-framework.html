@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Framework Test</title>
+    
+    <!-- UijeongBoo Framework -->
+    <link rel="stylesheet" href="uijeongboo.css">
+    <script src="uijeongboo.js"></script>
+</head>
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="py-lg mb-lg">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold water-text">UijeongBoo Framework</h1>
+                <nav class="flex gap-md">
+                    <a href="#components" class="btn btn-ghost">Components</a>
+                    <a href="#utilities" class="btn btn-ghost">Utilities</a>
+                    <a href="#demo" class="btn btn-primary">Demo</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="mb-xl">
+            <div class="card bg-tertiary p-lg text-center">
+                <h2 class="text-2xl font-semibold mb-md">Lightweight CSS Framework</h2>
+                <p class="text-muted mb-md">Alternative to Tailwind CSS - Optimized for MCP local services</p>
+                <div class="flex justify-center gap-sm">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn">Documentation</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="mb-xl" id="components">
+            <h2 class="text-2xl font-bold mb-md">Features</h2>
+            <div class="grid grid-cols-3 gap-md">
+                <div class="card card-hover">
+                    <h3 class="text-xl font-semibold mb-sm text-accent">Ultra Lightweight</h3>
+                    <p class="text-secondary line-clamp-3">Less than 15KB minified. Perfect for performance-critical applications.</p>
+                </div>
+                <div class="card card-hover">
+                    <h3 class="text-xl font-semibold mb-sm text-accent">Zero Dependencies</h3>
+                    <p class="text-secondary line-clamp-3">Pure CSS with optional vanilla JavaScript. No framework lock-in.</p>
+                </div>
+                <div class="card card-hover">
+                    <h3 class="text-xl font-semibold mb-sm text-accent">MCP Optimized</h3>
+                    <p class="text-secondary line-clamp-3">Built specifically for local services with memory efficiency in mind.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Showcase -->
+        <section class="mb-xl">
+            <h2 class="text-2xl font-bold mb-md">Buttons</h2>
+            <div class="flex gap-sm flex-wrap">
+                <button class="btn">Default</button>
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-ghost">Ghost</button>
+                <button class="btn btn-sm">Small</button>
+                <button class="btn btn-lg">Large</button>
+                <button class="btn" disabled>Disabled</button>
+            </div>
+        </section>
+
+        <!-- Form Elements -->
+        <section class="mb-xl">
+            <h2 class="text-2xl font-bold mb-md">Form Elements</h2>
+            <div class="grid grid-cols-2 gap-md">
+                <div>
+                    <label class="block text-sm font-medium mb-xs">Text Input</label>
+                    <input type="text" class="input" placeholder="Enter text...">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-xs">Email Input</label>
+                    <input type="email" class="input" placeholder="email@example.com">
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="mb-xl" id="utilities">
+            <h2 class="text-2xl font-bold mb-md">Typography</h2>
+            <div class="card">
+                <p class="text-xs mb-xs">Extra Small Text (text-xs)</p>
+                <p class="text-sm mb-xs">Small Text (text-sm)</p>
+                <p class="text-base mb-xs">Base Text (text-base)</p>
+                <p class="text-lg mb-xs">Large Text (text-lg)</p>
+                <p class="text-xl mb-xs">Extra Large Text (text-xl)</p>
+                <p class="text-2xl mb-xs">2X Large Text (text-2xl)</p>
+                <p class="text-3xl mb-xs">3X Large Text (text-3xl)</p>
+                <p class="text-4xl">4X Large Text (text-4xl)</p>
+            </div>
+        </section>
+
+        <!-- Color Palette -->
+        <section class="mb-xl">
+            <h2 class="text-2xl font-bold mb-md">Color System</h2>
+            <div class="grid grid-cols-4 gap-sm">
+                <div class="p-md rounded text-center bg-primary text-dark">
+                    <p class="font-semibold">Primary</p>
+                    <p class="text-sm">#222222</p>
+                </div>
+                <div class="p-md rounded text-center bg-secondary">
+                    <p class="font-semibold">Secondary</p>
+                    <p class="text-sm">#333333</p>
+                </div>
+                <div class="p-md rounded text-center bg-tertiary">
+                    <p class="font-semibold">Tertiary</p>
+                    <p class="text-sm">#444444</p>
+                </div>
+                <div class="p-md rounded text-center bg-accent text-dark">
+                    <p class="font-semibold">Accent</p>
+                    <p class="text-sm">#32CD32</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="mb-xl" id="demo">
+            <h2 class="text-2xl font-bold mb-md">Interactive Demo</h2>
+            <div class="card">
+                <h3 class="text-xl font-semibold mb-sm">Water Text Effect</h3>
+                <p class="water-text text-2xl">Hover over this text to see the water fill effect!</p>
+                
+                <hr class="my-md border-0" style="height: 1px; background: #555;">
+                
+                <h3 class="text-xl font-semibold mb-sm">Card Hover</h3>
+                <div class="grid grid-cols-2 gap-sm">
+                    <div class="card card-hover bg-secondary">
+                        <p>Hover me!</p>
+                    </div>
+                    <div class="card card-hover bg-secondary">
+                        <p>Me too!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-lg mt-xl text-center text-muted">
+            <p>UijeongBoo Framework v1.0.0 - MIT License</p>
+        </footer>
+    </div>
+
+    <script>
+        // Test JS functionality
+        UIJ.ready(() => {
+            console.log('UijeongBoo Framework loaded!');
+            
+            // Test event handling
+            UIJ.on(document, 'click', '.btn', function(e) {
+                console.log('Button clicked:', this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

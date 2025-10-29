@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Tooltips - Interactive Components</title>
+    <link rel="stylesheet" href="../../css/uijeongboo-core.css">
+    <link rel="stylesheet" href="../../css/components/tooltips.css">
+</head>
+<body>
+    <div class="uij-container">
+        <h1>UijeongBoo Tooltips</h1>
+        <p>Hover over the elements below to see tooltips in action.</p>
+
+        <div class="uij-section">
+            <h2>Basic Tooltips</h2>
+            <div class="uij-grid" style="gap: 2rem; margin-top: 2rem;">
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Top Tooltip</button>
+                    <div class="uij-tooltip-content top">
+                        This tooltip appears on top
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Bottom Tooltip</button>
+                    <div class="uij-tooltip-content bottom">
+                        This tooltip appears at the bottom
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Left Tooltip</button>
+                    <div class="uij-tooltip-content left">
+                        This tooltip appears to the left
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Right Tooltip</button>
+                    <div class="uij-tooltip-content right">
+                        This tooltip appears to the right
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Tooltip Sizes</h2>
+            <div class="uij-grid" style="gap: 2rem; margin-top: 2rem;">
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Small Tooltip</button>
+                    <div class="uij-tooltip-content top sm">
+                        Small tooltip with compact padding
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Default Tooltip</button>
+                    <div class="uij-tooltip-content top">
+                        Default tooltip size
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <button class="uij-btn">Large Tooltip</button>
+                    <div class="uij-tooltip-content top lg">
+                        Large tooltip with more padding
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Always Visible Tooltips</h2>
+            <div class="uij-grid" style="gap: 2rem; margin-top: 2rem;">
+                <div class="uij-tooltip always-visible">
+                    <button class="uij-btn">Always Visible</button>
+                    <div class="uij-tooltip-content top">
+                        This tooltip is always visible
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Tooltip with Icons</h2>
+            <div class="uij-grid" style="gap: 2rem; margin-top: 2rem;">
+                <div class="uij-tooltip">
+                    <button class="uij-btn ico">?</button>
+                    <div class="uij-tooltip-content top">
+                        Help information tooltip
+                    </div>
+                </div>
+
+                <div class="uij-tooltip">
+                    <span class="uij-text-primary" style="cursor: help;">Hover me for info</span>
+                    <div class="uij-tooltip-content bottom">
+                        Additional information about this text
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Long Text Tooltips</h2>
+            <div class="uij-tooltip">
+                <button class="uij-btn">Long Tooltip</button>
+                <div class="uij-tooltip-content top">
+                    This is a longer tooltip that demonstrates how the component handles text wrapping and multiple lines of content.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/core/framework.js"></script>
+</body>
+</html>

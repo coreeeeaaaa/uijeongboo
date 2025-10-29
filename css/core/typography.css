@@ -1,0 +1,252 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - Typography        */
+/* Version: 1.0                                     */
+/* License: Apache 2.0                              */
+/* ================================================= */
+
+/* Typography System with Responsive Design */
+
+.uij-text-xs {
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.uij-text-sm {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.uij-text-base {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.uij-text-lg {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.uij-text-xl {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.uij-text-2xl {
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.uij-text-3xl {
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.uij-text-4xl {
+    font-size: 36px;
+    line-height: 1.1;
+}
+
+.uij-text-5xl {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.uij-text-6xl {
+    font-size: 60px;
+    line-height: 1;
+}
+
+/* Font Weights */
+.uij-font-thin { font-weight: 100; }
+.uij-font-light { font-weight: 300; }
+.uij-font-normal { font-weight: 400; }
+.uij-font-medium { font-weight: 500; }
+.uij-font-semibold { font-weight: 600; }
+.uij-font-bold { font-weight: 700; }
+.uij-font-extrabold { font-weight: 800; }
+.uij-font-black { font-weight: 900; }
+
+/* Text Colors - GRAYSCALE ONLY + LIME */
+.uij-text-primary { color: var(--uij-text-primary); }
+.uij-text-secondary { color: var(--uij-text-secondary); }
+.uij-text-muted { color: var(--uij-text-muted); }
+.uij-text-disabled { color: var(--uij-text-disabled); }
+.uij-text-accent { color: var(--uij-primary); } /* ONLY lime allowed */
+
+/* Text Alignment */
+.uij-text-left { text-align: left; }
+.uij-text-center { text-align: center; }
+.uij-text-right { text-align: right; }
+.uij-text-justify { text-align: justify; }
+
+/* Text Transform */
+.uij-uppercase { text-transform: uppercase; }
+.uij-lowercase { text-transform: lowercase; }
+.uij-capitalize { text-transform: capitalize; }
+.uij-normal-case { text-transform: none; }
+
+/* Text Decoration */
+.uij-underline { text-decoration: underline; }
+.uij-line-through { text-decoration: line-through; }
+.uij-no-underline { text-decoration: none; }
+
+/* Text Overflow */
+.uij-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.uij-text-ellipsis {
+    text-overflow: ellipsis;
+}
+
+.uij-text-clip {
+    text-overflow: clip;
+}
+
+/* Line Height */
+.uij-leading-none { line-height: 1; }
+.uij-leading-tight { line-height: 1.25; }
+.uij-leading-snug { line-height: 1.375; }
+.uij-leading-normal { line-height: 1.5; }
+.uij-leading-relaxed { line-height: 1.625; }
+.uij-leading-loose { line-height: 2; }
+
+/* Letter Spacing */
+.uij-tracking-tighter { letter-spacing: -0.05em; }
+.uij-tracking-tight { letter-spacing: -0.025em; }
+.uij-tracking-normal { letter-spacing: 0; }
+.uij-tracking-wide { letter-spacing: 0.025em; }
+.uij-tracking-wider { letter-spacing: 0.05em; }
+.uij-tracking-widest { letter-spacing: 0.1em; }
+
+/* Headings */
+.uij-h1,
+h1 { 
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-lg);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-h2,
+h2 { 
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-lg);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-h3,
+h3 { 
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-md);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-h4,
+h4 { 
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-md);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-h5,
+h5 { 
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-sm);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.uij-h6,
+h6 { 
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--uij-text-primary);
+    margin-bottom: var(--uij-spacing-sm);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Paragraph */
+.uij-paragraph,
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--uij-text-secondary);
+    margin-bottom: var(--uij-spacing-md);
+}
+
+/* Code */
+.uij-code,
+code {
+    font-family: var(--uij-font-mono);
+    font-size: 0.875em;
+    background: var(--uij-bg-tertiary);
+    color: var(--uij-text-primary);
+    padding: 2px 6px;
+    border-radius: var(--uij-radius-sm);
+}
+
+.uij-pre,
+pre {
+    font-family: var(--uij-font-mono);
+    background: var(--uij-bg-tertiary);
+    color: var(--uij-text-primary);
+    padding: var(--uij-spacing-md);
+    border-radius: var(--uij-radius-md);
+    overflow-x: auto;
+    margin-bottom: var(--uij-spacing-md);
+}
+
+/* Lists */
+.uij-list {
+    margin-bottom: var(--uij-spacing-md);
+}
+
+.uij-list-item {
+    margin-bottom: var(--uij-spacing-sm);
+    color: var(--uij-text-secondary);
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+    .uij-h1, h1 {  font-size: 36px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h2, h2 {  font-size: 30px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h3, h3 {  font-size: 24px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h4, h4 {  font-size: 20px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h5, h5 {  font-size: 18px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h6, h6 {  font-size: 16px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    
+    .uij-text-5xl { font-size: 36px; }
+    .uij-text-4xl { font-size: 30px; }
+    .uij-text-3xl { font-size: 24px; }
+    .uij-text-2xl { font-size: 20px; }
+    .uij-text-xl { font-size: 18px; }
+    .uij-text-lg { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+    .uij-h1, h1 {  font-size: 30px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h2, h2 {  font-size: 24px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h3, h3 {  font-size: 20px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h4, h4 {  font-size: 18px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h5, h5 {  font-size: 16px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uij-h6, h6 {  font-size: 14px;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    
+    .uij-text-5xl { font-size: 30px; }
+    .uij-text-4xl { font-size: 24px; }
+    .uij-text-3xl { font-size: 20px; }
+    .uij-text-2xl { font-size: 18px; }
+    .uij-text-xl { font-size: 16px; }
+    .uij-text-lg { font-size: 15px; }
+    .uij-text-base { font-size: 14px; }
+}

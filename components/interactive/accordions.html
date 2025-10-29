@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Accordions - Interactive Components</title>
+    <link rel="stylesheet" href="../../css/uijeongboo-core.css">
+    <link rel="stylesheet" href="../../css/components/accordions.css">
+</head>
+<body>
+    <div class="uij-container">
+        <h1>UijeongBoo Accordions</h1>
+        <p>Use Enter or Space to expand/collapse. Arrow keys navigate between headers.</p>
+
+        <div class="uij-section">
+            <h2>Basic Accordion</h2>
+            <div class="uij-accordion" id="basic-accordion">
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="panel1" id="header1">
+                        What is UijeongBoo?
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="header1" id="panel1">
+                        <p>UijeongBoo is a modern, accessible design framework focused on clean aesthetics and developer experience. It provides a comprehensive set of components and utilities for building web applications.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="panel2" id="header2">
+                        Design Principles
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="header2" id="panel2">
+                        <ul>
+                            <li>• Minimal and clean design</li>
+                            <li>• Strict color palette (grayscale + lime green)</li>
+                            <li>• Full accessibility compliance</li>
+                            <li>• Responsive by default</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="panel3" id="header3">
+                        Getting Started
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="header3" id="panel3">
+                        <p>To get started with UijeongBoo, simply include the CSS file and use the provided classes. For advanced usage, check out the SDK for programmatic component creation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Compact Accordion</h2>
+            <div class="uij-accordion compact" id="compact-accordion">
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="cpanel1" id="cheader1">
+                        Features
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="cheader1" id="cpanel1">
+                        <p>Compact accordions use smaller padding and font sizes for space-constrained layouts.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="cpanel2" id="cheader2">
+                        Benefits
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="cheader2" id="cpanel2">
+                        <p>Reduced visual weight while maintaining full functionality and accessibility.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Seamless Accordion</h2>
+            <div class="uij-accordion seamless" id="seamless-accordion">
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="spanel1" id="sheader1">
+                        Section 1
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="sheader1" id="spanel1">
+                        <p>Seamless accordions have no outer border and use rounded corners for a modern look.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="spanel2" id="sheader2">
+                        Section 2
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="sheader2" id="spanel2">
+                        <p>Each item is visually separated with its own background and border radius.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Accordion with Icons</h2>
+            <div class="uij-accordion with-icons" id="icon-accordion">
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="ipanel1" id="iheader1">
+                        Expandable Content
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="iheader1" id="ipanel1">
+                        <p>This accordion uses plus/minus icons instead of arrows for expand/collapse indicators.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="ipanel2" id="iheader2">
+                        More Information
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="iheader2" id="ipanel2">
+                        <p>The icons change from + to − when expanded, providing clear visual feedback.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uij-section">
+            <h2>Multiple Selection Accordion</h2>
+            <div class="uij-accordion" aria-multiselectable="true" id="multi-accordion">
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="mpanel1" id="mheader1">
+                        First Item
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="mheader1" id="mpanel1">
+                        <p>This accordion allows multiple panels to be open simultaneously.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="mpanel2" id="mheader2">
+                        Second Item
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="mheader2" id="mpanel2">
+                        <p>You can expand all items or collapse them independently.</p>
+                    </div>
+                </div>
+                <div class="uij-accordion-item">
+                    <button class="uij-accordion-header" aria-expanded="false" aria-controls="mpanel3" id="mheader3">
+                        Third Item
+                    </button>
+                    <div class="uij-accordion-panel" aria-hidden="true" aria-labelledby="mheader3" id="mpanel3">
+                        <p>Each panel maintains its own state independently of others.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accordion functionality with accessibility
+        class UijAccordion {
+            constructor(container) {
+                this.container = container;
+                this.headers = container.querySelectorAll('.uij-accordion-header');
+                this.allowMultiple = container.hasAttribute('aria-multiselectable');
+                this.currentIndex = -1;
+
+                this.init();
+            }
+
+            init() {
+                this.headers.forEach((header, index) => {
+                    header.addEventListener('click', () => this.togglePanel(index));
+                    header.addEventListener('keydown', (e) => this.handleKeydown(e, index));
+                });
+            }
+
+            togglePanel(index) {
+                const header = this.headers[index];
+                const panel = document.getElementById(header.getAttribute('aria-controls'));
+                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+                if (!this.allowMultiple) {
+                    // Close all other panels in single-select mode
+                    this.headers.forEach((h, i) => {
+                        if (i !== index) {
+                            this.closePanel(i);
+                        }
+                    });
+                }
+
+                if (isExpanded) {
+                    this.closePanel(index);
+                } else {
+                    this.openPanel(index);
+                }
+            }
+
+            openPanel(index) {
+                const header = this.headers[index];
+                const panel = document.getElementById(header.getAttribute('aria-controls'));
+
+                header.setAttribute('aria-expanded', 'true');
+                panel.setAttribute('aria-hidden', 'false');
+            }
+
+            closePanel(index) {
+                const header = this.headers[index];
+                const panel = document.getElementById(header.getAttribute('aria-controls'));
+
+                header.setAttribute('aria-expanded', 'false');
+                panel.setAttribute('aria-hidden', 'true');
+            }
+
+            handleKeydown(e, index) {
+                let newIndex = index;
+
+                switch (e.key) {
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        this.togglePanel(index);
+                        return;
+                    case 'ArrowUp':
+                        newIndex = Math.max(0, index - 1);
+                        break;
+                    case 'ArrowDown':
+                        newIndex = Math.min(this.headers.length - 1, index + 1);
+                        break;
+                    case 'Home':
+                        newIndex = 0;
+                        break;
+                    case 'End':
+                        newIndex = this.headers.length - 1;
+                        break;
+                    default:
+                        return;
+                }
+
+                e.preventDefault();
+                this.headers[newIndex].focus();
+            }
+        }
+
+        // Initialize all accordion components
+        document.querySelectorAll('.uij-accordion').forEach(container => {
+            new UijAccordion(container);
+        });
+    </script>
+
+    <script src="../../js/core/framework.js"></script>
+</body>
+</html>

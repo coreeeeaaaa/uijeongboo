@@ -1,0 +1,226 @@
+<!-- UijeongBoo Header Component -->
+<!-- Version: 1.0 -->
+<!-- Usage: Include this file and customize content -->
+
+<header class="uij-header">
+    <!-- Hamburger Menu Button -->
+    <button class="uij-hamburger-container" data-uij-component="hamburger" aria-label="Toggle menu">
+        <div class="uij-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+    
+    <!-- Site Title -->
+    <h1 class="uij-header-title">UijeongBoo</h1>
+    
+    <!-- Header Navigation Menu -->
+    <nav class="uij-header-menu">
+        <a href="#home" class="uij-header-menu-item active">Home</a>
+        <a href="#about" class="uij-header-menu-item">About</a>
+        <a href="#services" class="uij-header-menu-item">Services</a>
+        <a href="#contact" class="uij-header-menu-item">Contact</a>
+    </nav>
+    
+    <!-- Theme Toggle (Optional) -->
+    <button class="uij-btn uij-btn-ghost" data-uij-theme-toggle aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+    </button>
+</header>
+
+<!-- Header Styles (Inline for component isolation) -->
+<style>
+/* Component-specific styles that enforce UijeongBoo design rules */
+.uij-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--uij-bg-primary, #222222);
+    z-index: var(--uij-z-fixed, 1005);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--uij-spacing-md, 16px);
+    border-bottom: 1px solid var(--uij-border, #444444);
+}
+
+.uij-header-title {
+    margin-left: 64px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--uij-text-primary, #eeeeee);
+    transition: var(--uij-transition-normal, 0.25s);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.uij-header-menu {
+    margin-left: auto;
+    display: flex;
+    gap: var(--uij-spacing-xl, 32px);
+    margin-right: 64px;
+}
+
+.uij-header-menu-item {
+    background: transparent !important; /* CRITICAL: Enforce transparent background */
+    border: none !important;
+    color: var(--uij-text-muted, #999999);
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--uij-transition-fast, 0.15s);
+    padding: var(--uij-spacing-sm, 8px) 0;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.uij-header-menu-item:hover {
+    color: var(--uij-text-primary, #eeeeee);
+    font-weight: 500;
+    background: transparent !important; /* CRITICAL: Keep transparent on hover */
+}
+
+.uij-header-menu-item.active {
+    color: var(--uij-text-primary, #eeeeee);
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .uij-header-menu {
+        display: none;
+    }
+    
+    .uij-header-title {
+        font-size: 16px;
+        margin-left: 56px;
+    }
+}
+
+@media (max-width: 480px) {
+    .uij-header-title {
+        font-size: 14px;
+        margin-left: 52px;
+    }
+}
+</style>
+
+<!-- Header JavaScript (Inline for component isolation) -->
+<script>
+(function() {
+    'use strict';
+    
+    // Initialize header component
+    function initHeader() {
+        const header = document.querySelector('.uij-header');
+        if (!header) return;
+        
+        // Enforce design rules
+        enforceDesignRules(header);
+        
+        // Handle menu interactions
+        setupMenuInteractions(header);
+        
+        // Setup responsive behavior
+        setupResponsiveBehavior(header);
+        
+        console.log('UijeongBoo Header component initialized');
+    }
+    
+    // Enforce design rules
+    function enforceDesignRules(header) {
+        const menuItems = header.querySelectorAll('.uij-header-menu-item');
+        const hamburger = header.querySelector('.uij-hamburger-container');
+        
+        // Force transparent backgrounds
+        menuItems.forEach(item => {
+            item.style.setProperty('background', 'transparent', 'important');
+            item.style.setProperty('border', 'none', 'important');
+        });
+        
+        if (hamburger) {
+            hamburger.style.setProperty('background', 'transparent', 'important');
+            hamburger.style.setProperty('border', 'none', 'important');
+        }
+        
+        // Watch for violations
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    const target = mutation.target;
+                    if (target.matches('.uij-header-menu-item') || 
+                        target.matches('.uij-hamburger-container')) {
+                        target.style.setProperty('background', 'transparent', 'important');
+                    }
+                }
+            });
+        });
+        
+        observer.observe(header, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['style']
+        });
+    }
+    
+    // Setup menu interactions
+    function setupMenuInteractions(header) {
+        const menuItems = header.querySelectorAll('.uij-header-menu-item');
+        
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Remove active class from all items
+                menuItems.forEach(mi => mi.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Dispatch custom event
+                const event = new CustomEvent('uij:header-nav-changed', {
+                    detail: { 
+                        activeItem: item,
+                        href: item.getAttribute('href')
+                    }
+                });
+                document.dispatchEvent(event);
+            });
+        });
+    }
+    
+    // Setup responsive behavior
+    function setupResponsiveBehavior(header) {
+        const title = header.querySelector('.uij-header-title');
+        
+        function handleResize() {
+            const width = window.innerWidth;
+            
+            if (width <= 480) {
+                title.style.fontSize = '14px';
+                title.style.marginLeft = '52px';
+            } else if (width <= 768) {
+                title.style.fontSize = '16px';
+                title.style.marginLeft = '56px';
+            } else {
+                title.style.fontSize = '18px';
+                title.style.marginLeft = '64px';
+            }
+        }
+        
+        // Initial call
+        handleResize();
+        
+        // Listen for resize
+        window.addEventListener('resize', handleResize);
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeader);
+    } else {
+        initHeader();
+    }
+})();
+</script>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Interactive Components Showcase</title>
+    
+    <!-- UijeongBoo Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    
+    <style>
+        body {
+            font-family: var(--uij-font-family, 'SF Pro Display', system-ui, sans-serif);
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+        }
+        
+        .header h1 {
+            color: var(--uij-primary, #32CD32);
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .component-card {
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .component-card:hover {
+            border-color: var(--uij-primary, #32CD32);
+            transform: translateY(-4px);
+        }
+        
+        .component-card h2 {
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .component-card p {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .component-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+        
+        .component-features li {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .component-features li:before {
+            content: "•";
+            color: var(--uij-primary, #32CD32);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .component-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            color: var(--uij-text-primary, #eeeeee);
+            text-decoration: none;
+            border: 2px solid var(--uij-border, #555555);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .component-link:hover {
+            border-color: var(--uij-primary, #32CD32);
+            color: var(--uij-primary, #32CD32);
+            transform: translateX(4px);
+        }
+        
+        .stats {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+        }
+        
+        .stats h3 {
+            color: var(--uij-primary, #32CD32);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            color: var(--uij-primary, #32CD32);
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            border-top: 1px solid var(--uij-border, #444444);
+        }
+        
+        .footer p {
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .component-card {
+                padding: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>UijeongBoo Interactive Components</h1>
+        <p>Complete collection of CSS-only interactive components following the UijeongBoo design system. Pure CSS implementations with no JavaScript dependencies.</p>
+    </div>
+
+    <div class="components-grid">
+        <!-- Hamburger Menus -->
+        <div class="component-card">
+            <h2>Hamburger Menu Animations</h2>
+            <p>10 different hamburger menu animations with smooth transitions and CSS-only functionality.</p>
+            <ul class="component-features">
+                <li>Classic X transformation</li>
+                <li>Arrow and rotate effects</li>
+                <li>Scale and slide animations</li>
+                <li>Elastic and fold transitions</li>
+            </ul>
+            <a href="hamburger-menus.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Buttons -->
+        <div class="component-card">
+            <h2>Button Components</h2>
+            <p>Comprehensive collection of interactive button components with animations and state management.</p>
+            <ul class="component-features">
+                <li>20+ sidebar/settings buttons</li>
+                <li>Icon animation effects</li>
+                <li>Hover and active states</li>
+                <li>Pure CSS interactions</li>
+            </ul>
+            <a href="buttons.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Sidebars -->
+        <div class="component-card">
+            <h2>Sidebar Components</h2>
+            <p>Navigation and sidebar components including accordions, tabs, and layout systems.</p>
+            <ul class="component-features">
+                <li>Collapsible accordions</li>
+                <li>Tab navigation system</li>
+                <li>Dropdown menus</li>
+                <li>Layout grid systems</li>
+            </ul>
+            <a href="sidebars.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Modals -->
+        <div class="component-card">
+            <h2>Modal & Popup Components</h2>
+            <p>Modal dialogs, tooltips, and overlay components with CSS-only implementations.</p>
+            <ul class="component-features">
+                <li>Basic and confirmation modals</li>
+                <li>Loading modal with spinner</li>
+                <li>Hover tooltips</li>
+                <li>Image overlay effects</li>
+            </ul>
+            <a href="modals.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Media Players -->
+        <div class="component-card">
+            <h2>Media Player Components</h2>
+            <p>Video and audio players with full control interfaces and visualizer effects.</p>
+            <ul class="component-features">
+                <li>Video player with controls</li>
+                <li>Music player with vinyl animation</li>
+                <li>Audio visualizer with equalizer</li>
+                <li>Progress bars and volume controls</li>
+            </ul>
+            <a href="players.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Animations -->
+        <div class="component-card">
+            <h2>Animation Effects</h2>
+            <p>Pure CSS animation effects including water waves, loading spinners, and transitions.</p>
+            <ul class="component-features">
+                <li>Water fill effects</li>
+                <li>20+ loading spinner types</li>
+                <li>CSS animation keyframes</li>
+                <li>Smooth transitions</li>
+            </ul>
+            <a href="animations.html" class="component-link">View Components →</a>
+        </div>
+
+        <!-- Cards & Galleries -->
+        <div class="component-card">
+            <h2>Card & Gallery Components</h2>
+            <p>Card layouts, image galleries, and carousel components with responsive design.</p>
+            <ul class="component-features">
+                <li>Masonry and card grids</li>
+                <li>CSS-only sliders</li>
+                <li>Horizontal card scroll</li>
+                <li>Interactive portfolio gallery</li>
+            </ul>
+            <a href="cards.html" class="component-link">View Components →</a>
+        </div>
+    </div>
+
+    <div class="stats">
+        <h3>Component Statistics</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">100+</span>
+                <div class="stat-label">Total Components</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">7</span>
+                <div class="stat-label">Component Categories</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">0%</span>
+                <div class="stat-label">JavaScript Required</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">CSS-Only Implementation</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>UijeongBoo Design System - Interactive Components Showcase</p>
+        <p>All components follow strict UijeongBoo design principles: dark theme, lime green accents, no shadows, transparent buttons.</p>
+    </div>
+</body>
+</html>

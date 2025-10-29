@@ -1,0 +1,24 @@
+{
+  "name": "uijeongboo-framework",
+  "version": "1.0.0",
+  "description": "UijeongBoo Design Framework - Tailwind CSS replacement with strict design rules",
+  "main": "uijeongboo.js",
+  "scripts": {
+    "build": "node build.js",
+    "minify": "npm run build && echo 'Minified CSS generated'",
+    "validate": "./validate-uijeongboo.sh",
+    "audit": "node js/utils/enforcer-cli.js audit .",
+    "fix": "node js/utils/enforcer-cli.js fix .",
+    "check-colors": "node js/utils/enforcer-cli.js check-colors .",
+    "enforce-buttons": "node js/utils/enforcer-cli.js enforce-buttons .",
+    "watch": "node js/utils/enforcer-cli.js watch .",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": ["css", "framework", "design-system", "tailwind-alternative"],
+  "author": "UijeongBoo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uijeongboo-framework.git"
+  }
+}

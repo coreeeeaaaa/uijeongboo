@@ -1,0 +1,114 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - CSS Variables     */
+/* Version: 1.0                                     */
+/* License: Apache 2.0                                     */
+/* ================================================= */
+
+/* 
+ * CRITICAL DESIGN RULES - NEVER VIOLATE
+ * 1. NO EMOJIS ANYWHERE IN THE FRAMEWORK - ABSOLUTELY FORBIDDEN
+ * 2. ONLY LIME COLOR (#32CD32) ALLOWED - ALL OTHER COLORS BANNED
+ * 3. ALL OTHER COLORS MUST BE GRAYSCALE ONLY
+ * 4. TRANSPARENT BUTTONS ONLY - NO BACKGROUND COLORS
+ * 5. NO BOX-SHADOWS - FLAT DESIGN ONLY
+ * 6. SECTIONS MUST HAVE THIN BORDER SEPARATORS (--uij-border)
+ * 7. ALL OVERLAYS/MODALS/DROPDOWNS MUST CLOSE ON OUTSIDE CLICK
+ * 8. RESPONSIVE DESIGN WITH PROPER MOBILE PADDING
+ * 9. BULLET POINTS MUST USE "•" CHARACTER, NOT EMOJIS
+ * 10. CLEAN MINIMAL DESIGN - NO BACKGROUND BOXES FOR SECTIONS
+ * 11. HOVER EFFECTS: TEXT BRIGHTER + FONT-WEIGHT BOLD
+ * 12. HOVER EFFECTS: BUTTONS SCALE UP SLIGHTLY (transform: scale(1.05))
+ * 13. BACKGROUNDS MUST BE COMPLETELY TRANSPARENT OR GRAYSCALE
+ * 14. NO GLOW EFFECTS - ABSOLUTELY FORBIDDEN, TACKY AND UGLY
+ */
+
+:root {
+    /* Core Color Palette - GRAYSCALE ONLY + LIME */
+    --uij-primary: #32CD32;          /* ONLY allowed color accent */
+    --uij-bg-primary: #222222;       /* Main background */
+    --uij-bg-secondary: #333333;     /* Cards/Sidebar */
+    --uij-bg-tertiary: #444444;      /* Hover/Input fields */
+    --uij-bg-quaternary: #555555;    /* Borders/Disabled */
+    --uij-bg-light: #666666;         /* Light elements */
+    
+    /* Text Colors - GRAYSCALE ONLY */
+    --uij-text-primary: #eeeeee;     /* Primary text */
+    --uij-text-secondary: #cccccc;   /* Secondary text */
+    --uij-text-muted: #999999;       /* Muted text */
+    --uij-text-disabled: #666666;    /* Disabled text */
+    
+    /* State Colors - MINIMAL USE */
+    --uij-success: #32CD32;          /* Success = Lime only */
+    --uij-warning: #888888;          /* Warning = Gray */
+    --uij-danger: #888888;           /* Danger = Gray */
+    --uij-info: #888888;             /* Info = Gray */
+    
+    /* Borders - GRAYSCALE ONLY */
+    --uij-border: #444444;           /* Default border */
+    --uij-border-light: #555555;     /* Light border */
+    --uij-border-focus: #32CD32;     /* Focus border = Lime only */
+    
+    /* Animations & Transitions */
+    --uij-transition-fast: 0.15s ease;
+    --uij-transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --uij-transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Typography */
+    --uij-font-family: 'SF Pro Display', system-ui, sans-serif;
+    --uij-font-mono: 'Monaco', 'Menlo', monospace;
+    
+    /* Spacing */
+    --uij-spacing-xs: 4px;
+    --uij-spacing-sm: 8px;
+    --uij-spacing-md: 16px;
+    --uij-spacing-lg: 24px;
+    --uij-spacing-xl: 32px;
+    --uij-spacing-xxl: 48px;
+    
+    /* Border Radius */
+    --uij-radius-sm: 4px;
+    --uij-radius-md: 8px;
+    --uij-radius-lg: 12px;
+    --uij-radius-xl: 16px;
+    --uij-radius-full: 9999px;
+    
+    /* Z-Index */
+    --uij-z-dropdown: 1000;
+    --uij-z-fixed: 1005;
+    --uij-z-modal: 1010;
+    --uij-z-popover: 1020;
+    --uij-z-tooltip: 1030;
+    
+    /* Breakpoints */
+    --uij-screen-sm: 640px;
+    --uij-screen-md: 768px;
+    --uij-screen-lg: 1024px;
+    --uij-screen-xl: 1280px;
+    --uij-screen-2xl: 1536px;
+}
+
+/* Dark Theme Override (Default) */
+[data-theme="dark"] {
+    --uij-bg-primary: #222222;
+    --uij-bg-secondary: #333333;
+    --uij-bg-tertiary: #444444;
+    --uij-text-primary: #eeeeee;
+    --uij-text-secondary: #cccccc;
+    --uij-text-muted: #999999;
+}
+
+/* Light Theme Override (Optional - Still Grayscale) */
+[data-theme="light"] {
+    --uij-bg-primary: #ffffff;
+    --uij-bg-secondary: #f8f9fa;
+    --uij-bg-tertiary: #e9ecef;
+    --uij-bg-quaternary: #dee2e6;
+    --uij-bg-light: #adb5bd;
+    --uij-text-primary: #212529;
+    --uij-text-secondary: #495057;
+    --uij-text-muted: #6c757d;
+    --uij-text-disabled: #adb5bd;
+    --uij-border: #dee2e6;
+    --uij-border-light: #e9ecef;
+    --uij-border-focus: #32cd32;
+}

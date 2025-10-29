@@ -1,0 +1,149 @@
+/* ================================================= */
+/* UijeongBoo Icons - CSS-Based Icon System         */
+/* ================================================= */
+
+/* CRITICAL: NO EMOJIS - CSS-only icons for consistency */
+
+/* Base Icon Class */
+.uij-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: middle;
+    font-style: normal;
+}
+
+/* Action Icons */
+.uij-icon-check::before {
+    content: '✓';
+    color: var(--uij-primary);
+    font-weight: bold;
+}
+
+.uij-icon-close::before {
+    content: '✕';
+    color: var(--uij-text-muted);
+}
+
+.uij-icon-plus::before {
+    content: '+';
+    color: var(--uij-text-secondary);
+    font-weight: bold;
+}
+
+.uij-icon-minus::before {
+    content: '−';
+    color: var(--uij-text-secondary);
+    font-weight: bold;
+}
+
+.uij-icon-arrow-down::before {
+    content: '▼';
+    color: var(--uij-text-muted);
+}
+
+.uij-icon-arrow-up::before {
+    content: '▲';
+    color: var(--uij-text-muted);
+}
+
+.uij-icon-arrow-left::before {
+    content: '◀';
+    color: var(--uij-text-muted);
+}
+
+.uij-icon-arrow-right::before {
+    content: '▶';
+    color: var(--uij-text-muted);
+}
+
+/* Navigation Icons */
+.uij-icon-home::before {
+    content: '⌂';
+    color: var(--uij-text-secondary);
+}
+
+.uij-icon-menu::before {
+    content: '☰';
+    color: var(--uij-text-secondary);
+}
+
+.uij-icon-search::before {
+    content: '🔍';
+    color: var(--uij-text-secondary);
+}
+
+/* Status Icons */
+.uij-icon-success::before {
+    content: '✓';
+    color: var(--uij-primary);
+    font-weight: bold;
+}
+
+.uij-icon-error::before {
+    content: '✕';
+    color: var(--uij-text-muted);
+    font-weight: bold;
+}
+
+.uij-icon-warning::before {
+    content: '⚠';
+    color: var(--uij-text-secondary);
+}
+
+.uij-icon-info::before {
+    content: 'ℹ';
+    color: var(--uij-text-secondary);
+}
+
+/* Size Variants */
+.uij-icon.sm {
+    width: 0.75em;
+    height: 0.75em;
+}
+
+.uij-icon.lg {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.uij-icon.xl {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* Color Variants */
+.uij-icon.primary {
+    color: var(--uij-primary);
+}
+
+.uij-icon.secondary {
+    color: var(--uij-text-secondary);
+}
+
+.uij-icon.muted {
+    color: var(--uij-text-muted);
+}
+
+/* Icon Button */
+.uij-icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--uij-spacing-xs);
+    border-radius: var(--uij-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.uij-icon-btn:hover {
+    background: var(--uij-bg-tertiary);
+}
+
+.uij-icon-btn:focus {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: 2px;
+}

@@ -1,0 +1,172 @@
+/* ================================================= */
+/* UijeongBoo Design Framework - CSS Reset         */
+/* Version: 1.0                                     */
+/* License: Apache 2.0                                     */
+/* ================================================= */
+
+/* Modern CSS Reset with UijeongBoo specific rules */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+htm { 
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+body {
+    font-family: var(--uij-font-family);
+    background: var(--uij-bg-primary);
+    color: var(--uij-text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* CRITICAL RULE: ALL BUTTONS MUST BE TRANSPARENT */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.btn,
+.uij.btn { 
+    background: transparent !important;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
+
+/* Remove default button styles */
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Links */
+a {
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--uij-primary);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { 
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--uij-text-primary);
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+p {
+    margin-bottom: var(--uij-spacing-md);
+    color: var(--uij-text-secondary);
+}
+
+/* Form Elements */
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    background: var(--uij-bg-tertiary);
+    border: 1px solid var(--uij-border);
+    color: var(--uij-text-primary);
+    border-radius: var(--uij-radius-md);
+    padding: var(--uij-spacing-sm) var(--uij-spacing-md);
+    transition: var(--uij-transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--uij-border-focus);
+}
+
+/* Lists */
+ul,
+o { 
+    list-style: none;
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Remove default margins */
+blockquote,
+dl,
+dd,
+figure,
+pre {
+    margin: 0;
+}
+
+/* Remove default fieldset styles */
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Remove default legend styles */
+legend {
+    padding: 0;
+}
+
+/* Accessibility */
+:focus-visible {
+    outline: 2px solid var(--uij-primary);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: black !important;
+        
+        text-shadow: none !important;
+    }
+}
