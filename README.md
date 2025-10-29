@@ -1,164 +1,55 @@
-# UijeongBoo Design System Framework
+# UijeongBoo
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-brightgreen)](https://coreeeeaaaa.github.io/uijeongboo/)
 
-A comprehensive design system framework with modular components and utilities.
-
-## 🚀 Live Demo
-
-[View Live Demo](https://coreeeeaaaa.github.io/uijeongboo/) - Interactive examples and component showcase
-
-## 🎯 Core Features
-
-### ✅ Complete Layout System
-```html
-<!-- Flexbox -->
-<div class="flex items-center justify-between">
-<div class="flex-col gap-3">
-
-<!-- Grid -->
-<div class="grid grid-cols-3 gap-4">
-
-<!-- Positioning -->
-<div class="relative">
-  <div class="absolute top-0 right-0">
-```
-
-### ✅ Comprehensive Spacing
-```html
-<!-- Margins & Padding -->
-<div class="p-4 mt-2 mb-3">
-<div class="mx-auto pt-6">
-
-<!-- Directional -->
-<div class="pl-2 pr-4 mt-3 mb-1">
-```
-
-### ✅ Typography System
-```html
-<!-- Sizes -->
-<h1 class="text-4xl font-bold">
-<p class="text-base leading-normal">
-
-<!-- Alignment -->
-<div class="text-center tracking-wide">
-```
-
-### ✅ Interactive States
-```html
-<!-- Hover & Focus -->
-<button class="hover:bg-lime focus:ring">
-<div class="cursor-pointer select-none">
-```
-
-### ✅ Your Design Preferences Built-in
-- **Colors**: Lime (#32CD32) + Coral Pink (#FF7F7F) + Dark grays
-- **No emojis**: Clean text-only interface
-- **Minimal shadows**: Only `0 2px 8px rgba(0,0,0,0.4)`
-- **Perfect circles**: Anti-aliased rendering
-- **8px spacing**: Mathematical precision
-
-## 🚀 Usage Examples
-
-### Button Component
-```html
-<button class="
-  bg-lime text-black
-  px-4 py-2 
-  rounded-md
-  hover:bg-gray-400
-  transition-smooth
-  cursor-pointer
-">
-  Click Me
-</button>
-```
-
-### Layout Example
-```html
-<div class="flex flex-col min-h-screen">
-  <header class="bg-gray-200 p-4 border-b">
-    <div class="flex items-center justify-between max-w-full mx-auto">
-      <h1 class="text-xl font-semibold">App Title</h1>
-      <nav class="flex gap-4">
-        <a href="#" class="text-lime hover:text-coral-pink">Link</a>
-      </nav>
-    </div>
-  </header>
-  
-  <main class="flex-1 p-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-gray-300 p-4 rounded-lg">
-        <h2 class="text-lg font-medium mb-2">Card Title</h2>
-        <p class="text-sm opacity-75">Card content</p>
-      </div>
-    </div>
-  </main>
-</div>
-```
+A modular design system with CSS utilities and JavaScript SDK.
 
 ## 📦 Installation
 
 ```html
-<!-- Single CSS file - no build process needed -->
-<link rel="stylesheet" href="path/to/uijeongboo.css">
+<link rel="stylesheet" href="uijeongboo.css">
+<script type="module" src="web_sdk/uijeongboo-web-sdk.js"></script>
 ```
 
-### SDK Usage
+## 🎨 CSS Classes
+
+### Layout
+- `flex`, `grid`, `block`, `hidden`
+- `flex-col`, `items-center`, `justify-between`
+- `grid-cols-1` to `grid-cols-12`
+- `relative`, `absolute`, `fixed`
+
+### Spacing
+- `p-0` to `p-8`, `m-0` to `m-6`
+- `px-1`, `py-2`, `mx-auto`, `my-3`
+- `mt-1`, `mr-2`, `mb-3`, `ml-4`
+
+### Colors
+- `bg-lime`, `bg-gray-100` to `bg-gray-400`
+- `text-lime`, `text-white`, `text-black`
+- `border-lime`, `border-gray-300`
+
+### Typography
+- `text-xs` to `text-5xl`
+- `font-normal`, `font-bold`
+- `text-center`, `text-left`, `text-right`
+
+## 🔧 SDK
 
 ```javascript
 import { UijeongBooSDK } from './web_sdk/uijeongboo-web-sdk.js';
 
 const sdk = new UijeongBooSDK();
-const button = sdk.button('Click me', 'primary');
-document.body.appendChild(button);
+const button = sdk.button('Click', 'primary');
+const card = sdk.card('Title', 'Content');
 ```
 
-## 🎨 Available Classes
+## 📁 Components
 
-### Layout
-- Display: `block`, `flex`, `grid`, `hidden`
-- Flexbox: `flex-col`, `items-center`, `justify-between`
-- Grid: `grid-cols-1` to `grid-cols-12`, `gap-1` to `gap-4`
-- Position: `relative`, `absolute`, `fixed`, `sticky`
+- Buttons, Cards, Modals, Tabs
+- Accordions, Tooltips, Forms
+- Navigation, Layout components
 
-### Sizing
-- Width: `w-full`, `w-1/2`, `w-1/3`, `w-1/4`, `w-3/4`
-- Height: `h-full`, `h-screen`, `min-h-screen`
+## 🚀 Live Demo
 
-### Spacing (8px system)
-- Padding: `p-0` to `p-8`, `pt-1`, `pr-2`, etc.
-- Margin: `m-0` to `m-6`, `mt-1`, `mx-auto`, etc.
-
-### Colors (Your palette)
-- Background: `bg-lime`, `bg-coral-pink`, `bg-gray-100` to `bg-gray-400`
-- Text: `text-lime`, `text-coral-pink`, `text-white`
-- Borders: `border-lime`, `border-gray-300`
-
-### Typography
-- Size: `text-xs` to `text-5xl`
-- Weight: `font-normal`, `font-medium`, `font-semibold`, `font-bold`
-- Align: `text-left`, `text-center`, `text-right`
-
-### Interactive
-- Hover: `hover:bg-lime`, `hover:text-lime`
-- Focus: `focus:ring`, `focus:outline-none`
-- Cursor: `cursor-pointer`, `cursor-not-allowed`
-
-## 🔥 Why Choose UijeongBoo?
-
-1. **Modular design**: Easy to customize and extend
-2. **No build process**: Single CSS file
-3. **Lightweight**: Only what you need
-4. **Consistent**: Enforces design rules
-5. **No external dependencies**: Self-contained
-
-## 🎯 Perfect for
-
-- Personal projects with consistent design
-- Teams that need design consistency
-- Projects where build process is unwanted
-
----
-
-**Ready to use!** 🎨
+[View Demo](https://coreeeeaaaa.github.io/uijeongboo/)
