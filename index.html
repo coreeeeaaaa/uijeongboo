@@ -1,300 +1,907 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UijeongBoo Design Framework - Complete Tailwind Replacement</title>
-
-    <!-- UijeongBoo Framework CSS -->
-    <link rel="stylesheet" href="./uijeongboo.css">
-    <link rel="stylesheet" href="./css/components/animations.css">
+    <title>UijeongBoo Framework</title>
     
-    <!-- UijeongBoo Utility CSS -->
-    <link rel="stylesheet" href="./css/utilities/spacing.css">
-    <link rel="stylesheet" href="./css/utilities/colors.css">
-    
-    <!-- Custom Demo Styles -->
     <style>
-        .demo-sectio[onclick] { 
-            padding: var(--uij-spacing-xl, 32px) var(--uij-spacing-lg, 24px);
-            margin-bottom: var(--uij-spacing-lg, 24px);
-            border-bottom: 1px solid var(--uij-border, #444444);
-         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        .demo-section:last-child {
-            border-bottom: none;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #222222;
+            color: #eeeeee;
+            min-height: 100vh;
+        }
+
+        /* 물 차오르기 효과 - 배경에 라임 그린 차오르기 */
+        .water-fill-text {
+            position: relative;
+            display: inline-block;
+            color: #eeeeee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            overflow: hidden;
         }
         
-        .demo-content {
+        .water-fill-text::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #32CD32;
+            transition: top 1.5s ease;
+            z-index: -1;
+        }
+        
+        .water-fill-text:hover::before {
+            top: 0;
+        }
+        
+        .water-fill-text:hover {
+            color: #000000;
+        }
+
+        /* UijeongBoo 햄버거 메뉴 컴포넌트 */
+        .hamburger-checkbox {
+            display: none;
+        }
+        
+        .hamburger-menu {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 1010;
+        }
+        
+        .hamburger-menu:hover {
+            background: #333333;
+        }
+        
+        .hamburger-line {
+            display: block;
+            position: absolute;
+            left: 50%;
+            width: 20px;
+            height: 2px;
+            background: #cccccc;
+            border-radius: 1px;
+            transform: translateX(-50%);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .hamburger-line:nth-child(1) { top: 12px; }
+        .hamburger-line:nth-child(2) { top: 20px; }
+        .hamburger-line:nth-child(3) { top: 28px; }
+        
+        /* Classic X Animation */
+        .hamburger-checkbox:checked + .hamburger-menu .hamburger-line:nth-child(1) {
+            top: 20px;
+            transform: translateX(-50%) rotate(45deg);
+            background: #32CD32;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu .hamburger-line:nth-child(3) {
+            top: 20px;
+            transform: translateX(-50%) rotate(-45deg);
+            background: #32CD32;
+        }
+
+        /* UijeongBoo 시스템 메뉴 버튼 컴포넌트 */
+        .system-checkbox {
+            display: none;
+        }
+        
+        .system-button {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 1010;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cccccc;
+            font-size: 16px;
+        }
+        
+        .system-button:hover {
+            background: #333333;
+            color: #eeeeee;
+        }
+        
+        .system-checkbox:checked + .system-button svg {
+            transform: rotate(180deg);
+            transition: transform 0.4s ease;
+        }
+        
+        .system-button svg {
+            transition: transform 0.4s ease;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #333333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header .site-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #eeeeee;
+        }
+
+        /* Sidebars */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: #333333;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #666666;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sidebar:hover::-webkit-scrollbar-thumb {
+            opacity: 1;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .right-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: #333333;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        .right-sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .right-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .right-sidebar::-webkit-scrollbar-thumb {
+            background: #666666;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .right-sidebar:hover::-webkit-scrollbar-thumb {
+            opacity: 1;
+        }
+
+        .right-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #eeeeee;
+        }
+
+        .sidebar-content {
+            padding: 0;
+        }
+
+        .nav-section {
+            margin-bottom: 8px;
+        }
+
+        .nav-section-title {
+            padding: 12px 20px 8px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 20px;
+            color: #bbbbbb;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: #444444;
+            color: #eeeeee;
+        }
+
+        .nav-item.active {
+            background: #444444;
+            color: #cccccc;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 60px;
+            padding: 40px 20px;
+            min-height: calc(100vh - 60px);
+            transition: margin 0.4s ease;
+        }
+
+        body.sidebar-open .main-content {
+            margin-left: 280px;
+        }
+
+        body.right-sidebar-open .main-content {
+            margin-right: 280px;
+        }
+
+        body.both-sidebars-open .main-content {
+            margin-left: 280px;
+            margin-right: 280px;
+        }
+
+        /* Page Content */
+        .page-content {
+            display: none;
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: 80px; /* Account for fixed header */
         }
-        
-        .feature-grid {
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Demo sections */
+        .demo-section {
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .demo-section h1 {
+            color: #eeeeee;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .demo-section h2 {
+            color: #eeeeee;
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .demo-section p {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Cards */
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--uij-spacing-lg, 24px);
-            margin-top: var(--uij-spacing-lg, 24px);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
         }
-        
-        .feature.card { 
-            background: var(--uij-bg-tertiary, #444444);
-            padding: var(--uij-spacing-lg, 24px);
-            border-radius: var(--uij-radius-md, 8px);
-            border: 1px solid var(--uij-border, #444444);
-         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        .violation-warning {
-            background: var(--uij-bg-secondary, #333333);
-            border: 2px solid var(--uij-primary, #32CD32);
-            padding: var(--uij-spacing-md, 16px);
-            border-radius: var(--uij-radius-md, 8px);
-            margin: var(--uij-spacing-lg, 24px) 0;
+
+        .card {
+            background: #444444;
+            padding: 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--uij-primary, #32CD32);
-            margin-right: var(--uij-spacing-sm, 8px);
+
+        .card:hover {
+            transform: translateY(-2px);
+            background: #4a4a4a;
         }
-        
+
+        .card h3 {
+            color: #eeeeee;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* Buttons */
+        button {
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: #eeeeee;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #555555;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background: #32CD32;
+            color: #000000;
+        }
+
+        .btn-primary:hover {
+            background: #2eb82e;
+            color: #000000;
+        }
+
+        /* Color showcase */
+        .color-box {
+            height: 40px;
+            border-radius: 6px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .stat-card {
+            background: #444444;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #eeeeee;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 14px;
+        }
+
+        /* Component iframe */
+        .component-iframe-container {
+            width: 100%;
+            height: calc(100vh - 120px);
+            background: #333333;
+            border-radius: 8px;
+        }
+
+        .component-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .demo-content {
-                padding-top: 70px;
-                padding-left: var(--uij-spacing-sm, 8px);
-                padding-right: var(--uij-spacing-sm, 8px);
+            .main-content {
+                padding: 20px 16px;
             }
             
-            .demo-sectio[onclick] { 
-                padding: var(--uij-spacing-lg, 24px) var(--uij-spacing-sm, 8px);
-             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+            .demo-section {
+                padding: 20px;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body.sidebar-open .main-content,
+            body.right-sidebar-open .main-content,
+            body.both-sidebars-open .main-content {
+                margin-left: 0;
+                margin-right: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Include Header Component -->
-    <div id="header-component"></div>
-    
-    <!-- Include Sidebar Component -->
-    <div id="sidebar-component"></div>
-    
+    <!-- UijeongBoo 햄버거 메뉴 컴포넌트 -->
+    <input type="checkbox" id="hamburger-toggle" class="hamburger-checkbox" onchange="toggleSidebar()">
+    <label for="hamburger-toggle" class="hamburger-menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </label>
+
+    <!-- UijeongBoo Gear Rotate 컴포넌트 -->
+    <input type="checkbox" id="system-toggle" class="system-checkbox">
+    <label for="system-toggle" class="system-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8C13.1046 8 14 8.89543 14 10C14 11.1046 13.1046 12 12 12C10.8954 12 10 11.1046 10 10C10 8.89543 10.8954 8 12 8Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.8 2 13.5 2.5 13.8 3.3L14.5 5.2C14.9 5.4 15.3 5.6 15.7 5.9L17.6 5.2C18.4 4.9 19.3 5.2 19.7 6L20.7 7.8C21.1 8.6 20.9 9.5 20.2 10.1L18.8 11.4C18.9 11.6 18.9 11.8 18.9 12C18.9 12.2 18.9 12.4 18.8 12.6L20.2 13.9C20.9 14.5 21.1 15.4 20.7 16.2L19.7 18C19.3 18.8 18.4 19.1 17.6 18.8L15.7 18.1C15.3 18.4 14.9 18.6 14.5 18.8L13.8 20.7C13.5 21.5 12.8 22 12 22C11.2 22 10.5 21.5 10.2 20.7L9.5 18.8C9.1 18.6 8.7 18.4 8.3 18.1L6.4 18.8C5.6 19.1 4.7 18.8 4.3 18L3.3 16.2C2.9 15.4 3.1 14.5 3.8 13.9L5.2 12.6C5.1 12.4 5.1 12.2 5.1 12C5.1 11.8 5.1 11.6 5.2 11.4L3.8 10.1C3.1 9.5 2.9 8.6 3.3 7.8L4.3 6C4.7 5.2 5.6 4.9 6.4 5.2L8.3 5.9C8.7 5.6 9.1 5.4 9.5 5.2L10.2 3.3C10.5 2.5 11.2 2 12 2ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="currentColor"/>
+        </svg>
+    </label>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="site-title">UijeongBoo Framework</div>
+    </div>
+
+    <!-- Left Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Features & Functions</div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <a href="#" class="nav-item active" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-item" onclick="showPage('dashboard')">Dashboard</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Components</div>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/index.html')">All Components</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/hamburger-menus.html')">Hamburger Menus</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/buttons.html')">Buttons</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/sidebars.html')">Sidebars</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/modals.html')">Modals</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/players.html')">Players</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/animations.html')">Animations</a>
+                <a href="#" class="nav-item" onclick="showComponent('components/interactive/cards.html')">Cards</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Demo Pages</div>
+                <a href="#" class="nav-item" onclick="showComponent('uijeongboo-color-system.html')">Color System Demo</a>
+                <a href="#" class="nav-item" onclick="showComponent('horizontal-scroll-gallery.html')">Scroll Gallery</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-sidebar-15-complete.html')">Scroll Sidebar</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-animation-simple.html')">Scroll Animation Simple</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-animation-enhanced.html')">Scroll Animation Enhanced</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-animation-fixed.html')">Scroll Animation Fixed</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-animation-guide.html')">Scroll Animation Guide</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-progress-showcase.html')">Scroll Progress</a>
+                <a href="#" class="nav-item" onclick="showComponent('scroll-working.html')">Scroll Working</a>
+                <a href="#" class="nav-item" onclick="showComponent('real-scroll-demo.html')">Real Scroll Demo</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Tools</div>
+                <a href="#" class="nav-item" onclick="showPage('color-system')">Color System</a>
+                <a href="#" class="nav-item" onclick="showPage('typography')">Typography</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="right-sidebar" id="rightSidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">System Management</div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <a href="#" class="nav-item" onclick="showPage('login')">Login</a>
+                <a href="#" class="nav-item" onclick="showPage('profile')">Profile</a>
+                <a href="#" class="nav-item" onclick="showPage('preferences')">Preferences</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Management</div>
+                <a href="#" class="nav-item" onclick="showPage('users')">User Management</a>
+                <a href="#" class="nav-item" onclick="showPage('roles')">Role Management</a>
+                <a href="#" class="nav-item" onclick="showPage('permissions')">Permissions</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Billing</div>
+                <a href="#" class="nav-item" onclick="showPage('billing')">Billing</a>
+                <a href="#" class="nav-item" onclick="showPage('payments')">Payment Methods</a>
+                <a href="#" class="nav-item" onclick="showPage('invoices')">Invoices</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">System</div>
+                <a href="#" class="nav-item" onclick="showPage('settings')">Settings</a>
+                <a href="#" class="nav-item" onclick="showPage('security')">Security</a>
+                <a href="#" class="nav-item" onclick="showPage('logs')">Logs</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="demo-content">
-        <!-- Framework Overview -->
-        <section class="demo-section">
-            <h1 class="uij-h1">UijeongBoo Design Framework</h1>
-            <p class="uij-paragraph">
-                모듈화된 미니멀 다크 테마 디자인 시스템. 
-                라임 그린 포인트 컬러와 투명 버튼 시스템을 특징으로 합니다.
-            </p>
+    <div class="main-content">
+        <!-- Home Page -->
+        <div id="home-page" class="page-content active">
+            <div class="demo-section">
+                <h1 class="water-fill-text" data-text="Welcome to UijeongBoo">Welcome to UijeongBoo</h1>
+                <p>A professional design framework with minimal accent usage and consistent grayscale palette.</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Pure CSS Components</h3>
+                        <p>100+ interactive components built with pure CSS, no JavaScript dependencies required.</p>
+                        <button>Explore Components</button>
+                    </div>
+                    <div class="card">
+                        <h3>Consistent Design</h3>
+                        <p>Strict design system ensuring visual consistency across all components and layouts.</p>
+                        <button>View Design System</button>
+                    </div>
+                    <div class="card">
+                        <h3>Performance First</h3>
+                        <p>Lightweight and optimized for maximum performance with minimal resource usage.</p>
+                        <button>Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>Interactive Demos</h2>
+                
+                <div class="card">
+                    <h3 class="water-fill-text" data-text="Water Fill Effect">Water Fill Effect</h3>
+                    <p class="water-fill-text" data-text="Hover over this text to see the water filling animation">Hover over this text to see the water filling animation</p>
+                    <button class="water-fill-text" data-text="Interactive Button">Interactive Button</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page-content">
+            <div class="demo-section">
+                <h2>Framework Dashboard</h2>
+                <p>Complete overview of UijeongBoo framework status and metrics.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Components</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">CSS Coverage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">JS Dependencies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Demo Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Design Consistency</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3%</div>
+                        <div class="stat-label">Accent Color Usage</div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="violation-warning">
-                <h3 class="uij-h3">
-                    <span class="status-indicator"></span>
-                    디자인 규칙 강제화 활성
-                </h3>
-                <p>이 페이지는 UijeongBoo 디자인 규칙을 자동으로 감시하고 위반사항을 수정합니다.</p>
-            </div>
-        </section>
-        
-        <!-- Features Grid -->
-        <section class="demo-section">
-            <h2 class="uij-h2">핵심 기능</h2>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3 class="uij-h3">모듈화 구조</h3>
-                    <p class="uij-paragraph">
-                        CSS, JavaScript, HTML을 기능별로 분리하여 
-                        유지보수성과 재사용성을 극대화했습니다.
-                    </p>
-                </div>
+            <div class="demo-section">
+                <h2>Framework Health</h2>
                 
-                <div class="feature-card">
-                    <h3 class="uij-h3">디자인 규칙 강제화</h3>
-                    <p class="uij-paragraph">
-                        라임 그린 외 색상 사용 금지, 투명 버튼 강제 등 
-                        핵심 디자인 원칙을 자동으로 강제 적용합니다.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <h3 class="uij-h3">반응형 디자인</h3>
-                    <p class="uij-paragraph">
-                        모바일부터 데스크톱까지 완벽하게 대응하는 
-                        반응형 컴포넌트와 유틸리티 클래스를 제공합니다.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <h3 class="uij-h3">컴포넌트 시스템</h3>
-                    <p class="uij-paragraph">
-                        사이드바, 헤더, 버튼 등 재사용 가능한 
-                        컴포넌트들을 독립적으로 사용할 수 있습니다.
-                    </p>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Design Consistency</h3>
+                        <div style="background: #666666; height: 8px; border-radius: 4px; margin: 12px 0;"></div>
+                        <p>All components follow UijeongBoo design principles with consistent grayscale palette and minimal accent usage.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Performance</h3>
+                        <div style="background: #666666; height: 8px; border-radius: 4px; margin: 12px 0;"></div>
+                        <p>Zero JavaScript dependencies ensure maximum performance with pure CSS implementations.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Accessibility</h3>
+                        <div style="background: #666666; height: 8px; border-radius: 4px; margin: 12px 0;"></div>
+                        <p>Full keyboard navigation support and semantic HTML structure for screen readers.</p>
+                    </div>
                 </div>
             </div>
-        </section>
-        
-        <!-- Button Components Demo -->
-        <section class="demo-section">
-            <div id="button-components"></div>
-        </section>
-        
-        <!-- Architecture Info -->
-        <section class="demo-section">
-            <h2 class="uij-h2">파일 구조</h2>
-            <div class="uij-grid uij-grid-cols-1 uij-md:grid-cols-2 uij-gap-6">
-                <div>
-                    <h3 class="uij-h3">CSS 모듈</h3>
-                    <ul class="uij-list">
-                        <li class="uij-list-item">css/core/ - 핵심 스타일</li>
-                        <li class="uij-list-item">css/components/ - 컴포넌트</li>
-                        <li class="uij-list-item">css/utilities/ - 유틸리티</li>
-                    </ul>
-                </div>
+        </div>
+
+        <!-- Color System Page -->
+        <div id="color-system-page" class="page-content">
+            <div class="demo-section">
+                <h2>UijeongBoo Color System</h2>
+                <p>Complete color palette with strict usage guidelines.</p>
                 
-                <div>
-                    <h3 class="uij-h3">JavaScript 모듈</h3>
-                    <ul class="uij-list">
-                        <li class="uij-list-item">js/core/ - 프레임워크 코어</li>
-                        <li class="uij-list-item">js/components/ - 컴포넌트 로직</li>
-                        <li class="uij-list-item">js/utils/ - 유틸리티 함수</li>
-                    </ul>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Primary Colors</h3>
+                        <div class="color-box" style="background: #222222; color: #eeeeee;">#222222 - Body Background</div>
+                        <div class="color-box" style="background: #333333; color: #eeeeee;">#333333 - Cards & Sidebars</div>
+                        <div class="color-box" style="background: #444444; color: #eeeeee;">#444444 - Hover States</div>
+                    </div>
+                    <div class="card">
+                        <h3>Text Colors</h3>
+                        <div class="color-box" style="background: #eeeeee; color: #222222;">#eeeeee - Primary Text</div>
+                        <div class="color-box" style="background: #cccccc; color: #222222;">#cccccc - Secondary Text</div>
+                        <div class="color-box" style="background: #888888; color: #222222;">#888888 - Muted Text</div>
+                    </div>
+                    <div class="card">
+                        <h3>Accent & Borders</h3>
+                        <div class="color-box" style="background: #32CD32; color: #000000;">#32CD32 - Accent (minimal use only)</div>
+                        <div class="color-box" style="background: #555555; color: #eeeeee;">#555555 - Border Color</div>
+                        <div class="color-box" style="background: transparent; color: #eeeeee;">transparent - Button Background</div>
+                    </div>
                 </div>
             </div>
-        </section>
-        
-        <!-- Design Rules -->
-        <section class="demo-section">
-            <h2 class="uij-h2">디자인 규칙</h2>
-            <div class="uij-grid uij-grid-cols-1 uij-md:grid-cols-2 uij-gap-6">
-                <div>
-                    <h3 class="uij-h3 uij-text-accent">허용되는 것</h3>
-                    <ul class="uij-list">
-                        <li class="uij-list-item">• 라임 그린 (#32CD32) 포인트 컬러</li>
-                        <li class="uij-list-item">• 그레이스케일 색상 팔레트</li>
-                        <li class="uij-list-item">• 투명 버튼 배경</li>
-                        <li class="uij-list-item">• 플랫 디자인 (그림자 없음)</li>
-                    </ul>
-                </div>
+        </div>
+
+        <!-- Typography Page -->
+        <div id="typography-page" class="page-content">
+            <div class="demo-section">
+                <h2>Typography System</h2>
                 
-                <div>
-                    <h3 class="uij-h3 uij-text-muted">금지되는 것</h3>
-                    <ul class="uij-list">
-                        <li class="uij-list-item">• 라임 외 모든 색상</li>
-                        <li class="uij-list-item">• 버튼 배경색</li>
-                        <li class="uij-list-item">• Box-shadow 속성</li>
-                        <li class="uij-list-item">• 이모지 사용</li>
-                    </ul>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Font Hierarchy</h3>
+                        <h1 style="font-size: 2.5rem; margin: 16px 0; color: #eeeeee;">Heading 1 - 2.5rem</h1>
+                        <h2 style="font-size: 2rem; margin: 12px 0; color: #eeeeee;">Heading 2 - 2rem</h2>
+                        <h3 style="font-size: 1.5rem; margin: 8px 0; color: #eeeeee;">Heading 3 - 1.5rem</h3>
+                        <p style="font-size: 1rem; color: #cccccc;">Body text - 1rem</p>
+                        <small style="font-size: 0.875rem; color: #888888;">Small text - 0.875rem</small>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Font Weights</h3>
+                        <p style="font-weight: 700; color: #eeeeee;">Bold - 700</p>
+                        <p style="font-weight: 600; color: #eeeeee;">Semibold - 600</p>
+                        <p style="font-weight: 500; color: #eeeeee;">Medium - 500</p>
+                        <p style="font-weight: 400; color: #cccccc;">Regular - 400</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Interactive Effects</h3>
+                        <h2 class="water-fill-text" data-text="Water Fill Animation" style="margin: 16px 0;">Water Fill Animation</h2>
+                        <p class="water-fill-text" data-text="Hover over this text" style="margin: 8px 0;">Hover over this text</p>
+                        <button class="water-fill-text" data-text="Interactive Button">Interactive Button</button>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
-    
-    <!-- UijeongBoo Core JavaScript - Load in order -->
-    <script src="./js/core/framework.js"></script>
-    <script src="./js/core/design-enforcer.js"></script>
-    
-    <!-- UijeongBoo Component JavaScript -->
-    <script src="./js/components/sidebar.js"></script>
-    <script src="./js/components/hamburger.js"></script>
-    
-    <!-- Component Loading Script -->
+        </div>
+
+        <!-- Component iframe page -->
+        <div id="component-iframe-page" class="page-content">
+            <div class="component-iframe-container">
+                <iframe id="component-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Load HTML components
-        async function loadComponent(url, targetId) {
-            try {
-                const response = await fetch(url);
-                const html = await response.text();
-                document.getElementById(targetId).innerHTML = html;
-            } catch (error) {
-                console.error('Failed to load component:', url, error);
+        // DOM 로딩 완료 후 이벤트 리스너 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerToggle = document.getElementById('hamburger-toggle');
+            const systemToggle = document.getElementById('system-toggle');
+            
+            if (hamburgerToggle) {
+                hamburgerToggle.addEventListener('change', function() {
+                    const sidebar = document.getElementById('sidebar');
+                    const body = document.body;
+                    
+                    if (this.checked) {
+                        sidebar.classList.add('open');
+                        body.classList.add('sidebar-open');
+                    } else {
+                        sidebar.classList.remove('open');
+                        body.classList.remove('sidebar-open');
+                    }
+                    updateBodyClasses();
+                });
+            }
+            
+            if (systemToggle) {
+                systemToggle.addEventListener('change', function() {
+                    const rightSidebar = document.getElementById('rightSidebar');
+                    const body = document.body;
+                    
+                    if (this.checked) {
+                        rightSidebar.classList.add('open');
+                        body.classList.add('right-sidebar-open');
+                    } else {
+                        rightSidebar.classList.remove('open');
+                        body.classList.remove('right-sidebar-open');
+                    }
+                    updateBodyClasses();
+                });
+            }
+        });
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburgerCheckbox = document.getElementById('hamburger-toggle');
+            const body = document.body;
+            
+            const isOpen = hamburgerCheckbox.checked;
+            
+            if (isOpen) {
+                sidebar.classList.add('open');
+                body.classList.add('sidebar-open');
+            } else {
+                sidebar.classList.remove('open');
+                body.classList.remove('sidebar-open');
+            }
+            
+            updateBodyClasses();
+        }
+
+        function toggleRightSidebar() {
+            const rightSidebar = document.getElementById('rightSidebar');
+            const systemCheckbox = document.getElementById('system-toggle');
+            const body = document.body;
+            
+            const isOpen = systemCheckbox.checked;
+            
+            if (isOpen) {
+                rightSidebar.classList.add('open');
+                body.classList.add('right-sidebar-open');
+            } else {
+                rightSidebar.classList.remove('open');
+                body.classList.remove('right-sidebar-open');
+            }
+            
+            updateBodyClasses();
+        }
+
+        function updateBodyClasses() {
+            const body = document.body;
+            const leftOpen = document.getElementById('sidebar').classList.contains('open');
+            const rightOpen = document.getElementById('rightSidebar').classList.contains('open');
+            
+            body.classList.toggle('both-sidebars-open', leftOpen && rightOpen);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (event && event.target) {
+                event.target.classList.add('active');
             }
         }
-        
-        // Load all components
-        async function loadAllComponents() {
-            await Promise.all([
-                loadComponent('./components/layout/header.html', 'header-component'),
-                loadComponent('./components/layout/sidebar.html', 'sidebar-component'),
-                loadComponent('./components/ui/buttons.html', 'button-components')
-            ]);
+
+        function showComponent(componentPath) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            console.log('All components loaded');
+            const iframePage = document.getElementById('component-iframe-page');
+            const iframe = document.getElementById('component-iframe');
             
-            // Dispatch ready event
-            const event = new CustomEvent('uij:components-ready');
-            document.dispatchEvent(event);
+            iframe.src = componentPath;
+            iframePage.classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
-        
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadAllComponents);
-        } else {
-            loadAllComponents();
-        }
-        
-        // Listen for framework events
-        document.addEventListener('uij:design-violations', (e) => {
-            console.warn('Design violations detected:', e.detail.violations);
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const rightSidebar = document.getElementById('rightSidebar');
+            const hamburger = document.querySelector('.hamburger-menu');
+            const systemMenu = document.querySelector('.system-button');
+            const hamburgerCheckbox = document.getElementById('hamburger-toggle');
+            const systemCheckbox = document.getElementById('system-toggle');
+            
+            if (sidebar.classList.contains('open') && 
+                !sidebar.contains(event.target) && 
+                !hamburger.contains(event.target)) {
+                hamburgerCheckbox.checked = false;
+                toggleSidebar();
+            }
+            
+            if (rightSidebar.classList.contains('open') && 
+                !rightSidebar.contains(event.target) && 
+                !systemMenu.contains(event.target)) {
+                systemCheckbox.checked = false;
+                toggleRightSidebar();
+            }
         });
-        
-        document.addEventListener('uij:sidebar-opened', () => {
-            console.log('Sidebar opened');
-        });
-        
-        document.addEventListener('uij:sidebar-closed', () => {
-            console.log('Sidebar closed');
-        });
-        
-        // Test button to demonstrate loading
-        document.addEventListener('uij:components-ready', () => {
-            // Add a test button
-            const testSection = document.createElement('section');
-            testSection.className = 'demo-section';
-            testSection.innerHTML = `
-                <h2 class="uij-h2">프레임워크 테스트</h2>
-                <div class="uij-flex uij-gap-4 uij-flex-wrap">
-                    <button class="uij-btn primary" onclick="testFramework()">프레임워크 테스트</button>
-                    <button class="uij-btn secondary" onclick="testViolation()">규칙 위반 테스트</button>
-                    <button class="uij-btn outline" onclick="toggleTheme()">테마 전환</button>
-                </div>
-                <div id="test-results" class="uij-mt-4"></div>
-            `;
-            
-            document.querySelector('.demo-content').appendChild(testSection);
-        });
-        
-        // Test functions
-        function testFramework() {
-            const results = document.getElementById('test-results');
-            results.innerHTML = '<p class="uij-text-accent">프레임워크가 정상적으로 작동중입니다!</p>';
-        }
-        
-        function testViolation() {
-            // Try to create a button with forbidden color (should be prevented)
-            const testBtn = document.createElement('button');
-            testBtn.style.background = 'red'; // This should be prevented
-            testBtn.textContent = '금지된 색상 테스트';
-            
-            const results = document.getElementById('test-results');
-            results.innerHTML = '<p class="uij-text-accent">디자인 규칙 위반이 자동으로 차단되었습니다!</p>';
-        }
-        
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.dataset.theme || 'dark';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.dataset.theme = newTheme;
-            
-            const results = document.getElementById('test-results');
-            results.innerHTML = `<p class="uij-text-accent">테마가 ${newTheme}로 변경되었습니다!</p>`;
-        }
     </script>
 </body>
 </html>
