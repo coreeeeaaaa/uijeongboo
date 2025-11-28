@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Tailwind 대체 CSS 프레임워크</title>
+    <link rel="stylesheet" href="../uijeongboo.css">
+    <link rel="stylesheet" href="../css/uijeongboo-core.css">
+    <style>
+        body {
+            background: #222222;
+            color: #eeeeee;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #999999;
+            margin: 0 0 40px 0;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border: 1px solid #555555;
+            background: transparent;
+            color: #eeeeee;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            border-color: #32CD32;
+            color: #32CD32;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #32CD32;
+            color: #000000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #28a428;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #333333;
+            padding: 30px;
+            border: 1px solid #444444;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+            color: #32CD32;
+        }
+
+        .feature-card p {
+            color: #999999;
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            padding: 80px 20px;
+            background: #1a1a1a;
+        }
+
+        .demo-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .demo-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-link {
+            padding: 12px 24px;
+            background: #444444;
+            color: #eeeeee;
+            text-decoration: none;
+            border: 1px solid #555555;
+            transition: all 0.3s ease;
+        }
+
+        .demo-link:hover {
+            background: #555555;
+            border-color: #32CD32;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>UijeongBoo</h1>
+        <p>Tailwind가 싫어서 만든 순수 CSS 프레임워크</p>
+        <div class="cta-buttons">
+            <a href="https://github.com/coreeeeaaaa/uijeongboo" class="btn btn-primary">GitHub 보기</a>
+            <a href="../uijeongboo.css" class="btn" download>다운로드 (87KB)</a>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2>주요 특징</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>미니멀 디자인</h3>
+                <p>불필요한 그림자와 장식 없이 순수한 플랫 디자인. 그레이스케일 팔레트와 라임 그린 포인트.</p>
+            </div>
+            <div class="feature-card">
+                <h3>완벽한 컴포넌트</h3>
+                <p>버튼, 카드, 폼, 네비게이션, 애니메이션 등 즉시 사용 가능한 검증된 컴포넌트.</p>
+            </div>
+            <div class="feature-card">
+                <h3>텍스트 오버플로우 자동 처리</h3>
+                <p>모든 텍스트 요소에 ellipsis 자동 적용. UI 깨짐 방지.</p>
+            </div>
+            <div class="feature-card">
+                <h3>전역 강제 시스템</h3>
+                <p>개별 컴포넌트의 실수를 자동으로 교정하는 전역 CSS 강제 적용.</p>
+            </div>
+            <div class="feature-card">
+                <h3>물 차오르는 효과</h3>
+                <p>텍스트 전용 물 차오르기 그라데이션 애니메이션. 배경 간섭 없음.</p>
+            </div>
+            <div class="feature-card">
+                <h3>검증 도구 내장</h3>
+                <p>디자인 규칙 준수 여부를 자동으로 검증하는 스크립트 포함.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>데모 보기</h2>
+        <div class="demo-links">
+            <a href="../components/interactive/buttons.html" class="demo-link">버튼 컴포넌트</a>
+            <a href="../components/interactive/cards.html" class="demo-link">카드 컴포넌트</a>
+            <a href="../components/interactive/animations.html" class="demo-link">애니메이션</a>
+            <a href="../components/interactive/players.html" class="demo-link">미디어 플레이어</a>
+            <a href="../components/interactive/modals.html" class="demo-link">모달 대화상자</a>
+            <a href="../components/interactive/sidebars.html" class="demo-link">사이드바</a>
+            <a href="../uijeongboo-color-system.html" class="demo-link">색상 시스템</a>
+        </div>
+    </div>
+</body>
+</html>
