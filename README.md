@@ -1,382 +1,150 @@
-# 🎨 UijeongBoo Design Framework
+# UijeongBoo CSS Framework
 
-모듈화된 미니멀 다크 테마 디자인 시스템. 라임 그린 포인트 컬러와 투명 버튼 시스템을 특징으로 합니다.
+> Tailwind가 싫어서 만든 순수 CSS 프레임워크
 
-## 🚨 핵심 디자인 규칙 (절대 위반 금지)
+**📚 [Live Demo & Documentation](https://coreeeeaaaa.github.io/uijeongboo/)**
 
-### 색상 제한
-- **라임 그린 (#32CD32)만** 포인트 컬러로 사용 가능
-- **모든 다른 색상은 그레이스케일만** 허용
-- 자동 디자인 규칙 강제화 시스템 내장
+미니멀 다크 테마 디자인 시스템. 라임 그린 포인트 컬러와 투명 버튼 시스템을 특징으로 합니다.
 
-### 버튼 시스템
-- **모든 버튼은 반드시 투명 배경** (`background: transparent !important`)
-- Primary 버튼만 예외적으로 라임 배경 허용
-- 호버 상태에서도 투명 배경 유지
+## 설치
 
-### 기타 규칙
-- **모든 box-shadow 사용 금지** (플랫 디자인)
-- **이모지 사용 금지** (깔끔한 텍스트 기반)
+### CDN 사용
 
-### 스크롤바 디자인 규칙
-- **스크롤바 배경은 투명** (`background: transparent`)
-- **스크롤바는 항상 회색** (#999999 - 라임 그린 금지)
-- **평상시에는 보이지 않음** (`opacity: 0`)
-- **마우스 호버시에만 표시** (`opacity: 1`)
-- 부드러운 전환 효과 필수 (`transition: opacity 0.3s ease`)
+```html
+<!-- UijeongBoo CSS -->
+<link rel="stylesheet" href="https://coreeeeaaaa.github.io/uijeongboo/uijeongboo.css">
 
-### 가로 슬라이드 인터페이스 규칙
-- **자동 애니메이션 금지** - 사용자가 직접 제어해야 함
-- **수동 스크롤만 허용** - 마우스 휠이나 드래그로만 동작
-- **고정된 상태 유지** - 평상시에는 움직이지 않음
-- **shift 키 불필요** - 자연스러운 가로 스크롤 구현
-
-### 카드/요소 크기 및 비율 규칙
-- **정사각형 비율 강제** - 카드나 주요 요소는 1:1 비율 유지
-- **마우스 이탈시 원상복구** - hover 효과는 mouseleave시 완전히 제거
-- **크기 최적화** - 화면 공간을 효율적으로 사용하는 적절한 크기 유지
-
-## 📁 모듈화 구조
-
-```
-uijeongboo/
-├── css/
-│   ├── core/                    # 핵심 스타일
-│   │   ├── variables.css        # CSS 변수
-│   │   ├── reset.css           # 리셋 스타일
-│   │   ├── typography.css      # 타이포그래피
-│   │   └── layout.css          # 레이아웃 시스템
-│   ├── components/             # 컴포넌트 스타일
-│   │   ├── buttons.css         # 버튼 컴포넌트
-│   │   ├── navigation.css      # 네비게이션
-│   │   ├── forms.css          # 폼 요소
-│   │   └── animations.css     # 애니메이션
-│   └── utilities/             # 유틸리티 클래스
-│       ├── spacing.css        # 여백 관리
-│       └── colors.css         # 색상 유틸리티
-├── js/
-│   ├── core/                  # 프레임워크 코어
-│   │   ├── framework.js       # 메인 프레임워크
-│   │   └── design-enforcer.js # 디자인 규칙 강제화
-│   ├── components/            # 컴포넌트 로직
-│   │   ├── sidebar.js         # 사이드바
-│   │   └── hamburger.js       # 햄버거 메뉴
-│   └── utils/                 # 유틸리티
-│       └── enforcer-cli.js    # CLI 도구
-├── components/                # HTML 컴포넌트
-│   ├── layout/               # 레이아웃 컴포넌트
-│   │   ├── header.html       # 헤더
-│   │   └── sidebar.html      # 사이드바
-│   └── ui/                   # UI 컴포넌트
-│       └── buttons.html      # 버튼 모음
-└── index.html                # 메인 데모 페이지
+<!-- UijeongBoo JavaScript -->
+<script src="https://coreeeeaaaa.github.io/uijeongboo/uijeongboo.js"></script>
 ```
 
-## 🚀 빠른 시작
+### 다운로드
 
-### 1. 기본 사용법
+[uijeongboo.css](https://github.com/coreeeeaaaa/uijeongboo/raw/main/uijeongboo.css) (87KB)
+
+## 빠른 시작
 
 ```html
 <!DOCTYPE html>
-<html data-theme="dark">
+<html lang="ko">
 <head>
-    <!-- UijeongBoo Core CSS (순서대로 로드) -->
-    <link rel="stylesheet" href="css/core/variables.css">
-    <link rel="stylesheet" href="css/core/reset.css">
-    <link rel="stylesheet" href="css/core/typography.css">
-    <link rel="stylesheet" href="css/core/layout.css">
-    
-    <!-- 필요한 컴포넌트 CSS -->
-    <link rel="stylesheet" href="css/components/buttons.css">
-    <link rel="stylesheet" href="css/components/navigation.css">
-    
-    <!-- 유틸리티 CSS -->
-    <link rel="stylesheet" href="css/utilities/spacing.css">
-    <link rel="stylesheet" href="css/utilities/colors.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Example</title>
+    <link rel="stylesheet" href="https://coreeeeaaaa.github.io/uijeongboo/uijeongboo.css">
 </head>
 <body>
-    <!-- 컴포넌트 사용 -->
-    <button class="uij-btn primary">Primary Button</button>
-    <button class="uij-btn secondary">Secondary Button</button>
-    
-    <!-- JavaScript (순서대로 로드) -->
-    <script src="js/core/framework.js"></script>
-    <script src="js/core/design-enforcer.js"></script>
-    <script src="js/components/sidebar.js"></script>
+    <div class="container">
+        <h1>UijeongBoo Framework</h1>
+        <button class="btn primary">Primary Button</button>
+        <button class="btn">Secondary Button</button>
+    </div>
+    <script src="https://coreeeeaaaa.github.io/uijeongboo/uijeongboo.js"></script>
 </body>
 </html>
 ```
 
-### 2. 컴포넌트 include 방식
+## 주요 특징
 
-```javascript
-// 컴포넌트 동적 로드
-async function loadComponent(url, targetId) {
-    const response = await fetch(url);
-    const html = await response.text();
-    document.getElementById(targetId).innerHTML = html;
-}
+### 미니멀 디자인
+- **그레이스케일 팔레트** (#222222 ~ #eeeeee)
+- **라임 그린 포인트 컬러** (#32CD32)
+- **플랫 디자인** (box-shadow 없음)
+- **투명 버튼 시스템**
 
-// 헤더와 사이드바 로드
-await loadComponent('./components/layout/header.html', 'header');
-await loadComponent('./components/layout/sidebar.html', 'sidebar');
-```
+### 완벽한 컴포넌트
+- 버튼 (primary, secondary, outline, ghost)
+- 카드 레이아웃
+- 네비게이션 (헤더, 사이드바)
+- 폼 요소
+- 애니메이션
 
-## 🔧 디자인 규칙 강제화 도구
+### 반응형 디자인
+- 모바일부터 데스크톱까지 완벽 대응
+- Flexbox 및 Grid 레이아웃
+- 터치 친화적 인터페이스
 
-### NPM Scripts
+## 디자인 규칙
 
-```bash
-# 디자인 규칙 검사
-npm run audit
+### 색상 제한
+- **라임 그린 (#32CD32)만** 포인트 컬러로 사용
+- **그레이스케일만** 허용
+- 자동 디자인 규칙 강제화
 
-# 자동 수정
-npm run fix
+### 버튼 시스템
+- 모든 버튼은 **투명 배경** (`background: transparent`)
+- Primary 버튼만 예외적으로 라임 배경
+- 호버 효과는 테두리 색상 변경
 
-# 실시간 감시
-npm run watch
+### 기타
+- **box-shadow 사용 금지**
+- **이모지 사용 금지**
+- 깔끔한 텍스트 기반 디자인
 
-# 색상만 검사
-npm run check-colors
+## 컴포넌트 예시
 
-# 버튼 배경 강제화
-npm run enforce-buttons
-
-# 개발 서버 실행
-npm run dev
-```
-
-### CLI 직접 사용
-
-```bash
-# 프로젝트 검사
-node js/utils/enforcer-cli.js audit ./src
-
-# 위반사항 자동 수정
-node js/utils/enforcer-cli.js fix ./components
-
-# 실시간 감시
-node js/utils/enforcer-cli.js watch .
-```
-
-## 📝 컴포넌트 사용법
-
-### 버튼 컴포넌트
+### 버튼
 
 ```html
-<!-- 기본 버튼들 -->
-<button class="uij-btn primary">Primary</button>
-<button class="uij-btn secondary">Secondary</button>
-<button class="uij-btn outline">Outline</button>
-<button class="uij-btn ghost">Ghost</button>
+<!-- 기본 버튼 -->
+<button class="btn primary">Primary Button</button>
+<button class="btn">Secondary Button</button>
+<button class="btn outline">Outline Button</button>
 
 <!-- 크기 변형 -->
-<button class="uij-btn primary sm">Small</button>
-<button class="uij-btn primary lg">Large</button>
+<button class="btn primary sm">Small</button>
+<button class="btn primary lg">Large</button>
+```
 
-<!-- 아이콘 버튼 -->
-<button class="uij-btn icon primary">⚙️</button>
+### 카드
 
-<!-- 버튼 그룹 -->
-<div class="uij-btn-group">
-    <button class="uij-btn secondary">Left</button>
-    <button class="uij-btn secondary">Center</button>
-    <button class="uij-btn secondary">Right</button>
+```html
+<div class="card">
+    <h3>Card Title</h3>
+    <p>Card description text goes here.</p>
+    <button class="btn primary">Action</button>
 </div>
 ```
 
-### 사이드바 컴포넌트
+### 네비게이션
 
 ```html
-<!-- 사이드바 -->
-<aside class="uij-sidebar" data-uij-component="sidebar">
-    <div class="uij-sidebar-header">
-        <h2 class="uij-sidebar-title">Navigation</h2>
+<nav class="navbar">
+    <div class="navbar-brand">UijeongBoo</div>
+    <div class="navbar-menu">
+        <a href="#" class="navbar-item">Home</a>
+        <a href="#" class="navbar-item">About</a>
+        <a href="#" class="navbar-item">Contact</a>
     </div>
-    <div class="uij-sidebar-content">
-        <nav class="uij-nav-section">
-            <a href="#" class="uij-nav-item active">Dashboard</a>
-            <a href="#" class="uij-nav-item">Projects</a>
-        </nav>
-    </div>
-</aside>
+</nav>
 ```
 
-### 헤더 컴포넌트
+## 데모 보기
 
-```html
-<!-- 헤더 -->
-<header class="uij-header">
-    <button class="uij-hamburger-container" data-uij-component="hamburger">
-        <div class="uij-hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </button>
-    <h1 class="uij-header-title">UijeongBoo</h1>
-    <nav class="uij-header-menu">
-        <a href="#" class="uij-header-menu-item">Home</a>
-        <a href="#" class="uij-header-menu-item">About</a>
-    </nav>
-</header>
-```
+모든 컴포넌트의 실제 동작을 확인하세요:
 
-## 🎨 유틸리티 클래스
+- [버튼 컴포넌트](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/buttons.html)
+- [카드 컴포넌트](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/cards.html)
+- [애니메이션](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/animations.html)
+- [미디어 플레이어](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/players.html)
+- [모달 대화상자](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/modals.html)
+- [사이드바](https://coreeeeaaaa.github.io/uijeongboo/components/interactive/sidebars.html)
 
-### 색상
+## 브라우저 지원
 
-```html
-<!-- 텍스트 색상 (그레이스케일 + 라임만) -->
-<p class="uij-text-primary">Primary text</p>
-<p class="uij-text-secondary">Secondary text</p>
-<p class="uij-text-muted">Muted text</p>
-<p class="uij-text-accent">Accent text (lime)</p>
+- Chrome (최신)
+- Firefox (최신)
+- Safari (최신)
+- Edge (최신)
 
-<!-- 배경색 -->
-<div class="uij-bg-primary">Primary background</div>
-<div class="uij-bg-secondary">Secondary background</div>
-<div class="uij-bg-accent">Accent background (lime)</div>
-```
-
-### 여백
-
-```html
-<!-- 마진 -->
-<div class="uij-m-4">Margin 16px</div>
-<div class="uij-mx-auto">Center horizontally</div>
-<div class="uij-mt-8">Margin top 32px</div>
-
-<!-- 패딩 -->
-<div class="uij-p-4">Padding 16px</div>
-<div class="uij-px-6">Horizontal padding 24px</div>
-<div class="uij-py-2">Vertical padding 8px</div>
-```
-
-### 레이아웃
-
-```html
-<!-- Flexbox -->
-<div class="uij-flex uij-justify-center uij-items-center">
-    <p>Centered content</p>
-</div>
-
-<!-- Grid -->
-<div class="uij-grid uij-grid-cols-3 uij-gap-4">
-    <div>Item 1</div>
-    <div>Item 2</div>
-    <div>Item 3</div>
-</div>
-```
-
-## 🔍 자동 강제화 시스템
-
-UijeongBoo는 실시간으로 디자인 규칙 위반을 감지하고 자동으로 수정합니다:
-
-### JavaScript 강제화
-
-```javascript
-// 자동으로 로드되는 강제화 시스템
-document.addEventListener('DOMContentLoaded', () => {
-    // 금지된 색상 검사
-    UijeongBooDesignEnforcer.checkForbiddenColors();
-    
-    // 투명 버튼 강제화
-    UijeongBooDesignEnforcer.enforceTransparentButtons();
-    
-    // box-shadow 제거
-    UijeongBooDesignEnforcer.removeForbiddenProperties();
-});
-```
-
-### 실시간 감시
-
-```javascript
-// DOM 변경 감시
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes') {
-            enforceDesignRules(mutation.target);
-        }
-    });
-});
-```
-
-## 🌙 테마 시스템
-
-```html
-<!-- 다크 테마 (기본) -->
-<html data-theme="dark">
-
-<!-- 라이트 테마 (그레이스케일 유지) -->
-<html data-theme="light">
-```
-
-```javascript
-// 테마 전환
-function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.dataset.theme || 'dark';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.dataset.theme = newTheme;
-}
-```
-
-## 📱 반응형 디자인
-
-모든 컴포넌트는 모바일부터 데스크톱까지 완벽하게 반응합니다:
-
-```css
-/* 모바일 */
-@media (max-width: 480px) {
-    .uij-sidebar { width: 100vw; }
-    .uij-btn { width: 100%; }
-}
-
-/* 태블릿 */
-@media (max-width: 768px) {
-    .uij-header-menu { display: none; }
-    .uij-sidebar { width: 280px; }
-}
-```
-
-## 🤖 에이전트 가이드
-
-다른 에이전트가 이 프레임워크를 사용할 때 반드시 지켜야 할 규칙:
-
-### 1. 디자인 규칙 체크
-```bash
-# 작업 전 반드시 실행
-npm run audit
-
-# 작업 중 실시간 감시
-npm run watch
-```
-
-### 2. 금지된 작업
-- 라임 그린 외 색상 사용 금지
-- 버튼 배경색 설정 금지
-- box-shadow 속성 사용 금지
-- 이모지 사용 금지
-
-### 3. 권장 작업 흐름
-1. 기존 컴포넌트 재사용
-2. 디자인 규칙 준수 확인
-3. 모듈화된 구조 유지
-4. 반응형 고려
-
-## 📄 라이센스
+## 라이센스
 
 MIT License
 
-## 🙋‍♂️ 지원
+## 기여
 
-문제가 발생하면 다음을 확인하세요:
-
-1. `npm run audit`로 디자인 규칙 위반 확인
-2. 콘솔에서 UijeongBoo 에러 메시지 확인
-3. 브라우저 개발자 도구에서 CSS 로드 상태 확인
+이슈와 풀 리퀘스트는 언제나 환영합니다.
 
 ---
 
-**UijeongBoo Design Framework v1.0** - 모듈화된 미니멀 디자인 시스템
+**UijeongBoo Design Framework** - Tailwind가 싫어서 만든 프레임워크
