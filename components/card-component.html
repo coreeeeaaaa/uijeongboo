@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Card Component</title>
+    <link rel="stylesheet" href="../uijeongboo-design-system/uijeongboo.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--saaaaha-font-primary);
+            background: var(--saaaaha-gray-200);
+            color: var(--saaaaha-white);
+            min-height: 100vh;
+            padding: var(--saaaaha-space-4);
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-title {
+            font-size: var(--saaaaha-text-3xl);
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-4);
+            text-align: center;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--saaaaha-space-3);
+            margin-bottom: var(--saaaaha-space-5);
+        }
+
+        /* Base Card Component */
+        .uij-card {
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .uij-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: var(--saaaaha-gray-400);
+        }
+
+        /* Card Header */
+        .uij-card-header {
+            padding: var(--saaaaha-space-3);
+            border-bottom: 1px solid var(--saaaaha-gray-400);
+            background: var(--saaaaha-gray-400);
+        }
+
+        .uij-card-title {
+            font-size: var(--saaaaha-text-lg);
+            font-weight: 600;
+            color: var(--saaaaha-white);
+            margin-bottom: var(--saaaaha-space-1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-card-subtitle {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Card Body */
+        .uij-card-body {
+            padding: var(--saaaaha-space-3);
+        }
+
+        .uij-card-content {
+            line-height: 1.6;
+            color: var(--saaaaha-white);
+            margin-bottom: var(--saaaaha-space-2);
+        }
+
+        .uij-card-description {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Card Footer */
+        .uij-card-footer {
+            padding: var(--saaaaha-space-2) var(--saaaaha-space-3);
+            border-top: 1px solid var(--saaaaha-gray-400);
+            background: var(--saaaaha-gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Card Actions */
+        .uij-card-actions {
+            display: flex;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .uij-card-btn {
+            background: transparent;
+            border: 1px solid var(--saaaaha-gray-400);
+            color: var(--saaaaha-white);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: var(--saaaaha-text-sm);
+        }
+
+        .uij-card-btn:hover {
+            background: var(--saaaaha-gray-400);
+            transform: translateY(-1px);
+        }
+
+        .uij-card-btn-primary {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            border: none;
+        }
+
+        .uij-card-btn-primary:hover {
+            background: var(--saaaaha-lime);
+            opacity: 0.9;
+        }
+
+        /* Card Variants */
+        .uij-card-accent {
+            border-left: 4px solid var(--saaaaha-lime);
+        }
+
+        .uij-card-compact .uij-card-header,
+        .uij-card-compact .uij-card-body,
+        .uij-card-compact .uij-card-footer {
+            padding: var(--saaaaha-space-2);
+        }
+
+        .uij-card-elevated {
+            border: 1px solid var(--saaaaha-gray-400);
+        }
+
+        /* Card Meta */
+        .uij-card-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--saaaaha-space-2);
+            font-size: var(--saaaaha-text-xs);
+            color: var(--saaaaha-white);
+            opacity: 0.6;
+        }
+
+        .uij-card-badge {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            padding: 2px var(--saaaaha-space-1);
+            border-radius: var(--saaaaha-radius-sm);
+            font-size: var(--saaaaha-text-xs);
+            font-weight: 500;
+        }
+
+        /* Interactive States */
+        .uij-card-interactive {
+            cursor: pointer;
+        }
+
+        .uij-card-interactive:hover .uij-card-title {
+            color: var(--saaaaha-lime);
+        }
+
+        .uij-card-interactive:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        /* Metric Card Special Style */
+        .uij-metric-card .uij-card-body {
+            text-align: center;
+            padding: var(--saaaaha-space-4);
+        }
+
+        .uij-metric-value {
+            font-size: var(--saaaaha-text-4xl);
+            font-weight: 700;
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-1);
+            line-height: 1;
+        }
+
+        .uij-metric-label {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-metric-change {
+            font-size: var(--saaaaha-text-xs);
+            margin-top: var(--saaaaha-space-1);
+        }
+
+        .uij-metric-change.positive {
+            color: var(--saaaaha-lime);
+        }
+
+        .uij-metric-change.negative {
+            color: #ff6b6b;
+        }
+
+        /* Grid Layout Demo */
+        .demo-section {
+            margin-bottom: var(--saaaaha-space-5);
+        }
+
+        .demo-section-title {
+            font-size: var(--saaaaha-text-2xl);
+            color: var(--saaaaha-white);
+            margin-bottom: var(--saaaaha-space-3);
+            border-bottom: 1px solid var(--saaaaha-gray-400);
+            padding-bottom: var(--saaaaha-space-1);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">UijeongBoo Card Components</h1>
+
+        <!-- Basic Cards -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">기본 카드</h2>
+            <div class="demo-grid">
+                <div class="uij-card">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">기본 카드</div>
+                        <div class="uij-card-subtitle">표준 카드 컴포넌트</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-content">
+                            이것은 기본적인 UijeongBoo 카드 컴포넌트입니다. 
+                            깔끔한 디자인과 일관된 스타일을 제공합니다.
+                        </div>
+                    </div>
+                    <div class="uij-card-footer">
+                        <div class="uij-card-meta">
+                            <span>2024.01.22</span>
+                            <span>•</span>
+                            <span>기본</span>
+                        </div>
+                        <div class="uij-card-actions">
+                            <button class="uij-card-btn">취소</button>
+                            <button class="uij-card-btn uij-card-btn-primary">확인</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-card-accent">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">액센트 카드</div>
+                        <div class="uij-card-subtitle">라임 액센트 포함</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-content">
+                            왼쪽 라임 테두리가 특징인 액센트 카드입니다. 
+                            중요한 정보나 주목해야 할 내용에 사용됩니다.
+                        </div>
+                        <div class="uij-card-badge">중요</div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-card-compact">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">컴팩트 카드</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-description">
+                            여백이 줄어든 컴팩트한 버전의 카드입니다. 
+                            더 많은 정보를 한 화면에 보여줄 때 유용합니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Cards -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">인터랙티브 카드</h2>
+            <div class="demo-grid">
+                <div class="uij-card uij-card-interactive" onclick="handleCardClick(this, '프로젝트 A')">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">프로젝트 A</div>
+                        <div class="uij-card-subtitle">진행률 75%</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-description">
+                            클릭 가능한 카드입니다. 호버 효과와 함께 
+                            타이틀이 라임색으로 변하는 인터랙션을 제공합니다.
+                        </div>
+                    </div>
+                    <div class="uij-card-footer">
+                        <div class="uij-card-meta">
+                            <span>마감: 2024.02.15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-card-interactive" onclick="handleCardClick(this, '프로젝트 B')">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">프로젝트 B</div>
+                        <div class="uij-card-subtitle">진행률 45%</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-description">
+                            다른 클릭 가능한 카드입니다. 
+                            각 카드는 독립적인 클릭 이벤트를 가집니다.
+                        </div>
+                    </div>
+                    <div class="uij-card-footer">
+                        <div class="uij-card-meta">
+                            <span>마감: 2024.03.01</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-card-interactive uij-card-elevated" onclick="handleCardClick(this, '중요 알림')">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">중요 알림</div>
+                        <div class="uij-card-subtitle">확인 필요</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-content">
+                            테두리가 있는 엘리베이션 카드입니다.
+                        </div>
+                        <div class="uij-card-badge">긴급</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">메트릭 카드</h2>
+            <div class="demo-grid">
+                <div class="uij-card uij-metric-card">
+                    <div class="uij-card-body">
+                        <div class="uij-metric-value">1,234</div>
+                        <div class="uij-metric-label">총 방문자</div>
+                        <div class="uij-metric-change positive">+12.5%</div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-metric-card">
+                    <div class="uij-card-body">
+                        <div class="uij-metric-value">89</div>
+                        <div class="uij-metric-label">활성 사용자</div>
+                        <div class="uij-metric-change positive">+5.2%</div>
+                    </div>
+                </div>
+
+                <div class="uij-card uij-metric-card">
+                    <div class="uij-card-body">
+                        <div class="uij-metric-value">456</div>
+                        <div class="uij-metric-label">페이지뷰</div>
+                        <div class="uij-metric-change negative">-2.1%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card with Long Content -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">텍스트 오버플로우 처리</h2>
+            <div class="demo-grid">
+                <div class="uij-card">
+                    <div class="uij-card-header">
+                        <div class="uij-card-title">매우 긴 타이틀이 들어간 카드 컴포넌트 테스트</div>
+                        <div class="uij-card-subtitle">부제목도 매우 길게 작성해서 ellipsis 처리 확인</div>
+                    </div>
+                    <div class="uij-card-body">
+                        <div class="uij-card-description">
+                            이 카드는 텍스트 오버플로우 처리를 테스트하기 위한 카드입니다. 
+                            매우 긴 내용이 들어가더라도 카드의 레이아웃이 깨지지 않고 
+                            적절히 잘려서 표시되는지 확인할 수 있습니다. 
+                            WebKit의 line-clamp를 사용하여 3줄까지만 표시하고 
+                            나머지는 생략 표시(...) 처리됩니다.
+                        </div>
+                    </div>
+                    <div class="uij-card-footer">
+                        <div class="uij-card-meta">
+                            <span>매우 긴 메타 정보가 들어가는 경우</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleCardClick(card, title) {
+            // Add visual feedback
+            card.style.transform = 'translateY(-2px) scale(1.01)';
+            
+            // Reset after animation
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 150);
+            
+            // Show notification or navigate
+            alert(`"${title}" 카드가 클릭되었습니다!`);
+        }
+
+        // Add dynamic hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveCards = document.querySelectorAll('.uij-card-interactive');
+            
+            interactiveCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 8px 25px rgba(50, 205, 50, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

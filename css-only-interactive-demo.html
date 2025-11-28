@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./css/core/reset.css">
     <link rel="stylesheet" href="./css/core/typography.css">
     
+    <!-- UijeongBoo Global Enforcer - 전역 강제 규칙 -->
+    <link rel="stylesheet" href="css/uijeongboo-global-enforcer.css">
+    
     <style>
         body {
             font-family: var(--uij-font-family, 'SF Pro Display', system-ui, sans-serif);
@@ -7487,8 +7490,9 @@
         .play-button-large::after {
             content: '';
             position: absolute;
-            left: 30px;
-            top: 24px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) translateX(2px);
             width: 0;
             height: 0;
             border-left: 20px solid var(--uij-primary, #32CD32);
@@ -7530,8 +7534,9 @@
         .play-btn::after {
             content: '';
             position: absolute;
-            left: 10px;
-            top: 6px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) translateX(2px);
             width: 0;
             height: 0;
             border-left: 12px solid var(--uij-text-secondary, #cccccc);

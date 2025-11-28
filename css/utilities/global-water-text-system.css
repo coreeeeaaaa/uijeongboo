@@ -1,0 +1,247 @@
+/* UijeongBoo Global Water Text Effect System
+ * 강제적으로 글자에만 물이 차오르는 효과 적용
+ * 배경에는 절대 물 효과가 들어가지 않도록 전역 규칙 설정
+ */
+
+/* ===== 전역 물 차오르기 효과 강제 규칙 ===== */
+
+/* 모든 텍스트 요소에 대한 기본 물 차오르기 설정 */
+h1, h2, h3, h4, h5, h6, p, span, div, button, a, label {
+    /* 배경을 완전히 투명하게 강제 */
+    background-color: transparent !important;
+    background-image: none !important;
+    /* 텍스트에만 물 효과 적용을 위한 기본 설정 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 물 차오르기 효과 - 글자에만 적용되는 전역 규칙 */
+.water-fill-text,
+.water-effect,
+.fill-text,
+.text-fill,
+[class*="water"],
+[class*="fill"] {
+    /* 배경 완전 제거 */
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    
+    /* 텍스트 물 효과를 위한 설정 */
+    color: transparent !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    
+    /* 글자 물 채우기 그라데이션 */
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        transparent 50%,
+        transparent 100%
+    ) !important;
+    
+    /* 애니메이션 설정 */
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+    transition: all 2s ease !important;
+}
+
+/* 호버 시 물 차오르는 애니메이션 */
+.water-fill-text:hover,
+.water-effect:hover,
+.fill-text:hover,
+.text-fill:hover,
+[class*="water"]:hover,
+[class*="fill"]:hover {
+    background-position: 0% 0% !important;
+}
+
+/* ===== 특정 텍스트 요소별 강제 규칙 ===== */
+
+/* 제목 텍스트 물 효과 */
+h1.water-fill-text, 
+h2.water-fill-text,
+h3.water-fill-text,
+.page-title.water-fill-text {
+    background: transparent !important;
+    color: transparent !important;
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        #eeeeee 50%,
+        #eeeeee 100%
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+}
+
+h1.water-fill-text:hover,
+h2.water-fill-text:hover,
+h3.water-fill-text:hover,
+.page-title.water-fill-text:hover {
+    background-position: 0% 0% !important;
+}
+
+/* 버튼 텍스트 물 효과 */
+button.water-fill-text,
+.btn.water-fill-text,
+a.water-fill-text {
+    background-color: transparent !important;
+    border: 2px solid var(--uij-primary, #32CD32) !important;
+    border-radius: 8px !important;
+    
+    color: transparent !important;
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        #eeeeee 50%,
+        #eeeeee 100%
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+}
+
+button.water-fill-text:hover,
+.btn.water-fill-text:hover,
+a.water-fill-text:hover {
+    background-position: 0% 0% !important;
+}
+
+/* ===== 배경 물 효과 완전 차단 규칙 ===== */
+
+/* 배경에 물 효과가 들어가는 것을 완전히 차단 */
+*:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(p):not(span):not(button):not(a):not(label) {
+    /* 텍스트가 아닌 모든 요소는 물 효과 차단 */
+}
+
+/* 컨테이너 요소들의 배경 물 효과 강제 제거 */
+.container[class*="water"],
+.section[class*="water"],
+.demo-section[class*="water"],
+.card[class*="water"],
+div[class*="water"]:not([class*="text"]) {
+    background-image: none !important;
+    background: var(--uij-bg-secondary, #333333) !important;
+    background-color: var(--uij-bg-secondary, #333333) !important;
+}
+
+/* ===== 자동 적용 규칙 ===== */
+
+/* data 속성으로 물 효과 자동 적용 */
+[data-water-text="true"] {
+    background: transparent !important;
+    color: transparent !important;
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        #eeeeee 50%,
+        #eeeeee 100%
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+    transition: all 2s ease !important;
+}
+
+[data-water-text="true"]:hover {
+    background-position: 0% 0% !important;
+}
+
+/* ===== 애니메이션 키프레임 ===== */
+
+@keyframes water-fill-up {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@keyframes water-fill-down {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+/* 자동 애니메이션 클래스 */
+.auto-water-animation {
+    animation: water-fill-up 3s ease-in-out infinite alternate;
+}
+
+/* ===== 브라우저 호환성 강화 ===== */
+
+/* WebKit 브라우저 지원 */
+@-webkit-keyframes water-fill-up {
+    0% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Firefox 지원 */
+@-moz-keyframes water-fill-up {
+    0% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* ===== 디버그 모드 ===== */
+/* 물 효과가 적용된 텍스트를 시각적으로 확인하기 위한 아웃라인 */
+/*
+[class*="water"],
+[data-water-text="true"] {
+    outline: 1px dashed var(--uij-primary, #32CD32);
+}
+*/
+
+/* ===== 강제 우선순위 규칙 ===== */
+/* 다른 모든 CSS를 무시하고 물 효과를 텍스트에만 적용 */
+html body * {
+    /* 모든 텍스트 요소에 물 효과 적용 준비 */
+}
+
+/* 최고 우선순위로 배경 물 효과 차단 */
+html body *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(p):not(span):not(button):not(a):not(label)[class*="water"] {
+    background-image: none !important;
+    background: var(--uij-bg-secondary, #333333) !important;
+}
+
+/* 텍스트 요소에만 물 효과 강제 적용 */
+html body h1[class*="water"],
+html body h2[class*="water"],
+html body h3[class*="water"],
+html body p[class*="water"],
+html body span[class*="water"],
+html body button[class*="water"],
+html body a[class*="water"],
+html body label[class*="water"] {
+    background: transparent !important;
+    color: transparent !important;
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        #eeeeee 50%,
+        #eeeeee 100%
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+    transition: all 2s ease !important;
+}

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Chat Component</title>
+    <link rel="stylesheet" href="../uijeongboo-design-system/uijeongboo.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--saaaaha-font-primary);
+            background: var(--saaaaha-gray-200);
+            color: var(--saaaaha-white);
+            min-height: 100vh;
+            padding: var(--saaaaha-space-2);
+        }
+
+        /* Chat Container */
+        .uij-chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        /* Chat Header */
+        .uij-chat-header {
+            background: var(--saaaaha-gray-400);
+            padding: var(--saaaaha-space-2);
+            border-bottom: 1px solid var(--saaaaha-gray-300);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .uij-chat-title {
+            font-size: var(--saaaaha-text-lg);
+            font-weight: 600;
+            color: var(--saaaaha-white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-chat-status {
+            display: flex;
+            align-items: center;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .uij-status-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--saaaaha-lime);
+            border-radius: 50%;
+        }
+
+        .uij-status-text {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+        }
+
+        /* Chat Messages Area */
+        .uij-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--saaaaha-space-2);
+            display: flex;
+            flex-direction: column;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .uij-chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .uij-chat-messages::-webkit-scrollbar-track {
+            background: var(--saaaaha-gray-400);
+        }
+
+        .uij-chat-messages::-webkit-scrollbar-thumb {
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-sm);
+        }
+
+        /* Message Styles */
+        .uij-message {
+            max-width: 70%;
+            word-wrap: break-word;
+            margin-bottom: var(--saaaaha-space-1);
+        }
+
+        .uij-message-user {
+            align-self: flex-end;
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-md) var(--saaaaha-radius-md) var(--saaaaha-radius-sm) var(--saaaaha-radius-md);
+        }
+
+        .uij-message-ai {
+            align-self: flex-start;
+            background: var(--saaaaha-gray-400);
+            color: var(--saaaaha-white);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-md) var(--saaaaha-radius-md) var(--saaaaha-radius-md) var(--saaaaha-radius-sm);
+        }
+
+        .uij-message-system {
+            align-self: center;
+            background: transparent;
+            color: var(--saaaaha-white);
+            opacity: 0.6;
+            font-size: var(--saaaaha-text-sm);
+            text-align: center;
+            padding: var(--saaaaha-space-1);
+        }
+
+        .uij-message-text {
+            line-height: 1.4;
+            font-size: var(--saaaaha-text-base);
+        }
+
+        .uij-message-time {
+            font-size: var(--saaaaha-text-xs);
+            opacity: 0.7;
+            margin-top: var(--saaaaha-space-0);
+        }
+
+        /* Chat Input Area */
+        .uij-chat-input-area {
+            border-top: 1px solid var(--saaaaha-gray-400);
+            padding: var(--saaaaha-space-2);
+            background: var(--saaaaha-gray-300);
+        }
+
+        .uij-chat-input-wrapper {
+            display: flex;
+            gap: var(--saaaaha-space-1);
+            align-items: flex-end;
+        }
+
+        .uij-chat-input {
+            flex: 1;
+            background: var(--saaaaha-gray-400);
+            border: none;
+            border-radius: var(--saaaaha-radius-md);
+            padding: var(--saaaaha-space-2);
+            color: var(--saaaaha-white);
+            font-family: var(--saaaaha-font-primary);
+            font-size: var(--saaaaha-text-base);
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .uij-chat-input:focus {
+            outline: none;
+            background: var(--saaaaha-gray-300);
+        }
+
+        .uij-chat-input::placeholder {
+            color: var(--saaaaha-white);
+            opacity: 0.5;
+        }
+
+        /* Action Buttons */
+        .uij-chat-actions {
+            display: flex;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .uij-chat-btn {
+            background: transparent;
+            border: 1px solid var(--saaaaha-gray-400);
+            color: var(--saaaaha-white);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-md);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: var(--saaaaha-text-sm);
+            min-width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .uij-chat-btn:hover {
+            background: var(--saaaaha-gray-400);
+            transform: translateY(-1px);
+        }
+
+        .uij-chat-btn-primary {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            border: none;
+        }
+
+        .uij-chat-btn-primary:hover {
+            background: var(--saaaaha-lime);
+            opacity: 0.9;
+        }
+
+        .uij-chat-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Loading State */
+        .uij-message-loading {
+            align-self: flex-start;
+            background: var(--saaaaha-gray-400);
+            color: var(--saaaaha-white);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-md);
+            display: flex;
+            align-items: center;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .uij-typing-indicator {
+            display: flex;
+            gap: 4px;
+        }
+
+        .uij-typing-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--saaaaha-lime);
+            border-radius: 50%;
+            animation: uij-typing 1.4s infinite;
+        }
+
+        .uij-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .uij-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes uij-typing {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .uij-chat-container {
+                height: 90vh;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .uij-message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="uij-chat-container">
+        <!-- Chat Header -->
+        <div class="uij-chat-header">
+            <div class="uij-chat-title">UijeongBoo Chat</div>
+            <div class="uij-chat-status">
+                <div class="uij-status-indicator"></div>
+                <span class="uij-status-text">온라인</span>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="uij-chat-messages" id="chatMessages">
+            <div class="uij-message uij-message-system">
+                <div class="uij-message-text">UijeongBoo Chat에 오신 것을 환영합니다!</div>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="uij-chat-input-area">
+            <form class="uij-chat-input-wrapper" onsubmit="sendMessage(event)">
+                <textarea 
+                    class="uij-chat-input" 
+                    id="chatInput"
+                    placeholder="메시지를 입력하세요..."
+                    rows="1"
+                    onkeydown="handleChatKeydown(event)"
+                    oninput="adjustTextareaHeight(this)"></textarea>
+                <div class="uij-chat-actions">
+                    <button type="button" class="uij-chat-btn" onclick="attachFile()" title="파일 첨부">+</button>
+                    <button type="submit" class="uij-chat-btn uij-chat-btn-primary" title="전송">전송</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Chat functionality
+        function sendMessage(event) {
+            event.preventDefault();
+            
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            
+            // Clear input
+            input.value = '';
+            adjustTextareaHeight(input);
+            
+            // Show loading
+            showTypingIndicator();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage('ai', generateAIResponse(message));
+            }, 1500);
+        }
+
+        function addMessage(type, text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            messageDiv.className = `uij-message uij-message-${type}`;
+            
+            const currentTime = new Date().toLocaleTimeString('ko-KR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageDiv.innerHTML = `
+                <div class="uij-message-text">${text}</div>
+                <div class="uij-message-time">${currentTime}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const loadingDiv = document.createElement('div');
+            
+            loadingDiv.className = 'uij-message uij-message-loading';
+            loadingDiv.id = 'typingIndicator';
+            loadingDiv.innerHTML = `
+                <span>입력 중</span>
+                <div class="uij-typing-indicator">
+                    <div class="uij-typing-dot"></div>
+                    <div class="uij-typing-dot"></div>
+                    <div class="uij-typing-dot"></div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(loadingDiv);
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function generateAIResponse(userMessage) {
+            const responses = [
+                "네, 말씀하신 내용을 이해했습니다.",
+                "UijeongBoo 디자인 시스템에 대해 더 자세히 알려드릴 수 있습니다.",
+                "좋은 질문이네요. 어떤 도움이 필요하신가요?",
+                "프레임워크 개발과 관련된 질문이신가요?",
+                "더 구체적인 내용을 말씀해 주시면 도움을 드릴 수 있습니다."
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function adjustTextareaHeight(textarea) {
+            textarea.style.height = 'auto';
+            const scrollHeight = textarea.scrollHeight;
+            const maxHeight = 120;
+            
+            if (scrollHeight > maxHeight) {
+                textarea.style.height = maxHeight + 'px';
+                textarea.style.overflowY = 'auto';
+            } else {
+                textarea.style.height = scrollHeight + 'px';
+                textarea.style.overflowY = 'hidden';
+            }
+        }
+
+        function handleChatKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage(event);
+            }
+        }
+
+        function attachFile() {
+            // File attachment functionality
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*,text/*,.pdf';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    addMessage('user', `파일 첨부: ${file.name}`);
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage('ai', '파일을 받았습니다. 내용을 확인해보겠습니다.');
+                    }, 1000);
+                }
+            };
+            input.click();
+        }
+
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Initialize chat
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('chatInput');
+            input.focus();
+            
+            // Add welcome message after a short delay
+            setTimeout(() => {
+                addMessage('ai', '안녕하세요! UijeongBoo 디자인 시스템에 대해 궁금한 것이 있으시면 언제든 물어보세요.');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

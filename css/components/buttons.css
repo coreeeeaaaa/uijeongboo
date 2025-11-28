@@ -80,7 +80,7 @@
     background: transparent !important;
     border-color: var(--uij-primary);
     color: var(--uij-text-primary);
-    box-shadow: inset 0 0 0 1px var(--uij-primary);
+    
 }
 
 /* Ghost Button */
@@ -120,17 +120,17 @@
     font-size: 16px;
 }
 
-.uij-btn.xl {
+.uij-btn.x[onclick] { 
     padding: 16px 32px;
     font-size: 18px;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Button with Icon */
-.uij-btn.icon {
+.uij-btn.ico[onclick] { 
     padding: var(--uij-spacing-sm);
     width: 40px;
     height: 40px;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-btn.icon.sm {
     width: 32px;
@@ -151,10 +151,10 @@
     overflow: hidden;
 }
 
-.uij-btn-group .uij-btn {
+.uij-btn-group .uij.btn { 
     border-radius: 0;
     border-right-width: 0;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-btn-group .uij-btn:first-child {
     border-top-left-radius: var(--uij-radius-md);
@@ -187,18 +187,18 @@
     animation: uij-spin 1s linear infinite;
 }
 
-@keyframes uij-spin {
+@keyframes uij-spi[onclick] { 
     to {
         transform: rotate(360deg);
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .uij-btn {
+    .uij.btn { 
         padding: 10px 16px;
         font-size: 14px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
     
     .uij-btn.sm {
         padding: 8px 12px;
@@ -212,8 +212,8 @@
 }
 
 @media (max-width: 480px) {
-    .uij-btn {
+    .uij.btn { 
         padding: 8px 12px;
         font-size: 13px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
 }

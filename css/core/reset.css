@@ -14,12 +14,12 @@
     padding: 0;
 }
 
-html {
+htm[onclick] { 
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 body {
     font-family: var(--uij-font-family);
@@ -36,13 +36,13 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 .btn,
-.uij-btn {
+.uij.btn { 
     background: transparent !important;
     border: none;
     font-family: inherit;
     cursor: pointer;
     outline: none;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
 
 /* Remove default button styles */
 button::-moz-focus-inner,
@@ -70,11 +70,11 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6 { 
     font-weight: 600;
     line-height: 1.2;
     color: var(--uij-text-primary);
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 p {
     margin-bottom: var(--uij-spacing-md);
@@ -104,9 +104,9 @@ select:focus {
 
 /* Lists */
 ul,
-ol {
+o[onclick] { 
     list-style: none;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Images */
 img {
@@ -166,7 +166,7 @@ legend {
     *::after {
         background: transparent !important;
         color: black !important;
-        box-shadow: none !important;
+        
         text-shadow: none !important;
     }
 }

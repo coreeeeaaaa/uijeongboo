@@ -1,0 +1,181 @@
+/* UijeongBoo Global Border System
+ * Automatic border-radius application for ALL elements with borders
+ * This ensures consistent border styling across the entire framework
+ */
+
+/* ===== GLOBAL BORDER CONSISTENCY RULES ===== */
+/* These rules automatically apply border-radius to ANY element with a border */
+
+/* Universal border rule for all elements with border */
+*[style*="border:"],
+*[style*="border-top:"],
+*[style*="border-right:"],
+*[style*="border-bottom:"],
+*[style*="border-left:"] {
+    border-radius: 8px !important;
+}
+
+/* Class-based border elements */
+.border,
+.border-solid,
+.border-dashed,
+.border-dotted {
+    border-radius: 8px !important;
+}
+
+/* CSS selector targeting elements with computed border styles */
+*:not([style*="border-radius"]):is(
+    [style*="border: 1px"],
+    [style*="border: 2px"],
+    [style*="border: 3px"],
+    [style*="border:1px"],
+    [style*="border:2px"],
+    [style*="border:3px"]
+) {
+    border-radius: 8px !important;
+}
+
+/* ===== FRAMEWORK COMPONENT BORDER RULES ===== */
+/* Automatic styling for common UI elements */
+
+/* All buttons with borders */
+button[style*="border"],
+.btn[style*="border"],
+input[type="button"][style*="border"],
+input[type="submit"][style*="border"],
+input[type="reset"][style*="border"],
+a[style*="border"],
+label[style*="border"] {
+    border-radius: 8px !important;
+}
+
+/* Form elements with borders */
+input[style*="border"],
+textarea[style*="border"],
+select[style*="border"] {
+    border-radius: 8px !important;
+}
+
+/* Cards and containers with borders */
+.card[style*="border"],
+.modal[style*="border"],
+.popup[style*="border"],
+.tooltip[style*="border"],
+.dropdown[style*="border"],
+div[style*="border"],
+section[style*="border"],
+article[style*="border"] {
+    border-radius: 8px !important;
+}
+
+/* Image overlays and media containers */
+.image-overlay[style*="border"],
+.video-player[style*="border"],
+.audio-player[style*="border"] {
+    border-radius: 8px !important;
+}
+
+/* ===== SPECIFIC UijeongBoo COLOR BORDER RULES ===== */
+/* Target elements with UijeongBoo specific border colors */
+
+/* Lime green borders (#32CD32) */
+*[style*="border: 1px solid #32CD32"],
+*[style*="border: 2px solid #32CD32"],
+*[style*="border: 3px solid #32CD32"],
+*[style*="border:1px solid #32CD32"],
+*[style*="border:2px solid #32CD32"],
+*[style*="border:3px solid #32CD32"] {
+    border-radius: 8px !important;
+}
+
+/* Gray scale borders */
+*[style*="border: 1px solid #444444"],
+*[style*="border: 2px solid #444444"],
+*[style*="border: 1px solid #555555"],
+*[style*="border: 2px solid #555555"],
+*[style*="border: 1px solid #666666"],
+*[style*="border: 2px solid #666666"],
+*[style*="border:1px solid #444444"],
+*[style*="border:2px solid #444444"],
+*[style*="border:1px solid #555555"],
+*[style*="border:2px solid #555555"] {
+    border-radius: 8px !important;
+}
+
+/* CSS Variable based borders */
+*[style*="border: 1px solid var(--uij-border"],
+*[style*="border: 2px solid var(--uij-border"],
+*[style*="border: 1px solid var(--uij-primary"],
+*[style*="border: 2px solid var(--uij-primary"],
+*[style*="border:1px solid var(--uij-border"],
+*[style*="border:2px solid var(--uij-border"],
+*[style*="border:1px solid var(--uij-primary"],
+*[style*="border:2px solid var(--uij-primary"] {
+    border-radius: 8px !important;
+}
+
+/* ===== ATTRIBUTE SELECTOR APPROACH ===== */
+/* More comprehensive targeting using attribute selectors */
+
+/* Any element with a border style attribute containing solid */
+*[style*="solid"]:not([style*="border-radius"]) {
+    border-radius: 8px !important;
+}
+
+/* ===== CSS PSEUDO-CLASS FALLBACK ===== */
+/* Fallback for elements that might have borders added dynamically */
+
+/* Elements with visible borders (computed styles) */
+* {
+    /* This will be overridden by more specific selectors but provides fallback */
+}
+
+/* ===== RESPONSIVE BORDER RADIUS ===== */
+/* Ensure consistent border radius across all screen sizes */
+
+@media (max-width: 768px) {
+    *[style*="border"] {
+        border-radius: 6px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    *[style*="border"] {
+        border-radius: 4px !important;
+    }
+}
+
+/* ===== OVERRIDE PROTECTION ===== */
+/* Prevent individual components from overriding the global system */
+
+/* High specificity override for any border element */
+html body *[style*="border"]:not([class*="no-border-radius"]) {
+    border-radius: 8px !important;
+}
+
+/* ===== UTILITY CLASSES ===== */
+/* Optional classes to control border radius behavior */
+
+.force-border-radius {
+    border-radius: 8px !important;
+}
+
+.no-border-radius {
+    border-radius: 0 !important;
+}
+
+.small-border-radius {
+    border-radius: 4px !important;
+}
+
+.large-border-radius {
+    border-radius: 12px !important;
+}
+
+/* ===== DEBUG MODE ===== */
+/* Uncomment to highlight all elements getting border-radius */
+/*
+*[style*="border"] {
+    outline: 1px dashed #32CD32;
+}
+*/

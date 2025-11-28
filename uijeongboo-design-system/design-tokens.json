@@ -11,10 +11,6 @@
         "rgb": "50, 205, 50", 
         "description": "Main brand color - vibrant lime",
         "history": ["Initial selection based on SAAAAHA logo"]
-      },
-      "accent": {
-        "value": "#6666ff",
-        "description": "Link and interactive elements"
       }
     },
     "neutral": {

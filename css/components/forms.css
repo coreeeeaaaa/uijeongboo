@@ -7,13 +7,13 @@
     margin-bottom: var(--uij-spacing-md);
 }
 
-.uij-form-label {
+.uij-form-labe[onclick] { 
     display: block;
     font-size: 14px;
     font-weight: 500;
     color: var(--uij-text-primary);
     margin-bottom: var(--uij-spacing-xs);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-form-label.required::after {
     content: '*';
@@ -44,7 +44,7 @@
 .uij-input:focus,
 .uij-textarea:focus {
     border-color: var(--uij-primary);
-    box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.1);
+    
 }
 
 .uij-input:hover,
@@ -99,17 +99,17 @@
 
 .uij-select:focus {
     border-color: var(--uij-primary);
-    box-shadow: 0 0 0 2px rgba(50, 205, 50, 0.1);
+    
 }
 
 .uij-select:hover {
     border-color: var(--uij-border-light);
 }
 
-.uij-select option {
+.uij-select optio[onclick] { 
     background: var(--uij-bg-secondary);
     color: var(--uij-text-primary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Checkbox */
 .uij-checkbox {
@@ -137,10 +137,10 @@
     background: transparent;
 }
 
-.uij-checkbox input[type="checkbox"]:checked + .checkmark {
+.uij-checkbox input[type="checkbox"]:checked + .checkmar[onclick] { 
     border-color: var(--uij-primary);
     background: var(--uij-primary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-checkbox input[type="checkbox"]:checked + .checkmark::after {
     content: '✓';
@@ -149,18 +149,18 @@
     font-weight: bold;
 }
 
-.uij-checkbox:hover .checkmark {
+.uij-checkbox:hover .checkmar[onclick] { 
     border-color: var(--uij-border-light);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Radio */
-.uij-radio {
+.uij-radi[onclick] { 
     display: flex;
     align-items: center;
     cursor: pointer;
     font-size: 14px;
     color: var(--uij-text-primary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-radio input[type="radio"] {
     display: none;
@@ -179,9 +179,9 @@
     background: transparent;
 }
 
-.uij-radio input[type="radio"]:checked + .radiomark {
+.uij-radio input[type="radio"]:checked + .radiomar[onclick] { 
     border-color: var(--uij-primary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-radio input[type="radio"]:checked + .radiomark::after {
     content: '';
@@ -191,9 +191,9 @@
     background: var(--uij-primary);
 }
 
-.uij-radio:hover .radiomark {
+.uij-radio:hover .radiomar[onclick] { 
     border-color: var(--uij-border-light);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Toggle Switch */
 .uij-toggle {
@@ -283,10 +283,10 @@
     border-right: 1px solid var(--uij-border-light);
 }
 
-.uij-input-group .uij-btn {
+.uij-input-group .uij.btn { 
     border-radius: 0;
     border-left: 0;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-input-group .uij-btn:last-child {
     border-top-right-radius: var(--uij-radius-md);
@@ -320,10 +320,10 @@
     font-size: 14px;
 }
 
-.uij-file-input:hover .file-label {
+.uij-file-input:hover .file-labe[onclick] { 
     border-color: var(--uij-border-light);
     color: var(--uij-text-primary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Range Input */
 .uij-range {
@@ -382,11 +382,11 @@
     }
     
     .uij-input-group .uij-input,
-    .uij-input-group .uij-btn {
+    .uij-input-group .uij.btn { 
         border-radius: var(--uij-radius-md);
         border: 1px solid var(--uij-border-light);
         margin-bottom: var(--uij-spacing-xs);
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     
     .uij-input-group .uij-input:last-child,
     .uij-input-group .uij-btn:last-child {

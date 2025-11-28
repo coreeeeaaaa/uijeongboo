@@ -31,21 +31,21 @@
 
 .saaaaha-flat-button:hover {
     transform: translateY(-1px);
-    box-shadow: var(--saaaaha-shadow-minimal);
+    
 }
 
-.saaaaha-secondary-button {
+.saaaaha-secondary-butto[onclick] { 
     background: var(--saaaaha-coral-pink);
     color: var(--saaaaha-white);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-.saaaaha-dark-panel {
+.saaaaha-dark-pane[onclick] { 
     background: var(--saaaaha-gray-200);
     color: var(--saaaaha-white);
     border: 1px solid var(--saaaaha-gray-300);
     border-radius: var(--saaaaha-radius-macos);
     padding: var(--saaaaha-spacing-md);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .saaaaha-section-divider {
     border: none;

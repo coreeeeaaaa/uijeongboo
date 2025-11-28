@@ -14,7 +14,7 @@
 .uij-m-6 { margin: var(--uij-spacing-lg) !important; }
 .uij-m-8 { margin: var(--uij-spacing-xl) !important; }
 .uij-m-12 { margin: var(--uij-spacing-xxl) !important; }
-.uij-m-auto { margin: auto !important; }
+.uij-m-aut[onclick] {  margin: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Margin X-axis */
 .uij-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
@@ -24,7 +24,7 @@
 .uij-mx-4 { margin-left: var(--uij-spacing-md) !important; margin-right: var(--uij-spacing-md) !important; }
 .uij-mx-6 { margin-left: var(--uij-spacing-lg) !important; margin-right: var(--uij-spacing-lg) !important; }
 .uij-mx-8 { margin-left: var(--uij-spacing-xl) !important; margin-right: var(--uij-spacing-xl) !important; }
-.uij-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.uij-mx-aut[onclick] {  margin-left: auto !important; margin-right: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Margin Y-axis */
 .uij-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
@@ -34,7 +34,7 @@
 .uij-my-4 { margin-top: var(--uij-spacing-md) !important; margin-bottom: var(--uij-spacing-md) !important; }
 .uij-my-6 { margin-top: var(--uij-spacing-lg) !important; margin-bottom: var(--uij-spacing-lg) !important; }
 .uij-my-8 { margin-top: var(--uij-spacing-xl) !important; margin-bottom: var(--uij-spacing-xl) !important; }
-.uij-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+.uij-my-aut[onclick] {  margin-top: auto !important; margin-bottom: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Individual Margins */
 .uij-mt-0 { margin-top: 0 !important; }
@@ -44,7 +44,7 @@
 .uij-mt-4 { margin-top: var(--uij-spacing-md) !important; }
 .uij-mt-6 { margin-top: var(--uij-spacing-lg) !important; }
 .uij-mt-8 { margin-top: var(--uij-spacing-xl) !important; }
-.uij-mt-auto { margin-top: auto !important; }
+.uij-mt-aut[onclick] {  margin-top: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-mr-0 { margin-right: 0 !important; }
 .uij-mr-1 { margin-right: var(--uij-spacing-xs) !important; }
@@ -53,7 +53,7 @@
 .uij-mr-4 { margin-right: var(--uij-spacing-md) !important; }
 .uij-mr-6 { margin-right: var(--uij-spacing-lg) !important; }
 .uij-mr-8 { margin-right: var(--uij-spacing-xl) !important; }
-.uij-mr-auto { margin-right: auto !important; }
+.uij-mr-aut[onclick] {  margin-right: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-mb-0 { margin-bottom: 0 !important; }
 .uij-mb-1 { margin-bottom: var(--uij-spacing-xs) !important; }
@@ -62,7 +62,7 @@
 .uij-mb-4 { margin-bottom: var(--uij-spacing-md) !important; }
 .uij-mb-6 { margin-bottom: var(--uij-spacing-lg) !important; }
 .uij-mb-8 { margin-bottom: var(--uij-spacing-xl) !important; }
-.uij-mb-auto { margin-bottom: auto !important; }
+.uij-mb-aut[onclick] {  margin-bottom: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-ml-0 { margin-left: 0 !important; }
 .uij-ml-1 { margin-left: var(--uij-spacing-xs) !important; }
@@ -71,7 +71,7 @@
 .uij-ml-4 { margin-left: var(--uij-spacing-md) !important; }
 .uij-ml-6 { margin-left: var(--uij-spacing-lg) !important; }
 .uij-ml-8 { margin-left: var(--uij-spacing-xl) !important; }
-.uij-ml-auto { margin-left: auto !important; }
+.uij-ml-aut[onclick] {  margin-left: auto !important;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Padding Utilities */
 .uij-p-0 { padding: 0 !important; }

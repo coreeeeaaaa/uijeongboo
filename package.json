@@ -1,31 +1,29 @@
 {
-  "name": "uijeongboo-design-framework",
+  "name": "uijeongboo",
   "version": "1.0.0",
-  "description": "Modular minimalist dark theme design framework with lime accent and transparent button system",
-  "main": "js/core/framework.js",
+  "description": "Lightweight CSS framework optimized for MCP local services - Alternative to Tailwind",
+  "main": "uijeongboo.min.css",
+  "style": "uijeongboo.min.css",
   "scripts": {
+    "build": "node build.js",
+    "minify": "postcss uijeongboo.css -o uijeongboo.min.css --use cssnano",
+    "validate": "./validate-uijeongboo.sh",
+    "watch": "chokidar 'css/**/*.css' -c 'npm run build'",
+    "serve": "http-server -p 8080 -c-1",
     "audit": "node js/utils/enforcer-cli.js audit",
     "fix": "node js/utils/enforcer-cli.js fix",
-    "watch": "node js/utils/enforcer-cli.js watch",
     "check-colors": "node js/utils/enforcer-cli.js check-colors",
-    "enforce-buttons": "node js/utils/enforcer-cli.js enforce-buttons",
-    "build": "npm run audit && npm run test",
-    "test": "echo 'Testing UijeongBoo design rules...' && npm run audit",
-    "serve": "python3 -m http.server 8000 || python -m SimpleHTTPServer 8000",
-    "dev": "npm run serve",
-    "lint:css": "echo 'Linting CSS for design rule violations...' && npm run check-colors",
-    "lint:buttons": "npm run enforce-buttons",
-    "pre-commit": "npm run audit && echo 'Design rules verified!'"
+    "enforce-buttons": "node js/utils/enforcer-cli.js enforce-buttons"
   },
   "keywords": [
-    "design-system",
-    "ui-framework",
-    "dark-theme",
-    "minimalist",
-    "modular",
     "css",
-    "javascript",
-    "components"
+    "framework",
+    "uijeongboo",
+    "mcp",
+    "lightweight",
+    "tailwind-alternative",
+    "utility-first",
+    "performance"
   ],
   "author": "UijeongBoo Framework",
   "license": "MIT",
@@ -43,7 +41,12 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "chokidar": "^3.5.3"
+    "chokidar": "^3.5.3",
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "chokidar-cli": "^3.0.0",
+    "http-server": "^14.1.1"
   },
   "engines": {
     "node": ">=14.0.0"

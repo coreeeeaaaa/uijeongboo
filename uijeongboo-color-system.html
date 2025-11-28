@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UijeongBoo Complete Color System</title>
+    
+    <!-- UijeongBoo Global Enforcer - 전역 강제 규칙 -->
+    <link rel="stylesheet" href="css/uijeongboo-global-enforcer.css">
+    
     <style>
         :root {
             --uij-primary: #32CD32;
@@ -48,12 +52,12 @@
             border-radius: 12px;
         }
 
-        .header h1 {
+        .header h1 { 
             font-size: 3rem;
             margin-bottom: 16px;
             color: var(--uij-primary);
             font-weight: 600;
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .header p {
             font-size: 1.2rem;
@@ -62,13 +66,13 @@
             margin: 0 auto;
         }
 
-        .navigation {
+        .navigatio[onclick] { 
             display: flex;
             justify-content: center;
             gap: 16px;
             margin-bottom: 40px;
             flex-wrap: wrap;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .nav-btn {
             background: transparent !important;
@@ -90,7 +94,7 @@
             background: transparent !important;
         }
 
-        .section {
+        .sectio[onclick] { 
             background: var(--uij-bg-secondary);
             border: 1px solid var(--uij-border);
             border-radius: 12px;
@@ -100,27 +104,27 @@
             position: relative;
             contain: layout style;
             min-height: 400px; /* 최소 높이로 레이아웃 점프 방지 */
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .section.active {
             display: block;
         }
 
-        .section-title {
+        .section.title { 
             font-size: 2rem;
             margin-bottom: 24px;
             color: var(--uij-text-primary);
             font-weight: 600;
             border-bottom: 2px solid var(--uij-primary);
             padding-bottom: 12px;
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .section-subtitle {
+        .section-su.title { 
             font-size: 1.4rem;
             margin: 32px 0 16px 0;
             color: var(--uij-text-secondary);
             font-weight: 500;
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* ================================================= */
         /* COLOR SELECTOR WIDGET STYLES                     */
@@ -167,10 +171,10 @@
             border-color: var(--uij-primary);
         }
         
-        .color-text {
+        .color.text { 
             flex: 1;
             text-align: left;
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .dropdown-arrow {
             font-size: 10px;
@@ -211,19 +215,19 @@
         /* PALETTE GENERATOR STYLES                         */
         /* ================================================= */
 
-        .generator-section {
+        .generator-sectio[onclick] { 
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        .generator-panel {
+        .generator-pane[onclick] { 
             background: var(--uij-bg-tertiary);
             border: 1px solid var(--uij-border);
             border-radius: 8px;
             padding: 20px;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .color-input-group {
             display: flex;
@@ -235,10 +239,10 @@
         .color-input {
             flex: 1;
             padding: 8px 12px;
-            background: var(--uij-bg-primary);
+            background: #333333;
             border: 1px solid var(--uij-border);
             border-radius: 6px;
-            color: var(--uij-text-primary);
+            color: #eeeeee;
             font-family: 'Monaco', monospace;
             font-size: 14px;
         }
@@ -264,10 +268,10 @@
 
         .btn {
             background: transparent !important;
-            border: 1px solid var(--uij-border);
+            border: 1px solid #555555;
             border-radius: 6px;
             padding: 8px 16px;
-            color: var(--uij-text-muted);
+            color: #eeeeee;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 14px;
@@ -308,7 +312,7 @@
         }
 
         .color-card {
-            background: var(--uij-bg-primary);
+            background: #444444;
             border: 1px solid var(--uij-border);
             border-radius: 8px;
             overflow: hidden;
@@ -332,15 +336,15 @@
             justify-content: center;
             font-weight: 600;
             font-size: 12px;
-            color: white;
+            color: #eeeeee;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
             position: relative;
         }
 
-        .color-info {
+        .color-inf[onclick] { 
             padding: 12px;
             text-align: center;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .color-name {
             font-size: 12px;
@@ -389,11 +393,11 @@
             padding: 20px;
         }
 
-        .demo-item h3 {
+        .demo-item h3 { 
             color: var(--uij-primary);
             margin-bottom: 12px;
             font-size: 1.1rem;
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .demo-item p {
             color: var(--uij-text-secondary);
@@ -413,13 +417,13 @@
         }
 
         .code-output {
-            background: var(--uij-bg-primary);
+            background: #333333;
             border: 1px solid var(--uij-border);
             border-radius: 8px;
             padding: 16px;
             font-family: 'Monaco', monospace;
             font-size: 12px;
-            color: var(--uij-text-secondary);
+            color: #eeeeee;
             white-space: pre-wrap;
             overflow-x: auto;
             max-height: 400px;
@@ -501,12 +505,12 @@
             min-width: 120px;
         }
 
-        .contrast-ratio {
+        .contrast-rati[onclick] { 
             font-family: 'Monaco', monospace;
             font-size: 12px;
             color: var(--uij-text-muted);
             min-width: 60px;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .wcag-status {
             font-size: 11px;
@@ -520,10 +524,10 @@
             color: #000000;
         }
 
-        .wcag-fail {
+        .wcag-fai[onclick] { 
             background: var(--uij-border-hover);
             color: var(--uij-text-primary);
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         /* ================================================= */
         /* MODAL STYLES                                     */
@@ -564,7 +568,7 @@
 
         .modal-overlay.show .modal-content {
             transform: scale(1);
-        }
+         border-radius: 8px; }
 
         .modal-header {
             display: flex;
@@ -575,11 +579,11 @@
             border-bottom: 1px solid var(--uij-border);
         }
 
-        .modal-title {
+        .modal.title { 
             font-size: 1.4rem;
             font-weight: 600;
             color: var(--uij-text-primary);
-        }
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .modal-close {
             background: transparent !important;
@@ -654,21 +658,21 @@
             font-weight: 500;
         }
 
-        .color-grid-demo {
+        .color-grid-dem[onclick] { 
             scrollbar-width: thin;
             scrollbar-color: transparent transparent;
             position: relative;
             height: 140px; /* 고정 높이로 레이아웃 안정성 확보 */
             align-items: flex-start;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .color-grid-demo::-webkit-scrollbar {
             height: 6px;
         }
 
-        .color-grid-demo::-webkit-scrollbar-track {
+        .color-grid-demo::-webkit-scrollbar-trac[onclick] { 
             background: transparent;
-        }
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .color-grid-demo::-webkit-scrollbar-thumb {
             background: var(--uij-text-muted);
@@ -763,9 +767,9 @@
         /* ================================================= */
 
         @media (max-width: 768px) {
-            .generator-section {
+            .generator-sectio[onclick] { 
                 grid-template-columns: 1fr;
-            }
+             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
             
             .demo-grid {
                 grid-template-columns: 1fr;
@@ -775,14 +779,14 @@
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             }
             
-            .header h1 {
+            .header h1 { 
                 font-size: 2rem;
-            }
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
             
-            .navigation {
+            .navigatio[onclick] { 
                 flex-direction: column;
                 align-items: center;
-            }
+             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
             .color-card-3d {
                 width: 100px;
@@ -848,8 +852,8 @@
                         <div style="position: relative; width: 50px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid var(--uij-border); cursor: pointer;">
                             <input type="color" id="customColorPickerDemo" value="#32CD32" style="width: 100%; height: 100%; border: none; cursor: pointer; background: none;">
                         </div>
-                        <input type="text" id="customColorInputDemo" placeholder="#32CD32" value="#32CD32" style="padding: 6px 10px; background: var(--uij-bg-primary); border: 1px solid var(--uij-border); border-radius: 4px; color: var(--uij-text-primary); font-family: 'Monaco', monospace; min-width: 100px;">
-                        <input type="text" id="customColorNameDemo" placeholder="색상 이름" style="padding: 6px 10px; background: var(--uij-bg-primary); border: 1px solid var(--uij-border); border-radius: 4px; color: var(--uij-text-primary); min-width: 100px;">
+                        <input type="text" id="customColorInputDemo" placeholder="#32CD32" value="#32CD32" style="padding: 6px 10px; background: #333333; border: 1px solid var(--uij-border); border-radius: 4px; color: #eeeeee; font-family: 'Monaco', monospace; min-width: 100px;">
+                        <input type="text" id="customColorNameDemo" placeholder="색상 이름" style="padding: 6px 10px; background: #333333; border: 1px solid var(--uij-border); border-radius: 4px; color: #eeeeee; min-width: 100px;">
                         <button class="btn primary" onclick="addCustomColorDemo()">추가</button>
                     </div>
                 </div>
@@ -878,8 +882,8 @@
                             </div>
                             
                             <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--uij-border); padding-top: 8px;">
-                                <input type="text" class="color-input" id="customInput" placeholder="#32CD32" style="flex: 1; padding: 4px 8px; font-size: 11px;">
-                                <button class="btn" style="padding: 4px 8px; font-size: 11px;" onclick="openFullSelector()">더보기</button>
+                                <input type="text" class="color-input" id="customInput" placeholder="#32CD32" style="flex: 1; padding: 4px 8px; font-size: 11px; background: #333333; border: 1px solid var(--uij-border); color: #eeeeee;">
+                                <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px; padding: 4px 8px; font-size: 11px;" onclick="openFullSelector()">더보기</button>
                             </div>
                         </div>
                     </div>
@@ -959,16 +963,16 @@
                     
                     <div class="color-input-group">
                         <input type="color" id="baseColorPicker" class="color-preview-mini" value="#32CD32">
-                        <input type="text" id="baseColorInput" class="color-input" value="#32CD32" placeholder="#32CD32">
-                        <button class="btn" onclick="generatePalette()">생성</button>
+                        <input type="text" id="baseColorInput" class="color-input" value="#32CD32" placeholder="#32CD32" style="background: #333333; border: 1px solid var(--uij-border); color: #eeeeee;">
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generatePalette()">생성</button>
                     </div>
 
                     <div class="generator-controls">
-                        <button class="btn" onclick="generateMonochrome()">모노크롬</button>
-                        <button class="btn" onclick="generateAnalogous()">유사색</button>
-                        <button class="btn" onclick="generateTriadic()">삼각 배색</button>
-                        <button class="btn" onclick="generateGrayscale()">그레이스케일</button>
-                        <button class="btn" onclick="generateShades()">명도 변화</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generateMonochrome()">모노크롬</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generateAnalogous()">유사색</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generateTriadic()">삼각 배색</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generateGrayscale()">그레이스케일</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="generateShades()">명도 변화</button>
                     </div>
                 </div>
 
@@ -977,8 +981,8 @@
                     
                     <div class="generator-controls">
                         <button class="btn primary" onclick="addToSwatches()">선택 색상 추가</button>
-                        <button class="btn" onclick="clearSwatches()">초기화</button>
-                        <button class="btn" onclick="loadUijeongBooDefaults()">UijeongBoo 기본값</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="clearSwatches()">초기화</button>
+                        <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="loadUijeongBooDefaults()">UijeongBoo 기본값</button>
                     </div>
                     
                     <div class="swatches-grid" id="swatchList">
@@ -1002,9 +1006,9 @@
             </p>
             
             <div class="export-controls">
-                <button class="btn" onclick="exportCSS()">CSS 변수</button>
-                <button class="btn" onclick="exportWebflowClasses()">Webflow 클래스</button>
-                <button class="btn" onclick="exportSCSS()">SCSS 변수</button>
+                <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="exportCSS()">CSS 변수</button>
+                <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="exportWebflowClasses()">Webflow 클래스</button>
+                <button class="btn" style="background: transparent; border: 1px solid #555555; color: #eeeeee; border-radius: 8px;" onclick="exportSCSS()">SCSS 변수</button>
                 <button class="btn primary" onclick="copyOutput()">복사하기</button>
             </div>
 
@@ -1744,7 +1748,7 @@
                 h /= 6;
             }
 
-            return { h: h * 360, s: s * 100, l: l * 100 };
+            retur[onclick] {  h: h * 360, s: s * 100, l: l * 100  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); };
         }
 
         function hslToHex(h, s, l) {

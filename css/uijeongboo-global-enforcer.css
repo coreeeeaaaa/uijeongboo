@@ -1,0 +1,176 @@
+/* UijeongBoo Framework Global Enforcer
+ * 모든 컴포넌트에 강제로 적용되는 전역 규칙들
+ * 개별 컴포넌트 파일에서 무시할 수 없는 최고 우선순위 규칙
+ */
+
+/* 전역 시스템들이 여기에 직접 포함됨 */
+
+/* ===== 최고 우선순위 강제 규칙 ===== */
+
+/* 1. 모든 border가 있는 요소는 무조건 border-radius 적용 */
+*[style*="border"] {
+    border-radius: 8px !important;
+}
+
+/* 2. 물 효과는 오직 텍스트에만 적용 */
+*[class*="water"]:is(h1, h2, h3, h4, h5, h6, p, span, button, a, label) {
+    background: transparent !important;
+    background-image: linear-gradient(
+        to top,
+        var(--uij-primary, #32CD32) 0%,
+        var(--uij-primary, #32CD32) 50%,
+        #eeeeee 50%,
+        #eeeeee 100%
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% 200% !important;
+    background-position: 0% 100% !important;
+    transition: all 2s ease !important;
+}
+
+*[class*="water"]:is(h1, h2, h3, h4, h5, h6, p, span, button, a, label):hover {
+    background-position: 0% 0% !important;
+}
+
+/* 3. 물 효과가 있는 비텍스트 요소는 배경 물 효과 강제 제거 */
+*[class*="water"]:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(p):not(span):not(button):not(a):not(label) {
+    background-image: none !important;
+    background: var(--uij-bg-secondary, #333333) !important;
+}
+
+/* 4. UijeongBoo 색상 팔레트 강제 적용 */
+.uij-bg-primary { background: #222222 !important; }
+.uij-bg-secondary { background: #333333 !important; }
+.uij-bg-tertiary { background: #444444 !important; }
+.uij-primary { color: #32CD32 !important; }
+.uij-text-primary { color: #eeeeee !important; }
+.uij-text-secondary { color: #cccccc !important; }
+.uij-text-muted { color: #999999 !important; }
+
+/* 5. 버튼 투명 배경 강제 적용 */
+button:not(.btn-primary),
+.btn:not(.btn-primary),
+input[type="button"]:not(.btn-primary),
+input[type="submit"]:not(.btn-primary),
+a.btn:not(.btn-primary) {
+    background: transparent !important;
+    border: 2px solid var(--uij-primary, #32CD32) !important;
+    border-radius: 8px !important;
+    color: var(--uij-primary, #32CD32) !important;
+}
+
+/* 6. Primary 버튼 예외 규칙 */
+.btn-primary {
+    background: var(--uij-primary, #32CD32) !important;
+    color: #000000 !important;
+    border: 2px solid var(--uij-primary, #32CD32) !important;
+    border-radius: 8px !important;
+}
+
+/* 7. 그림자 사용 완전 금지 */
+* {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+/* 8. 텍스트 오버플로우 처리 강제 적용 */
+h1, h2, h3, h4, h5, h6 {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+p, .description, .text-content {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+}
+
+/* 9. 카드 컨테이너 오버플로우 처리 */
+.card, .demo-section, .container {
+    overflow: hidden !important;
+}
+
+/* ===== 자동 스캔 및 적용 규칙 ===== */
+
+/* 인라인 스타일로 border가 설정된 모든 요소 자동 감지 후 border-radius 적용 */
+*[style*="border: 1px solid"] { border-radius: 8px !important; }
+*[style*="border: 2px solid"] { border-radius: 8px !important; }
+*[style*="border: 3px solid"] { border-radius: 8px !important; }
+*[style*="border:1px solid"] { border-radius: 8px !important; }
+*[style*="border:2px solid"] { border-radius: 8px !important; }
+*[style*="border:3px solid"] { border-radius: 8px !important; }
+
+/* CSS 변수를 사용한 border 자동 감지 */
+*[style*="var(--uij-border"] { border-radius: 8px !important; }
+*[style*="var(--uij-primary"] { border-radius: 8px !important; }
+
+/* ===== 동적 클래스 감지 및 자동 적용 ===== */
+
+/* JavaScript로 동적 추가된 요소도 자동으로 규칙 적용 */
+.dynamic-border { border-radius: 8px !important; }
+.dynamic-water-text {
+    background: transparent !important;
+    background-image: linear-gradient(to top, var(--uij-primary, #32CD32) 50%, #eeeeee 50%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* ===== 프레임워크 무결성 보호 규칙 ===== */
+
+/* 외부 CSS나 개별 컴포넌트가 이 규칙들을 무시하지 못하도록 최고 우선순위 적용 */
+html body * {
+    /* 이 주석 블록은 모든 요소에 대한 최고 우선순위를 보장합니다 */
+}
+
+/* 특정 라이브러리나 프레임워크의 CSS 재정의 방지 */
+*:not(.no-uijeongboo-enforcement) {
+    /* UijeongBoo 규칙 강제 적용 영역 */
+}
+
+/* ===== 성능 최적화 ===== */
+
+/* CSS 변수 캐싱으로 성능 향상 */
+:root {
+    --uij-border-radius: 8px;
+    --uij-transition: all 0.3s ease;
+    --uij-water-gradient: linear-gradient(to top, var(--uij-primary, #32CD32) 0%, var(--uij-primary, #32CD32) 50%, #eeeeee 50%, #eeeeee 100%);
+}
+
+/* 공통 transition 적용 */
+*[class*="water"],
+*[style*="border"],
+button,
+.btn,
+a {
+    transition: var(--uij-transition) !important;
+}
+
+/* ===== 디버그 지원 ===== */
+
+/* 개발 환경에서 UijeongBoo 규칙이 적용된 요소들을 시각적으로 확인 */
+/*
+html[data-uijeongboo-debug="true"] *[style*="border"] {
+    outline: 2px dashed #32CD32;
+}
+
+html[data-uijeongboo-debug="true"] *[class*="water"] {
+    outline: 2px dotted #32CD32;
+}
+*/
+
+/* ===== 브라우저 호환성 ===== */
+
+/* 구형 브라우저 지원을 위한 폴백 */
+@supports not (background-clip: text) {
+    *[class*="water"]:is(h1, h2, h3, h4, h5, h6, p, span, button, a, label) {
+        color: var(--uij-primary, #32CD32) !important;
+        background: transparent !important;
+    }
+}

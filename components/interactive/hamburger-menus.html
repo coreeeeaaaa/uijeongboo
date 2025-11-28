@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Hamburger Menu Animations</title>
+    
+    <!-- UijeongBoo Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    
+    <style>
+        body {
+            font-family: var(--uij-font-family, 'SF Pro Display', system-ui, sans-serif);
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--uij-bg-secondary, #333333);
+            border-radius: 12px;
+            border: 1px solid var(--uij-border, #444444);
+        }
+        
+        /* ================================================= */
+        /* CSS ONLY HAMBURGER MENU ANIMATIONS (10 Types) */
+        /* ================================================= */
+        
+        .hamburger-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .hamburger-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--uij-bg-tertiary, #444444);
+            border-radius: 8px;
+            border: 1px solid var(--uij-border, #555555);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hamburger-item h3 {
+            margin-bottom: 15px;
+            color: var(--uij-text-primary, #eeeeee);
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .hamburger-checkbox {
+            display: none;
+        }
+        
+        .hamburger-menu {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--uij-border, #555555);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-menu:hover {
+            border-color: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-line {
+            display: block;
+            position: absolute;
+            left: 50%;
+            width: 24px;
+            height: 3px;
+            background: var(--uij-text-secondary, #cccccc);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .hamburger-line:nth-child(1) { top: 15px; }
+        .hamburger-line:nth-child(2) { top: 23px; }
+        .hamburger-line:nth-child(3) { top: 31px; }
+        
+        /* 1. Classic X Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.classic-x .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.classic-x .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.classic-x .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(-45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 2. Arrow Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.arrow .hamburger-line:nth-child(1) {
+            top: 19px;
+            left: 45%;
+            width: 16px;
+            transform: translateX(-50%) rotate(45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.arrow .hamburger-line:nth-child(2) {
+            left: 40%;
+            width: 20px;
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.arrow .hamburger-line:nth-child(3) {
+            top: 27px;
+            left: 45%;
+            width: 16px;
+            transform: translateX(-50%) rotate(-45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 3. Rotate Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.rotate {
+            transform: rotate(180deg) scale(1.1);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.rotate .hamburger-line {
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.rotate .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.rotate .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.rotate .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(-45deg);
+        }
+        
+        /* 4. Scale Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.scale .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg) scale(1.4);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.scale .hamburger-line:nth-child(2) {
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.scale .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(-45deg) scale(1.4);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 5. Slide Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.slide .hamburger-line:nth-child(1) {
+            transform: translateX(-50%) translateY(8px) rotate(45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.slide .hamburger-line:nth-child(2) {
+            transform: translateX(-50%) translateX(20px);
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.slide .hamburger-line:nth-child(3) {
+            transform: translateX(-50%) translateY(-8px) rotate(-45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 6. Elastic Animation */
+        .hamburger-menu.elastic .hamburger-line {
+            transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.elastic .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg) scale(1.2);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.elastic .hamburger-line:nth-child(2) {
+            transform: translateX(-50%) scale(0) rotate(180deg);
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.elastic .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(-45deg) scale(1.2);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 7. Square Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.square .hamburger-line:nth-child(1) {
+            top: 15px;
+            left: 45%;
+            width: 20px;
+            transform: translateX(-50%);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.square .hamburger-line:nth-child(2) {
+            left: 40%;
+            width: 10px;
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.square .hamburger-line:nth-child(3) {
+            top: 31px;
+            left: 45%;
+            width: 20px;
+            transform: translateX(-50%);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 8. Spin Animation */
+        .hamburger-menu.spin .hamburger-line {
+            transition: all 0.6s ease;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.spin .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(135deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.spin .hamburger-line:nth-child(2) {
+            transform: translateX(-50%) rotate(90deg) scale(0);
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.spin .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg);
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        /* 9. Dots Animation */
+        .hamburger-checkbox:checked + .hamburger-menu.dots .hamburger-line {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--uij-primary, #32CD32);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.dots .hamburger-line:nth-child(1) {
+            top: 20px;
+            left: 35%;
+            transform: translateX(-50%);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.dots .hamburger-line:nth-child(2) {
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.dots .hamburger-line:nth-child(3) {
+            top: 20px;
+            left: 65%;
+            transform: translateX(-50%);
+        }
+        
+        /* 10. Fold Animation */
+        .hamburger-menu.fold .hamburger-line {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.fold .hamburger-line:nth-child(1) {
+            top: 23px;
+            transform: translateX(-50%) rotate(45deg) scaleX(0.7);
+            background: var(--uij-primary, #32CD32);
+            transform-origin: left center;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.fold .hamburger-line:nth-child(2) {
+            transform: translateX(-50%) scaleX(0);
+            opacity: 0;
+        }
+        
+        .hamburger-checkbox:checked + .hamburger-menu.fold .hamburger-line:nth-child(3) {
+            top: 23px;
+            transform: translateX(-50%) rotate(-45deg) scaleX(0.7);
+            background: var(--uij-primary, #32CD32);
+            transform-origin: left center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center; margin-bottom: 40px; color: var(--uij-primary, #32CD32);">
+        UijeongBoo - Hamburger Menu Animations
+    </h1>
+    <p style="text-align: center; margin-bottom: 40px; color: var(--uij-text-secondary, #cccccc);">
+        JavaScript 없이 CSS와 HTML만으로 구현한 10가지 햄버거 메뉴 애니메이션
+    </p>
+    
+    <!-- 햄버거 메뉴 애니메이션 모음 (CSS Only) -->
+    <div class="demo-section">
+        <h2>햄버거 메뉴 애니메이션 모음 (CSS Only)</h2>
+        <p>JavaScript 없이 CSS만으로 구현한 10가지 햄버거 메뉴 애니메이션</p>
+        
+        <div class="hamburger-grid">
+            <!-- 1. 클래식 X 변환 -->
+            <div class="hamburger-item">
+                <h3>1. Classic X</h3>
+                <input type="checkbox" id="hamburger-1" class="hamburger-checkbox">
+                <label for="hamburger-1" class="hamburger-menu classic-x">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 2. 화살표 변환 -->
+            <div class="hamburger-item">
+                <h3>2. Arrow</h3>
+                <input type="checkbox" id="hamburger-2" class="hamburger-checkbox">
+                <label for="hamburger-2" class="hamburger-menu arrow">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 3. 회전 변환 -->
+            <div class="hamburger-item">
+                <h3>3. Rotate</h3>
+                <input type="checkbox" id="hamburger-3" class="hamburger-checkbox">
+                <label for="hamburger-3" class="hamburger-menu rotate">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 4. 스케일 변환 -->
+            <div class="hamburger-item">
+                <h3>4. Scale</h3>
+                <input type="checkbox" id="hamburger-4" class="hamburger-checkbox">
+                <label for="hamburger-4" class="hamburger-menu scale">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 5. 슬라이드 변환 -->
+            <div class="hamburger-item">
+                <h3>5. Slide</h3>
+                <input type="checkbox" id="hamburger-5" class="hamburger-checkbox">
+                <label for="hamburger-5" class="hamburger-menu slide">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 6. 탄성 변환 -->
+            <div class="hamburger-item">
+                <h3>6. Elastic</h3>
+                <input type="checkbox" id="hamburger-6" class="hamburger-checkbox">
+                <label for="hamburger-6" class="hamburger-menu elastic">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 7. 스퀘어 변환 -->
+            <div class="hamburger-item">
+                <h3>7. Square</h3>
+                <input type="checkbox" id="hamburger-7" class="hamburger-checkbox">
+                <label for="hamburger-7" class="hamburger-menu square">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 8. 스핀 변환 -->
+            <div class="hamburger-item">
+                <h3>8. Spin</h3>
+                <input type="checkbox" id="hamburger-8" class="hamburger-checkbox">
+                <label for="hamburger-8" class="hamburger-menu spin">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 9. 점 변환 -->
+            <div class="hamburger-item">
+                <h3>9. Dots</h3>
+                <input type="checkbox" id="hamburger-9" class="hamburger-checkbox">
+                <label for="hamburger-9" class="hamburger-menu dots">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+            
+            <!-- 10. 접히기 변환 -->
+            <div class="hamburger-item">
+                <h3>10. Fold</h3>
+                <input type="checkbox" id="hamburger-10" class="hamburger-checkbox">
+                <label for="hamburger-10" class="hamburger-menu fold">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

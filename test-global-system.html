@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Global System Test</title>
+    
+    <!-- UijeongBoo Global Enforcer - 전역 강제 규칙 테스트 -->
+    <link rel="stylesheet" href="css/uijeongboo-global-enforcer.css">
+    
+    <style>
+        body {
+            background: #222222;
+            color: #eeeeee;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 40px;
+        }
+        
+        .test-section {
+            background: #333333;
+            padding: 24px;
+            margin: 24px 0;
+            /* 이 요소는 border가 없어도 전역 규칙에 의해 처리됨 */
+        }
+        
+        /* 이 요소들은 인라인 스타일로 border를 가지므로 자동으로 border-radius가 적용됨 */
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1>UijeongBoo Global System Test</h1>
+        <p>전역 시스템 자동 적용 테스트</p>
+    </div>
+
+    <!-- Border 테스트 - 이 요소들은 자동으로 border-radius가 적용됨 -->
+    <div class="test-section">
+        <h2>Border System Test</h2>
+        
+        <div style="border: 2px solid #32CD32; padding: 20px; margin: 10px 0;">
+            이 박스는 인라인 스타일로 border가 있으므로 자동으로 border-radius: 8px가 적용됩니다.
+        </div>
+        
+        <div style="border: 1px solid #555555; padding: 15px; margin: 10px 0;">
+            이 박스도 자동으로 둥근 모서리가 적용됩니다.
+        </div>
+        
+        <button style="border: 2px solid var(--uij-primary, #32CD32); background: transparent; padding: 12px 24px; color: #32CD32;">
+            Border 테스트 버튼 (자동 border-radius)
+        </button>
+    </div>
+
+    <!-- 물 차오르기 효과 테스트 -->
+    <div class="test-section">
+        <h2>Water Fill Text Effect Test</h2>
+        
+        <h1 class="water-fill-text">글자에만 물이 차오르는 제목</h1>
+        <p class="water-fill-text">이 텍스트는 호버 시 물이 차오릅니다</p>
+        
+        <button class="water-fill-text">물 효과 버튼</button>
+        
+        <div class="water-fill-text" style="background: #333333; padding: 20px; margin: 10px 0;">
+            이 컨테이너는 물 효과가 차단되고 배경만 유지됩니다 (텍스트가 아니므로)
+        </div>
+        
+        <span class="water-fill-text">호버해보세요 - 글자에만 물 효과</span>
+    </div>
+
+    <!-- 자동 텍스트 오버플로우 테스트 -->
+    <div class="test-section" style="width: 300px;">
+        <h2>Text Overflow Test</h2>
+        
+        <h3>이것은 매우 긴 제목으로 자동으로 ellipsis 처리가 적용되어야 합니다</h3>
+        
+        <p>이것은 매우 긴 설명 텍스트로, 자동으로 line-clamp가 적용되어 3줄을 넘지 않도록 처리됩니다. 더 많은 내용이 있어도 자동으로 잘려서 표시됩니다.</p>
+    </div>
+
+    <!-- 버튼 자동 투명 배경 테스트 -->
+    <div class="test-section">
+        <h2>Button Background Test</h2>
+        
+        <button>일반 버튼 (자동 투명 배경)</button>
+        <button class="btn-primary">Primary 버튼 (라임 배경 허용)</button>
+        <a href="#" class="btn">링크 버튼 (자동 투명)</a>
+    </div>
+
+    <!-- 전역 규칙 무시 시도 테스트 -->
+    <div class="test-section">
+        <h2>Override Resistance Test</h2>
+        
+        <div style="border: 3px solid #32CD32; border-radius: 0px !important; padding: 15px;">
+            이 박스는 border-radius: 0을 시도했지만 전역 규칙이 강제로 8px를 적용합니다
+        </div>
+        
+        <div class="water-fill-text" style="background: linear-gradient(red, blue) !important;">
+            이 텍스트는 강제로 다른 배경을 시도했지만 물 효과가 우선 적용됩니다
+        </div>
+    </div>
+</body>
+</html>

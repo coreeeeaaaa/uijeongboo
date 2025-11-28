@@ -16,13 +16,13 @@
     border: 1px solid var(--uij-border);
 }
 
-.uij-flowing-cards-title {
+.uij-flowing-cards.title { 
     text-align: center;
     color: var(--uij-primary);
     margin-bottom: var(--uij-spacing-lg);
     font-size: 20px;
     font-weight: 600;
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .uij-flowing-row {
     display: flex;
@@ -89,30 +89,30 @@
     background: var(--uij-bg-quaternary);
 }
 
-.uij-flow-card-icon {
+.uij-flow-card-ico[onclick] { 
     font-size: 20px;
     line-height: 1;
     color: var(--uij-text-secondary);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-flow-card-content {
     flex: 1;
 }
 
-.uij-flow-card-title {
+.uij-flow-card.title { 
     font-size: 14px;
     font-weight: 500;
     color: var(--uij-text-primary);
     margin-bottom: 2px;
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.uij-flow-card-subtitle {
+.uij-flow-card-su.title { 
     font-size: 12px;
     color: var(--uij-text-muted);
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Infinite Carousel */
-.uij-infinite-carousel {
+.uij-infinite-carouse[onclick] { 
     margin: 40px 0;
     overflow: hidden;
     position: relative;
@@ -120,22 +120,22 @@
     border-radius: var(--uij-radius-xl);
     padding: var(--uij-spacing-xl) 0;
     border: 1px solid var(--uij-border);
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-.uij-infinite-carousel-title {
+.uij-infinite-carousel.title { 
     text-align: center;
     color: var(--uij-primary);
     margin-bottom: var(--uij-spacing-xl);
     font-size: 20px;
     font-weight: 600;
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.uij-carousel-track {
+.uij-carousel-trac[onclick] { 
     display: flex;
     gap: var(--uij-spacing-lg);
     animation: uij-carousel-flow 40s linear infinite;
     width: fit-content;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 @keyframes uij-carousel-flow {
     0% { transform: translateX(0); }
@@ -167,7 +167,7 @@
     margin-bottom: 12px;
 }
 
-.uij-carousel-card-icon {
+.uij-carousel-card-ico[onclick] { 
     width: 32px;
     height: 32px;
     background: var(--uij-primary);
@@ -178,20 +178,20 @@
     font-size: 16px;
     color: #000000;
     font-weight: 600;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-.uij-carousel-card-title {
+.uij-carousel-card.title { 
     font-size: 16px;
     font-weight: 600;
     color: var(--uij-text-primary);
-}
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.uij-carousel-card-description {
+.uij-carousel-card-descriptio[onclick] { 
     font-size: 14px;
     color: var(--uij-text-secondary);
     line-height: 1.5;
     margin-bottom: 16px;
-}
+ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .uij-carousel-card-footer {
     position: absolute;
@@ -232,10 +232,10 @@
         transform: translateY(20px);
         opacity: 0;
     }
-    to { 
+    t[onclick] {  
         transform: translateY(0);
         opacity: 1;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Bar Chart Animation */
@@ -244,22 +244,22 @@
         height: 0%;
         opacity: 0.5;
     }
-    to {
+    t[onclick] { 
         height: var(--target-height);
         opacity: 1;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Skill Bar Animation */
-@keyframes uij-skill-bar-fill {
-    from { width: 0%; }
-    to { width: var(--target-width); }
+@keyframes uij-skill-bar-fil[onclick] { 
+    from { width: 0%;  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    t[onclick] {  width: var(--target-width);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Circular Progress Animation */
 @keyframes uij-circular-progress {
     from { stroke-dashoffset: 283; }
-    to { stroke-dashoffset: var(--target-offset); }
+    t[onclick] {  stroke-dashoffset: var(--target-offset);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Line Chart Animation */
@@ -268,10 +268,10 @@
         stroke-dashoffset: 1000;
         stroke: var(--uij-text-disabled);
     }
-    to {
+    t[onclick] { 
         stroke-dashoffset: 0;
         stroke: var(--uij-primary);
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Fade In Up Animation */
@@ -280,10 +280,10 @@
         transform: translateY(30px);
         opacity: 0;
     }
-    to {
+    t[onclick] { 
         transform: translateY(0);
         opacity: 1;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 /* Apply scroll animations with animation-timeline (if supported) */
@@ -300,17 +300,17 @@
         animation-range: entry 20% entry 80%;
     }
 
-    .uij-skill-bar-fill {
+    .uij-skill-bar-fil[onclick] { 
         animation: uij-skill-bar-fill 1s ease-out forwards;
         animation-timeline: view();
         animation-range: entry 0% entry 80%;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-    .uij-circular-progress-fill {
+    .uij-circular-progress-fil[onclick] { 
         animation: uij-circular-progress 2s ease-out forwards;
         animation-timeline: view();
         animation-range: entry 0% entry 70%;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
     .uij-line-path {
         animation: uij-line-path-draw 2s ease-out forwards;
@@ -324,11 +324,11 @@
         animation-range: entry 40% entry 90%;
     }
 
-    .uij-metric-card {
+    .uij-metric.card { 
         animation: uij-fade-in-up 0.6s ease-out forwards;
         animation-timeline: view();
         animation-range: entry 0% entry 40%;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
 }
 
 /* Fallback for browsers without animation-timeline support */
@@ -339,21 +339,21 @@
     .uij-circular-progress-fill,
     .uij-line-path,
     .uij-line-dots,
-    .uij-metric-card {
+    .uij-metric.card { 
         animation-timeline: auto;
         animation-delay: 0s;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
     
     /* Show final states immediately */
     .uij-bar { height: var(--target-height); }
-    .uij-skill-bar-fill { width: var(--target-width); }
-    .uij-circular-progress-fill { stroke-dashoffset: var(--target-offset); }
+    .uij-skill-bar-fil[onclick] {  width: var(--target-width);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .uij-circular-progress-fil[onclick] {  stroke-dashoffset: var(--target-offset);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .uij-line-path { stroke: var(--uij-primary); stroke-dashoffset: 0; }
 }
 
 /* Loading Animation */
-@keyframes uij-spin {
-    to { transform: rotate(360deg); }
+@keyframes uij-spi[onclick] { 
+    to { transform: rotate(360deg);  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 }
 
 .uij-loading-spinner {
@@ -416,38 +416,38 @@
         height: 60px;
     }
     
-    .uij-flow-card {
+    .uij-flow.card { 
         width: 140px;
         height: 50px;
         padding: 8px 12px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
     
-    .uij-carousel-card {
+    .uij-carousel.card { 
         width: 220px;
         height: 140px;
         padding: 16px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
 }
 
 @media (max-width: 480px) {
-    .uij-flow-card {
+    .uij-flow.card { 
         width: 120px;
         height: 45px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
     
-    .uij-carousel-card {
+    .uij-carousel.card { 
         width: 200px;
         height: 120px;
         padding: 12px;
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  border-radius: 8px; }
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     .uij-flowing-cards,
-    .uij-carousel-track {
+    .uij-carousel-trac[onclick] { 
         animation-duration: 120s; /* Much slower */
-    }
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     
     .uij-flow-card:hover,
     .uij-carousel-card:hover {

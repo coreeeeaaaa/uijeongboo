@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo CSS-Only Menu System</title>
+    <link rel="stylesheet" href="uijeongboo-design-system/uijeongboo.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--saaaaha-font-primary);
+            background: var(--saaaaha-gray-200);
+            color: var(--saaaaha-white);
+            min-height: 100vh;
+        }
+
+        /* CSS-Only Menu System */
+        .uij-menu-system {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Hide radio inputs */
+        .uij-menu-system input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Header with menu */
+        .uij-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--saaaaha-gray-300);
+            border-bottom: 1px solid var(--saaaaha-gray-400);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--saaaaha-space-3);
+        }
+
+        .uij-site-title {
+            font-size: var(--saaaaha-text-xl);
+            font-weight: 600;
+            color: var(--saaaaha-lime);
+            margin-right: var(--saaaaha-space-4);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Menu Navigation */
+        .uij-menu {
+            display: flex;
+            gap: var(--saaaaha-space-4);
+            margin-left: auto;
+        }
+
+        .uij-menu-item {
+            background: transparent;
+            border: none;
+            color: var(--saaaaha-white);
+            opacity: 0.7;
+            font-size: var(--saaaaha-text-sm);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-md);
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-menu-item:hover {
+            color: var(--saaaaha-white);
+            opacity: 1;
+            background: rgba(68, 68, 68, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Active menu states using radio button checked state */
+        #dashboard:checked ~ .uij-header .uij-menu label[for="dashboard"],
+        #projects:checked ~ .uij-header .uij-menu label[for="projects"],
+        #settings:checked ~ .uij-header .uij-menu label[for="settings"],
+        #chat:checked ~ .uij-header .uij-menu label[for="chat"],
+        #components:checked ~ .uij-header .uij-menu label[for="components"] {
+            color: var(--saaaaha-lime);
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        /* Main content area */
+        .uij-main {
+            margin-top: 64px;
+            flex: 1;
+            position: relative;
+        }
+
+        /* Pages */
+        .uij-pages {
+            position: relative;
+            min-height: calc(100vh - 64px);
+        }
+
+        .uij-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: var(--saaaaha-space-4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        /* Show active page based on radio button state */
+        #dashboard:checked ~ .uij-main .uij-pages #dashboard-content,
+        #projects:checked ~ .uij-main .uij-pages #projects-content,
+        #settings:checked ~ .uij-main .uij-pages #settings-content,
+        #chat:checked ~ .uij-main .uij-pages #chat-content,
+        #components:checked ~ .uij-main .uij-pages #components-content {
+            opacity: 1;
+            visibility: visible;
+            z-index: 1;
+        }
+
+        /* Page content styles */
+        .uij-page-header {
+            margin-bottom: var(--saaaaha-space-4);
+        }
+
+        .uij-page-title {
+            font-size: var(--saaaaha-text-3xl);
+            font-weight: 700;
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-2);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-page-description {
+            font-size: var(--saaaaha-text-lg);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Content cards */
+        .uij-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--saaaaha-space-3);
+        }
+
+        .uij-content-card {
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+            padding: var(--saaaaha-space-3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .uij-content-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: var(--saaaaha-gray-400);
+        }
+
+        .uij-card-title {
+            font-size: var(--saaaaha-text-lg);
+            font-weight: 600;
+            color: var(--saaaaha-white);
+            margin-bottom: var(--saaaaha-space-1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .uij-card-description {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Demo specific styles */
+        .demo-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--saaaaha-space-3);
+            margin-bottom: var(--saaaaha-space-4);
+        }
+
+        .uij-metric {
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+            padding: var(--saaaaha-space-3);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .uij-metric:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: var(--saaaaha-gray-400);
+        }
+
+        .uij-metric-value {
+            font-size: var(--saaaaha-text-4xl);
+            font-weight: 700;
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-1);
+        }
+
+        .uij-metric-label {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .uij-header {
+                padding: 0 var(--saaaaha-space-2);
+            }
+            
+            .uij-menu {
+                gap: var(--saaaaha-space-2);
+            }
+            
+            .uij-menu-item {
+                padding: var(--saaaaha-space-1);
+                font-size: var(--saaaaha-text-xs);
+            }
+            
+            .uij-page {
+                padding: var(--saaaaha-space-2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="uij-menu-system">
+        <!-- Radio inputs for menu state -->
+        <input type="radio" name="menu" id="dashboard" checked>
+        <input type="radio" name="menu" id="projects">
+        <input type="radio" name="menu" id="components">
+        <input type="radio" name="menu" id="chat">
+        <input type="radio" name="menu" id="settings">
+
+        <!-- Header with navigation -->
+        <header class="uij-header">
+            <div class="uij-site-title">UijeongBoo CSS Menu</div>
+            <nav class="uij-menu">
+                <label for="dashboard" class="uij-menu-item">Dashboard</label>
+                <label for="projects" class="uij-menu-item">Projects</label>
+                <label for="components" class="uij-menu-item">Components</label>
+                <label for="chat" class="uij-menu-item">Chat</label>
+                <label for="settings" class="uij-menu-item">Settings</label>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main class="uij-main">
+            <div class="uij-pages">
+                <!-- Dashboard Page -->
+                <div class="uij-page" id="dashboard-content">
+                    <div class="uij-page-header">
+                        <h1 class="uij-page-title">Dashboard</h1>
+                        <p class="uij-page-description">
+                            UijeongBoo 프레임워크 대시보드입니다. CSS만으로 구현된 메뉴 시스템을 확인하세요.
+                        </p>
+                    </div>
+
+                    <div class="demo-metrics">
+                        <div class="uij-metric">
+                            <div class="uij-metric-value">1,234</div>
+                            <div class="uij-metric-label">총 방문자</div>
+                        </div>
+                        <div class="uij-metric">
+                            <div class="uij-metric-value">89</div>
+                            <div class="uij-metric-label">활성 사용자</div>
+                        </div>
+                        <div class="uij-metric">
+                            <div class="uij-metric-value">456</div>
+                            <div class="uij-metric-label">페이지뷰</div>
+                        </div>
+                        <div class="uij-metric">
+                            <div class="uij-metric-value">12</div>
+                            <div class="uij-metric-label">프로젝트</div>
+                        </div>
+                    </div>
+
+                    <div class="uij-content-grid">
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">최근 활동</div>
+                            <div class="uij-card-description">
+                                최근 사용자 활동 및 시스템 상태를 확인할 수 있습니다. 
+                                실시간으로 업데이트되는 정보를 제공합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">성능 분석</div>
+                            <div class="uij-card-description">
+                                시스템 성능 지표와 최적화 권장사항을 확인하세요. 
+                                로딩 시간, 반응성, 사용자 경험 개선점을 제공합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">알림 센터</div>
+                            <div class="uij-card-description">
+                                중요한 알림과 업데이트 내역을 확인할 수 있습니다. 
+                                시스템 상태 및 보안 관련 정보를 실시간으로 제공합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Page -->
+                <div class="uij-page" id="projects-content">
+                    <div class="uij-page-header">
+                        <h1 class="uij-page-title">Projects</h1>
+                        <p class="uij-page-description">
+                            진행 중인 프로젝트들을 관리하고 추적할 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="uij-content-grid">
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">UijeongBoo Framework</div>
+                            <div class="uij-card-description">
+                                최소한의 JavaScript를 사용하는 CSS 중심의 디자인 프레임워크 개발 프로젝트입니다. 
+                                HTML/CSS만으로 대부분의 인터랙션을 구현하는 것이 목표입니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">Component Library</div>
+                            <div class="uij-card-description">
+                                재사용 가능한 UI 컴포넌트 라이브러리를 구축하고 있습니다. 
+                                모든 컴포넌트는 UijeongBoo 디자인 규칙을 준수합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">Documentation Site</div>
+                            <div class="uij-card-description">
+                                개발자들을 위한 포괄적인 문서화 사이트를 제작하고 있습니다. 
+                                사용법, 예제, 가이드라인을 포함합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Components Page -->
+                <div class="uij-page" id="components-content">
+                    <div class="uij-page-header">
+                        <h1 class="uij-page-title">Components</h1>
+                        <p class="uij-page-description">
+                            UijeongBoo 프레임워크의 모든 컴포넌트를 확인하고 테스트할 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="uij-content-grid">
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">CSS-Only Menu</div>
+                            <div class="uij-card-description">
+                                현재 보고 계신 메뉴 시스템입니다. JavaScript 없이 순수 CSS만으로 구현되었습니다. 
+                                라디오 버튼과 CSS 선택자를 활용했습니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">Interactive Cards</div>
+                            <div class="uij-card-description">
+                                호버 효과와 애니메이션이 적용된 카드 컴포넌트입니다. 
+                                텍스트 오버플로우 처리와 반응형 디자인을 지원합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">CSS Sidebar</div>
+                            <div class="uij-card-description">
+                                체크박스와 CSS 선택자를 활용한 사이드바 시스템입니다. 
+                                JavaScript 없이도 완전한 네비게이션 기능을 제공합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Page -->
+                <div class="uij-page" id="chat-content">
+                    <div class="uij-page-header">
+                        <h1 class="uij-page-title">Chat System</h1>
+                        <p class="uij-page-description">
+                            실시간 채팅 인터페이스입니다. 이 기능은 JavaScript가 필요한 예외적인 경우입니다.
+                        </p>
+                    </div>
+
+                    <div class="uij-content-grid">
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">실시간 메시징</div>
+                            <div class="uij-card-description">
+                                WebSocket이나 Server-Sent Events를 사용한 실시간 통신은 
+                                JavaScript가 필수적인 영역입니다. 하지만 UI는 CSS로 최대한 구현합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">메시지 인터페이스</div>
+                            <div class="uij-card-description">
+                                채팅 버블, 입력창, 상태 표시 등 UI 요소들은 CSS로 스타일링하고, 
+                                메시지 전송과 수신만 JavaScript로 처리합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">파일 업로드</div>
+                            <div class="uij-card-description">
+                                드래그 앤 드롭, 파일 선택 UI는 CSS로 구현하고, 
+                                실제 업로드 로직만 JavaScript로 처리하는 것이 UijeongBoo 방식입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div class="uij-page" id="settings-content">
+                    <div class="uij-page-header">
+                        <h1 class="uij-page-title">Settings</h1>
+                        <p class="uij-page-description">
+                            시스템 설정과 개인화 옵션을 관리할 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="uij-content-grid">
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">테마 설정</div>
+                            <div class="uij-card-description">
+                                UijeongBoo 프레임워크는 라임 그린 액센트와 그레이스케일 팔레트를 사용합니다. 
+                                커스터마이징은 CSS 변수를 통해 제한적으로 가능합니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">레이아웃 옵션</div>
+                            <div class="uij-card-description">
+                                사이드바 위치, 메뉴 스타일, 카드 레이아웃 등을 설정할 수 있습니다. 
+                                모든 변경사항은 CSS 클래스 전환으로 처리됩니다.
+                            </div>
+                        </div>
+                        <div class="uij-content-card">
+                            <div class="uij-card-title">접근성 설정</div>
+                            <div class="uij-card-description">
+                                키보드 네비게이션, 포커스 표시, 색상 대비 등 접근성 관련 설정을 
+                                관리할 수 있습니다. CSS로 대부분 구현 가능합니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- No JavaScript needed for basic menu functionality! -->
+    <script>
+        // 이 스크립트는 프레임워크 시연을 위한 것입니다.
+        // 실제로는 CSS만으로도 완전히 작동합니다.
+        console.log('● UijeongBoo CSS-Only Menu System Loaded');
+        console.log('● JavaScript 사용 최소화 - 메뉴는 순수 CSS로 구현됨');
+        console.log('● 라디오 버튼과 CSS 선택자를 활용한 상태 관리');
+    </script>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo - Modal & Popup Components</title>
+    
+    <!-- UijeongBoo Core CSS -->
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    
+    <!-- UijeongBoo Global Enforcer - 전역 강제 규칙 -->
+    <link rel="stylesheet" href="../../css/uijeongboo-global-enforcer.css">
+    
+    <style>
+        /* ===== PAGE LAYOUT ===== */
+        body {
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            font-family: var(--uij-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--uij-primary, #32CD32);
+            margin-bottom: 16px;
+        }
+        
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--uij-text-secondary, #cccccc);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .demo-section {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .demo-section h2 {
+            color: var(--uij-primary, #32CD32);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .demo-section p {
+            color: var(--uij-text-secondary, #cccccc);
+            margin-bottom: 24px;
+        }
+        
+        .demo-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        /* ===== MODAL STYLES ===== */
+        .css-modal-checkbox {
+            display: none;
+        }
+        
+        .css-modal-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--uij-primary, #32CD32);
+            color: var(--uij-primary, #32CD32);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .css-modal-btn:hover {
+            background: var(--uij-primary, #32CD32);
+            color: var(--uij-bg-primary, #222222);
+        }
+        
+        .css-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #222222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--uij-z-modal, 1010);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .css-modal-checkbox:checked + .css-modal-btn + .css-modal-overlay,
+        .css-modal-checkbox:checked ~ .css-modal-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .css-modal {
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: default;
+        }
+        
+        .css-modal-checkbox:checked + .css-modal-btn + .css-modal-overlay .css-modal,
+        .css-modal-checkbox:checked ~ .css-modal-overlay .css-modal {
+            transform: scale(1);
+        }
+        
+        .css-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: var(--uij-text-secondary, #cccccc);
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .css-modal-close:hover {
+            background: var(--uij-bg-tertiary, #444444);
+            color: var(--uij-primary, #32CD32);
+        }
+        
+        .confirm-modal .modal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--uij-primary, #32CD32);
+            color: var(--uij-bg-primary, #222222);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--uij-border, #444444);
+            color: var(--uij-text-secondary, #cccccc);
+        }
+        
+        .modal-btn.confirm {
+            background: var(--uij-primary, #32CD32);
+            border: 1px solid var(--uij-primary, #32CD32);
+            color: var(--uij-bg-primary, #222222);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--uij-border, #444444);
+            border-top-color: var(--uij-primary, #32CD32);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== TOOLTIP STYLES ===== */
+        .css-tooltip {
+            position: relative;
+            display: inline-block;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 6px;
+            cursor: help;
+            transition: all 0.2s ease;
+            margin: 8px;
+        }
+        
+        .css-tooltip:hover {
+            border-color: var(--uij-primary, #32CD32);
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
+        .css-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--uij-bg-primary, #222222);
+            color: var(--uij-text-primary, #eeeeee);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--uij-border, #444444);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 12px;
+        }
+        
+        .css-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--uij-border, #444444);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .css-tooltip:hover::after,
+        .css-tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ===== DROPDOWN STYLES ===== */
+        .css-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .css-dropdown-checkbox {
+            display: none;
+        }
+        
+        .css-dropdown-btn {
+            padding: 12px 16px;
+            background: transparent;
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            color: var(--uij-text-primary, #eeeeee);
+            min-width: 150px;
+            justify-content: space-between;
+        }
+        
+        .css-dropdown-btn:hover {
+            border-color: var(--uij-primary, #32CD32);
+            background: var(--uij-bg-tertiary, #444444);
+        }
+        
+        .css-dropdown-btn::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .css-dropdown-checkbox:checked + .css-dropdown-btn::after {
+            transform: rotate(180deg);
+        }
+        
+        .css-dropdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: transparent;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 998;
+        }
+        
+        .css-dropdown-checkbox:checked ~ .css-dropdown-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .css-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background: var(--uij-bg-secondary, #333333);
+            border: 1px solid var(--uij-border, #444444);
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 999;
+            margin-top: 4px;
+        }
+        
+        .css-dropdown-checkbox:checked ~ .css-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .css-dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--uij-text-secondary, #cccccc);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--uij-border, #444444);
+        }
+        
+        .css-dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .css-dropdown-item:hover {
+            background: var(--uij-bg-tertiary, #444444);
+            color: var(--uij-primary, #32CD32);
+        }
+        
+        /* ===== IMAGE OVERLAY STYLES ===== */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        
+        .image-item {
+            position: relative;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--uij-bg-tertiary, #444444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .image-content {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--uij-text-secondary, #cccccc);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(34, 34, 34, 0.95);
+            color: var(--uij-text-primary, #eeeeee);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid var(--uij-primary, #32CD32);
+            border-radius: 8px;
+        }
+        
+        .zoom-effect:hover .image-placeholder {
+            transform: scale(1.1);
+        }
+        
+        .zoom-effect:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .fade-effect:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .slide-effect .image-overlay {
+            transform: translateY(100%);
+            opacity: 1;
+        }
+        
+        .slide-effect:hover .image-overlay {
+            transform: translateY(0);
+        }
+        
+        .image-overlay h4 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .image-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* ===== UTILITY STYLES ===== */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        
+        .tooltip-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        
+        .dropdown-group {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Modal & Popup Components</h1>
+            <p class="page-description">
+                UijeongBoo framework에서 제공하는 다양한 모달, 팝업, 오버레이 컴포넌트들입니다. 
+                모든 컴포넌트는 JavaScript 없이 순수 CSS만으로 구현되었습니다.
+            </p>
+        </header>
+
+        <!-- Modal Components Section -->
+        <section class="demo-section">
+            <h2>Modal Components</h2>
+            <p>체크박스를 활용한 다양한 모달 변형 - 기본, 확인, 로딩 모달</p>
+            
+            <div class="button-group">
+                <!-- Basic Modal -->
+                <div>
+                    <input type="checkbox" id="modal-basic" class="css-modal-checkbox">
+                    <label for="modal-basic" class="css-modal-btn">기본 모달</label>
+                    
+                    <label for="modal-basic" class="css-modal-overlay">
+                        <div class="css-modal basic-modal">
+                            <label for="modal-basic" class="css-modal-close">×</label>
+                            <h3>기본 모달</h3>
+                            <p>JavaScript 없이 CSS만으로 구현한 기본 모달입니다. 배경 클릭이나 X 버튼으로 닫을 수 있습니다.</p>
+                            <p>이 모달은 UijeongBoo 디자인 시스템을 따라 어두운 배경과 라임 그린 포인트 컬러를 사용합니다.</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- Confirmation Modal -->
+                <div>
+                    <input type="checkbox" id="modal-confirm" class="css-modal-checkbox">
+                    <label for="modal-confirm" class="css-modal-btn">확인 모달</label>
+                    
+                    <label for="modal-confirm" class="css-modal-overlay">
+                        <div class="css-modal confirm-modal">
+                            <div class="modal-icon">!</div>
+                            <h3>정말 삭제하시겠습니까?</h3>
+                            <p>이 작업은 되돌릴 수 없습니다. 신중하게 결정해주세요.</p>
+                            <div class="modal-buttons">
+                                <label for="modal-confirm" class="modal-btn cancel">취소</label>
+                                <label for="modal-confirm" class="modal-btn confirm">삭제</label>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- Loading Modal -->
+                <div>
+                    <input type="checkbox" id="modal-loading" class="css-modal-checkbox">
+                    <label for="modal-loading" class="css-modal-btn">로딩 모달</label>
+                    
+                    <label for="modal-loading" class="css-modal-overlay">
+                        <div class="css-modal loading-modal">
+                            <div class="loading-spinner"></div>
+                            <h3>처리 중...</h3>
+                            <p>잠시만 기다려주세요. 작업을 완료하는 중입니다.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tooltip Components Section -->
+        <section class="demo-section">
+            <h2>Tooltip Components</h2>
+            <p>호버 상태로 구현한 CSS 전용 툴팁 - data 속성을 활용한 동적 내용</p>
+            
+            <div class="tooltip-group">
+                <span class="css-tooltip" data-tooltip="이것은 툴팁입니다!">Hover me</span>
+                <span class="css-tooltip" data-tooltip="CSS만으로 구현했어요">Another tooltip</span>
+                <span class="css-tooltip" data-tooltip="JavaScript 필요없음">Third tooltip</span>
+                <span class="css-tooltip" data-tooltip="UijeongBoo 디자인 시스템 적용">Design System</span>
+                <span class="css-tooltip" data-tooltip="반응형 툴팁 컴포넌트">Responsive</span>
+            </div>
+        </section>
+
+        <!-- Dropdown Components Section -->
+        <section class="demo-section">
+            <h2>Dropdown Components</h2>
+            <p>체크박스로 구현한 드롭다운 메뉴 - 배경 클릭으로 자동 닫힘</p>
+            
+            <div class="dropdown-group">
+                <!-- Primary Dropdown -->
+                <div class="css-dropdown">
+                    <input type="checkbox" id="dropdown-toggle-1" class="css-dropdown-checkbox">
+                    <label for="dropdown-toggle-1" class="css-dropdown-btn">
+                        Select Option
+                    </label>
+                    
+                    <label for="dropdown-toggle-1" class="css-dropdown-overlay"></label>
+                    
+                    <div class="css-dropdown-menu">
+                        <a href="#" class="css-dropdown-item">Option 1</a>
+                        <a href="#" class="css-dropdown-item">Option 2</a>
+                        <a href="#" class="css-dropdown-item">Option 3</a>
+                        <a href="#" class="css-dropdown-item">Option 4</a>
+                    </div>
+                </div>
+                
+                <!-- Secondary Dropdown -->
+                <div class="css-dropdown">
+                    <input type="checkbox" id="dropdown-toggle-2" class="css-dropdown-checkbox">
+                    <label for="dropdown-toggle-2" class="css-dropdown-btn">
+                        Menu Items
+                    </label>
+                    
+                    <label for="dropdown-toggle-2" class="css-dropdown-overlay"></label>
+                    
+                    <div class="css-dropdown-menu">
+                        <a href="#" class="css-dropdown-item">Dashboard</a>
+                        <a href="#" class="css-dropdown-item">Profile</a>
+                        <a href="#" class="css-dropdown-item">Settings</a>
+                        <a href="#" class="css-dropdown-item">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Overlay Effects Section -->
+        <section class="demo-section">
+            <h2>Image Overlay Effects</h2>
+            <p>다양한 이미지 호버 효과 - 확대, 페이드, 슬라이드 효과</p>
+            
+            <div class="image-gallery">
+                <!-- Zoom Effect -->
+                <div class="image-item zoom-effect">
+                    <div class="image-placeholder">
+                        <div class="image-content">ZOOM</div>
+                    </div>
+                    <div class="image-overlay">
+                        <h4>확대 효과</h4>
+                        <p>호버 시 이미지가 확대되는 효과입니다</p>
+                    </div>
+                </div>
+                
+                <!-- Fade Effect -->
+                <div class="image-item fade-effect">
+                    <div class="image-placeholder">
+                        <div class="image-content">FADE</div>
+                    </div>
+                    <div class="image-overlay">
+                        <h4>페이드 효과</h4>
+                        <p>호버 시 오버레이가 서서히 나타납니다</p>
+                    </div>
+                </div>
+                
+                <!-- Slide Effect -->
+                <div class="image-item slide-effect">
+                    <div class="image-placeholder">
+                        <div class="image-content">SLIDE</div>
+                    </div>
+                    <div class="image-overlay">
+                        <h4>슬라이드 효과</h4>
+                        <p>호버 시 오버레이가 슬라이드됩니다</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Examples -->
+                <div class="image-item fade-effect">
+                    <div class="image-placeholder">
+                        <div class="image-content">INFO</div>
+                    </div>
+                    <div class="image-overlay">
+                        <h4>정보 표시</h4>
+                        <p>추가 정보를 표시하는 오버레이</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Guidelines Section -->
+        <section class="demo-section">
+            <h2>사용 가이드라인</h2>
+            <p>각 컴포넌트의 활용 방법과 커스터마이징 가이드</p>
+            
+            <div class="demo-grid">
+                <div>
+                    <h3>Modal Components</h3>
+                    <ul>
+                        <li>체크박스 ID는 고유해야 합니다</li>
+                        <li>배경 클릭 또는 X 버튼으로 닫기 가능</li>
+                        <li>애니메이션은 CSS transform으로 구현</li>
+                        <li>모바일에서도 반응형으로 작동</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Tooltip Components</h3>
+                    <ul>
+                        <li>data-tooltip 속성에 내용 입력</li>
+                        <li>호버 시 자동으로 표시됩니다</li>
+                        <li>위치는 CSS로 조정 가능</li>
+                        <li>말풍선 화살표 포함</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Dropdown Components</h3>
+                    <ul>
+                        <li>체크박스로 열기/닫기 제어</li>
+                        <li>배경 클릭으로 자동 닫힘</li>
+                        <li>키보드 접근성 고려 필요</li>
+                        <li>메뉴 항목은 자유롭게 추가 가능</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Image Overlay Effects</h3>
+                    <ul>
+                        <li>zoom-effect, fade-effect, slide-effect 클래스 사용</li>
+                        <li>이미지 대신 배경색으로 대체 가능</li>
+                        <li>오버레이 내용은 HTML로 자유롭게 구성</li>
+                        <li>모든 효과는 CSS transition 활용</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

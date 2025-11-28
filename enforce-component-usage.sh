@@ -3,7 +3,24 @@
 # UijeongBoo Component Usage Enforcement Script
 # 이 스크립트는 오직 승인된 UijeongBoo 컴포넌트만 사용되도록 강제합니다.
 
-echo "🔍 UijeongBoo 컴포넌트 사용 검증 중..."
+echo "UijeongBoo 컴포넌트 강제 사용 검증 중..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "ULTIMATE CRITICAL: 승인된 컴포넌트만 사용 허용"
+echo "외부 라이브러리/커스텀 컴포넌트 완전 차단"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# 금지된 외부 라이브러리 및 커스텀 컴포넌트 패턴들
+FORBIDDEN_LIBRARIES=(
+    "bootstrap"
+    "material-ui"
+    "tailwind"
+    "bulma"
+    "semantic-ui"
+    "foundation"
+    "antd"
+    "chakra-ui"
+    "mantine"
+)
 
 # 금지된 SwiftUI 컴포넌트 패턴들
 FORBIDDEN_PATTERNS=(
@@ -48,6 +65,43 @@ REQUIRED_PATTERNS=(
 )
 
 VIOLATIONS_FOUND=0
+
+# 외부 라이브러리 사용 검사
+echo "외부 라이브러리 사용 검사 중..."
+for file in $(find . -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "package.json" 2>/dev/null); do
+    if [ -f "$file" ]; then
+        for lib in "${FORBIDDEN_LIBRARIES[@]}"; do
+            if grep -i "$lib" "$file" >/dev/null 2>&1; then
+                echo "금지된 외부 라이브러리 발견: $lib in $file"
+                VIOLATIONS_FOUND=$((VIOLATIONS_FOUND + 1))
+            fi
+        done
+    fi
+done
+
+# 커스텀 사이드바/채팅/애니메이션 검사
+echo "커스텀 UI 컴포넌트 검사 중..."
+CUSTOM_UI_PATTERNS=(
+    "class.*[Ss]idebar"
+    "class.*[Cc]hat"
+    "class.*[Mm]enu.*[Aa]nimation"
+    "class.*[Cc]ustom.*[Bb]utton"
+    "\.sidebar-custom"
+    "\.chat-custom"
+    "\.animation-custom"
+)
+
+for file in $(find . -name "*.html" -o -name "*.css" -o -name "*.js" 2>/dev/null); do
+    if [ -f "$file" ]; then
+        for pattern in "${CUSTOM_UI_PATTERNS[@]}"; do
+            if grep -E "$pattern" "$file" >/dev/null 2>&1; then
+                echo "❌ 커스텀 UI 컴포넌트 발견: $pattern in $file"
+                echo "   승인된 UijeongBoo 컴포넌트 사용 필수"
+                VIOLATIONS_FOUND=$((VIOLATIONS_FOUND + 1))
+            fi
+        done
+    fi
+done
 
 # Swift 파일들 검사
 echo "📁 Swift 파일들 검사 중..."

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UijeongBoo Components Library</title>
+    <link rel="stylesheet" href="../uijeongboo-design-system/uijeongboo.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--saaaaha-font-primary);
+            background: var(--saaaaha-gray-200);
+            color: var(--saaaaha-white);
+            min-height: 100vh;
+            padding: var(--saaaaha-space-4);
+        }
+
+        .library-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .library-header {
+            text-align: center;
+            margin-bottom: var(--saaaaha-space-6);
+            padding: var(--saaaaha-space-4);
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-lg);
+        }
+
+        .library-title {
+            font-size: var(--saaaaha-text-4xl);
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-2);
+            font-weight: 700;
+        }
+
+        .library-description {
+            font-size: var(--saaaaha-text-lg);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--saaaaha-space-4);
+        }
+
+        .component-card {
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--saaaaha-gray-400);
+        }
+
+        .component-card:hover {
+            transform: translateY(-4px);
+            background: var(--saaaaha-gray-400);
+            border-color: var(--saaaaha-lime);
+        }
+
+        .component-preview {
+            height: 200px;
+            background: var(--saaaaha-gray-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component-preview iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            transform: scale(0.7);
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        .component-info {
+            padding: var(--saaaaha-space-3);
+        }
+
+        .component-title {
+            font-size: var(--saaaaha-text-xl);
+            font-weight: 600;
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .component-description {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.8;
+            line-height: 1.5;
+            margin-bottom: var(--saaaaha-space-2);
+        }
+
+        .component-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--saaaaha-space-1);
+            margin-bottom: var(--saaaaha-space-3);
+        }
+
+        .feature-tag {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            padding: 2px var(--saaaaha-space-1);
+            border-radius: var(--saaaaha-radius-sm);
+            font-size: var(--saaaaha-text-xs);
+            font-weight: 500;
+        }
+
+        .component-actions {
+            display: flex;
+            gap: var(--saaaaha-space-1);
+        }
+
+        .component-btn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--saaaaha-gray-400);
+            color: var(--saaaaha-white);
+            padding: var(--saaaaha-space-1) var(--saaaaha-space-2);
+            border-radius: var(--saaaaha-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: var(--saaaaha-text-sm);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .component-btn:hover {
+            background: var(--saaaaha-gray-400);
+            transform: translateY(-1px);
+        }
+
+        .component-btn-primary {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+            border: none;
+        }
+
+        .component-btn-primary:hover {
+            background: var(--saaaaha-lime);
+            opacity: 0.9;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--saaaaha-space-3);
+            margin-bottom: var(--saaaaha-space-6);
+            padding: var(--saaaaha-space-3);
+            background: var(--saaaaha-gray-300);
+            border-radius: var(--saaaaha-radius-md);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--saaaaha-space-2);
+        }
+
+        .stat-value {
+            font-size: var(--saaaaha-text-3xl);
+            font-weight: 700;
+            color: var(--saaaaha-lime);
+            margin-bottom: var(--saaaaha-space-1);
+        }
+
+        .stat-label {
+            font-size: var(--saaaaha-text-sm);
+            color: var(--saaaaha-white);
+            opacity: 0.7;
+        }
+
+        .component-status {
+            position: absolute;
+            top: var(--saaaaha-space-1);
+            right: var(--saaaaha-space-1);
+            padding: 2px var(--saaaaha-space-1);
+            border-radius: var(--saaaaha-radius-sm);
+            font-size: var(--saaaaha-text-xs);
+            font-weight: 500;
+        }
+
+        .status-stable {
+            background: var(--saaaaha-lime);
+            color: var(--saaaaha-black);
+        }
+
+        .status-beta {
+            background: #ffd700;
+            color: var(--saaaaha-black);
+        }
+
+        .status-alpha {
+            background: #ff6b6b;
+            color: var(--saaaaha-white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="library-container">
+        <!-- Header -->
+        <header class="library-header">
+            <h1 class="library-title">UijeongBoo Components Library</h1>
+            <p class="library-description">
+                체계적으로 정리된 UijeongBoo 디자인 시스템 컴포넌트 라이브러리입니다.<br>
+                각 컴포넌트는 독립적으로 사용 가능하며, 일관된 디자인 규칙을 따릅니다.
+            </p>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div class="stat-label">안정 컴포넌트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">UijeongBoo 준수</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">하드코딩 스타일</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">15+</div>
+                <div class="stat-label">인터랙션</div>
+            </div>
+        </div>
+
+        <!-- Components Grid -->
+        <div class="components-grid">
+            <!-- Chat Component -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-stable">Stable</div>
+                    <iframe src="chat-component.html"></iframe>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Chat Component</h3>
+                    <p class="component-description">
+                        실시간 채팅 인터페이스입니다. 메시지 입력, 파일 첨부, 
+                        타이핑 인디케이터 등의 기능을 포함합니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">실시간</span>
+                        <span class="feature-tag">파일첨부</span>
+                        <span class="feature-tag">반응형</span>
+                        <span class="feature-tag">키보드지원</span>
+                    </div>
+                    <div class="component-actions">
+                        <a href="chat-component.html" class="component-btn component-btn-primary" target="_blank">
+                            미리보기
+                        </a>
+                        <a href="#" class="component-btn" onclick="copyCode('chat')">
+                            코드복사
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Component -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-stable">Stable</div>
+                    <iframe src="sidebar-component.html"></iframe>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Sidebar Component</h3>
+                    <p class="component-description">
+                        양방향 사이드바 시스템입니다. 데스크톱에서는 푸시 효과, 
+                        모바일에서는 오버레이 방식으로 동작합니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">양방향</span>
+                        <span class="feature-tag">반응형</span>
+                        <span class="feature-tag">애니메이션</span>
+                        <span class="feature-tag">키보드지원</span>
+                    </div>
+                    <div class="component-actions">
+                        <a href="sidebar-component.html" class="component-btn component-btn-primary" target="_blank">
+                            미리보기
+                        </a>
+                        <a href="#" class="component-btn" onclick="copyCode('sidebar')">
+                            코드복사
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Component -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-stable">Stable</div>
+                    <iframe src="card-component.html"></iframe>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Card Component</h3>
+                    <p class="component-description">
+                        다양한 변형을 가진 카드 컴포넌트입니다. 
+                        기본, 액센트, 메트릭, 인터랙티브 카드를 포함합니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">다양한변형</span>
+                        <span class="feature-tag">호버효과</span>
+                        <span class="feature-tag">텍스트오버플로우</span>
+                        <span class="feature-tag">메트릭지원</span>
+                    </div>
+                    <div class="component-actions">
+                        <a href="card-component.html" class="component-btn component-btn-primary" target="_blank">
+                            미리보기
+                        </a>
+                        <a href="#" class="component-btn" onclick="copyCode('card')">
+                            코드복사
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Component (Placeholder) -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-alpha">Planning</div>
+                    <div style="color: var(--saaaaha-white); opacity: 0.5;">
+                        버튼 컴포넌트<br>개발 예정
+                    </div>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Button Component</h3>
+                    <p class="component-description">
+                        UijeongBoo 디자인 시스템을 따르는 버튼 컴포넌트입니다. 
+                        투명 배경 규칙을 준수합니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">투명배경</span>
+                        <span class="feature-tag">다양한크기</span>
+                        <span class="feature-tag">상태관리</span>
+                    </div>
+                    <div class="component-actions">
+                        <button class="component-btn" disabled style="opacity: 0.5;">
+                            개발중
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Component (Placeholder) -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-alpha">Planning</div>
+                    <div style="color: var(--saaaaha-white); opacity: 0.5;">
+                        폼 컴포넌트<br>개발 예정
+                    </div>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Form Component</h3>
+                    <p class="component-description">
+                        입력 필드, 드롭다운, 체크박스 등을 포함하는 
+                        통합 폼 컴포넌트 시스템입니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">유효성검사</span>
+                        <span class="feature-tag">다양한입력</span>
+                        <span class="feature-tag">접근성</span>
+                    </div>
+                    <div class="component-actions">
+                        <button class="component-btn" disabled style="opacity: 0.5;">
+                            개발중
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Component (Placeholder) -->
+            <div class="component-card">
+                <div class="component-preview">
+                    <div class="component-status status-alpha">Planning</div>
+                    <div style="color: var(--saaaaha-white); opacity: 0.5;">
+                        테이블 컴포넌트<br>개발 예정
+                    </div>
+                </div>
+                <div class="component-info">
+                    <h3 class="component-title">Table Component</h3>
+                    <p class="component-description">
+                        데이터 표시를 위한 테이블 컴포넌트입니다. 
+                        정렬, 필터링, 페이지네이션을 지원합니다.
+                    </p>
+                    <div class="component-features">
+                        <span class="feature-tag">정렬</span>
+                        <span class="feature-tag">필터링</span>
+                        <span class="feature-tag">페이지네이션</span>
+                    </div>
+                    <div class="component-actions">
+                        <button class="component-btn" disabled style="opacity: 0.5;">
+                            개발중
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(componentName) {
+            // 각 컴포넌트의 기본 사용법을 클립보드에 복사
+            const codeTemplates = {
+                chat: `<!-- UijeongBoo Chat Component -->
+<div class="uij-chat-container">
+    <div class="uij-chat-header">
+        <div class="uij-chat-title">Chat Title</div>
+    </div>
+    <div class="uij-chat-messages" id="chatMessages">
+        <!-- Messages will be added here -->
+    </div>
+    <div class="uij-chat-input-area">
+        <form onsubmit="sendMessage(event)">
+            <textarea class="uij-chat-input" placeholder="메시지 입력..."></textarea>
+            <button type="submit" class="uij-chat-btn uij-chat-btn-primary">전송</button>
+        </form>
+    </div>
+</div>`,
+                
+                sidebar: `<!-- UijeongBoo Sidebar Component -->
+<div class="uij-sidebar-left" id="leftSidebar">
+    <div class="uij-sidebar-header">
+        <h2 class="uij-sidebar-title">메뉴</h2>
+        <button class="uij-sidebar-close" onclick="toggleLeftSidebar()">×</button>
+    </div>
+    <div class="uij-sidebar-content">
+        <a href="#" class="uij-nav-item">메뉴 1</a>
+        <a href="#" class="uij-nav-item">메뉴 2</a>
+    </div>
+</div>`,
+                
+                card: `<!-- UijeongBoo Card Component -->
+<div class="uij-card">
+    <div class="uij-card-header">
+        <div class="uij-card-title">Card Title</div>
+        <div class="uij-card-subtitle">Subtitle</div>
+    </div>
+    <div class="uij-card-body">
+        <div class="uij-card-content">Card content goes here</div>
+    </div>
+    <div class="uij-card-footer">
+        <div class="uij-card-actions">
+            <button class="uij-card-btn">Cancel</button>
+            <button class="uij-card-btn uij-card-btn-primary">Confirm</button>
+        </div>
+    </div>
+</div>`
+            };
+
+            if (codeTemplates[componentName]) {
+                navigator.clipboard.writeText(codeTemplates[componentName]).then(() => {
+                    // 성공 피드백
+                    const event = new CustomEvent('showNotification', {
+                        detail: { message: '코드가 클립보드에 복사되었습니다!', type: 'success' }
+                    });
+                    window.dispatchEvent(event);
+                    
+                    // 임시 알림 (showNotification 함수가 없는 경우)
+                    alert('코드가 클립보드에 복사되었습니다!');
+                }).catch(() => {
+                    alert('코드 복사에 실패했습니다. 브라우저에서 복사를 허용해주세요.');
+                });
+            }
+        }
+
+        // 페이지 로딩 시 iframe 높이 조정
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframes = document.querySelectorAll('.component-preview iframe');
+            
+            iframes.forEach(iframe => {
+                iframe.onload = function() {
+                    // iframe 컨텐츠가 로드된 후 필요한 경우 추가 스타일링
+                    this.style.pointerEvents = 'none'; // 미리보기에서 클릭 방지
+                };
+            });
+        });
+    </script>
+</body>
+</html>
