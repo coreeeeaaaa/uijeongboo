@@ -139,7 +139,7 @@
 
 ## 라이센스
 
-MIT License
+Apache License 2.0
 
 ## 기여
 
