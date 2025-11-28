@@ -35,3 +35,20 @@ coverage/
 *.bak
 *.orig
 test-output/
+
+# Personal development files
+.context/
+.cursor/
+.continue/
+.aider.conf.yml
+.aider*
+.cursorrules
+.mcp.json
+.github/copilot-instructions.md
+
+# AI agent configs
+ai-system-prompt.md
+AI_AGENT_INSTRUCTIONS.md
+AI_AGENTS_SETUP_SUMMARY.md
+AI-AGENT-SETUP-GUIDE.md
+mcp-auto-guide.js
