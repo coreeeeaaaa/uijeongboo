@@ -372,3 +372,4 @@ Licensed under Apache License 2.0
 *Tailwind가 싫어서 만든 프레임워크*
 
 Copyright 2024-2025 coreeeeaaaa. All rights reserved.
+
