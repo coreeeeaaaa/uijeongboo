@@ -1,0 +1,17 @@
+{
+  "status": "active",
+  "canon_id": "coreeeeaaaa-ULT-FINAL+",
+  "components": {
+    "secrets": "core-config.env.template (User to populate)",
+    "firestore_rules": "firebase/firestore.rules",
+    "opa_policies": "policy/",
+    "ci_workflow": ".github/workflows/core-eeaa-ci.yaml",
+    "pointer": ".core-eeaa/pointer.json"
+  },
+  "next_steps": [
+    "Populate .env based on core-config.env.template",
+    "Set up GCP project and run 'firebase deploy --only firestore'",
+    "Configure OPA in the CI environment",
+    "Run 'node scripts/core-eeaa/init-pointer.js' to reset pointer"
+  ]
+}

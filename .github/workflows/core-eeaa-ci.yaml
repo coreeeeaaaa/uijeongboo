@@ -1,0 +1,59 @@
+name: app-ci
+on: [push, pull_request]
+
+env:
+  BUDGET: 100
+
+jobs:
+  build-test-sign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      
+      # §13 CI Pipeline Steps
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint && pnpm run typecheck
+      - run: pnpm dlx playwright install --with-deps && pnpm test:e2e
+      
+      - name: Generate SBOM & Sign
+        run: pnpm run sbom:gen && pnpm run sbom:sign
+        
+      - name: SLSA Verify
+        run: pnpm run slsa:verify
+        
+      - name: G4 Risk Metrics
+        run: node scripts/core-eeaa/g4-risk-metrics.ts
+        
+      - name: Persist G4 Gate
+        run: node scripts/core-eeaa/persist-gate.js G4 artifacts/g4-metrics.json
+        
+      - name: Evidence Pack
+        run: node scripts/core-eeaa/evidence-pack.js
+        
+      - name: Status Report
+        run: node scripts/core-eeaa/status-report.js
+
+  policy-dryrun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-policy-agent/setup-opa@v2
+      - name: Run OPA Tests
+        run: opa test policy/ -v
+      - name: Evaluate Deployment Gate
+        run: opa eval --data policy/ --input fixtures/sample.json "data.deploy.gate"
+
+  evidence-transparency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Transparency Log Upload
+        run: node scripts/core-eeaa/transparency-log.js artifacts/evidence.manifest.json
+
+  budget-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Budget Gate
+        run: node scripts/core-eeaa/budget-check.js --budget=$BUDGET

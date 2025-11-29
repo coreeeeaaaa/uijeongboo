@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isWriter() {
+      return request.auth.token.role == 'ai-writer';
+    }
+    function isReader() {
+      return request.auth.token.role == 'ai-reader';
+    }
+    function isPointerUpdater() {
+      return request.auth.token.role == 'pointer-updater';
+    }
+    function isBudgetReporter() {
+      return request.auth.token.role == 'budget-reporter';
+    }
+
+    // §3.2 & §5.1 Write-once collections
+    match /dev_gates/{project}/{yyyymm}/{ts}/{gate} {
+      allow create: if isWriter();
+      allow update, delete: if false;
+      allow read: if isReader();
+    }
+
+    match /dev_lineage/{project}/{entity}/{ts} {
+      allow create: if isWriter();
+      allow update, delete: if false;
+      allow read: if isReader();
+    }
+
+    match /blueprints/{project}/{hash} {
+      allow create: if isWriter();
+      allow update, delete: if false;
+      allow read: if isReader();
+    }
+
+    match /policies/{project}/{hash} {
+      allow create: if isWriter();
+      allow update, delete: if false;
+      allow read: if isReader();
+    }
+    
+    match /models/{project}/{hash} {
+      allow create: if isWriter();
+      allow update, delete: if false;
+      allow read: if isReader();
+    }
+
+    // §3.2 Logs (90d TTL managed by policy, here just write access)
+    match /dev_logs/{project}/{agent}/{ts} {
+      allow create: if isWriter();
+      allow read: if isReader();
+    }
+    
+    match /dev_logs_summaries/{project}/{date} {
+      allow create: if isWriter();
+      allow read: if isReader();
+    }
+
+    // §5.1 Status: create/update only, no delete
+    match /dev_status/{project}/current {
+      allow create, update: if isWriter();
+      allow delete: if false;
+      allow read: if isReader();
+    }
+
+    // §5.1 Reports: Public read for PO only (simulated via auth claim or separate logic)
+    match /dev_reports_public/{project}/{ts}/report {
+      allow create: if isWriter();
+      allow read: if request.auth.token.role == 'product-owner';
+    }
+
+    // §5.2 Pointer CAS
+    // This typically requires a transaction or conditional write in the client, 
+    // but we can enforce structure here.
+    match /blueprints_latest/{project}/pointer {
+      allow read: if isReader() || isPointerUpdater();
+      // Actual CAS logic (optimistic locking) is handled at the SDK/Client level usually, 
+      // but we enforce the role here.
+      allow write: if isPointerUpdater();
+    }
+  }
+}
