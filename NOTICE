@@ -54,16 +54,22 @@ Users are solely responsible for:
 
 SECURITY NOTICE:
 
-This framework is provided without any security guarantees. Users MUST:
+⚠️ THE AUTHOR PROVIDES NO SECURITY GUARANTEES WHATSOEVER.
 
-1. Conduct their own security audits before production deployment
-2. Implement appropriate Content Security Policy (CSP)
-3. Sanitize all user inputs when using this framework
-4. Keep dependencies up to date
-5. Monitor for security vulnerabilities
+Users (those who download and use this software) are SOLELY responsible for:
 
-The maintainers are NOT responsible for security breaches, data leaks, or
-any other security-related incidents resulting from use of this software.
+1. Conducting their own security audits before production use
+2. Implementing appropriate Content Security Policy (CSP)
+3. Sanitizing all user inputs
+4. Keeping dependencies updated
+5. Monitoring for vulnerabilities
+
+THE AUTHOR (coreeeeaaaa) IS NOT RESPONSIBLE FOR:
+- Security breaches, hacks, or data leaks
+- Any damages resulting from security vulnerabilities
+- Any security-related incidents whatsoever
+
+YOU USE THIS AT YOUR OWN RISK. NO SECURITY SUPPORT PROVIDED.
 
 ================================================================================
 
