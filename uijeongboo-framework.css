@@ -98,7 +98,6 @@ body.uijeongboo {
 }
 
 .uij-card:hover {
-    transform: translateY(-2px);
     background: #4a4a4a;
 }
 
