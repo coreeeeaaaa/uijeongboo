@@ -1,94 +1,57 @@
-<!-- UijeongBoo Sidebar Component -->
-<!-- Version: 1.0 -->
-<!-- Usage: Include this file and customize navigation items -->
+<!-- UijeongBoo Dual Sidebar Component -->
+<!-- Version: 2.0 - Complete Left + Right Sidebar System -->
 
-<aside class="uij-sidebar" data-uij-component="sidebar">
-    <!-- Sidebar Header -->
-    <div class="uij-sidebar-header">
-        <h2 class="uij-sidebar-title">Navigation</h2>
-    </div>
-    
-    <!-- Sidebar Content -->
-    <div class="uij-sidebar-content">
-        <!-- Main Navigation -->
-        <nav class="uij-nav-section">
-            <h3 class="uij-nav-section-title">Main</h3>
-            <a href="#dashboard" class="uij-nav-item active">
-                <span class="nav-icon">📊</span>
-                Dashboard
-            </a>
-            <a href="#projects" class="uij-nav-item">
-                <span class="nav-icon">📁</span>
-                Projects
-            </a>
-            <a href="#tasks" class="uij-nav-item">
-                <span class="nav-icon">✅</span>
-                Tasks
-            </a>
-            <a href="#calendar" class="uij-nav-item">
-                <span class="nav-icon">📅</span>
-                Calendar
-            </a>
-        </nav>
-        
-        <!-- Secondary Navigation -->
-        <nav class="uij-nav-section">
-            <h3 class="uij-nav-section-title">Tools</h3>
-            <a href="#analytics" class="uij-nav-item">
-                <span class="nav-icon">📈</span>
-                Analytics
-            </a>
-            <a href="#reports" class="uij-nav-item">
-                <span class="nav-icon">📋</span>
-                Reports
-            </a>
-            <a href="#settings" class="uij-nav-item">
-                <span class="nav-icon">⚙️</span>
-                Settings
-            </a>
-        </nav>
-        
-        <!-- User Section -->
-        <nav class="uij-nav-section">
-            <h3 class="uij-nav-section-title">Account</h3>
-            <a href="#profile" class="uij-nav-item">
-                <span class="nav-icon">👤</span>
-                Profile
-            </a>
-            <a href="#preferences" class="uij-nav-item">
-                <span class="nav-icon">🎛️</span>
-                Preferences
-            </a>
-            <a href="#logout" class="uij-nav-item">
-                <span class="nav-icon">🚪</span>
-                Logout
-            </a>
-        </nav>
-    </div>
-</aside>
-
-<!-- Sidebar Overlay -->
-<div class="uij-sidebar-overlay"></div>
-
-<!-- Sidebar Styles (Inline for component isolation) -->
 <style>
-/* Sidebar Container */
-.uij-sidebar {
+/* Main Layout */
+.uij-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.uij-main-content {
+    flex: 1;
+    padding: var(--uij-spacing-lg, 24px);
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Left Sidebar */
+.uij-sidebar-left {
     position: fixed;
     top: 0;
     left: 0;
-    width: 280px;
     height: 100vh;
+    width: 280px;
     background: var(--uij-bg-secondary, #333333);
     border-right: 1px solid var(--uij-border, #444444);
     transform: translateX(-100%);
-    transition: transform var(--uij-transition-slow, 0.4s cubic-bezier(0.4, 0, 0.2, 1));
-    z-index: var(--uij-z-fixed, 1005);
-    overflow-y: auto;
-    overflow-x: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
 }
 
-.uij-sidebar.open {
+.uij-sidebar-left.open {
+    transform: translateX(0);
+}
+
+/* Right Sidebar */
+.uij-sidebar-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 280px;
+    background: var(--uij-bg-secondary, #333333);
+    border-left: 1px solid var(--uij-border, #444444);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.uij-sidebar-right.open {
     transform: translateX(0);
 }
 
@@ -96,10 +59,11 @@
 .uij-sidebar-header {
     padding: var(--uij-spacing-md, 16px) var(--uij-spacing-lg, 24px);
     border-bottom: 1px solid var(--uij-border, #444444);
+    background: var(--uij-bg-tertiary, #444444);
     display: flex;
     align-items: center;
-    height: 64px;
-    background: var(--uij-bg-secondary, #333333);
+    justify-content: space-between;
+    min-height: 64px;
 }
 
 .uij-sidebar-title {
@@ -114,299 +78,381 @@
 
 /* Sidebar Content */
 .uij-sidebar-content {
-    padding: var(--uij-spacing-md, 16px) 0;
-    height: calc(100% - 64px);
+    flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: var(--uij-spacing-md, 16px);
 }
 
-/* Navigation Section */
-.uij-nav-section {
-    margin-bottom: var(--uij-spacing-lg, 24px);
+.uij-sidebar-content::-webkit-scrollbar {
+    width: 4px;
 }
 
-.uij-nav-section-title {
-    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-lg, 24px);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--uij-text-disabled, #666666);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0 0 var(--uij-spacing-sm, 8px) 0;
+.uij-sidebar-content::-webkit-scrollbar-track {
+    background: var(--uij-bg-secondary, #333333);
 }
 
-/* Navigation Item */
+.uij-sidebar-content::-webkit-scrollbar-thumb {
+    background: var(--uij-bg-quaternary, #555555);
+    border-radius: 2px;
+}
+
+/* Navigation Items */
 .uij-nav-item {
-    display: flex;
-    align-items: center;
-    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-lg, 24px);
-    color: var(--uij-text-muted, #999999);
+    display: block;
+    padding: var(--uij-spacing-sm, 8px) var(--uij-spacing-md, 16px);
+    color: var(--uij-text-secondary, #cccccc);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 400;
+    border-radius: var(--uij-radius-md, 8px);
+    margin-bottom: var(--uij-spacing-xs, 4px);
     transition: var(--uij-transition-fast, 0.15s);
-    border-left: 3px solid transparent;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background: transparent !important; /* CRITICAL: Enforce transparent background */
+    font-size: 14px;
+    background: transparent !important;
 }
 
 .uij-nav-item:hover {
     background: var(--uij-bg-tertiary, #444444) !important;
-    border-left-color: var(--uij-primary, #32CD32);
-    color: var(--uij-text-secondary, #cccccc);
+    color: var(--uij-text-primary, #eeeeee);
 }
 
 .uij-nav-item.active {
-    background: var(--uij-bg-tertiary, #444444) !important;
-    border-left-color: var(--uij-primary, #32CD32);
+    background: var(--uij-primary, #32CD32) !important;
+    color: #000000;
+    font-weight: 600;
+}
+
+.uij-nav-item.active:hover {
+    background: var(--uij-primary, #32CD32) !important;
+    opacity: 0.9;
+}
+
+/* Section Divider */
+.uij-sidebar-divider {
+    border: none;
+    border-top: 1px solid var(--uij-border, #444444);
+    margin: var(--uij-spacing-md, 16px) 0;
+}
+
+.uij-sidebar-section {
+    margin-bottom: var(--uij-spacing-lg, 24px);
+}
+
+.uij-sidebar-section-title {
+    font-size: 12px;
+    color: var(--uij-text-disabled, #666666);
+    opacity: 0.7;
+    font-weight: 600;
+    margin-bottom: var(--uij-spacing-sm, 8px);
+    padding: 0 var(--uij-spacing-md, 16px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Toggle Buttons */
+.uij-sidebar-toggle {
+    position: fixed;
+    top: var(--uij-spacing-md, 16px);
+    width: 44px;
+    height: 44px;
+    background: transparent !important;
+    border: none;
+    border-radius: var(--uij-radius-md, 8px);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--uij-text-primary, #eeeeee);
-    font-weight: 500;
 }
 
-.uij-nav-item .nav-icon {
-    margin-right: var(--uij-spacing-sm, 8px);
-    font-size: 16px;
+.uij-sidebar-toggle:hover {
+    background: rgba(68, 68, 68, 0.3) !important;
+}
+
+.uij-sidebar-toggle.active {
+    background: rgba(50, 205, 50, 0.2) !important;
+    color: var(--uij-primary, #32CD32);
+}
+
+.uij-sidebar-toggle-left {
+    left: var(--uij-spacing-md, 16px);
+}
+
+.uij-sidebar-toggle-right {
+    right: var(--uij-spacing-md, 16px);
+}
+
+/* Hamburger Icon */
+.uij-hamburger {
     width: 20px;
-    text-align: center;
-    flex-shrink: 0;
+    height: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* Sidebar Overlay */
+.uij-hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+}
+
+.uij-sidebar-toggle.active .uij-hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.uij-sidebar-toggle.active .uij-hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+.uij-sidebar-toggle.active .uij-hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Sidebar Close Button */
+.uij-sidebar-close {
+    background: transparent !important;
+    border: none;
+    color: var(--uij-text-primary, #eeeeee);
+    cursor: pointer;
+    padding: var(--uij-spacing-xs, 4px);
+    border-radius: var(--uij-radius-sm, 4px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 24px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uij-sidebar-close:hover {
+    background: var(--uij-bg-secondary, #333333) !important;
+    color: var(--uij-primary, #32CD32);
+}
+
+/* Overlay */
 .uij-sidebar-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: var(--uij-z-fixed, 1004);
+    z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--uij-transition-normal, 0.25s);
-    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.uij-sidebar.open + .uij-sidebar-overlay,
 .uij-sidebar-overlay.show {
     opacity: 1;
     visibility: visible;
 }
 
-/* Responsive Design */
+/* Content Push Effect */
+body.left-sidebar-open .uij-main-content {
+    margin-left: 280px;
+}
+
+body.right-sidebar-open .uij-main-content {
+    margin-right: 280px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .uij-sidebar {
-        width: 280px;
+    .uij-sidebar-left,
+    .uij-sidebar-right {
+        width: 90vw;
+        max-width: 320px;
     }
-}
 
-@media (max-width: 480px) {
-    .uij-sidebar {
-        width: 100vw;
+    body.left-sidebar-open .uij-main-content,
+    body.right-sidebar-open .uij-main-content {
+        margin-left: 0;
+        margin-right: 0;
     }
-    
-    .uij-nav-item {
-        font-size: 15px;
-        padding: 12px var(--uij-spacing-lg, 24px);
-    }
-    
-    .uij-nav-item .nav-icon {
-        font-size: 18px;
-        width: 24px;
-    }
-}
-
-/* Scrollbar Styling */
-.uij-sidebar::-webkit-scrollbar {
-    width: 6px;
-}
-
-.uij-sidebar::-webkit-scrollbar-track {
-    background: var(--uij-bg-secondary, #333333);
-}
-
-.uij-sidebar::-webkit-scrollbar-thumb {
-    background: var(--uij-bg-quaternary, #555555);
-    border-radius: 3px;
-}
-
-.uij-sidebar::-webkit-scrollbar-thumb:hover {
-    background: var(--uij-bg-light, #666666);
 }
 </style>
 
-<!-- Sidebar JavaScript (Inline for component isolation) -->
+<!-- Toggle Buttons -->
+<button class="uij-sidebar-toggle uij-sidebar-toggle-left" data-sidebar="left" aria-label="Toggle left sidebar">
+    <div class="uij-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
+
+<button class="uij-sidebar-toggle uij-sidebar-toggle-right" data-sidebar="right" aria-label="Toggle right sidebar">
+    <div class="uij-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
+
+<!-- Overlay -->
+<div class="uij-sidebar-overlay"></div>
+
+<!-- Left Sidebar -->
+<div class="uij-sidebar-left" id="leftSidebar">
+    <div class="uij-sidebar-header">
+        <h2 class="uij-sidebar-title">Menu</h2>
+        <button class="uij-sidebar-close" data-sidebar="left" aria-label="Close left sidebar">×</button>
+    </div>
+    <div class="uij-sidebar-content">
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">Pages</div>
+            <a href="#" class="uij-nav-item active">Home</a>
+            <a href="#" class="uij-nav-item">Dashboard</a>
+            <a href="#" class="uij-nav-item">Projects</a>
+            <a href="#" class="uij-nav-item">Chat</a>
+        </div>
+
+        <hr class="uij-sidebar-divider">
+
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">Components</div>
+            <a href="#" class="uij-nav-item">Buttons</a>
+            <a href="#" class="uij-nav-item">Cards</a>
+            <a href="#" class="uij-nav-item">Forms</a>
+            <a href="#" class="uij-nav-item">Tables</a>
+        </div>
+
+        <hr class="uij-sidebar-divider">
+
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">Settings</div>
+            <a href="#" class="uij-nav-item">Profile</a>
+            <a href="#" class="uij-nav-item">Theme</a>
+            <a href="#" class="uij-nav-item">Help</a>
+        </div>
+    </div>
+</div>
+
+<!-- Right Sidebar -->
+<div class="uij-sidebar-right" id="rightSidebar">
+    <div class="uij-sidebar-header">
+        <h2 class="uij-sidebar-title">System</h2>
+        <button class="uij-sidebar-close" data-sidebar="right" aria-label="Close right sidebar">×</button>
+    </div>
+    <div class="uij-sidebar-content">
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">Design System</div>
+            <a href="#" class="uij-nav-item">Color Palette</a>
+            <a href="#" class="uij-nav-item">Typography</a>
+            <a href="#" class="uij-nav-item">Spacing</a>
+            <a href="#" class="uij-nav-item">Icons</a>
+        </div>
+
+        <hr class="uij-sidebar-divider">
+
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">Dev Tools</div>
+            <a href="#" class="uij-nav-item">Variables</a>
+            <a href="#" class="uij-nav-item">Component Guide</a>
+            <a href="#" class="uij-nav-item">Code Generator</a>
+        </div>
+
+        <hr class="uij-sidebar-divider">
+
+        <div class="uij-sidebar-section">
+            <div class="uij-sidebar-section-title">System Info</div>
+            <a href="#" class="uij-nav-item">Version</a>
+            <a href="#" class="uij-nav-item">Performance</a>
+            <a href="#" class="uij-nav-item">Logs</a>
+        </div>
+    </div>
+</div>
+
 <script>
 (function() {
     'use strict';
-    
-    // Initialize sidebar component
-    function initSidebar() {
-        const sidebar = document.querySelector('.uij-sidebar');
+
+    let leftSidebarOpen = false;
+    let rightSidebarOpen = false;
+
+    // Initialize sidebar system
+    function initSidebars() {
+        const leftSidebar = document.getElementById('leftSidebar');
+        const rightSidebar = document.getElementById('rightSidebar');
         const overlay = document.querySelector('.uij-sidebar-overlay');
-        
-        if (!sidebar) return;
-        
-        // Setup sidebar behavior
-        setupSidebarBehavior(sidebar, overlay);
-        
-        // Enforce design rules
-        enforceDesignRules(sidebar);
-        
-        // Setup navigation
-        setupNavigation(sidebar);
-        
-        // Setup responsive behavior
-        setupResponsiveBehavior(sidebar);
-        
-        console.log('UijeongBoo Sidebar component initialized');
-    }
-    
-    // Setup sidebar behavior
-    function setupSidebarBehavior(sidebar, overlay) {
-        let isOpen = false;
-        
-        // Toggle function
-        function toggle() {
-            isOpen = !isOpen;
-            
-            if (isOpen) {
-                open();
-            } else {
-                close();
-            }
-        }
-        
-        // Open function
-        function open() {
-            isOpen = true;
-            sidebar.classList.add('open');
-            
-            if (overlay) {
-                overlay.classList.add('show');
-            }
-            
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
-            
-            // Dispatch event
-            const event = new CustomEvent('uij:sidebar-opened', {
-                detail: { sidebar: sidebar }
+        const toggleButtons = document.querySelectorAll('.uij-sidebar-toggle');
+        const closeButtons = document.querySelectorAll('.uij-sidebar-close');
+        const navItems = document.querySelectorAll('.uij-nav-item');
+
+        if (!leftSidebar || !rightSidebar) return;
+
+        // Toggle button handlers
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const side = btn.dataset.sidebar;
+                if (side === 'left') {
+                    toggleLeftSidebar();
+                } else if (side === 'right') {
+                    toggleRightSidebar();
+                }
             });
-            document.dispatchEvent(event);
-        }
-        
-        // Close function
-        function close() {
-            isOpen = false;
-            sidebar.classList.remove('open');
-            
-            if (overlay) {
-                overlay.classList.remove('show');
-            }
-            
-            // Restore body scroll
-            document.body.style.overflow = '';
-            
-            // Dispatch event
-            const event = new CustomEvent('uij:sidebar-closed', {
-                detail: { sidebar: sidebar }
+        });
+
+        // Close button handlers
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const side = btn.dataset.sidebar;
+                if (side === 'left') {
+                    toggleLeftSidebar();
+                } else if (side === 'right') {
+                    toggleRightSidebar();
+                }
             });
-            document.dispatchEvent(event);
-        }
-        
+        });
+
         // Overlay click
         if (overlay) {
-            overlay.addEventListener('click', close);
+            overlay.addEventListener('click', closeAllSidebars);
         }
-        
+
         // Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isOpen) {
-                close();
+            if (e.key === 'Escape') {
+                closeAllSidebars();
             }
         });
-        
-        // Listen for hamburger events
-        document.addEventListener('uij:hamburger-clicked', toggle);
-        
-        // Expose functions
-        sidebar._uijSidebar = {
-            toggle: toggle,
-            open: open,
-            close: close,
-            isOpen: () => isOpen
-        };
-    }
-    
-    // Enforce design rules
-    function enforceDesignRules(sidebar) {
-        const navItems = sidebar.querySelectorAll('.uij-nav-item');
-        
-        // Force transparent backgrounds where needed
-        navItems.forEach(item => {
-            // Allow background changes for hover/active states but watch for violations
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        const target = mutation.target;
-                        // Allow background for active/hover states, but prevent other colors
-                        const computedStyle = getComputedStyle(target);
-                        const bgColor = computedStyle.backgroundColor;
-                        
-                        // Check if background color violates rules (not transparent, tertiary, or allowed)
-                        if (bgColor && 
-                            bgColor !== 'transparent' && 
-                            bgColor !== 'rgba(0, 0, 0, 0)' &&
-                            !bgColor.includes('68, 68, 68') && // #444444
-                            !bgColor.includes('51, 51, 51')) { // #333333
-                            
-                            console.warn('Invalid background color detected:', bgColor);
-                            target.style.setProperty('background', 'transparent', 'important');
-                        }
-                    }
-                });
-            });
-            
-            observer.observe(item, {
-                attributes: true,
-                attributeFilter: ['style']
-            });
-        });
-    }
-    
-    // Setup navigation
-    function setupNavigation(sidebar) {
-        const navItems = sidebar.querySelectorAll('.uij-nav-item');
-        
+
+        // Nav item clicks
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
-                
-                // Remove active class from all items in the same section
-                const section = item.closest('.uij-nav-section');
-                const sectionItems = section.querySelectorAll('.uij-nav-item');
-                sectionItems.forEach(si => si.classList.remove('active'));
-                
-                // Add active class to clicked item
+
+                // Remove active from same sidebar
+                const sidebar = item.closest('.uij-sidebar-left, .uij-sidebar-right');
+                const sidebarItems = sidebar.querySelectorAll('.uij-nav-item');
+                sidebarItems.forEach(si => si.classList.remove('active'));
+
+                // Add active to clicked
                 item.classList.add('active');
-                
-                // Auto-close on mobile
+
+                // Close on mobile
                 if (window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        if (sidebar._uijSidebar) {
-                            sidebar._uijSidebar.close();
-                        }
-                    }, 150);
+                    setTimeout(closeAllSidebars, 200);
                 }
-                
-                // Dispatch custom event
+
+                // Dispatch event
                 const event = new CustomEvent('uij:sidebar-nav-changed', {
-                    detail: { 
+                    detail: {
                         activeItem: item,
                         href: item.getAttribute('href'),
                         text: item.textContent.trim()
@@ -415,41 +461,120 @@
                 document.dispatchEvent(event);
             });
         });
-    }
-    
-    // Setup responsive behavior
-    function setupResponsiveBehavior(sidebar) {
-        function handleResize() {
-            const width = window.innerWidth;
-            
-            if (width <= 480) {
-                sidebar.style.width = '100vw';
-            } else if (width <= 768) {
-                sidebar.style.width = '280px';
-            } else {
-                sidebar.style.width = '280px';
-                
-                // Auto-close on desktop if open
-                if (sidebar.classList.contains('open')) {
-                    if (sidebar._uijSidebar) {
-                        sidebar._uijSidebar.close();
-                    }
-                }
-            }
-        }
-        
-        // Initial call
-        handleResize();
-        
-        // Listen for resize
+
+        // Window resize
         window.addEventListener('resize', handleResize);
+
+        console.log('UijeongBoo Dual Sidebar System initialized');
     }
-    
-    // Initialize when DOM is ready
+
+    // Toggle left sidebar
+    function toggleLeftSidebar() {
+        const sidebar = document.getElementById('leftSidebar');
+        const toggle = document.querySelector('.uij-sidebar-toggle-left');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        leftSidebarOpen = !leftSidebarOpen;
+
+        if (leftSidebarOpen) {
+            sidebar.classList.add('open');
+            toggle.classList.add('active');
+            document.body.classList.add('left-sidebar-open');
+
+            if (window.innerWidth <= 768) {
+                overlay.classList.add('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-opened', {
+                detail: { sidebar: 'left' }
+            });
+            document.dispatchEvent(event);
+        } else {
+            sidebar.classList.remove('open');
+            toggle.classList.remove('active');
+            document.body.classList.remove('left-sidebar-open');
+
+            if (!rightSidebarOpen) {
+                overlay.classList.remove('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-closed', {
+                detail: { sidebar: 'left' }
+            });
+            document.dispatchEvent(event);
+        }
+    }
+
+    // Toggle right sidebar
+    function toggleRightSidebar() {
+        const sidebar = document.getElementById('rightSidebar');
+        const toggle = document.querySelector('.uij-sidebar-toggle-right');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        rightSidebarOpen = !rightSidebarOpen;
+
+        if (rightSidebarOpen) {
+            sidebar.classList.add('open');
+            toggle.classList.add('active');
+            document.body.classList.add('right-sidebar-open');
+
+            if (window.innerWidth <= 768) {
+                overlay.classList.add('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-opened', {
+                detail: { sidebar: 'right' }
+            });
+            document.dispatchEvent(event);
+        } else {
+            sidebar.classList.remove('open');
+            toggle.classList.remove('active');
+            document.body.classList.remove('right-sidebar-open');
+
+            if (!leftSidebarOpen) {
+                overlay.classList.remove('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-closed', {
+                detail: { sidebar: 'right' }
+            });
+            document.dispatchEvent(event);
+        }
+    }
+
+    // Close all sidebars
+    function closeAllSidebars() {
+        if (leftSidebarOpen) {
+            toggleLeftSidebar();
+        }
+        if (rightSidebarOpen) {
+            toggleRightSidebar();
+        }
+    }
+
+    // Handle window resize
+    function handleResize() {
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        if (window.innerWidth > 768) {
+            if (!leftSidebarOpen && !rightSidebarOpen) {
+                overlay.classList.remove('show');
+            }
+        } else if (leftSidebarOpen || rightSidebarOpen) {
+            overlay.classList.add('show');
+        }
+    }
+
+    // Initialize when ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSidebar);
+        document.addEventListener('DOMContentLoaded', initSidebars);
     } else {
-        initSidebar();
+        initSidebars();
     }
+
+    // Expose functions globally for external control
+    window.toggleLeftSidebar = toggleLeftSidebar;
+    window.toggleRightSidebar = toggleRightSidebar;
+    window.closeAllSidebars = closeAllSidebars;
 })();
 </script>
