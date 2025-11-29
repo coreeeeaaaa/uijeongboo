@@ -1,0 +1,94 @@
+UijeongBoo CSS Framework
+Copyright 2024-2025 coreeeeaaaa (https://github.com/coreeeeaaaa)
+
+This product includes software developed by coreeeeaaaa.
+Project URL: https://github.com/coreeeeaaaa/uijeongboo
+
+================================================================================
+
+NOTICE OF ATTRIBUTION REQUIREMENT:
+
+This software is licensed under the Apache License, Version 2.0 (the "License").
+You may not use this software except in compliance with the License.
+
+A copy of the License is included in the LICENSE file and is also available at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+When using this software, you MUST include the following attribution notice:
+
+  "Powered by UijeongBoo CSS Framework
+   Copyright 2024-2025 coreeeeaaaa
+   Licensed under Apache License 2.0"
+
+Attribution Placement Requirements:
+- In web applications: Include in footer, credits page, or console.log
+- In documentation: Include in acknowledgments or dependencies section
+- In derivative works: Retain this NOTICE file and LICENSE file
+
+================================================================================
+
+DISCLAIMER OF WARRANTIES AND LIMITATION OF LIABILITY:
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+The UijeongBoo Project Contributors make NO WARRANTIES regarding:
+- Security vulnerabilities
+- Performance issues
+- Compatibility with other software
+- Fitness for any particular purpose
+
+Users are solely responsible for:
+- Security audits before production use
+- Testing in their specific environment
+- Compliance with applicable laws and regulations
+- Any damages or losses resulting from use of this software
+
+================================================================================
+
+SECURITY NOTICE:
+
+This framework is provided without any security guarantees. Users MUST:
+
+1. Conduct their own security audits before production deployment
+2. Implement appropriate Content Security Policy (CSP)
+3. Sanitize all user inputs when using this framework
+4. Keep dependencies up to date
+5. Monitor for security vulnerabilities
+
+The maintainers are NOT responsible for security breaches, data leaks, or
+any other security-related incidents resulting from use of this software.
+
+================================================================================
+
+THIRD-PARTY DEPENDENCIES:
+
+This software may include or depend on third-party libraries with their own
+licenses. See package.json for the full list of dependencies.
+
+================================================================================
+
+PATENT NOTICE:
+
+Unless required by applicable law or agreed to in writing, Licensor provides
+the Work (and each Contributor provides its Contributions) on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
+including, without limitation, any warranties or conditions of TITLE,
+NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE.
+
+You are solely responsible for determining the appropriateness of using or
+redistributing the Work and assume any risks associated with Your exercise
+of permissions under this License.
+
+================================================================================
+
+For more information, please visit:
+https://github.com/coreeeeaaaa/uijeongboo
+
+If you have questions about licensing, please open an issue on GitHub.

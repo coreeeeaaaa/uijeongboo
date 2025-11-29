@@ -26,11 +26,11 @@
     "utility-first",
     "performance"
   ],
-  "author": "UijeongBoo Framework",
-  "license": "MIT",
+  "author": "coreeeeaaaa (https://github.com/coreeeeaaaa)",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uijeongboo/design-framework.git"
+    "url": "https://github.com/coreeeeaaaa/uijeongboo.git"
   },
   "files": [
     "css/",

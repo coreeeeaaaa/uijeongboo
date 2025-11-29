@@ -332,9 +332,43 @@ Pull Request 환영합니다! 단, 다음 규칙을 준수해주세요:
 
 ## 📄 라이선스
 
-MIT License - 자유롭게 사용하세요!
+**Apache License 2.0** - 사용 시 반드시 출처 표기 필요
+
+### 필수 표기사항
+
+이 프레임워크를 사용할 경우 **반드시** 다음을 표기해야 합니다:
+
+```
+Powered by UijeongBoo CSS Framework
+Copyright 2024-2025 coreeeeaaaa
+Licensed under Apache License 2.0
+```
+
+### 표기 위치
+- **웹앱**: Footer, 크레딧 페이지, 또는 console.log
+- **문서**: Acknowledgments 또는 Dependencies 섹션
+- **파생 작품**: NOTICE 파일 및 LICENSE 파일 포함 필수
+
+### 면책 조항
+
+⚠️ **이 소프트웨어는 "있는 그대로" 제공되며, 어떠한 보증도 제공하지 않습니다.**
+
+- ❌ 보안 취약점에 대한 책임 없음
+- ❌ 성능 문제에 대한 책임 없음
+- ❌ 특정 목적 적합성 보증 없음
+- ❌ 법적 책임 일체 없음
+
+**사용자 책임:**
+- ✅ 프로덕션 배포 전 보안 감사 필수
+- ✅ 자체 환경에서 테스트 필수
+- ✅ 관련 법규 준수 책임
+- ✅ 사용으로 인한 모든 손해 책임
+
+상세 내용은 [LICENSE](LICENSE) 및 [NOTICE](NOTICE) 파일을 참조하세요.
 
 ---
 
-**Made with 🟢 (not ❤️) by UijeongBoo**
+**Made with 🟢 (not ❤️) by coreeeeaaaa**
 *Tailwind가 싫어서 만든 프레임워크*
+
+Copyright 2024-2025 coreeeeaaaa. All rights reserved.
