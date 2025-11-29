@@ -1,14 +1,15 @@
 {
   "name": "uijeongboo",
-  "version": "1.0.0",
-  "description": "Lightweight CSS framework optimized for MCP local services - Alternative to Tailwind",
+  "version": "2.0.0",
+  "description": "Complete Tailwind alternative - Grayscale + 1 Primary Color. No Shadows. Transparent Buttons.",
   "main": "uijeongboo.min.css",
   "style": "uijeongboo.min.css",
   "scripts": {
-    "build": "node build.js",
-    "minify": "postcss uijeongboo.css -o uijeongboo.min.css --use cssnano",
+    "build": "cat uijeongboo.css.backup | sed 's/\\[onclick\\]//g' | sed 's/htm /html /g' | sed 's/o /ol /g' > uijeongboo-bugfix.css && cat uijeongboo-bugfix.css NEW-UTILITIES.css > uijeongboo-v2.css",
+    "minify": "postcss uijeongboo-v2.css --use autoprefixer cssnano -o uijeongboo.min.css",
+    "build:full": "npm run build && npm run minify",
     "validate": "./validate-uijeongboo.sh",
-    "watch": "chokidar 'css/**/*.css' -c 'npm run build'",
+    "watch": "chokidar 'css/**/*.css' -c 'npm run build:full'",
     "serve": "http-server -p 8080 -c-1",
     "audit": "node js/utils/enforcer-cli.js audit",
     "fix": "node js/utils/enforcer-cli.js fix",
@@ -39,14 +40,14 @@
     "*.md",
     "logos/"
   ],
-  "dependencies": {},
   "devDependencies": {
+    "autoprefixer": "^10.4.22",
     "chokidar": "^3.5.3",
-    "cssnano": "^6.0.1",
-    "postcss": "^8.4.31",
-    "postcss-cli": "^10.1.0",
     "chokidar-cli": "^3.0.0",
-    "http-server": "^14.1.1"
+    "cssnano": "^6.1.2",
+    "http-server": "^14.1.1",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0"
   },
   "engines": {
     "node": ">=14.0.0"

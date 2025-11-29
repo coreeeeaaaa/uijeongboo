@@ -1,0 +1,175 @@
+{
+  "$schema": "https://github.com/design-tokens/community-group/blob/main/technical-reports/format/schema.json",
+  "name": "UijeongBoo Design Tokens",
+  "version": "2.0.0",
+  "description": "Design tokens for UijeongBoo CSS Framework - Grayscale + 1 Primary Color",
+  "color": {
+    "primary": {
+      "$value": "{uij.primary}",
+      "$type": "color",
+      "$description": "Primary accent color (default: Lime #32CD32)"
+    },
+    "primary-light": {
+      "$value": "{uij.primary-light}",
+      "$type": "color"
+    },
+    "primary-dark": {
+      "$value": "{uij.primary-dark}",
+      "$type": "color"
+    },
+    "background": {
+      "primary": {
+        "$value": "#222222",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#333333",
+        "$type": "color"
+      },
+      "tertiary": {
+        "$value": "#444444",
+        "$type": "color"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "#eeeeee",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#cccccc",
+        "$type": "color"
+      },
+      "muted": {
+        "$value": "#999999",
+        "$type": "color"
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "#444444",
+        "$type": "color"
+      },
+      "light": {
+        "$value": "#555555",
+        "$type": "color"
+      },
+      "focus": {
+        "$value": "{uij.primary}",
+        "$type": "color"
+      }
+    }
+  },
+  "spacing": {
+    "xs": {
+      "$value": "4px",
+      "$type": "dimension"
+    },
+    "sm": {
+      "$value": "8px",
+      "$type": "dimension"
+    },
+    "md": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "lg": {
+      "$value": "24px",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "32px",
+      "$type": "dimension"
+    },
+    "xxl": {
+      "$value": "48px",
+      "$type": "dimension"
+    },
+    "golden": {
+      "1": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Golden ratio step 1"
+      },
+      "2": {
+        "$value": "13px",
+        "$type": "dimension",
+        "$description": "Golden ratio step 2"
+      },
+      "3": {
+        "$value": "21px",
+        "$type": "dimension",
+        "$description": "Golden ratio step 3"
+      },
+      "4": {
+        "$value": "34px",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "55px",
+        "$type": "dimension"
+      }
+    }
+  },
+  "borderRadius": {
+    "sm": {
+      "$value": "4px",
+      "$type": "dimension"
+    },
+    "md": {
+      "$value": "8px",
+      "$type": "dimension"
+    },
+    "lg": {
+      "$value": "12px",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "full": {
+      "$value": "9999px",
+      "$type": "dimension"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": {
+        "$value": "'SF Pro Display', system-ui, sans-serif",
+        "$type": "fontFamily"
+      },
+      "mono": {
+        "$value": "'Monaco', 'Menlo', monospace",
+        "$type": "fontFamily"
+      }
+    },
+    "fontSize": {
+      "xs": { "$value": "12px", "$type": "dimension" },
+      "sm": { "$value": "14px", "$type": "dimension" },
+      "base": { "$value": "16px", "$type": "dimension" },
+      "lg": { "$value": "18px", "$type": "dimension" },
+      "xl": { "$value": "20px", "$type": "dimension" },
+      "2xl": { "$value": "24px", "$type": "dimension" },
+      "3xl": { "$value": "30px", "$type": "dimension" },
+      "4xl": { "$value": "36px", "$type": "dimension" },
+      "5xl": { "$value": "48px", "$type": "dimension" },
+      "6xl": { "$value": "60px", "$type": "dimension" }
+    }
+  },
+  "uij": {
+    "primary": {
+      "$value": "#32CD32",
+      "$type": "color",
+      "$description": "User can override this in CSS with :root { --uij-primary: #FF6B6B; }"
+    },
+    "primary-light": {
+      "$value": "#50E050",
+      "$type": "color"
+    },
+    "primary-dark": {
+      "$value": "#28A428",
+      "$type": "color"
+    }
+  }
+}
