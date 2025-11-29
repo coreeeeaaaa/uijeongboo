@@ -879,11 +879,9 @@ pre {
     background: transparent !important; /* CRITICAL: NEVER CHANGE */
     border-color: var(--uij-border-light);
     color: var(--uij-text-primary);
-    transform: translateY(-1px);
 }
 
 .uij-btn:active {
-    transform: translateY(0);
     transition: var(--uij-transition-fast);
 }
 
@@ -1418,7 +1416,7 @@ pre {
 }
 
 .uij-range::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
+    /* Stable hover - no transform */
 }
 
 .uij-range::-moz-range-thumb {
@@ -1548,7 +1546,6 @@ pre {
 
 .uij-hamburger-container:hover {
     background: transparent !important;
-    transform: translateY(-2px);
     color: var(--uij-text-primary);
 }
 
@@ -1939,7 +1936,6 @@ pre {
 }
 
 .uij-flow-card:hover {
-    transform: translateY(-2px);
     border-color: var(--uij-primary);
     background: var(--uij-bg-quaternary);
 }
@@ -2011,7 +2007,6 @@ pre {
 }
 
 .uij-carousel-card:hover {
-    transform: translateY(-4px) scale(1.02);
     border-color: var(--uij-primary);
 }
 
@@ -2075,7 +2070,6 @@ pre {
 
 .uij-carousel-card:hover .uij-carousel-card-arrow {
     color: var(--uij-primary);
-    transform: translateX(4px);
 }
 
 /* CSS-Only Scroll Animations using animation-timeline */
