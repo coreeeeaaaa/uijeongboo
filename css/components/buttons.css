@@ -29,11 +29,9 @@
     background: transparent !important; /* CRITICAL: NEVER CHANGE */
     border-color: var(--uij-border-light);
     color: var(--uij-text-primary);
-    transform: translateY(-1px);
 }
 
 .uij-btn:active {
-    transform: translateY(0);
     transition: var(--uij-transition-fast);
 }
 

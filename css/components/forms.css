@@ -347,7 +347,7 @@
 }
 
 .uij-range::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
+    /* Stable hover - no transform */
 }
 
 .uij-range::-moz-range-thumb {

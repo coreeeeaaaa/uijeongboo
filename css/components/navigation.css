@@ -80,7 +80,6 @@
 
 .uij-hamburger-container:hover {
     background: transparent !important;
-    transform: translateY(-2px);
     color: var(--uij-text-primary);
 }
 
