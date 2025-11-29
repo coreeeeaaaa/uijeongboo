@@ -2,11 +2,11 @@
   "name": "uijeongboo",
   "version": "2.0.0",
   "description": "Complete Tailwind alternative - Grayscale + 1 Primary Color. No Shadows. Transparent Buttons.",
-  "main": "uijeongboo.min.css",
-  "style": "uijeongboo.min.css",
+  "main": "uijeongboo-v2.min.css",
+  "style": "uijeongboo-v2.min.css",
   "scripts": {
     "build": "cat uijeongboo.css.backup | sed 's/\\[onclick\\]//g' | sed 's/htm /html /g' | sed 's/o /ol /g' > uijeongboo-bugfix.css && cat uijeongboo-bugfix.css NEW-UTILITIES.css > uijeongboo-v2.css",
-    "minify": "postcss uijeongboo-v2.css --use autoprefixer cssnano -o uijeongboo.min.css",
+    "minify": "postcss uijeongboo-v2.css --use autoprefixer cssnano -o uijeongboo-v2.min.css",
     "build:full": "npm run build && npm run minify",
     "validate": "./validate-uijeongboo.sh",
     "watch": "chokidar 'css/**/*.css' -c 'npm run build:full'",
@@ -33,12 +33,8 @@
     "url": "https://github.com/coreeeeaaaa/uijeongboo.git"
   },
   "files": [
-    "css/",
-    "js/",
-    "components/",
-    "*.html",
-    "*.md",
-    "logos/"
+    "uijeongboo-v2.min.css",
+    "design-tokens-v2.json"
   ],
   "devDependencies": {
     "autoprefixer": "^10.4.22",
