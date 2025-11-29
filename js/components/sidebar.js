@@ -1,302 +1,237 @@
 /**
- * UijeongBoo Sidebar Component
- * Version: 1.0
- * License: MIT
+ * UijeongBoo Dual Sidebar System
+ * Version: 2.0 - Complete Left + Right Sidebar System
+ * Replaces previous generic sidebar class to match specific dual-sidebar HTML structure.
  */
 
-(function(global) {
+(function() {
     'use strict';
 
-    class UijeongBooSidebar {
-        constructor(element, options = {}) {
-            this.element = element;
-            this.options = {
-                autoClose: true,
-                backdrop: true,
-                breakpoint: 768,
-                position: 'left',
-                width: '280px',
-                overlay: true,
-                ...options
-            };
-            
-            this.isOpen = false;
-            this.overlay = null;
-            this.hamburger = null;
-            
-            this.init();
+    let leftSidebarOpen = false;
+    let rightSidebarOpen = false;
+
+    // Initialize sidebar system
+    function initSidebars() {
+        const leftSidebar = document.getElementById('leftSidebar');
+        const rightSidebar = document.getElementById('rightSidebar');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+        const toggleButtons = document.querySelectorAll('.uij-sidebar-toggle');
+        const closeButtons = document.querySelectorAll('.uij-sidebar-close');
+        const navItems = document.querySelectorAll('.uij-nav-item');
+
+        // Note: Sidebars might be loaded asynchronously, so we might need to retry or wait for an event
+        if (!leftSidebar && !rightSidebar) {
+            // If not found, they might not be loaded yet. 
+            // The index.html triggers 'uij:components-ready' when loaded.
+            // We will listen for that event at the document level as well.
+            return;
         }
-        
-        init() {
-            this.setupSidebar();
-            this.createOverlay();
-            this.findHamburger();
-            this.bindEvents();
-            this.handleResize();
+
+        console.log('Initializing UijeongBoo Dual Sidebar System...');
+
+        // Toggle button handlers
+        toggleButtons.forEach(btn => {
+            // Remove old listeners to prevent duplicates if re-initialized
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
             
-            console.log('UijeongBoo Sidebar initialized');
-        }
-        
-        setupSidebar() {
-            // Ensure sidebar has proper classes
-            if (!this.element.classList.contains('uij-sidebar')) {
-                this.element.classList.add('uij-sidebar');
-            }
-            
-            // Set position
-            this.element.style.position = 'fixed';
-            this.element.style.top = '0';
-            this.element.style.height = '100vh';
-            this.element.style.width = this.options.width;
-            this.element.style.zIndex = 'var(--uij-z-fixed, 1005)';
-            this.element.style.transition = 'transform var(--uij-transition-slow, 0.4s cubic-bezier(0.4, 0, 0.2, 1))';
-            
-            // Set initial position based on options
-            if (this.options.position === 'left') {
-                this.element.style.left = '0';
-                this.element.style.transform = 'translateX(-100%)';
-            } else {
-                this.element.style.right = '0';
-                this.element.style.transform = 'translateX(100%)';
-            }
-            
-            // Ensure background follows design rules
-            this.element.style.background = 'var(--uij-bg-secondary, #333333)';
-            this.element.style.borderRight = '1px solid var(--uij-border, #444444)';
-        }
-        
-        createOverlay() {
-            if (!this.options.overlay) return;
-            
-            this.overlay = document.createElement('div');
-            this.overlay.className = 'uij-sidebar-overlay';
-            this.overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: var(--uij-z-fixed, 1004);
-                opacity: 0;
-                visibility: hidden;
-                transition: all var(--uij-transition-normal, 0.25s);
-                cursor: pointer;
-            `;
-            
-            document.body.appendChild(this.overlay);
-        }
-        
-        findHamburger() {
-            // Find hamburger button
-            this.hamburger = document.querySelector('.uij-hamburger-container') ||
-                            document.querySelector('[data-uij-action="sidebar.toggle"]') ||
-                            document.querySelector('.hamburger-container');
-            
-            if (this.hamburger) {
-                // Ensure hamburger follows design rules
-                this.hamburger.style.setProperty('background', 'transparent', 'important');
-                this.hamburger.style.border = 'none';
-            }
-        }
-        
-        bindEvents() {
-            // Hamburger click
-            if (this.hamburger) {
-                this.hamburger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.toggle();
-                });
-            }
-            
-            // Overlay click
-            if (this.overlay) {
-                this.overlay.addEventListener('click', () => {
-                    if (this.options.backdrop) {
-                        this.close();
-                    }
-                });
-            }
-            
-            // Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && this.isOpen) {
-                    this.close();
+            newBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default anchor behavior if it's a link
+                const side = newBtn.dataset.sidebar;
+                if (side === 'left') {
+                    toggleLeftSidebar();
+                } else if (side === 'right') {
+                    toggleRightSidebar();
                 }
             });
-            
-            // Window resize
-            window.addEventListener('resize', this.handleResize.bind(this));
-            
-            // Navigation links
-            this.element.addEventListener('click', (e) => {
-                if (e.target.matches('.uij-nav-item') && this.options.autoClose) {
-                    this.close();
+        });
+
+        // Re-select buttons after replacement
+        const activeToggleButtons = document.querySelectorAll('.uij-sidebar-toggle');
+
+        // Close button handlers
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const side = btn.dataset.sidebar;
+                if (side === 'left') {
+                    toggleLeftSidebar();
+                } else if (side === 'right') {
+                    toggleRightSidebar();
                 }
             });
-            
-            // Custom events
-            document.addEventListener('uij:sidebar-open', () => this.open());
-            document.addEventListener('uij:sidebar-close', () => this.close());
-            document.addEventListener('uij:sidebar-toggle', () => this.toggle());
+        });
+
+        // Overlay click
+        if (overlay) {
+            overlay.addEventListener('click', closeAllSidebars);
         }
-        
-        handleResize() {
-            const width = window.innerWidth;
-            
-            if (width > this.options.breakpoint) {
-                // Desktop behavior
-                if (this.isOpen && this.options.autoClose) {
-                    this.close();
-                }
-            } else {
-                // Mobile behavior - ensure proper mobile styles
-                this.element.style.width = width <= 480 ? '100vw' : this.options.width;
-            }
-        }
-        
-        open() {
-            if (this.isOpen) return;
-            
-            this.isOpen = true;
-            
-            // Add active class to hamburger
-            if (this.hamburger) {
-                this.hamburger.classList.add('active');
-            }
-            
-            // Add open class to sidebar
-            this.element.classList.add('open');
-            this.element.style.transform = 'translateX(0)';
-            
-            // Show overlay
-            if (this.overlay) {
-                this.overlay.style.visibility = 'visible';
-                this.overlay.style.opacity = '1';
-            }
-            
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
-            
-            // Dispatch event
-            const event = new CustomEvent('uij:sidebar-opened', {
-                detail: { sidebar: this }
-            });
-            document.dispatchEvent(event);
-            
-            console.log('Sidebar opened');
-        }
-        
-        close() {
-            if (!this.isOpen) return;
-            
-            this.isOpen = false;
-            
-            // Remove active class from hamburger
-            if (this.hamburger) {
-                this.hamburger.classList.remove('active');
-            }
-            
-            // Remove open class from sidebar
-            this.element.classList.remove('open');
-            
-            // Hide sidebar
-            if (this.options.position === 'left') {
-                this.element.style.transform = 'translateX(-100%)';
-            } else {
-                this.element.style.transform = 'translateX(100%)';
-            }
-            
-            // Hide overlay
-            if (this.overlay) {
-                this.overlay.style.visibility = 'hidden';
-                this.overlay.style.opacity = '0';
-            }
-            
-            // Restore body scroll
-            document.body.style.overflow = '';
-            
-            // Dispatch event
-            const event = new CustomEvent('uij:sidebar-closed', {
-                detail: { sidebar: this }
-            });
-            document.dispatchEvent(event);
-            
-            console.log('Sidebar closed');
-        }
-        
-        toggle() {
-            if (this.isOpen) {
-                this.close();
-            } else {
-                this.open();
-            }
-        }
-        
-        destroy() {
-            // Remove overlay
-            if (this.overlay) {
-                this.overlay.remove();
-            }
-            
-            // Remove event listeners
-            window.removeEventListener('resize', this.handleResize);
-            
-            // Reset body styles
-            document.body.style.overflow = '';
-            
-            // Reset sidebar styles
-            this.element.classList.remove('open');
-            this.element.style.transform = '';
-            
-            console.log('Sidebar destroyed');
-        }
-        
-        // Public API
-        getState() {
-            return {
-                isOpen: this.isOpen,
-                options: this.options,
-                element: this.element
-            };
-        }
-        
-        setOption(key, value) {
-            this.options[key] = value;
-            
-            // Re-initialize if needed
-            if (key === 'width') {
-                this.element.style.width = value;
-            }
-        }
-    }
-    
-    // Auto-initialize sidebars
-    function autoInitSidebars() {
-        const sidebars = document.querySelectorAll('.uij-sidebar, [data-uij-component="sidebar"]');
-        
-        sidebars.forEach(sidebar => {
-            if (!sidebar._uijSidebar) {
-                const options = sidebar.dataset.uijOptions ? 
-                    JSON.parse(sidebar.dataset.uijOptions) : {};
-                sidebar._uijSidebar = new UijeongBooSidebar(sidebar, options);
+
+        // Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAllSidebars();
             }
         });
+
+        // Nav item clicks
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Only prevent default if it's a placeholder link
+                if(item.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
+
+                // Remove active from same sidebar
+                const sidebar = item.closest('.uij-sidebar-left, .uij-sidebar-right');
+                if (sidebar) {
+                    const sidebarItems = sidebar.querySelectorAll('.uij-nav-item');
+                    sidebarItems.forEach(si => si.classList.remove('active'));
+                }
+
+                // Add active to clicked
+                item.classList.add('active');
+
+                // Close on mobile
+                if (window.innerWidth <= 768) {
+                    setTimeout(closeAllSidebars, 200);
+                }
+
+                // Dispatch event
+                const event = new CustomEvent('uij:sidebar-nav-changed', {
+                    detail: {
+                        activeItem: item,
+                        href: item.getAttribute('href'),
+                        text: item.textContent.trim()
+                    }
+                });
+                document.dispatchEvent(event);
+            });
+        });
+
+        // Window resize
+        window.addEventListener('resize', handleResize);
+
+        console.log('UijeongBoo Dual Sidebar System initialized successfully');
     }
-    
-    // Initialize on DOM ready
+
+    // Toggle left sidebar
+    function toggleLeftSidebar() {
+        const sidebar = document.getElementById('leftSidebar');
+        const toggle = document.querySelector('.uij-sidebar-toggle-left');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        if (!sidebar) return;
+
+        leftSidebarOpen = !leftSidebarOpen;
+
+        if (leftSidebarOpen) {
+            sidebar.classList.add('open');
+            if (toggle) toggle.classList.add('active');
+            document.body.classList.add('left-sidebar-open');
+
+            if (window.innerWidth <= 768 && overlay) {
+                overlay.classList.add('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-opened', {
+                detail: { sidebar: 'left' }
+            });
+            document.dispatchEvent(event);
+        } else {
+            sidebar.classList.remove('open');
+            if (toggle) toggle.classList.remove('active');
+            document.body.classList.remove('left-sidebar-open');
+
+            if (!rightSidebarOpen && overlay) {
+                overlay.classList.remove('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-closed', {
+                detail: { sidebar: 'left' }
+            });
+            document.dispatchEvent(event);
+        }
+    }
+
+    // Toggle right sidebar
+    function toggleRightSidebar() {
+        const sidebar = document.getElementById('rightSidebar');
+        const toggle = document.querySelector('.uij-sidebar-toggle-right');
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        if (!sidebar) return;
+
+        rightSidebarOpen = !rightSidebarOpen;
+
+        if (rightSidebarOpen) {
+            sidebar.classList.add('open');
+            if (toggle) toggle.classList.add('active');
+            document.body.classList.add('right-sidebar-open');
+
+            if (window.innerWidth <= 768 && overlay) {
+                overlay.classList.add('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-opened', {
+                detail: { sidebar: 'right' }
+            });
+            document.dispatchEvent(event);
+        } else {
+            sidebar.classList.remove('open');
+            if (toggle) toggle.classList.remove('active');
+            document.body.classList.remove('right-sidebar-open');
+
+            if (!leftSidebarOpen && overlay) {
+                overlay.classList.remove('show');
+            }
+
+            const event = new CustomEvent('uij:sidebar-closed', {
+                detail: { sidebar: 'right' }
+            });
+            document.dispatchEvent(event);
+        }
+    }
+
+    // Close all sidebars
+    function closeAllSidebars() {
+        if (leftSidebarOpen) {
+            toggleLeftSidebar();
+        }
+        if (rightSidebarOpen) {
+            toggleRightSidebar();
+        }
+    }
+
+    // Handle window resize
+    function handleResize() {
+        const overlay = document.querySelector('.uij-sidebar-overlay');
+
+        if (window.innerWidth > 768) {
+            if (!leftSidebarOpen && !rightSidebarOpen && overlay) {
+                overlay.classList.remove('show');
+            }
+        } else if ((leftSidebarOpen || rightSidebarOpen) && overlay) {
+            overlay.classList.add('show');
+        }
+    }
+
+    // Listen for components ready event from index.html
+    document.addEventListener('uij:components-ready', () => {
+        console.log('Components ready event received, initializing sidebars...');
+        initSidebars();
+    });
+
+    // Initialize on DOM ready as fallback (if components are not async loaded)
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', autoInitSidebars);
+        document.addEventListener('DOMContentLoaded', initSidebars);
     } else {
-        autoInitSidebars();
+        initSidebars();
     }
-    
-    // Register component
-    if (global.UijeongBoo) {
-        global.UijeongBoo.registerComponent('sidebar', UijeongBooSidebar);
-    }
-    
-    // Expose to global scope
-    global.UijeongBooSidebar = UijeongBooSidebar;
-    
-})(typeof window !== 'undefined' ? window : this);
+
+    // Expose functions globally for external control
+    window.toggleLeftSidebar = toggleLeftSidebar;
+    window.toggleRightSidebar = toggleRightSidebar;
+    window.closeAllSidebars = closeAllSidebars;
+    window.initSidebars = initSidebars;
+
+})();
