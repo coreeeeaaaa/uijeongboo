@@ -4,7 +4,7 @@
 > **Grayscale + 1 Primary Color. No Shadows. Transparent Buttons.**
 
 [![Version](https://img.shields.io/badge/version-2.0.0-32CD32)](https://github.com/coreeeeaaaa/uijeongboo)
-[![License](https://img.shields.io/badge/license-MIT-32CD32)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-32CD32)](LICENSE)
 [![CSS Size](https://img.shields.io/badge/size-250KB-32CD32)](uijeongboo-v2.min.css)
 
 **📚 [Live Demo v2.0](https://coreeeeaaaa.github.io/uijeongboo/docs/index-v2.html)**
@@ -372,4 +372,3 @@ Licensed under Apache License 2.0
 *Tailwind가 싫어서 만든 프레임워크*
 
 Copyright 2024-2025 coreeeeaaaa. All rights reserved.
-

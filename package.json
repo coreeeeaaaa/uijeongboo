@@ -5,7 +5,7 @@
   "main": "uijeongboo-v2.min.css",
   "style": "uijeongboo-v2.min.css",
   "scripts": {
-    "build": "cat uijeongboo.css.backup | sed 's/\\[onclick\\]//g' | sed 's/htm /html /g' | sed 's/o /ol /g' > uijeongboo-bugfix.css && cat uijeongboo-bugfix.css NEW-UTILITIES.css > uijeongboo-v2.css",
+    "build": "cat uijeongboo.css | sed 's/\\[onclick\\]//g' | sed 's/htm /html /g' | sed 's/o /ol /g' > uijeongboo-bugfix.css && cat uijeongboo-bugfix.css NEW-UTILITIES.css > uijeongboo-v2.css",
     "minify": "postcss uijeongboo-v2.css --use autoprefixer cssnano -o uijeongboo-v2.min.css",
     "build:full": "npm run build && npm run minify",
     "validate": "./validate-uijeongboo.sh",

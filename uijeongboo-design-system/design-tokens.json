@@ -16,7 +16,7 @@
     "neutral": {
       "bg-primary": {
         "value": "#222222",
-        "description": "Main background - from toggling_firebase analysis"
+        "description": "Main background from prior interface analysis"
       },
       "bg-secondary": {
         "value": "#111111", 
@@ -55,7 +55,7 @@
   
   "spacing": {
     "unit": 4,
-    "description": "Compact spacing based on toggling_firebase analysis",
+    "description": "Compact spacing based on prior interface analysis",
     "scale": {
       "0": 0,
       "1": 4,
@@ -71,7 +71,7 @@
       "20": 80
     },
     "compact": {
-      "description": "Actual usage patterns from toggling_firebase",
+      "description": "Actual usage patterns from prior interface analysis",
       "padding-sm": "0.25rem",
       "padding-md": "0.5rem", 
       "padding-lg": "0.75rem",
